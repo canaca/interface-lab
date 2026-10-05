@@ -121,8 +121,8 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .switch{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--muted);cursor:pointer}
 .switch input{accent-color:#F4E7D7}
 .scroll{overflow-x:auto;border-radius:10px}
-/* Mobile: crumbs keep a fixed slot beside the brand, so the late web font cannot rewrap it and push the table down (CLS) */
-@media (max-width:600px){.bar .crumbs{flex:1 1 150px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}.scroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Mobile: crumbs always take their own full line, so the label never truncates and the late web font cannot rewrap the header (CLS) */
+@media (max-width:600px){.bar .crumbs{flex:0 0 100%;order:1}.bar .sp{order:2}.bar .tbtn{order:3}.bar .tag{order:4}}.scroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:900px}
 th{text-align:left;font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:10px 12px;border-bottom:1px solid var(--edge);white-space:nowrap}
 td{padding:10px 12px;border-bottom:1px solid var(--edge);vertical-align:middle}
@@ -207,7 +207,7 @@ tr.failed td{background:rgba(226,114,91,.07)}
       <dt>Label</dt><dd>Concept. The company, people and deals are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>
-  <div class="foot"><span>Interface Lab · Harbor · concept</span><span>Design and build: Cesar Navarro</span></div>
+  <div class="foot"><span>Interface Lab · Harbor · concept</span><span>Concept direction: Cesar Navarro</span></div>
 </div>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden>Undo all</button></div>

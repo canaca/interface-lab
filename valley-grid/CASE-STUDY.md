@@ -16,7 +16,7 @@ A control-room operator on shift, responsible for nine substations, who needs to
 
 ## Concept vs real
 **Concept:** all data, people, crews and the substation are fictional.
-**Real:** the working interface, the 3D models built in Blender and running live in Three.js, the full state flow, and graphics quality that adapts to laptop hardware.
+**Real:** the working interface, the live 3D scene (built with AI-assisted tooling: Claude, Cursor) running in Three.js, the full state flow, and graphics quality that adapts to laptop hardware.
 **Not built:** live sensor data, sign-in, and a real crew dispatch integration.
 
 ---

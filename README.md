@@ -1,6 +1,6 @@
 # Interface Lab
 
-Live, working interface concepts for AI and data products, by Cesar Navarro.
+Live, working interface concepts for AI and data products, directed by Cesar Navarro.
 
 Every piece here runs in the browser. Click, drag, approve, undo, and see what happens.
 
@@ -20,26 +20,15 @@ Each page has its own case study at the bottom, and a States menu to see empty, 
 
 Plain HTML, CSS, and JavaScript. Three.js for 3D, used only on Valley Grid, where the 3D model is the interface. No build step. Each piece is one file.
 
-## Blender
+## How these were made
 
-The 3D models are built by Python scripts in `blender/`, so every part is reproducible:
+These are concepts directed by Cesar Navarro and built with AI tools (Claude, Cursor) under his direction: he set the problem, user, flow and design decisions, and reviewed every state. The code and 3D assets were generated with those tools.
 
-- `build_t2.py` builds Transformer T2, renders stills, and exports the web model.
-- `board2.py` builds the gold circuit-board scene, the fly-over animation, and the web board.
-- `heroes.py` builds the hero objects for the other pieces.
+The `blender/` folder holds the AI-generated Python scripts used to produce Valley Grid's 3D scene (`build_t2.py` for Transformer T2, `board2.py` for the circuit-board scene, `heroes.py` for hero objects). They run with Blender's Python package (`pip install bpy`, then `python3 blender/build_t2.py --still out.png`).
 
-Run with Blender's Python package: `pip install bpy`, then `python3 blender/build_t2.py --still out.png`.
+## Site address
 
-## Before you publish: set your site address
-
-Link previews (Open Graph and Twitter) need the full web address of the site. Every page uses the placeholder `canaca`. Replace it once with your GitHub username, from the repo folder:
-
-```
-grep -rl canaca --include=*.html . | xargs sed -i '' 's/canaca/yourname/g'   # Mac
-grep -rl canaca --include=*.html . | xargs sed -i 's/canaca/yourname/g'      # Linux or Git Bash
-```
-
-If the repo is not named `interface-lab`, also change `/interface-lab/` in those tags. The preview image is `og-image.png` (1200×630) and the icon is `favicon.svg`.
+Link previews (Open Graph and Twitter) use the full web address of the site, `https://canaca.github.io/interface-lab/`. If the repo or GitHub username changes, update `canaca` and `/interface-lab/` in the meta tags of each page. The preview image is `og-image.png` (1200×630) and the icon is `favicon.svg`.
 
 ## Contact form setup
 
