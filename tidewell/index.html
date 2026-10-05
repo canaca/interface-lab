@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tidewell · Why monthly revenue moved</title>
+<meta name="description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Tidewell · Why monthly revenue moved">
+<meta property="og:description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/tidewell/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/tidewell.jpg">
+<meta property="og:image:alt" content="Tidewell: June revenue change broken into a waterfall">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tidewell · Why monthly revenue moved">
+<meta name="twitter:description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/tidewell.jpg">
+<meta name="twitter:image:alt" content="Tidewell: June revenue change broken into a waterfall">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Interface Lab base: warm dark glass system shared with Valley Grid. One accent (teal), orange for anything that needs a person. */
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tbtn:hover{border-color:var(--edge-2)}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:11.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.err b{color:var(--cream);font-weight:500}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2);animation:arrive .35s ease-out}
+.sheet .q{font-size:16px;font-weight:500}
+.sheet textarea,.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13px}
+.sheet textarea{min-height:60px;resize:vertical}
+@keyframes arrive{from{opacity:0;transform:translateY(-6px)}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+.spin.lt{border-color:rgba(255,222,190,.2);border-top-color:var(--cream)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.okmark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(111,227,208,.4);color:var(--accent);background:rgba(111,227,208,.08);flex:none}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+pre.code{margin:6px 0 0;background:rgba(0,0,0,.28);border:1px solid var(--edge);border-radius:9px;padding:9px 10px;font-family:var(--mono);font-size:11.5px;line-height:1.55;overflow-x:auto;white-space:pre;color:var(--muted)}
+pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{color:var(--orange)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer}
+/* case study */
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.cs ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cs ol b{font-weight:600}
+.contact{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.contact code{color:var(--cream);user-select:all}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.cs{grid-template-columns:minmax(0,1fr)}.cs dl{grid-template-columns:1fr}.cs dt{padding-top:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Layout: one big chart card that changes from overview to bridge, and one panel that walks the explanation. */
+:root{--up:#6FE3D0;--down:#E2725B;--total:#9C8A79}
+.lay{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(320px,1fr);gap:14px;align-items:start}
+.chart svg{width:100%;display:block}
+.finding{font-weight:300;font-size:clamp(22px,2.2vw,30px);letter-spacing:-.01em;line-height:1.2;margin:0 0 4px;text-wrap:balance}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.mbar{cursor:pointer}
+.mbar:hover rect{opacity:.85}
+.acct{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:11px 12px;border-radius:12px;border:1px solid var(--edge);cursor:pointer;background:rgba(255,222,190,.03);margin-bottom:8px;width:100%;text-align:left}
+.acct:hover,.acct[aria-pressed="true"]{border-color:var(--edge-2);background:rgba(255,222,190,.07)}
+.acct b{font-weight:500}.acct .v{font-family:var(--mono);color:var(--down)}.acct .s{font-size:12px;color:var(--muted)}
+.sig{list-style:none;margin:0;padding:0}
+.sig li{display:grid;grid-template-columns:70px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--edge);font-size:13px}
+.sig li:first-child{border-top:0}
+.sig .d{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.back{margin-bottom:8px}
+.opt{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:center;padding:9px 11px;border-radius:10px;border:1px solid var(--edge);cursor:pointer}
+.opt:has(input:checked){border-color:var(--cream)}
+.opt input{accent-color:#F4E7D7}
+@media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<div class="wrap">
+  <header class="bar">
+    <h1 class="brand"><b>Tidewell</b><span>Revenue Pulse</span></h1>
+    <span class="crumbs">MRR · ALL SEGMENTS · LAST 12 MONTHS</span>
+    <span class="sp"></span>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing unusual</option><option value="loading">Loading</option><option value="partial">Warning · data incomplete</option><option value="actionerr">Error · task fails</option></select></label>
+    <span class="tag">Concept · demo data</span>
+  </header>
+  <div class="lay">
+    <section class="card chart" aria-label="Revenue chart"><h2><span id="cTitle">MRR · last 12 months</span><i id="cNote">click any month</i></h2><p class="finding" id="finding"></p><div id="chart"></div><div class="legend" id="legend"></div></section>
+    <section class="card" aria-label="Explanation" aria-live="polite"><h2>Explain <i id="pNote">what moved revenue</i></h2><div id="panel"></div></section>
+  </div>
+
+  <section class="cs" aria-label="Case study">
+    <div><span class="tag">Concept · prototype</span><h2>Explaining why monthly revenue moved</h2>
+      <p class="lede">When MRR drops, a finance or success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
+      <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
+    <dl>
+      <dt>Problem</dt><dd>Dashboards show that revenue fell, but not why. Teams export data and rebuild the story by hand, so action comes late.</dd>
+      <dt>User</dt><dd>A head of customer success at a SaaS company, preparing for the monthly revenue review.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>The title is the finding.</b> Every view states what happened, with the number.</li>
+        <li><b>The month splits into a bridge.</b> The drop breaks into new, expansion, contraction and churn, so the biggest cause is obvious.</li>
+        <li><b>Drill from cause to customer.</b> One click from the churn step to the accounts, and one more to the warning signs they showed.</li>
+        <li><b>Honest about the data.</b> If billing data is incomplete, the view says so before anyone acts on it.</li>
+        <li><b>End in an action.</b> The explanation turns into a win-back task with an owner, confirmed before it's created.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the full path, from the drop to the bridge, the accounts, the signals and the task, with empty, loading, incomplete-data and task-error states. Not yet tested with real users or real billing data.</dd>
+      <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Tidewell · concept</span><span>Design and build: Cesar Navarro</span></div>
+</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,30):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const k=v=>(v<0?"−":"")+"$"+Math.abs(v).toFixed(1)+"K";
+const sk=v=>(v>=0?"+":"−")+"$"+Math.abs(v).toFixed(1)+"K";
+/* fictional MRR, $K. Each month: new, expansion, contraction, churn. June is the drop. */
+const M=["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"];
+const PARTS=[[16.1,5.2,-3.1,-6.0],[15.4,6.0,-2.8,-5.5],[11.2,4.4,-3.3,-6.4],[13.0,5.1,-2.6,-5.9],[17.3,6.3,-3.0,-6.2],[18.1,5.8,-3.9,-6.6],[16.8,6.6,-2.9,-7.1],[17.9,7.2,-3.4,-6.8],[14.2,6.1,-8.3,-30.4],[15.6,6.4,-3.2,-7.4],[18.4,7.0,-3.0,-6.9],[19.2,7.4,-2.7,-6.3]];
+const START=812;let ROWS=[];function build(calm){let mrr=START;ROWS=M.map((m,i)=>{const p=calm&&i===8?[15.0,6.2,-3.1,-6.5]:PARTS[i],net=p.reduce((a,b)=>a+b,0),r={m,start:mrr,p,net,end:mrr+net};mrr+=net;return r})}build(false);
+const CHURN=[{n:"Summit Fitness",seg:"Mid-market",v:11.2,why:"Moved to a competitor",sig:[["Mar 4","Logins down 40% from February"],["Apr 18","Champion left the company"],["May 9","2 support tickets about missing features"],["Jun 2","Cancelled at renewal"]]},
+ {n:"Ridgeview Clinics",seg:"Mid-market",v:9.8,why:"Budget cut",sig:[["Apr 1","Seats cut from 60 to 42"],["May 15","Asked about a cheaper plan"],["Jun 10","Cancelled"]]},
+ {n:"Harbor Dental Group",seg:"SMB",v:5.6,why:"Merged with parent company",sig:[["May 20","New admin from parent company"],["Jun 14","Moved to parent's tool"]]},
+ {n:"Quarry Studios",seg:"SMB",v:3.8,why:"No reason given",sig:[["Jun 22","Cancelled through billing page"]]}];
+let D="live",run=0;const S={view:"overview",sel:8,acct:null,owner:"Priya",tries:0};
+
+function overview(){S.view="overview";const W=760,H=330,L=56,R=16,T=16,mid=190,B=40;
+  const lo=Math.min(...ROWS.map(r=>r.end))-10,hi=Math.max(...ROWS.map(r=>r.end))+10;const band=(W-L-R)/12,x=i=>L+band*(i+.5),y=v=>T+(hi-v)/(hi-lo)*(mid-T-20);
+  const nmax=Math.max(...ROWS.map(r=>Math.abs(r.net))),nz=mid+70,ny=v=>nz-v/nmax*55;
+  const path=ROWS.map((r,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(r.end).toFixed(1)).join(" ");
+  const ticks=[lo+10,(lo+hi)/2,hi-10].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,222,190,.07)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5" font-family="JetBrains Mono, monospace">$${Math.round(v)}K</text>`).join("");
+  const bars=ROWS.map((r,i)=>{const neg=r.net<0,sel=i===S.sel&&D!=="empty";return `<g class="mbar" data-i="${i}" tabindex="0" role="button" aria-label="${r.m}: net ${sk(r.net)}. Explain."><rect x="${x(i)-band/2}" y="${T}" width="${band}" height="${H-T}" fill="transparent"/>
+    <rect x="${x(i)-band*.22}" y="${neg?nz:ny(r.net)}" width="${band*.44}" height="${Math.abs(ny(r.net)-nz)}" rx="3" fill="${neg?"var(--down)":"var(--up)"}" fill-opacity="${sel?1:.55}"><title>${r.m}: net ${sk(r.net)}</title></rect>
+    <text x="${x(i)}" y="${H-10}" text-anchor="middle" fill="${sel?"#F4E7D7":"#7F6B5B"}" font-size="11" font-weight="${sel?600:400}">${r.m}</text></g>`}).join("");
+  const j=ROWS[8];
+  $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="MRR over 12 months with monthly net change; June fell ${k(-j.net)}">${ticks}
+    <path d="${path} L${x(11)} ${mid-20} L${x(0)} ${mid-20}Z" fill="rgba(192,138,87,.08)"/><path d="${path}" fill="none" stroke="var(--bronze)" stroke-width="2"/>
+    ${ROWS.map((r,i)=>i===11||(i===8&&D!=="empty")?`<circle cx="${x(i)}" cy="${y(r.end)}" r="4" fill="${i===8?"var(--down)":"var(--bronze)"}"/><text x="${x(i)+(i===11?-6:0)}" y="${y(r.end)-10}" text-anchor="${i===11?"end":"middle"}" fill="#F4E7D7" font-size="11" font-family="JetBrains Mono, monospace">${k(r.end)}</text>`:"").join("")}
+    <line x1="${L}" x2="${W-R}" y1="${nz}" y2="${nz}" stroke="rgba(255,222,190,.2)"/><text x="${L-8}" y="${nz+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5" font-family="JetBrains Mono, monospace">$0</text>
+    <text x="${L}" y="${mid+4}" fill="#7F6B5B" font-size="10" font-family="JetBrains Mono, monospace">NET CHANGE BY MONTH</text>${bars}</svg>`;
+  $("cTitle").textContent="MRR · last 12 months";$("cNote").textContent="click any month";
+  $("finding").textContent=D==="empty"?`MRR grew every month, ending at ${k(ROWS[11].end)}`:`MRR fell ${k(-j.net)} in June, the only drop this year`;
+  $("legend").innerHTML='<span><i style="background:var(--bronze)"></i>MRR</span><span><i style="background:var(--up)"></i>Net gain</span><span><i style="background:var(--down)"></i>Net loss</span>'}
+
+async function bridge(i){const r=ROWS[i];S.view="bridge";S.sel=i;const W=760,H=330,L=56,R=16,T=30,B=40;
+  const steps=[["Start",r.start,"total"],["New",r.p[0],"up"],["Expansion",r.p[1],"up"],["Contraction",r.p[2],"down"],["Churn",r.p[3],"down"],["End",r.end,"total"]];
+  let run2=r.start;const geo=steps.map(([l,v,t])=>{if(t==="total")return{l,v,t,a:0,b:v};const a=run2;run2+=v;return{l,v,t,a,b:run2}});
+  const lo=Math.min(...geo.map(g=>Math.min(g.a||g.b,g.b)).filter(Boolean))-25,hi=Math.max(...geo.map(g=>Math.max(g.a,g.b)))+12;
+  const band=(W-L-R)/6,x=j=>L+band*(j+.5),y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+  const color={total:"var(--total)",up:"var(--up)",down:"var(--down)"};
+  $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="${r.m} bridge: start ${k(r.start)}, new ${sk(r.p[0])}, expansion ${sk(r.p[1])}, contraction ${sk(r.p[2])}, churn ${sk(r.p[3])}, end ${k(r.end)}">
+    <text x="${L}" y="16" fill="#7F6B5B" font-size="10" font-family="JetBrains Mono, monospace">AXIS STARTS AT $${Math.round(lo)}K</text>
+    ${geo.map((g,j)=>{const top=g.t==="total"?y(g.b):y(Math.max(g.a,g.b)),bot=g.t==="total"?H-B:y(Math.min(g.a,g.b));const isChurn=g.l==="Churn";
+      return `<g class="${isChurn&&i===8?"mbar":""}" ${isChurn&&i===8?'data-churn="1" tabindex="0" role="button" aria-label="Churn: see accounts"':""}>
+      <rect class="wf" x="${x(j)-band*.3}" style="y:${bot}px;height:0px" width="${band*.6}" rx="3" fill="${color[g.t]}" fill-opacity="${g.t==="total"?.55:.9}" data-y="${top}" data-h="${Math.max(2,bot-top)}"><title>${g.l}: ${g.t==="total"?k(g.v):sk(g.v)}</title></rect>
+      ${j<5?`<line x1="${x(j)+band*.3}" x2="${x(j+1)-band*.3}" y1="${y(g.b)}" y2="${y(g.b)}" stroke="rgba(255,222,190,.25)" stroke-dasharray="3 3"/>`:""}
+      <text x="${x(j)}" y="${top-8}" text-anchor="middle" fill="#F4E7D7" font-size="12" font-family="JetBrains Mono, monospace" class="lbl" opacity="0">${g.t==="total"?k(g.v):sk(g.v)}</text>
+      <text x="${x(j)}" y="${H-16}" text-anchor="middle" fill="${isChurn&&i===8?"#F4E7D7":"#B9A08A"}" font-size="12" font-weight="${isChurn&&i===8?600:400}">${g.l}</text></g>`}).join("")}</svg>`;
+  const big=r.p[3]<-15?"Churn":Math.abs(r.p[0])>=Math.abs(r.p[3])?"New business":"Churn";
+  $("cTitle").textContent=`${r.m} · what moved MRR`;$("cNote").textContent=i===8?"click churn for accounts":"";
+  $("finding").textContent=r.net<0?`Churn drove June's drop: ${k(-r.p[3])} lost, more than 4× a normal month`:`${r.m} grew ${k(r.net)}, led by ${big.toLowerCase()}`;
+  $("legend").innerHTML='<span><i style="background:var(--up)"></i>Adds MRR</span><span><i style="background:var(--down)"></i>Removes MRR</span><span><i style="background:var(--total);opacity:.6"></i>Month start and end</span>';
+  /* the month's change splits into its parts, one step at a time */
+  const wfs=[...document.querySelectorAll(".wf")],lbls=[...document.querySelectorAll(".lbl")];
+  for(let j=0;j<wfs.length;j++){const w=wfs[j];w.style.transition=reduce?"none":"y .45s ease, height .45s ease";requestAnimationFrame(()=>requestAnimationFrame(()=>{w.style.y=w.dataset.y+"px";w.style.height=w.dataset.h+"px"}));lbls[j].setAttribute("opacity",1);await sleep(140)}}
+
+function panel(h){$("panel").innerHTML=h}
+function pIdle(){if(D==="empty"){panel(`<div class="empty"><span class="okmark">✓</span><b>Nothing to explain</b><div class="sub">Every month this year moved within its normal range. Click any month to see its parts anyway.</div></div>`);return}
+  panel(`<div class="row" style="margin-bottom:10px"><span class="chip bad">Drop</span><span class="chip">June</span></div><p style="font-size:20px;margin:0">MRR fell ${k(-ROWS[8].net)} in June.</p><p class="sub">That's the only month this year with a net loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="explain">Explain June</button></div>`)}
+async function explain(i){const my=++run;S.acct=null;panel(`<div class="row"><span class="spin lt"></span><span class="sub">Comparing ${ROWS[i].m} with ${ROWS[i-1]?ROWS[i-1].m:"the month before"}…</span></div><div class="sk" style="height:18px;width:70%;margin-top:14px"></div><div class="sk" style="height:60px;margin-top:10px"></div>`);
+  await sleep(D==="loading"?1e9:850);if(my!==run)return;await bridge(i);if(my!==run)return;
+  const r=ROWS[i],warn=D==="partial"&&i===8?`<div class="err" style="margin-bottom:12px;border-color:rgba(233,164,110,.55)"><div><b>June's data is incomplete.</b><br>2 days of billing (Jun 29–30) are missing. These numbers may change.</div></div>`:"";
+  if(i!==8){panel(`<button class="btn ghost back" data-a="home">← Overview</button><p style="font-size:18px;margin:0">${r.m}: net ${sk(r.net)}</p><p class="sub">New ${sk(r.p[0])}, expansion ${sk(r.p[1])}, contraction ${sk(r.p[2])}, churn ${sk(r.p[3])}.</p><p class="note">Account-level detail is included for June only in this demo.</p>`);return}
+  panel(`<button class="btn ghost back" data-a="home">← Overview</button>${warn}<div class="sec"><span>Biggest cause</span><span>vs normal month</span></div>
+    <p style="font-size:20px;margin:0 0 6px">Churn: ${k(-r.p[3])} lost</p><p class="sub" style="margin:0 0 12px">A normal month loses about $6.5K to churn. New business and expansion held steady.</p>
+    <button class="btn pri" data-a="accounts">See the 4 accounts</button>`)}
+function accounts(){panel(`<button class="btn ghost back" data-a="bridge">← June bridge</button><div class="sec"><span>Churned in June</span><span>MRR lost</span></div>
+  ${CHURN.map((a,i)=>`<button class="acct" data-acct="${i}" aria-pressed="${S.acct===i}"><b>${esc(a.n)}</b><span class="v">−$${a.v.toFixed(1)}K</span><span class="s">${esc(a.seg)} · ${esc(a.why)}</span></button>`).join("")}
+  <p class="note">The two Mid-market accounts are 69% of the loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="task">Create win-back task</button></div>`)}
+function account(i){S.acct=i;const a=CHURN[i];panel(`<button class="btn ghost back" data-a="accounts">← All 4 accounts</button><p style="font-size:20px;margin:0">${esc(a.n)}</p><p class="sub" style="margin:2px 0 12px">${esc(a.seg)} · −$${a.v.toFixed(1)}K MRR · ${esc(a.why)}</p>
+  <div class="sec"><span>Signals before they left</span></div><ul class="sig">${a.sig.map(s=>`<li><span class="d">${s[0]}</span><span>${esc(s[1])}</span></li>`).join("")}</ul>
+  <p class="note" style="margin-top:8px">${a.sig.length>2?"The first warning came weeks before the cancellation.":"Few signals before this one left."}</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="task">Create win-back task</button></div>`)}
+function task(sending,failed){panel(`<button class="btn ghost back" data-a="accounts">← Accounts</button><div class="sheet"><div class="q">Create a win-back task for 4 accounts?</div><p class="sub" style="margin:0">Each account gets a task with the churn reason and its signals attached.</p>
+  ${["Priya","Marcus"].map(o=>`<label class="opt"><input type="radio" name="own" value="${o}" ${S.owner===o?"checked":""} ${sending?"disabled":""}><span>Assign to ${o} · ${o==="Priya"?"Mid-market success":"SMB success"}</span></label>`).join("")}
+  ${failed?`<div class="err"><div><b>The tasks weren't created.</b><br>Nothing was saved. Your choices are kept.</div></div>`:""}
+  <div class="row">${sending?'<button class="btn pri" disabled><span class="spin"></span>Creating…</button>':`<button class="btn pri" data-a="confirm">${failed?"Try again":"Create 4 tasks"}</button><button class="btn ghost" data-a="accounts">Cancel</button>`}</div></div>`)}
+async function confirm(){const my=++run;const o=document.querySelector('input[name="own"]:checked');if(o)S.owner=o.value;task(true);await sleep(1000);if(my!==run)return;
+  if(D==="actionerr"&&S.tries++===0){task(false,true);return}
+  panel(`<div class="empty"><span class="okmark">✓</span><b>4 win-back tasks created</b><div class="sub">Assigned to ${S.owner}, with each churn reason and its signals attached.</div><div class="row"><button class="btn" data-a="home">Back to overview</button></div></div>`);toast("4 tasks created")}
+let tt;function toast(m){$("toastMsg").textContent=m;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),2800)}
+
+$("panel").addEventListener("click",e=>{const b=e.target.closest("[data-a],[data-acct]");if(!b||b.disabled)return;if(b.dataset.acct){account(+b.dataset.acct);return}const a=b.dataset.a;
+  if(a==="explain")explain(8);else if(a==="home"){run++;overview();pIdle()}else if(a==="bridge")explain(8);else if(a==="accounts")accounts();else if(a==="task")task();else if(a==="confirm")confirm()});
+$("chart").addEventListener("click",e=>{const c=e.target.closest("[data-churn]");if(c){accounts();return}const g=e.target.closest(".mbar[data-i]");if(g)explain(+g.dataset.i)});
+$("chart").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const g=e.target.closest(".mbar[data-i]");if(g){e.preventDefault();explain(+g.dataset.i)}const c=e.target.closest("[data-churn]");if(c){e.preventDefault();accounts()}});
+$("demo").addEventListener("change",e=>{D=e.target.value;run++;S.tries=0;build(D==="empty");overview();pIdle();if(D==="loading"||D==="partial"||D==="actionerr")explain(8)});
+overview();pIdle();
+})();
+</script>
+</body>
+</html>

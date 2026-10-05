@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cesar Navarro · Interface Lab</title>
+<meta name="description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Cesar Navarro · Interface Lab">
+<meta property="og:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<meta property="og:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cesar Navarro · Interface Lab">
+<meta name="twitter:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<meta name="twitter:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Interface Lab base: warm dark glass system shared with Valley Grid. One accent (teal), orange for anything that needs a person. */
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tbtn:hover{border-color:var(--edge-2)}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:11.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.err b{color:var(--cream);font-weight:500}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2);animation:arrive .35s ease-out}
+.sheet .q{font-size:16px;font-weight:500}
+.sheet textarea,.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13px}
+.sheet textarea{min-height:60px;resize:vertical}
+@keyframes arrive{from{opacity:0;transform:translateY(-6px)}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+.spin.lt{border-color:rgba(255,222,190,.2);border-top-color:var(--cream)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.okmark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(111,227,208,.4);color:var(--accent);background:rgba(111,227,208,.08);flex:none}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+pre.code{margin:6px 0 0;background:rgba(0,0,0,.28);border:1px solid var(--edge);border-radius:9px;padding:9px 10px;font-family:var(--mono);font-size:11.5px;line-height:1.55;overflow-x:auto;white-space:pre;color:var(--muted)}
+pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{color:var(--orange)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer}
+/* case study */
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.cs ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cs ol b{font-weight:600}
+.contact{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.contact code{color:var(--cream);user-select:all}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.cs{grid-template-columns:minmax(0,1fr)}.cs dl{grid-template-columns:1fr}.cs dt{padding-top:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Layout: thesis, then the work (Valley Grid featured, four cards), how I work, offers, contact. Same warm dark system as the prototypes. */
+.hub>main{display:flex;flex-direction:column;gap:inherit}
+.hub{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:24px 48px;display:flex;flex-direction:column;gap:88px}
+nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+nav b{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--cream)}
+nav .links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--cream)}
+.open{display:inline-flex;align-items:center;gap:7px;color:var(--accent)}
+.open::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.hero{display:flex;flex-direction:column;gap:20px;max-width:920px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero h1{margin:0;font-weight:300;font-size:clamp(42px,6.4vw,84px);line-height:1;letter-spacing:-.03em;text-wrap:balance}
+.hero h1 span{color:var(--bronze)}
+.hero p{margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:60ch;line-height:1.55}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+a.btn{text-decoration:none}a.btn:not(.pri){color:var(--cream)}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--edge);padding-bottom:14px;margin-bottom:28px}
+.sechead h2{margin:0;font-family:var(--sans);font-weight:300;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.02em}
+.sechead span{font-family:var(--mono);font-size:11px;color:var(--dim);max-width:52ch}
+.shot{position:relative;display:block;border-radius:16px;overflow:hidden;border:1px solid var(--edge);background:#0B0907;aspect-ratio:16/10;max-width:100%}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.shot:hover img{transform:scale(1.02)}
+.shot:hover{border-color:var(--edge-2)}
+.shot .go{position:absolute;right:12px;bottom:12px;font-family:var(--mono);font-size:11px;padding:6px 10px;border-radius:8px;background:rgba(12,9,7,.78);border:1px solid var(--edge);color:var(--cream)}
+.feature{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;align-items:center;margin-bottom:48px}
+.info{display:flex;flex-direction:column;gap:14px;min-width:0}
+.kindrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.kind{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.info h3{margin:0;font-weight:400;font-size:clamp(24px,2.4vw,32px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.info .value{margin:0;color:var(--muted);font-size:15px;line-height:1.55}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:14px;border-top:1px solid var(--edge);margin:0}
+.meta dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.meta dd{margin:3px 0 0;font-size:13.5px;line-height:1.4}
+details.csd{border:1px solid var(--edge);border-radius:12px;padding:12px 14px;background:rgba(255,222,190,.03)}
+details.csd summary{cursor:pointer;font-weight:500}
+details.csd dl{display:grid;grid-template-columns:96px 1fr;gap:10px 14px;margin:12px 0 0;font-size:13.5px;line-height:1.5}
+details.csd dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+details.csd dd{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 28px}
+.proj{display:flex;flex-direction:column;gap:16px;min-width:0}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--edge)}
+.how div{padding:18px 18px 0 0;display:flex;flex-direction:column;gap:6px}
+.how div+div{padding-left:18px;border-left:1px solid var(--edge)}
+.how .d{font-family:var(--mono);font-size:11px;color:var(--orange)}
+.how b{font-weight:500}.how p{margin:0;color:var(--muted);font-size:14px}
+.offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.offer{display:flex;flex-direction:column;gap:10px}
+.offer .tier{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.offer h3{margin:0;font-weight:400;font-size:24px}
+.offer .price{font-family:var(--mono);font-size:15px}.offer .price small{color:var(--dim)}
+.offer ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:5px}
+.offer.feat{border-color:var(--edge-2)}
+.contact{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:40px;align-items:start;border-top:1px solid var(--edge);padding-top:40px}
+.contact h2{margin:0;font-family:var(--sans);font-weight:300;font-size:clamp(30px,3.4vw,46px);letter-spacing:-.02em;line-height:1.08}
+.cside{display:flex;flex-direction:column;gap:16px}
+.cside p{margin:0;font-size:15px;color:var(--muted);line-height:1.55}
+.cside .direct{font-family:var(--mono);font-size:12px;color:var(--dim)}.cside .direct a{color:var(--cream)}
+.privacy{font-size:12.5px!important;color:var(--dim)!important;border-left:2px solid var(--edge-2);padding-left:12px}
+/* Qualifying form: one question per screen inside a glass console */
+.qf{font-family:var(--sans);position:relative;border:1px solid var(--edge-2);border-radius:18px;overflow:hidden;min-width:0;
+  background:linear-gradient(180deg,rgba(255,222,190,.05),rgba(255,222,190,.015)),repeating-linear-gradient(90deg,rgba(255,222,190,.025) 0 1px,transparent 1px 48px),#120E0B;box-shadow:0 30px 80px -40px rgba(0,0,0,.8)}
+.qf-top{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--edge);font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.qf-top .count{margin-left:auto;color:var(--muted)}
+.qf-bar{height:2px;background:rgba(255,222,190,.08);position:relative}
+.qf-bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent);box-shadow:0 0 12px var(--accent);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.qf-bar i::after{content:"";position:absolute;right:-1px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.qf-stage{position:relative;padding:28px 22px 22px;min-height:430px;display:grid}
+.step{grid-area:1/1;display:flex;flex-direction:column;gap:18px;min-width:0}
+.step[hidden]{display:none!important}
+.step.in{animation:qin .42s cubic-bezier(.2,.8,.2,1) both}.step.in.back{animation-name:qinb}
+@keyframes qin{from{opacity:0;transform:translateX(28px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes qinb{from{opacity:0;transform:translateX(-28px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.q{margin:0;font-family:var(--sans);font-weight:400;font-size:clamp(22px,2.3vw,28px);letter-spacing:-.01em;line-height:1.2;outline:none}
+.qhint{margin:-8px 0 0;color:var(--dim);font-size:13.5px}
+.glabel{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:4px 0 -6px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opt{all:unset;font-family:var(--sans);box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;border:1px solid var(--edge);background:rgba(255,222,190,.025);font-size:14.5px;line-height:1.3;color:var(--cream);transition:border-color .2s,background .2s,transform .2s;min-width:0}
+.opt small{display:block;color:var(--dim);font-size:12px;margin-top:2px}
+.opt .k{flex:none;width:22px;height:22px;border-radius:6px;border:1px solid var(--edge-2);display:grid;place-items:center;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.opt:hover{border-color:var(--edge-2);background:rgba(255,222,190,.05)}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt[aria-checked="true"]{border-color:var(--accent);background:rgba(111,227,208,.08)}
+.opt[aria-checked="true"] .k{background:var(--accent);border-color:var(--accent);color:#0C0A08}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}.fld.wide{grid-column:1/-1}
+.fld label{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.fld input,.fld textarea{font:inherit;font-size:15px;color:var(--cream);background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:11px 12px;min-width:0;width:100%;box-sizing:border-box;transition:border-color .2s}
+.fld textarea{resize:vertical;min-height:84px}
+.fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(111,227,208,.12)}
+.fld .msg{font-size:12px;color:#E2725B;min-height:0}
+.fld.bad input{border-color:#E2725B}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.qf-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:6px}
+.qf-nav .grow{flex:1}
+.qf-nav .keyhint{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.endicon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);box-shadow:0 0 24px rgba(111,227,208,.25);font-size:20px}
+.endicon.mail{border-color:var(--bronze);color:var(--bronze);box-shadow:0 0 24px rgba(200,150,100,.2)}
+.recap{display:flex;flex-wrap:wrap;gap:6px}
+.recap span{font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:7px;border:1px solid var(--edge);color:var(--muted)}
+.endact{display:flex;gap:10px;flex-wrap:wrap}.endact a.btn:not(.pri){color:var(--cream)}
+.status{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
+.status b{color:var(--cream);font-weight:500}
+.sending{display:flex;align-items:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px}
+@media (prefers-reduced-motion:reduce){.step.in{animation:none}.qf-bar i{transition:none}}
+@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
+@media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hub">
+  <nav><b>Cesar Navarro</b><span class="open">Open for projects</span><div class="links"><a href="#work">Work</a><a href="#how">How I work</a><a href="#offers">Offers</a><a href="#contact">Contact</a></div></nav>
+
+  <main>
+  <header class="hero">
+    <span class="eyebrow">Product design for AI and data products</span>
+    <h1>I design interfaces that <span>actually run.</span></h1>
+    <p>Every project below is a working prototype you can click, with one real workflow designed end to end, including the empty, loading and error states. Each is labeled honestly as a concept or a working build.</p>
+    <div class="cta"><a class="btn pri" href="#work">See the work</a><a class="btn" href="#contact">Start a project</a></div>
+  </header>
+
+  <section id="work">
+    <div class="sechead"><h2>Work</h2><span>Concept: fictional data, real working interface. Working build: a real product in development.</span></div>
+    <article class="feature">
+      <a class="shot" href="valley-grid/" aria-label="Open prototype: Valley Grid, grid operations"><img src="img/grid-workflow.jpg" alt="Valley Grid: an operator investigates bushing B on a live 3D transformer" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+      <div class="info">
+        <div class="kindrow"><span class="tag">Concept</span><span class="kind">Grid operations · live 3D</span></div>
+        <h3>Helping grid operators act on an equipment alert</h3>
+        <p class="value">From first warning to a crew on site, on a 3D model of the equipment itself.</p>
+        <dl class="meta"><div><dt>Role</dt><dd>Product design, 3D modeling, front-end build</dd></div><div><dt>Tools</dt><dd>Blender, Three.js, JavaScript</dd></div></dl>
+        <details class="csd"><summary>Read the case study</summary><dl>
+          <dt>Problem</dt><dd>Grid operators get alarms with numbers but no context, so deciding whether to send a crew means jumping between screens and phone calls.</dd>
+          <dt>User</dt><dd>A control-room operator on shift, responsible for nine substations.</dd>
+          <dt>Decisions</dt><dd>The equipment is the interface. One panel holds the whole path. Evidence comes before advice. Every action confirms before it sends. Every state is designed.</dd>
+          <dt>Outcome</dt><dd>A working prototype of the full alert workflow, with 3D models built in Blender running live in the browser and a 15-second film mode. Not tested with real operators or live data.</dd>
+          <dt>Label</dt><dd>Concept. Fictional data, people and substation.</dd></dl></details>
+      </div>
+    </article>
+    <div class="grid">
+      <article class="proj">
+        <a class="shot" href="kestrel/" aria-label="Prototype + case study: Kestrel, AI agent console"><img src="img/kestrel.jpg" alt="Kestrel: an agent run paused at the refund approval gate" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">AI agent interface</span></div>
+          <h3>Letting support teams trust an AI agent with refunds</h3><p class="value">The agent does the research. A person approves the money and the message.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Product design, prototype build</dd></div><div><dt>Tools</dt><dd>HTML, CSS, JavaScript</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="decision-os/" aria-label="Demo + case study: Decision OS, working build"><img src="img/dos.jpg" alt="Decision OS: imported items placed on The Chart" loading="lazy" width="1200" height="750"><span class="go">Demo + case study <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag build">Working build</span><span class="kind">AI operating system</span></div>
+          <h3>Showing a founder where everything stands, without digging through chat</h3><p class="value">Turns ChatGPT history into current state: what you hold, what you wait on, what's decided.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Product owner, design direction</dd></div><div><dt>Status</dt><dd>ChatGPT import works. The Chart approved. Not in production. Demo uses fictional data.</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="harbor-copilot/" aria-label="Prototype + case study: Harbor, CRM copilot"><img src="img/harbor.jpg" alt="Harbor: a proposed change set shown as diffs inside the deals table" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">In-product AI copilot</span></div>
+          <h3>Helping sales reps clean up stalled deals without losing control</h3><p class="value">Bulk changes from AI, reviewed in the table, with conflicts held and undo at every level.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Product design, prototype build</dd></div><div><dt>Tools</dt><dd>HTML, CSS, JavaScript</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="tidewell/" aria-label="Prototype + case study: Tidewell, revenue analytics"><img src="img/tidewell.jpg" alt="Tidewell: June's revenue drop broken into a waterfall" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">SaaS analytics</span></div>
+          <h3>Explaining why monthly revenue moved</h3><p class="value">From "revenue fell" to the four accounts behind it and a win-back plan, in a few clicks.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Product design, prototype build</dd></div><div><dt>Tools</dt><dd>HTML, SVG charts, JavaScript</dd></div></dl></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sechead"><h2>How I work</h2><span>Two-week sprint, start to finish</span></div>
+    <div class="how">
+      <div><span class="d">Day 1</span><b>Map the job</b><p>Find the one workflow that matters most and who does it.</p></div>
+      <div><span class="d">Days 2–5</span><b>First live build</b><p>You click a working version by the end of week one.</p></div>
+      <div><span class="d">Days 6–9</span><b>Every state</b><p>Empty, loading, errors and edge cases, designed and built.</p></div>
+      <div><span class="d">Day 10</span><b>Hand off</b><p>Live link, clean code and a short walkthrough video.</p></div>
+    </div>
+  </section>
+
+  <section id="offers">
+    <div class="sechead"><h2>Ways to work together</h2><span>Clear scope. Working code.</span></div>
+    <div class="offers">
+      <div class="card offer"><span class="tier">Start here</span><h3>AI UX Audit</h3><div class="price">Scoped after a short discovery call.</div><ul><li>Walkthrough of your product</li><li>Top 10 fixes, ranked by impact</li><li>One key screen rebuilt as a live prototype</li></ul></div>
+      <div class="card offer feat"><span class="tier">Best first project</span><h3>Live Prototype Sprint</h3><div class="price">Scoped after a short discovery call.</div><ul><li>One core workflow, designed and built</li><li>All states, with real or sample data</li><li>Ready for user tests and investor demos</li></ul></div>
+      <div class="card offer"><span class="tier">Ongoing</span><h3>Fractional Design Partner</h3><div class="price">Scoped after a short discovery call.</div><ul><li>Weekly sprints shipped as working screens</li><li>A design system that grows with you</li><li>In your Slack and standups</li></ul></div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="cside">
+      <h2>Have a workflow that needs to work better?</h2>
+      <p>Answer a few quick questions. It takes about a minute, and it helps me reply with something useful instead of a generic hello.</p>
+      <p class="direct">Prefer plain email? <a href="mailto:cnavarro.business@gmail.com">cnavarro.business@gmail.com</a></p>
+      <p class="privacy">Privacy: your answers go only to me, so I can reply to you. No mailing list, no tracking, and I never share or sell them. Ask me anytime and I'll delete them.</p>
+    </div>
+
+    <form class="qf" id="qf" novalidate aria-label="Project inquiry">
+      <div class="qf-top"><span id="qfLabel">Inquiry</span><span class="count" id="qfCount">01 / 05</span></div>
+      <div class="qf-bar" aria-hidden="true"><i id="qfBar"></i></div>
+      <div class="qf-stage">
+
+        <div class="step" data-step="1">
+          <h3 class="q" tabindex="-1">What do you need help with?</h3>
+          <div class="opts" role="radiogroup" data-key="need" aria-label="What do you need help with?">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="role"><span class="k">1</span><span>Product design role<small>Hiring for your team</small></span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="freelance"><span class="k">2</span><span>Freelance product design<small>A project or sprint</small></span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="website"><span class="k">3</span><span>Website<small>New site or redesign</small></span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="ads"><span class="k">4</span><span>Meta ads<small>Facebook and Instagram</small></span></button>
+          </div>
+          <div class="qf-nav"><span class="keyhint">Press 1 to 4, or click</span></div>
+        </div>
+
+        <div class="step" data-step="2" hidden>
+          <h3 class="q" tabindex="-1">Tell me about your company.</h3>
+          <span class="glabel">Type</span>
+          <div class="opts three" role="radiogroup" data-key="ctype" aria-label="Company type">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Startup">Startup</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Software / SaaS">Software / SaaS</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Agency">Agency</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Local business">Local business</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Enterprise">Enterprise</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Other">Other</button>
+          </div>
+          <span class="glabel">Size</span>
+          <div class="opts three" role="radiogroup" data-key="csize" aria-label="Company size">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="Just me">Just me</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="2–10 people">2–10</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="11–50 people">11–50</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="51–200 people">51–200</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="201–1,000 people">201–1,000</button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="1,000+ people">1,000+</button>
+          </div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="button" class="btn pri" data-next disabled>Next</button></div>
+        </div>
+
+        <div class="step" data-step="3" hidden>
+          <h3 class="q" tabindex="-1">When do you want to start?</h3>
+          <div class="opts" role="radiogroup" data-key="timeline" aria-label="Timeline">
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="asap"><span class="k">1</span><span>Right away<small>Within 2 weeks</small></span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="month"><span class="k">2</span><span>This month</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="quarter"><span class="k">3</span><span>In 1 to 3 months</span></button>
+            <button type="button" class="opt" role="radio" aria-checked="false" data-v="exploring"><span class="k">4</span><span>Just exploring<small>No date yet</small></span></button>
+          </div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><span class="keyhint">Press 1 to 4</span></div>
+        </div>
+
+        <div class="step" data-step="4" hidden>
+          <h3 class="q" tabindex="-1" id="q4">What budget do you have in mind?</h3>
+          <p class="qhint" id="q4hint">A rough range is fine. It helps me suggest the right size of project.</p>
+          <div class="opts" role="radiogroup" data-key="budget" aria-labelledby="q4" id="budgetOpts"></div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><span class="keyhint">Press a number</span></div>
+        </div>
+
+        <div class="step" data-step="5" hidden>
+          <h3 class="q" tabindex="-1">Last step. How do I reach you?</h3>
+          <div class="fields">
+            <div class="fld"><label for="fName">Name</label><input id="fName" type="text" name="name" autocomplete="name" required><span class="msg" aria-live="polite"></span></div>
+            <div class="fld"><label for="fEmail">Work email</label><input id="fEmail" name="email" type="email" autocomplete="email" required><span class="msg" aria-live="polite"></span></div>
+            <div class="fld wide"><label for="fCo">Company</label><input id="fCo" type="text" name="company" autocomplete="organization"></div>
+            <div class="fld wide"><label for="fNote">Short note <span style="text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="fNote" name="note" maxlength="600" placeholder="A link to your product, and what's not working."></textarea></div>
+            <div class="hp" aria-hidden="true"><label for="fGot">Leave this empty</label><input id="fGot" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+          </div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="submit" class="btn pri" id="qfSend">Send</button></div>
+        </div>
+
+        <div class="step" data-step="sending" hidden>
+          <div class="sending" style="margin:auto"><span class="spin"></span>Sending your answers…</div>
+        </div>
+
+        <div class="step" data-step="end" hidden aria-live="polite">
+          <div class="endicon" id="endIcon">✓</div>
+          <h3 class="q" tabindex="-1" id="endTitle"></h3>
+          <p class="qhint" style="margin:0;font-size:15px;color:var(--muted)" id="endText"></p>
+          <div class="recap" id="recap"></div>
+          <div class="status" id="endStatus"></div>
+          <div class="endact" id="endAct"></div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" id="qfRestart">Start over</button></div>
+        </div>
+
+      </div>
+    </form>
+  </section>
+  </main>
+  <footer class="foot"><span>Cesar Navarro · Upper Sacramento area · English and Spanish</span><span>All concept data is fictional</span></footer>
+</div>
+<script>
+/* ===== Config: set these two and the form is live on GitHub Pages ===== */
+const FORM_ENDPOINT = "";   // e.g. "https://formspree.io/f/abcdwxyz". Empty = answers open in the visitor's email app.
+const BOOKING_URL   = "";   // e.g. a Calendly link. Empty = "Book a call" opens an email asking for a time.
+const CONTACT_EMAIL = "cnavarro.business@gmail.com";
+/* ===================================================================== */
+(function(){
+const form=document.getElementById("qf"),bar=document.getElementById("qfBar"),count=document.getElementById("qfCount"),label=document.getElementById("qfLabel");
+const steps=[...form.querySelectorAll(".step")],A={},NAMES={need:{role:"Product design role",freelance:"Freelance product design",website:"Website",ads:"Meta ads"},timeline:{asap:"Start right away",month:"Start this month",quarter:"Start in 1 to 3 months",exploring:"Just exploring"}};
+const LABELS={1:"What you need",2:"Your company",3:"Timeline",4:"Budget",5:"Contact"};
+// Budget screen adapts: a hiring manager gets role type instead of a project budget.
+const WORDS=[["small","Small / getting started"],["mid","Moderate"],["large","Significant"],["unsure","Not sure yet"]];
+const BUDGET={project:WORDS,ads:WORDS,role:[["fulltime","Full-time"],["c2h","Contract to hire"],["contract","Contract"],["unsure","Still deciding"]]};
+let cur=1;
+function show(id,back){steps.forEach(s=>{const on=s.dataset.step==String(id);s.hidden=!on;s.classList.remove("in","back");if(on){void s.offsetWidth;s.classList.add("in");if(back)s.classList.add("back")}});
+  const n=typeof id==="number"?id:5,done=id==="end";bar.style.width=(done?100:((n-1)/5*100+4))+"%";
+  count.textContent=done?"Done":"0"+n+" / 05";label.textContent=done?"Inquiry received":(LABELS[n]||"Inquiry");
+  const h=form.querySelector('.step[data-step="'+id+'"] .q');if(h&&cur!==id)h.focus({preventScroll:true});cur=id}
+function setBudget(){const kind=A.need==="role"?"role":A.need==="ads"?"ads":"project";const box=document.getElementById("budgetOpts");
+  document.getElementById("q4").textContent=kind==="role"?"What kind of role is it?":kind==="ads"?"What monthly ad budget do you have in mind?":"What budget do you have in mind?";
+  document.getElementById("q4hint").textContent=kind==="role"?"So I know how it would work day to day.":"A rough sense is fine. It helps me suggest the right size of project.";
+  if(box.dataset.kind!==kind){delete A.budget;box.dataset.kind=kind}
+  box.innerHTML=BUDGET[kind].map(([v,t],i)=>'<button type="button" class="opt" role="radio" aria-checked="'+(A.budget===v)+'" data-v="'+v+'" data-t="'+t+'"><span class="k">'+(i+1)+'</span><span>'+t+'</span></button>').join("")}
+function pick(group,btn){group.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked",o===btn?"true":"false"));A[group.dataset.key]=btn.dataset.v;if(btn.dataset.t)A.budgetText=btn.dataset.t}
+form.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){const g=o.closest("[data-key]");pick(g,o);const st=+o.closest(".step").dataset.step;
+    if(st===2){form.querySelector('[data-step="2"] [data-next]').disabled=!(A.ctype&&A.csize);return}
+    setTimeout(()=>{if(st===1)setBudget();show(st+1)},220);return}
+  if(e.target.closest("[data-next]"))show(cur+1);
+  if(e.target.closest("[data-back]"))show(cur-1,true)});
+document.addEventListener("keydown",e=>{if(typeof cur!=="number"||cur===5||cur===2)return;if(e.target.closest&&e.target.closest("input,textarea"))return;
+  const r=form.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+  const opts=form.querySelectorAll('.step[data-step="'+cur+'"] .opt'),i=+e.key-1;if(i>=0&&i<opts.length){e.preventDefault();opts[i].click()}});
+function fit(){if(A.timeline==="exploring")return false;if(A.need==="role")return true;return A.budget==="large"||(A.budget==="mid"&&A.need!=="website")}
+function lines(){return["What I need: "+NAMES.need[A.need],"Company: "+A.ctype+", "+A.csize,"Timeline: "+NAMES.timeline[A.timeline],(A.need==="role"?"Role type: ":"Budget: ")+A.budgetText,"","Name: "+A.name,"Email: "+A.email,"Company name: "+(A.company||"-"),"","Note:",A.note||"-"]}
+function mailto(subject,body){return"mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body)}
+function valid(){let ok=true;[["fName",v=>v.trim().length>1,"Please add your name."],["fEmail",v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}/.test(v.trim())&&!/\s/.test(v.trim()),"Please check this email."]].forEach(([id,t,m])=>{const el=document.getElementById(id),f=el.closest(".fld"),bad=!t(el.value);f.classList.toggle("bad",bad);f.querySelector(".msg").textContent=bad?m:"";if(bad&&ok){el.focus();ok=false}});return ok}
+form.addEventListener("submit",async e=>{e.preventDefault();if(!valid())return;
+  A.name=fName.value.trim();A.email=fEmail.value.trim();A.company=fCo.value.trim();A.note=fNote.value.trim();
+  if(fGot.value){end("sent");return}
+  if(!FORM_ENDPOINT){end("mail");return}
+  show("sending");
+  try{const res=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},
+      body:JSON.stringify({need:NAMES.need[A.need],company_type:A.ctype,company_size:A.csize,timeline:NAMES.timeline[A.timeline],budget_or_role:A.budgetText,name:A.name,email:A.email,company:A.company,note:A.note,fit:fit()?"strong":"review",_replyto:A.email,_subject:"Inquiry: "+NAMES.need[A.need]+" from "+A.name})});
+    end(res.ok?"sent":"failed")}catch(err){end("failed")}});
+function end(state){const strong=fit(),first=A.name.split(" ")[0];const body=lines().join("\n");
+  document.getElementById("endTitle").textContent=strong?"This looks like a strong fit, "+first+".":"Thanks, "+first+".";
+  document.getElementById("endText").textContent=strong?(A.need==="role"?"Let's set up a short call to talk about the role and your team.":"Let's talk it through on a short call. I'll come with first ideas for your workflow."):(state==="sent"?"I'll reply by email within one business day, with a few questions or first thoughts.":"Once you send the email below, I'll reply by email within one business day.");
+  document.getElementById("endIcon").className="endicon"+(strong?"":" mail");document.getElementById("endIcon").textContent=strong?"✓":"✉";
+  document.getElementById("recap").innerHTML=[NAMES.need[A.need],A.ctype,A.csize,NAMES.timeline[A.timeline],A.budgetText].map(t=>"<span>"+t.replace(/</g,"&lt;")+"</span>").join("");
+  const st=document.getElementById("endStatus"),act=document.getElementById("endAct");act.innerHTML="";
+  const mailBtn=(cls,txt)=>{const a=document.createElement("a");a.className="btn "+cls;a.href=mailto("Inquiry: "+NAMES.need[A.need]+" from "+A.name,body);a.textContent=txt;return a};
+  if(state==="sent")st.innerHTML="<span>✓</span><span><b>Sent.</b> Your answers reached me.</span>";
+  else if(state==="failed")st.innerHTML="<span>!</span><span><b>The form couldn't send.</b> Nothing was lost. Tap below to send the same answers from your email app.</span>";
+  else st.innerHTML="<span>→</span><span><b>One more tap.</b> Your answers are ready in an email. Just press send in your email app.</span>";
+  if(state!=="sent")act.append(mailBtn(strong?"":"pri","Send my answers by email"));
+  if(strong){const b=document.createElement("a");b.className="btn pri";b.textContent="Book a call";
+    if(BOOKING_URL){b.href=BOOKING_URL;b.target="_blank";b.rel="noopener"}else b.href=mailto("Call request: "+NAMES.need[A.need]+" from "+A.name,"Hi Cesar, I'd like to book a short call. Times that work for me:\n\n\n"+body);
+    act.prepend(b)}
+  show("end")}
+document.getElementById("qfRestart").addEventListener("click",()=>{for(const k in A)delete A[k];form.reset();form.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked","false"));form.querySelector('[data-step="2"] [data-next]').disabled=true;form.querySelectorAll(".fld").forEach(f=>{f.classList.remove("bad");const m=f.querySelector(".msg");if(m)m.textContent=""});show(1,true)});
+bar.style.width="4%";
+})();
+</script>
+</body>
+</html>

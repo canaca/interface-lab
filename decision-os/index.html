@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Decision OS · Where everything stands</title>
+<meta name="description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Decision OS · Where everything stands">
+<meta property="og:description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/decision-os/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/dos.jpg">
+<meta property="og:image:alt" content="Decision OS: imported items placed on The Chart">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decision OS · Where everything stands">
+<meta name="twitter:description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/dos.jpg">
+<meta name="twitter:image:alt" content="Decision OS: imported items placed on The Chart">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Interface Lab base: warm dark glass system shared with Valley Grid. One accent (teal), orange for anything that needs a person. */
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tbtn:hover{border-color:var(--edge-2)}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:11.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.err b{color:var(--cream);font-weight:500}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2);animation:arrive .35s ease-out}
+.sheet .q{font-size:16px;font-weight:500}
+.sheet textarea,.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13px}
+.sheet textarea{min-height:60px;resize:vertical}
+@keyframes arrive{from{opacity:0;transform:translateY(-6px)}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+.spin.lt{border-color:rgba(255,222,190,.2);border-top-color:var(--cream)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.okmark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(111,227,208,.4);color:var(--accent);background:rgba(111,227,208,.08);flex:none}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+pre.code{margin:6px 0 0;background:rgba(0,0,0,.28);border:1px solid var(--edge);border-radius:9px;padding:9px 10px;font-family:var(--mono);font-size:11.5px;line-height:1.55;overflow-x:auto;white-space:pre;color:var(--muted)}
+pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{color:var(--orange)}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer}
+/* case study */
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.cs ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cs ol b{font-weight:600}
+.contact{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.contact code{color:var(--cream);user-select:all}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (max-width:900px){.cs{grid-template-columns:minmax(0,1fr)}.cs dl{grid-template-columns:1fr}.cs dt{padding-top:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* The Chart: deep ink field, serif statement, mono notation, four state colors. Layout: Standing Sentence, then import (left) beside the Chart (right). */
+:root{--bg:#090C11;--glass:rgba(15,19,26,.86);--glass-hi:rgba(236,231,220,.03);--edge:rgba(214,222,235,.10);--edge-2:rgba(214,222,235,.2);
+  --cream:#ECE7DC;--muted:#8790A0;--dim:#7E8796;--accent:#5CC8D6;--orange:#F2A93B;--red:#E2725B;
+  --hand:#F2A93B;--wait:#5CC8D6;--decided:#CFC6F2;--unrec:#6B7383;
+  --serif:"Fraunces",Georgia,serif;--sans:"Geist",ui-sans-serif,system-ui,sans-serif;--mono:"Geist Mono",ui-monospace,Menlo,monospace}
+body{background:var(--bg)}
+.lenses{display:inline-flex;gap:2px;padding:2px;border:1px solid var(--edge);border-radius:8px;background:var(--glass)}
+.lenses button{border:0;background:none;padding:6px 11px;border-radius:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer}
+.lenses button[aria-pressed="true"]{background:#151A23;color:var(--cream);box-shadow:inset 0 -1px 0 var(--hand)}
+.standing{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.6vw,38px);line-height:1.35;letter-spacing:-.01em;margin:6px 0 22px;max-width:60ch;text-wrap:balance;min-height:2.7em}
+.cl{font-weight:400;padding-bottom:5px;background:linear-gradient(currentColor,currentColor) left bottom/100% 1px no-repeat,repeating-linear-gradient(90deg,currentColor 0 1px,transparent 1px 7px) left calc(100% - 1px)/100% 4px no-repeat}
+.cl.hand{color:var(--hand)}.cl.wait{color:var(--wait)}.cl.decided{color:var(--decided)}.cl.unrec{color:var(--unrec)}
+.main{display:grid;grid-template-columns:minmax(340px,.85fr) minmax(0,1.6fr);gap:14px;align-items:start}
+.chart{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.lane{border:1px solid var(--edge);border-radius:14px;padding:12px;min-height:280px;background:rgba(10,13,18,.6);transition:opacity .35s}
+.lane.dim{opacity:.32}
+.lane h3{margin:0 0 10px;font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.lane h3 .n{font-size:16px;letter-spacing:0;color:var(--cream)}
+.lane.hand h3{color:var(--hand)}.lane.wait h3{color:var(--wait)}.lane.decided h3{color:var(--decided)}.lane.unrec h3{color:var(--unrec)}
+.items{display:flex;flex-direction:column;gap:8px}
+.it{border-radius:10px;padding:9px 10px;background:#0F131A;border:1px solid var(--edge);font-size:13px;line-height:1.35}
+.it .p{display:block;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px;letter-spacing:.04em}
+.lane.hand .it{border-left:2px solid var(--hand)}.lane.wait .it{border-left:2px solid var(--wait)}.lane.decided .it{border-left:2px solid var(--decided)}.lane.unrec .it{border:1px dashed var(--unrec);color:var(--muted)}
+.it.dup{outline:1px dashed rgba(207,198,242,.5);outline-offset:2px}
+.ph{color:var(--dim);font-size:12px;font-family:var(--mono);border:1px dashed var(--edge);border-radius:10px;padding:10px}
+.drop{border:1px dashed var(--edge-2);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.file{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:#0F131A;border:1px solid var(--edge);font-family:var(--mono);font-size:12px;width:100%}
+.prog{height:4px;border-radius:2px;background:var(--edge);overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--cream);transition:width .4s}
+.plog{list-style:none;margin:0;padding:0;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.plog li.done::before{content:"✓ ";color:var(--wait)}
+.grp{margin-top:6px}
+.grp h3{margin:12px 0 6px;font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;display:flex;gap:8px;align-items:center}
+.grp h3 i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.rv{display:grid;grid-template-columns:18px 1fr;gap:10px;padding:9px 10px;border-radius:10px;border:1px solid var(--edge);margin-bottom:6px;background:#0F131A}
+.rv input{accent-color:#ECE7DC;margin-top:2px}
+.rv .t{font-size:13.5px}
+.rv details{margin-top:4px}
+.rv summary{cursor:pointer;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.rv blockquote{margin:6px 0 0;padding-left:10px;border-left:2px solid var(--edge-2);color:var(--muted);font-size:12.5px;font-style:italic}
+.rv.off{opacity:.45}
+.dupbox{border:1px dashed rgba(207,198,242,.45);border-radius:12px;padding:10px 12px;margin:8px 0;display:flex;flex-direction:column;gap:8px}
+.dupbox .lab{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--decided)}
+.dupbox label{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);cursor:pointer}
+.reviewlist{max-height:470px;overflow:auto;padding-right:4px;scrollbar-width:thin}
+.fly{position:fixed;z-index:30;pointer-events:none;border-radius:10px;padding:9px 10px;background:#151A23;border:1px solid var(--edge-2);font-size:13px;transition:transform .7s cubic-bezier(.2,.8,.2,1),width .7s,opacity .7s}
+@media (max-width:1100px){.main{grid-template-columns:minmax(0,1fr)}.chart{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.chart{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<div class="wrap">
+  <header class="bar">
+    <h1 class="brand"><b style="font-family:var(--serif);font-weight:400;font-size:22px">Decision OS</b><span>Today</span></h1>
+    <div class="lenses" id="lenses" role="group" aria-label="Lens"><button data-l="attention" aria-pressed="true">Attention</button><button data-l="ceo" aria-pressed="false">CEO</button><button data-l="execution" aria-pressed="false">Execution</button><button data-l="network" aria-pressed="false">Network</button></div>
+    <span class="sp"></span>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">New workspace</option><option value="loading">Loading · import running</option><option value="partial">Error · some unreadable</option><option value="fail">Error · file won't open</option></select></label>
+    <span class="tag build">Working build · demo data</span>
+  </header>
+
+  <p class="standing" id="standing" aria-live="polite"></p>
+
+  <div class="main">
+    <section class="card" aria-label="Import"><h2>Import from ChatGPT <i id="impNote">demo export</i></h2><div id="imp"></div></section>
+    <section class="card" aria-label="The Chart"><h2>The Chart <i id="chartNote">current state</i></h2><div class="chart" id="chart"></div>
+      <div class="row" style="margin-top:12px;justify-content:space-between"><p class="note">Facts come from your sources. Nothing here is a score or a guess. Duplicates are shown, never merged for you.</p><button class="btn sm" id="handoff" disabled>Copy handoff for AI</button></div></section>
+  </div>
+
+  <section class="cs" aria-label="Case study">
+    <div><span class="tag build">Working build · not in production</span><h2>Showing a founder where everything stands, without digging through chat</h2>
+      <p class="lede">Decision OS organizes work around current state: what you hold, what you're waiting on, and what's decided. This page is a demo of its import flow with fictional data.</p>
+      <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
+    <dl>
+      <dt>Problem</dt><dd>Founders run their work through long AI chats. The decisions and promises inside those chats get buried, so "where do things stand?" takes an hour to answer.</dd>
+      <dt>User</dt><dd>A founder juggling a few projects at once, who already plans and decides inside ChatGPT.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>State, not chat.</b> Imports become four kinds of state: in hand, waiting on, decided, and not recorded.</li>
+        <li><b>Every item shows its source.</b> Each one quotes the line it came from, so it can be checked.</li>
+        <li><b>Unknown is not none.</b> A missing value is shown as "not recorded," never as empty.</li>
+        <li><b>Never merge for the user.</b> Possible duplicates are flagged and kept until the person decides.</li>
+        <li><b>A fixed sentence, not generated text.</b> The Standing Sentence is built from set templates, with no scores or urgency.</li></ol></dd>
+      <dt>Outcome</dt><dd>The working build imports ChatGPT history. Its visual system, The Chart, was approved at Phase 9. It is not deployed to production.</dd>
+      <dt>Label</dt><dd>Working build. This page is a separate demo with fictional data, not the product.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Decision OS · demo of a working build</span><span>Product owner and design direction: Cesar Navarro</span></div>
+</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KIND={hand:"In hand",wait:"Waiting on",decided:"Decided",unrec:"Not recorded"};
+const COLOR={hand:"var(--hand)",wait:"var(--wait)",decided:"var(--decided)",unrec:"var(--unrec)"};
+/* fictional sample export: every item quotes its source line */
+const FOUND=[
+ {id:1,k:"hand",t:"Send the revised ad set to Northline",p:"Northline Solar",src:"Northline Q4 plan",q:"I'll send Marisol the revised ad set once the copy is final."},
+ {id:2,k:"hand",t:"Record the 30-second category demo",p:"Seed Round",src:"Investor demo prep",q:"Next step on my side: record the 30-second demo."},
+ {id:3,k:"hand",t:"Write the ops lead job post",p:"Ops Hire",src:"Hiring an ops lead",q:"I need to write the job post myself."},
+ {id:4,k:"wait",t:"Budget sign-off · Marisol Ortega",p:"Northline Solar",src:"Northline Q4 plan",q:"Waiting on Marisol to sign off on the budget."},
+ {id:5,k:"wait",t:"Term sheet feedback · Ana Reyes",p:"Seed Round",src:"Term sheet questions",q:"Ana said she'd come back with notes on the term sheet."},
+ {id:6,k:"wait",t:"Reference check · Ravi Patel",p:"Ops Hire",src:"Hiring an ops lead",q:"Ravi is calling the references."},
+ {id:7,k:"decided",t:"Meta first for the Q4 test",p:"Northline Solar",src:"Northline Q4 plan",q:"Decision: we start the Q4 test on Meta."},
+ {id:8,k:"decided",t:"Raise on a post-money SAFE",p:"Seed Round",src:"Term sheet questions",q:"OK, we're going with a post-money SAFE.",dup:"A"},
+ {id:9,k:"decided",t:"Raise via SAFE, post-money",p:"Seed Round",src:"Investor demo prep",q:"Reminder: the raise is a SAFE, post-money.",dup:"A"},
+ {id:10,k:"decided",t:"Ops lead role is full-time remote",p:"Ops Hire",src:"Hiring an ops lead",q:"Let's make it full-time and remote."},
+ {id:11,k:"unrec",t:"Salary band for the ops lead",p:"Ops Hire",src:"Hiring an ops lead",q:"We still need to set the salary band.",why:"Mentioned, but no value was found."},
+ {id:12,k:"unrec",t:"Northline contract end date",p:"Northline Solar",src:"Northline Q4 plan",q:"Check when the Northline contract ends.",why:"Mentioned, but no date was found."}];
+const S={state:"empty",lens:"attention",accepted:new Set(FOUND.map(f=>f.id)),dupKeep:"both",items:[],retry:0};let D="live",run=0;
+
+/* Standing Sentence: fixed templates only, no scores, no time words */
+function plural(n,a,b){return n+" "+(n===1?a:b)}
+function standing(){const it=S.items,c=k=>it.filter(i=>i.k===k).length;
+  if(!it.length){$("standing").innerHTML=S.state==="importing"?"Reading your export…":"Nothing is recorded yet. Import a ChatGPT export to see where things stand.";return}
+  const projects=new Set(it.filter(i=>i.k==="hand").map(i=>i.p)).size,people=new Set(it.filter(i=>i.k==="wait").map(i=>i.t.split("· ")[1])).size;
+  $("standing").innerHTML=`You hold <span class="cl hand">${plural(c("hand"),"commitment","commitments")}</span> across ${plural(projects,"project","projects")}. <span class="cl wait">${plural(people,"person holds","people hold")}</span> the next move on ${plural(c("wait"),"item","items")}. <span class="cl decided">${plural(c("decided"),"decision is","decisions are")}</span> recorded, and <span class="cl unrec">${plural(c("unrec"),"field is","fields are")}</span> not recorded.`}
+
+const LENS={attention:["hand","wait"],ceo:["decided","unrec"],execution:["hand"],network:["wait"]};
+function chart(){const lanes=["hand","wait","decided","unrec"];
+  $("chart").innerHTML=lanes.map(k=>{const its=S.items.filter(i=>i.k===k);
+    return `<div class="lane ${k} ${LENS[S.lens].includes(k)?"":"dim"}" data-k="${k}"><h3><span>${KIND[k]}</span><span class="n">${its.length}</span></h3><div class="items">${its.length?its.map(i=>`<div class="it ${i.dup&&S.dupKeep==="both"&&its.filter(x=>x.dup===i.dup).length>1?"dup":""}" data-id="${i.id}">${esc(i.t)}<span class="p">${esc(i.p)}${i.why?" · "+esc(i.why):""}</span></div>`).join(""):`<div class="ph">${S.state==="importing"?"Waiting for import":"Nothing recorded"}</div>`}</div></div>`}).join("");
+  $("handoff").disabled=!S.items.length;standing()}
+
+function imp(){const el=$("imp");
+  if(S.state==="empty")el.innerHTML=`<div class="drop"><b style="font-weight:500;font-size:16px">Start with what you already have</b><p class="sub" style="margin:0">Decision OS reads your ChatGPT history and finds projects, commitments, decisions and what you're waiting on.</p>
+    <div class="file"><span class="chip">ZIP</span><span style="flex:1">chatgpt-export-demo.zip</span><span style="color:var(--dim)">42 chats · sample</span></div>
+    <button class="btn pri" data-act="import">Import sample export</button><p class="note">This demo uses a fictional sample file. It never reads files from your computer.</p></div>`;
+  else if(S.state==="importing")el.innerHTML=`<div class="drop"><div class="file"><span class="spin lt"></span><span style="flex:1">chatgpt-export-demo.zip</span><span id="pct" style="color:var(--dim)">0%</span></div><div class="prog" style="width:100%"><i id="bar"></i></div><ul class="plog" id="plog"></ul></div>`;
+  else if(S.state==="fail")el.innerHTML=`<div class="err"><div><b>Couldn't open chatgpt-export-demo.zip.</b><br>The file looks damaged. Nothing was imported and your state didn't change.</div><div class="row"><button class="btn" data-act="restart">Try another file</button></div></div>`;
+  else if(S.state==="review"){const groups=["hand","wait","decided","unrec"];const n=[...S.accepted].filter(id=>!(S.dupKeep==="first"&&id===9)&&!(S.dupKeep==="second"&&id===8)).length;
+    el.innerHTML=`${D==="partial"&&!S.retry?`<div class="err" style="margin-bottom:10px"><div><b>3 of 42 chats couldn't be read.</b><br>Nothing from them was added. Everything below came from the other 39.</div><button class="btn sm" data-act="retry3">Retry those 3</button></div>`:""}
+    <p class="sub" style="margin:0 0 6px">Found ${FOUND.length} items in ${D==="partial"&&!S.retry?39:42} chats. Uncheck anything that's wrong, then add the rest.</p>
+    <div class="reviewlist">${groups.map(k=>`<div class="grp"><h3 style="color:${COLOR[k]}"><i style="background:${COLOR[k]}"></i>${KIND[k]}</h3>${FOUND.filter(f=>f.k===k).map(f=>{
+      const row=`<label class="rv ${S.accepted.has(f.id)?"":"off"}" data-row="${f.id}"><input type="checkbox" data-id="${f.id}" ${S.accepted.has(f.id)?"checked":""}><div><div class="t">${esc(f.t)}</div><span class="p m" style="font-size:10.5px;color:var(--dim)">${esc(f.p)}${f.why?" · "+esc(f.why):""}</span><details><summary>Source · ${esc(f.src)}</summary><blockquote>“${esc(f.q)}”</blockquote></details></div></label>`;
+      if(f.id===8)return `<div class="dupbox"><span class="lab">Suggestion · these may be the same decision</span>${row}`;
+      if(f.id===9)return `${row}<label><input type="radio" name="dup" value="both" ${S.dupKeep==="both"?"checked":""}>Keep both, flagged</label><label><input type="radio" name="dup" value="first" ${S.dupKeep==="first"?"checked":""}>Keep only the first</label><label><input type="radio" name="dup" value="second" ${S.dupKeep==="second"?"checked":""}>Keep only the second</label></div>`;
+      return row}).join("")}</div>`).join("")}</div>
+    <div class="row" style="margin-top:12px"><button class="btn pri" data-act="add" ${n?"":"disabled"}>Add ${n} item${n===1?"":"s"} to state</button><button class="btn ghost" data-act="cancel">Cancel import</button></div>`}
+  else if(S.state==="added")el.innerHTML=`<div class="empty"><span class="okmark"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>${S.items.length} items added</b><div class="sub">Your state now reflects the sample export. Switch lenses above to see it from each angle.</div>
+    <div class="row"><button class="btn" data-act="restart">Start over</button></div></div>`}
+
+async function doImport(){const my=++run;S.state="importing";S.items=[];imp();chart();
+  const steps=["Reading 42 chats","Finding projects","Finding commitments","Finding decisions","Checking for duplicates"];
+  for(let i=0;i<steps.length;i++){if(my!==run)return;$("plog").insertAdjacentHTML("beforeend",`<li id="pl${i}">${steps[i]}…</li>`);$("bar").style.width=((i+.5)/steps.length*100)+"%";$("pct").textContent=Math.round((i+.5)/steps.length*100)+"%";
+    await sleep(D==="loading"?1e9:650);if(my!==run)return;
+    if(D==="fail"&&i===0){S.state="fail";imp();chart();return}
+    $("pl"+i).className="done";$("pl"+i).textContent=steps[i]}
+  S.state="review";S.accepted=new Set(FOUND.map(f=>f.id));S.dupKeep="both";S.retry=0;imp();chart()}
+
+function addToState(){const keep=FOUND.filter(f=>S.accepted.has(f.id)&&!(S.dupKeep==="first"&&f.id===9)&&!(S.dupKeep==="second"&&f.id===8));
+  /* capture where each row sits in the review list, then fly it into its lane on the Chart */
+  const from={};keep.forEach(f=>{const r=document.querySelector(`[data-row="${f.id}"]`);if(r)from[f.id]=r.getBoundingClientRect()});
+  S.items=keep.map(f=>({...f}));S.state="added";chart();
+  if(!reduce)keep.forEach((f,i)=>{const a=from[f.id],t=document.querySelector(`#chart [data-id="${f.id}"]`);if(!a||!t)return;const b=t.getBoundingClientRect();
+    t.style.opacity=0;const fly=document.createElement("div");fly.className="fly";fly.textContent=f.t;fly.style.left=a.left+"px";fly.style.top=a.top+"px";fly.style.width=a.width+"px";fly.style.borderLeft=`2px solid ${COLOR[f.k]}`;document.body.appendChild(fly);
+    setTimeout(()=>{fly.style.transform=`translate(${b.left-a.left}px,${b.top-a.top}px)`;fly.style.width=b.width+"px"},30+i*55);
+    setTimeout(()=>{t.style.transition="opacity .25s";t.style.opacity=1;fly.remove()},800+i*55)});
+  imp();toast(`${keep.length} items added to state`)}
+
+$("imp").addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b||b.disabled)return;const a=b.dataset.act;
+  if(a==="import")doImport();else if(a==="add")addToState();else if(a==="cancel"||a==="restart"){run++;S.state="empty";S.items=[];D=D==="fail"?"live":D;$("demo").value=D;imp();chart()}
+  else if(a==="retry3"){S.retry=1;D="live";$("demo").value="live";imp();toast("All 42 chats read")}});
+$("imp").addEventListener("change",e=>{if(e.target.type==="checkbox"){const id=+e.target.dataset.id;e.target.checked?S.accepted.add(id):S.accepted.delete(id);imp()}
+  if(e.target.name==="dup"){S.dupKeep=e.target.value;if(S.dupKeep==="first")S.accepted.add(8);if(S.dupKeep==="second")S.accepted.add(9);imp()}});
+$("lenses").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.lens=b.dataset.l;[...$("lenses").children].forEach(x=>x.setAttribute("aria-pressed",x===b));chart()});
+$("demo").addEventListener("change",e=>{D=e.target.value;run++;S.items=[];S.state="empty";imp();chart();if(D!=="live")doImport()});
+$("handoff").addEventListener("click",()=>{const txt=["Where things stand (from Decision OS, demo data)",...["hand","wait","decided","unrec"].map(k=>`\n${KIND[k]}:\n`+S.items.filter(i=>i.k===k).map(i=>`- ${i.t} (${i.p})`).join("\n"))].join("\n");
+  try{navigator.clipboard.writeText(txt).then(()=>toast("Handoff copied. Paste it into any assistant. Nothing was sent."),()=>toast("Copy blocked here. Select the Chart text instead."))}catch(_){toast("Copy blocked here.")}});
+let tt;function toast(m){$("toastMsg").textContent=m;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),2800)}
+imp();chart();
+})();
+</script>
+</body>
+</html>
