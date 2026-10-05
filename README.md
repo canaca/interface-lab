@@ -25,7 +25,17 @@ Plain HTML, CSS, and JavaScript. Three.js for 3D, used only on Valley Grid, wher
 
 These are concepts directed by Cesar Navarro and built with AI tools (Claude, Cursor) under his direction: he set the problem, user, flow and design decisions, and reviewed every state. The code and 3D assets were generated with those tools.
 
-The `blender/` folder holds the AI-generated Python scripts used to produce Valley Grid's 3D scene (`build_t2.py` for Transformer T2, `board2.py` for the circuit-board scene, `heroes.py` for hero objects). They run with Blender's Python package (`pip install bpy`, then `python3 blender/build_t2.py --still out.png`).
+## Everything works
+
+Every button, filter and form on every piece does something real with demo data:
+
+- Approvals, applied changes, tasks, imports and flow edits are saved in your browser (localStorage keys start with `il-`). Each piece has a **Reset demo** or **Start over** control to clear them.
+- Undo is offered after every change that matters (approve, send, apply, remove, clear), in the toast and in the page.
+- Export buttons download real CSV files. Copy buttons write to the clipboard.
+- Search, filters and sort re-render right away and show a "No matches" message when nothing fits.
+- Forms check their fields and show the error next to the field.
+
+Every control on every page was checked with an automated click-through audit before publishing.
 
 ## Site address
 

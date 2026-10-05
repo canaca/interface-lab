@@ -255,6 +255,11 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 .mini th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:400;text-align:left;padding:0 0 8px}
 .mini td{padding:8px 0;border-top:1px solid var(--edge)}
 .mini .r,.mini th.r{text-align:right;font-family:var(--mono);font-size:12.5px}
+.ferr{color:var(--red)!important;margin:4px 0 0}
+.tscroll{overflow-x:auto}.tscroll table{min-width:560px}
+.tscroll th,.tscroll td{padding-right:16px}.mini th.r{font-family:var(--mono);font-size:10px}
+.tscroll:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.reshead .row{gap:8px}
 .banner{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px dashed rgba(233,164,110,.55);font-size:13px;color:var(--muted);margin-bottom:14px}
 .banner b{color:var(--cream);font-weight:500}
 @media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}.cvwrap{height:min(70vh,700px)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:minmax(0,1fr)}}
@@ -284,7 +289,7 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 
   <div class="lay" id="lay">
     <section class="card" aria-label="Flow canvas">
-      <h2><span>Flow · New lead to booked consult</span><span class="cvtools"><button class="btn sm" id="zOut" type="button" aria-label="Zoom out">−</button><span class="zoomv" id="zVal" aria-live="polite">100%</span><button class="btn sm" id="zIn" type="button" aria-label="Zoom in">+</button><button class="btn sm" id="zFit" type="button">Fit</button><button class="btn sm" id="tidy" type="button">Reset layout</button></span></h2>
+      <h2><span>Flow · New lead to booked consult</span><span class="cvtools"><button class="btn sm" id="zOut" type="button" aria-label="Zoom out">−</button><span class="zoomv" id="zVal" aria-live="polite">100%</span><button class="btn sm" id="zIn" type="button" aria-label="Zoom in">+</button><button class="btn sm" id="zFit" type="button">Fit</button><button class="btn sm" id="tidy" type="button">Reset layout</button><button class="btn sm" id="resetFlow" type="button">Reset flow</button></span></h2>
       <div class="cvwrap" id="cvwrap" tabindex="0" role="region" aria-label="Flow canvas. Tab to a step. Enter opens it, arrow keys move it." aria-describedby="nodeHint">
         <div class="sizer" id="sizer"><div class="cv" id="cv"><svg id="wires" aria-hidden="true"></svg></div></div>
       </div>
@@ -318,7 +323,7 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 </div>
 </main>
 <div class="vh" id="live" aria-live="polite"></div>
-<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
 <script>
 /* Relay: speed-to-lead flow builder. All leads, numbers and the business are fictional demo data. */
 const $=id=>document.getElementById(id);
@@ -379,13 +384,24 @@ const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSO
      {en:"Have you visited us before?",es:"¿Nos ha visitado antes?"}]};
 const ANS={en:["Botox for my forehead lines","This week if possible","First time"],es:["Botox para las líneas de la frente","Esta semana si se puede","Primera vez"]};
 
+/* ---------- persistence: flow edits and test runs are saved in this browser (localStorage il-relay-*) ---------- */
+const FKEY="il-relay-flow",RKEY="il-relay-runs";
+const PERSIST=["tpl","q","within","wait","fu2","fu3","slots","remind","alertText","alertEmail","form","hand","pos","lang","scen"];
+const DEFAULTS=JSON.parse(JSON.stringify(Object.fromEntries(PERSIST.map(k=>[k,S[k]]))));
+const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+(()=>{const s=lsGet(FKEY);if(s)PERSIST.forEach(k=>{if(s[k]!==undefined)S[k]=s[k]});S.leadLang=S.lang})();
+S.runs=lsGet(RKEY)||[];S.savedAt="";S.rfilter="all";
+let saveT;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{lsSet(FKEY,Object.fromEntries(PERSIST.map(k=>[k,S[k]])));S.savedAt=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});const e=document.getElementById("savedAt");if(e)e.textContent="Saved "+S.savedAt},200)}
+function snapshot(){return JSON.parse(JSON.stringify(Object.fromEntries(PERSIST.map(k=>[k,S[k]]))))}
+function restoreSnap(o){PERSIST.forEach(k=>S[k]=JSON.parse(JSON.stringify(o[k])));S.leadLang=S.lang;save();buildCanvas();renderAll()}
+
 /* ---------- SMS segment math: GSM-7 vs Unicode ---------- */
 const GSM="@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà",GSMX="^{}\\[~]|€";
 function seg(t){const s=t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,"Thu 2:40 PM");let gsm=true,n=0;
   for(const ch of s){if(GSM.includes(ch))n++;else if(GSMX.includes(ch))n+=2;else{gsm=false;break}}
   if(!gsm)n=s.length;const per=gsm?160:70,multi=gsm?153:67;return{n,gsm,segs:n<=per?1:Math.ceil(n/multi),per,firstBad:gsm?"":[...s].find(ch=>!GSM.includes(ch)&&!GSMX.includes(ch))}}
 function smsIssues(){const out=[];["en","es"].forEach(l=>{const t=S.tpl.sms[l];const L=l==="en"?"English":"Spanish";
-  if(!/\bSTOP\b/.test(t))out.push(`${L} first text has no opt-out line. It must say how to stop, for example "Reply STOP to opt out."`);
+  if(!t.trim())out.push(`${L} first text is empty.`);else if(!/\bSTOP\b/.test(t))out.push(`${L} first text has no opt-out line. It must say how to stop, for example "Reply STOP to opt out."`);
   if(!t.includes(BIZ))out.push(`${L} first text doesn't name the business.`)});return out}
 
 /* ---------- canvas ---------- */
@@ -434,24 +450,26 @@ function setScale(s){S.scale=Math.max(.5,Math.min(1.4,Math.round(s*100)/100));cv
 function fit(){const narrow=innerWidth<640;setScale(Math.max(narrow?.72:.5,Math.min(1,(wrap.clientWidth-20)/CW)));
   /* on phones the canvas scrolls sideways; start centred on the main path */
   wrap.scrollLeft=narrow?Math.max(0,(CW/2)*S.scale-wrap.clientWidth/2):0}
-$("zIn").onclick=()=>setScale(S.scale+.1);$("zOut").onclick=()=>setScale(S.scale-.1);$("zFit").onclick=fit;
-$("tidy").onclick=()=>{S.pos=JSON.parse(JSON.stringify(POS0));placeAll();say("Layout reset.")};
+$("zIn").onclick=()=>{const o=S.scale;setScale(S.scale+.1);if(o===S.scale)toast("Zoomed in as far as it goes (140%)")};$("zOut").onclick=()=>{const o=S.scale;setScale(S.scale-.1);if(o===S.scale)toast("Zoomed out as far as it goes (50%)")};$("zFit").onclick=()=>{fit();toast(`Fit to width · ${Math.round(S.scale*100)}%`)};
+$("tidy").onclick=()=>{const old=JSON.parse(JSON.stringify(S.pos));S.pos=JSON.parse(JSON.stringify(POS0));placeAll();save();say("Layout reset.");toast("Layout reset",()=>{S.pos=old;placeAll();save();toast("Layout restored")})};
+$("resetFlow").onclick=()=>{const old=snapshot();restoreSnap(DEFAULTS);toast("Flow reset to the template",()=>{restoreSnap(old);toast("Your edits are back")})};
 function say(t){$("live").textContent="";setTimeout(()=>$("live").textContent=t,30)}
-function toast(t){$("toastMsg").textContent=t;$("toast").classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>$("toast").classList.remove("on"),2600)}
+function toast(t,undo){$("toastMsg").textContent=t;const b=$("toastUndo");b.hidden=!undo;b.onclick=undo?()=>{$("toast").classList.remove("on");undo()}:null;$("toast").classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>$("toast").classList.remove("on"),undo?5000:2600)}
 /* drag + keyboard move */
 let drag=null;
 cv.addEventListener("pointerdown",e=>{const b=e.target.closest(".node[data-id]");if(!b||S.running)return;drag={id:b.dataset.id,x0:e.clientX,y0:e.clientY,p0:[...S.pos[b.dataset.id]],moved:false,el:b};b.setPointerCapture(e.pointerId)});
 cv.addEventListener("pointermove",e=>{if(!drag)return;const dx=(e.clientX-drag.x0)/S.scale,dy=(e.clientY-drag.y0)/S.scale;if(!drag.moved&&Math.hypot(dx,dy)<4)return;drag.moved=true;
   S.pos[drag.id]=[Math.round(Math.max(0,Math.min(CW-NW,drag.p0[0]+dx))),Math.round(Math.max(0,Math.min(CH-drag.el.offsetHeight,drag.p0[1]+dy)))];place(drag.id);drawEdges()});
-cv.addEventListener("pointerup",()=>{if(drag&&drag.moved)say(`${NODES[drag.id].t} moved.`);setTimeout(()=>drag=null,0)});
+cv.addEventListener("pointerup",()=>{if(drag&&drag.moved){say(`${NODES[drag.id].t} moved.`);save()}setTimeout(()=>drag=null,0)});
 cv.addEventListener("click",e=>{const t=e.target.closest("[data-act=template]");if(t){useTemplate();return}
   const b=e.target.closest(".node[data-id]");if(!b||(drag&&drag.moved)||S.running)return;select(b.dataset.id,e.detail===0)});
 cv.addEventListener("keydown",e=>{const b=e.target.closest(".node[data-id]");if(!b||S.running)return;const id=b.dataset.id;
   const st=e.shiftKey?40:10,m={ArrowLeft:[-st,0],ArrowRight:[st,0],ArrowUp:[0,-st],ArrowDown:[0,st]}[e.key];
-  if(m){e.preventDefault();S.pos[id]=[Math.max(0,Math.min(CW-NW,S.pos[id][0]+m[0])),Math.max(0,Math.min(CH-b.offsetHeight,S.pos[id][1]+m[1]))];place(id);drawEdges();say(`${NODES[id].t} moved to ${S.pos[id][0]}, ${S.pos[id][1]}.`)}});
-function select(id,fromKey){S.sel=id;if(S.tab!=="build")setTab("build");else renderPane();updateNodes();
+  if(m){e.preventDefault();S.pos[id]=[Math.max(0,Math.min(CW-NW,S.pos[id][0]+m[0])),Math.max(0,Math.min(CH-b.offsetHeight,S.pos[id][1]+m[1]))];place(id);drawEdges();say(`${NODES[id].t} moved to ${S.pos[id][0]}, ${S.pos[id][1]}.`);save()}});
+function select(id,fromKey){const same=S.sel===id&&S.tab==="build";S.sel=id;if(S.tab!=="build")setTab("build");else renderPane();updateNodes();
+  if(fromKey){const h=$("insH");if(h){h.tabIndex=-1;h.focus({preventScroll:innerWidth>=1100})}}else if(same)toast(`Editing ${NODES[id].t}`);
   if(innerWidth<1100&&fromKey!==undefined){$("pane").scrollIntoView({behavior:RM?"auto":"smooth",block:"start"})}}
-function useTemplate(){S.empty=false;S.sel="sms";$("demo").value="live";S.state="live";buildCanvas();renderAll();toast("Speed-to-lead template added. 10 steps.");
+function useTemplate(){S.empty=false;save();S.sel="sms";$("demo").value="live";S.state="live";buildCanvas();renderAll();toast("Speed-to-lead template added. 10 steps.");
   const f=cv.querySelector('.node[data-id="sms"]');f&&f.focus()}
 
 /* ---------- compliance strip ---------- */
@@ -463,7 +481,7 @@ function renderComp(){const c=$("comp");if(S.state==="loading"){c.innerHTML='<sp
 function langSeg(){return `<div class="seg" role="group" aria-label="Template language"><button type="button" data-lang="en" aria-pressed="${S.lang==="en"}">English</button><button type="button" data-lang="es" aria-pressed="${S.lang==="es"}">Español</button></div>`}
 function meter(t){const s=seg(t);return `<b>${s.n}</b> characters · <b>${s.segs}</b> segment${s.segs>1?"s":""} · ${s.gsm?"standard text (160 per segment)":`Unicode, because of “${esc(s.firstBad)}” (70 per segment)`}`}
 function fillT(t,lang){return t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,lang==="es"?"jueves 2:40 PM":"Thu 2:40 PM")}
-function tplField(key,label){const t=S.tpl[key][S.lang];return `<div class="fl"><label for="tx_${key}">${label} · ${S.lang==="en"?"English":"Spanish"}</label><textarea class="inp" id="tx_${key}" data-tpl="${key}" aria-describedby="mt_${key}">${esc(t)}</textarea><div class="meter" id="mt_${key}">${meter(t)}</div></div>`}
+function tplField(key,label){const t=S.tpl[key][S.lang];return `<div class="fl"><label for="tx_${key}">${label} · ${S.lang==="en"?"English":"Spanish"}</label><textarea class="inp" id="tx_${key}" data-tpl="${key}" aria-describedby="mt_${key}">${esc(t)}</textarea><div class="meter" id="mt_${key}">${meter(t)}</div><p class="note ferr" id="er_${key}" role="alert"${t.trim()?" hidden":""}>This text can't be empty. A blank text is never sent.</p></div>`}
 function checks(list){return `<ul class="checks">${list.map(([s,t])=>`<li><span class="s ${s}" aria-hidden="true">${s==="y"?"✓":s==="n"?"!":"i"}</span><span><span class="vh">${s==="y"?"Passes: ":s==="n"?"Problem: ":"Note: "}</span>${t}</span></li>`).join("")}</ul>`}
 function smsChecks(){const t=S.tpl.sms[S.lang],s=seg(t);return checks([[t.includes(BIZ)?"y":"n",t.includes(BIZ)?"Names the business":"Add the business name so the lead knows who is texting"],
   [/\bSTOP\b/.test(t)?"y":"n",/\bSTOP\b/.test(t)?"Says how to opt out (STOP)":"Add an opt-out line, for example “Reply STOP to opt out.”"],
@@ -489,11 +507,11 @@ function inspector(){const id=S.sel;let h="";
     `<div class="fu"><div class="top"><b>2</b></div>${sel("fu2","Send",FU2,S.fu2)}${tplField("fu2","Follow-up 2")}</div>`+
     `<div class="fu"><div class="top"><b>3 · last one</b></div>${sel("fu3","Send",FU3,S.fu3)}${tplField("fu3","Follow-up 3")}</div>`+
     checks([["i","A follow-up that lands in quiet hours (9 PM to 8 AM) waits until 8 AM."],["y","After the third one, the lead is tagged “No reply” and texts stop."]])+branches(id);break;
-  case"ai":h+=head(id,"Asks two or three short questions, one at a time, in the lead's language.")+`<div class="fl"><span class="lab">Questions</span>${langSeg()}</div><div class="fl" id="qs">${S.q.map((q,i)=>`<div class="qrow"><span class="n">${i+1}</span><label class="vh" for="q${i}">Question ${i+1}</label><input class="inp" id="q${i}" type="text" data-q="${i}" value="${esc(q[S.lang])}"><button class="btn sm ghost" type="button" data-rmq="${i}" ${S.q.length<=2?"disabled":""} aria-label="Remove question ${i+1}">Remove</button></div>`).join("")}${S.q.length<3?'<button class="btn sm" type="button" data-addq>Add a question</button>':""}<p class="note">Two or three questions. More than that and replies drop.</p></div>`+
+  case"ai":h+=head(id,"Asks two or three short questions, one at a time, in the lead's language.")+`<div class="fl"><span class="lab">Questions</span>${langSeg()}</div><div class="fl" id="qs">${S.q.map((q,i)=>`<div class="qrow"><span class="n">${i+1}</span><label class="vh" for="q${i}">Question ${i+1}</label><input class="inp" id="q${i}" type="text" data-q="${i}" value="${esc(q[S.lang])}" aria-describedby="qe${i}"${q[S.lang].trim()?"":` aria-invalid="true"`}><button class="btn sm ghost" type="button" data-rmq="${i}" aria-label="Remove question ${i+1}">Remove</button></div><p class="note ferr" id="qe${i}" role="alert"${q[S.lang].trim()?" hidden":""}>Write a question or remove it.</p>`).join("")}${S.q.length<3?'<button class="btn sm" type="button" data-addq>Add a question</button>':""}<p class="note">Two or three questions. More than that and replies drop.</p></div>`+
     `<fieldset class="radios"><legend>Hand off to a person when the lead…</legend>${[["price","asks about price"],["medical","asks a medical question"],["upset","sounds upset or complains"]].map(([k,t])=>`<label class="cbx"><input type="checkbox" data-hand="${k}"${S.hand[k]?" checked":""}> ${t}</label>`).join("")}</fieldset>`+
     checks([["y","The AI never quotes prices. Price questions go to the front desk."],["y","Every AI text is saved to the lead's thread for the owner to read."]]);break;
   case"qual":h+=head(id,"Decides if the AI should book now or hand the lead to a person.")+`<div class="fl"><span class="lab">Qualified when</span><p style="margin:0;font-size:13.5px">The lead wants a treatment the studio offers <b>and</b> can come in within 30 days.</p></div>`+branches(id);break;
-  case"book":h+=head(id,"Offers real open times from the calendar and books the one the lead picks.")+sel("cal","Calendar",{c:"Consult calendar · 20 min"},"c")+sel("slots","Times to offer",{"2":"2 open times","3":"3 open times"},S.slots)+
+  case"book":h+=head(id,"Offers real open times from the calendar and books the one the lead picks.")+`<div class="fl"><span class="lab">Calendar</span><p style="margin:0;font-size:13.5px">Consult calendar · 20-minute slots (demo)</p></div>`+sel("slots","Times to offer",{"2":"2 open times","3":"3 open times"},S.slots)+
     `<label class="cbx"><input type="checkbox" data-remind${S.remind?" checked":""}> Send a reminder 24 hours before</label><div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("book","Booking confirmation")+branches(id);break;
   case"alert":h+=head(id,"Tells the owner right away, with everything needed to walk into the consult prepared.")+`<fieldset class="radios"><legend>Send to the owner by</legend><label class="cbx"><input type="checkbox" data-ch="alertText"${S.alertText?" checked":""}> Text</label><label class="cbx"><input type="checkbox" data-ch="alertEmail"${S.alertEmail?" checked":""}> Email</label></fieldset>`+
     `<div class="alertcard"><span class="lab">Preview · owner alert</span><b>New consult booked · Daniela R.</b><span>Thu 2:40 PM · Botox · first visit · Spanish</span><span class="sub">First text in 41 s · booked in 5 min 32 s</span></div>`+(!S.alertText&&!S.alertEmail?checks([["n","Pick at least one way to reach the owner."]]):"");break;
@@ -503,25 +521,30 @@ function renderPane(){const p=$("pane");p.setAttribute("aria-labelledby",S.tab==
   if(S.state==="loading"){p.innerHTML='<h2>Loading</h2><div class="sk" style="height:36px;margin-bottom:12px"></div><div class="sk" style="height:120px;margin-bottom:12px"></div><div class="sk" style="height:60px"></div><p class="note" style="margin-top:12px">Loading the flow…</p>';return}
   if(S.tab==="test"){p.innerHTML=simHTML();return}
   if(S.empty){p.innerHTML=`<h2>Inspector</h2><div class="empty"><b>This flow only has a trigger</b><p class="sub" style="margin:0">Add steps one by one, or start from the speed-to-lead template: instant text, AI questions, booking, follow-ups and opt-out, in English and Spanish.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;return}
-  p.innerHTML=`<h2>Inspector <span>Changes save as you type</span></h2><div class="ins">${inspector()}</div>`}
+  p.innerHTML=`<h2>Inspector <span id="savedAt">${S.savedAt?"Saved "+S.savedAt:"Changes save as you type"}</span></h2><div class="ins">${inspector()}</div>`}
 const pane=$("pane");
 pane.addEventListener("input",e=>{const t=e.target;
-  if(t.dataset.tpl){const k=t.dataset.tpl;S.tpl[k][S.lang]=t.value;$("mt_"+k).innerHTML=meter(t.value);if(k==="sms"){$("pv_sms").textContent=fillT(t.value,S.lang);$("ck_sms").innerHTML=smsChecks()}updateNodes()}
-  if(t.dataset.q!==undefined){S.q[+t.dataset.q][S.lang]=t.value}});
+  if(t.dataset.tpl){const k=t.dataset.tpl;S.tpl[k][S.lang]=t.value;$("mt_"+k).innerHTML=meter(t.value);const bad=!t.value.trim();$("er_"+k).hidden=!bad;bad?t.setAttribute("aria-invalid","true"):t.removeAttribute("aria-invalid");
+    if(k==="sms"){$("pv_sms").textContent=fillT(t.value,S.lang);$("ck_sms").innerHTML=smsChecks()}updateNodes();save()}
+  if(t.dataset.q!==undefined){const i=+t.dataset.q;S.q[i][S.lang]=t.value;const bad=!t.value.trim();$("qe"+i).hidden=!bad;bad?t.setAttribute("aria-invalid","true"):t.removeAttribute("aria-invalid");save()}});
 pane.addEventListener("change",e=>{const t=e.target;
-  if(t.dataset.set){const k=t.dataset.set;if(k!=="cal")S[k]=t.value;updateNodes();if(k==="wait"&&S.sel==="reply"){}}
-  if(t.dataset.hand)S.hand[t.dataset.hand]=t.checked;
-  if(t.dataset.remind!==undefined)S.remind=t.checked;
-  if(t.dataset.ch){S[t.dataset.ch]=t.checked;updateNodes();renderPane();const f=pane.querySelector(`[data-ch="${t.dataset.ch}"]`);f&&f.focus()}
-  if(t.name==="scen"){S.scen=t.value}});
+  if(t.dataset.set){const k=t.dataset.set;if(k!=="cal")S[k]=t.value;updateNodes();save();toast(k==="cal"?"Calendar set":"Saved. The flow uses this from now on.")}
+  if(t.dataset.hand){S.hand[t.dataset.hand]=t.checked;save()}
+  if(t.dataset.remind!==undefined){S.remind=t.checked;save()}
+  if(t.dataset.ch){S[t.dataset.ch]=t.checked;updateNodes();renderPane();save();const f=pane.querySelector(`[data-ch="${t.dataset.ch}"]`);f&&f.focus()}
+  if(t.name==="scen"){S.scen=t.value;save()}});
+pane.addEventListener("click",e=>{const r=e.target;if(r.name==="scen"&&r.value===S.scen&&r.checked&&!S.running){toast(`Scenario: ${r.parentElement.textContent.trim()}`)}},true);
 pane.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;
-  if(t.dataset.lang){if(t.closest(".sim"))S.leadLang=t.dataset.lang;else S.lang=t.dataset.lang;renderPane();const b=pane.querySelector(`${t.closest(".sim")?".sim ":""}[data-lang="${t.dataset.lang}"]`);b&&b.focus();return}
+  if(t.dataset.lang){const L=t.dataset.lang,same=S.lang===L,name=L==="es"?"Spanish":"English";S.lang=L;S.leadLang=L;renderPane();updateNodes();save();const b=pane.querySelector(`${t.closest(".sim")?".sim ":""}[data-lang="${L}"]`);b&&b.focus();
+    toast(same?`Already showing ${name} templates`:`Templates switched to ${name}. Test runs use ${name} too.`);return}
   if(t.dataset.go){select(t.dataset.go);const n=cv.querySelector(`.node[data-id="${t.dataset.go}"]`);n&&n.focus({preventScroll:false});return}
-  if(t.dataset.rmq!==undefined){S.q.splice(+t.dataset.rmq,1);renderPane();updateNodes();pane.querySelector("[data-addq]").focus();say("Question removed. "+S.q.length+" questions.");return}
-  if(t.dataset.addq!==undefined){S.q.push({en:"Is there anything we should know before your visit?",es:"¿Hay algo que debamos saber antes de su visita?"});renderPane();updateNodes();$("q"+(S.q.length-1)).focus();return}
+  if(t.dataset.rmq!==undefined){if(S.q.length<=2){toast("Keep at least 2 questions. The AI needs them to qualify a lead.");return}const i=+t.dataset.rmq,q=S.q.splice(i,1)[0];renderPane();updateNodes();save();const a=pane.querySelector("[data-addq]");a&&a.focus();say("Question removed. "+S.q.length+" questions.");
+    toast(`Question ${i+1} removed`,()=>{S.q.splice(i,0,q);renderPane();updateNodes();save();toast("Question restored")});return}
+  if(t.dataset.addq!==undefined){S.q.push({en:"Is there anything we should know before your visit?",es:"¿Hay algo que debamos saber antes de su visita?"});renderPane();updateNodes();save();$("q"+(S.q.length-1)).focus();toast(`Question ${S.q.length} added`);return}
   if(t.dataset.act==="template"){useTemplate();return}
+  if(t.dataset.act==="toResults"){setTab("res");return}
   if(t.dataset.act==="run"){play();return}
-  if(t.dataset.act==="reset"){stopRun();renderPane();return}
+  if(t.dataset.act==="reset"){stopRun();renderPane();toast("Test cleared. Your results are kept.");return}
   if(t.dataset.act==="fixsms"){select("sms");setTimeout(()=>$("tx_sms")&&$("tx_sms").focus(),50);return}
   if(t.dataset.act==="recheck"){t.disabled=true;t.innerHTML='<span class="spin lt"></span>Checking…';setTimeout(()=>{S.campaign="approved";$("demo").value="live";S.state="live";renderComp();updateNodes();toast("Campaign approved. Texting is on.");play()},1200);return}});
 
@@ -584,7 +607,8 @@ async function play(){if(smsIssues().length||S.empty)return;const my=++S.runId;S
     if(ev.sys)addBubble("sys",ev.sys);
     if(ev.send&&S.campaign!=="approved"){await sleep(500);if(!live())return;addTL({at:ev.at,tl:"Not sent",sm:"Carrier blocked it: campaign still in review"},"x");
       $("simEnd").innerHTML=`<div class="err" role="alert"><b>Not sent. Nothing reached the lead.</b><span>Texting is paused until the 10DLC campaign is approved. The test stopped at the instant text.</span><button class="btn sm" type="button" data-act="recheck">Check campaign status</button></div>`;
-      S.running=false;S.ran=true;cv.classList.remove("running");const rb=$("runBtn");if(rb){rb.disabled=false;rb.textContent="Run again"}return}
+      S.running=false;S.ran=true;cv.classList.remove("running");const rb=$("runBtn");if(rb){rb.disabled=false;rb.textContent="Run again"}
+      record({scen:S.scen,blocked:true,speed:null,texts:0});return}
     if(ev.in){const ty=addBubble("in typing","");ty.innerHTML="<i></i><i></i><i></i>";ty.setAttribute("aria-hidden","true");await sleep(650);if(!live())return;ty.remove();addBubble("in",ev.in)}
     if(ev.out){await sleep(220);if(!live())return;addBubble("out",ev.out)}
     addTL(ev,ev.person?"p":ev.muted?"m":"");
@@ -595,16 +619,21 @@ async function play(){if(smsIssues().length||S.empty)return;const my=++S.runId;S
    :last.end==="stop"?`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Opt-out handled.</b> One confirmation sent, follow-ups cancelled, number blocked from future texts.</span></div>`
    :`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Follow-ups finished.</b> 4 texts in total, none in quiet hours. The lead is tagged “No reply”.</span></div>`;
   S.running=false;S.ran=true;cv.classList.remove("running");
+  const rep=evs.find(e=>e.in);record({scen:S.scen,speed:sp,replied:S.scen!=="noreply",replySec:rep?rep.at-evs[1].at:null,booked:last.end==="book",bookSec:last.end==="book"?dur:null,optout:last.end==="stop",texts:evs.filter(e=>e.out).length,followups:evs.filter(e=>e.n==="fu"&&e.out).length,questions:S.q.length});
+  $("simEnd").insertAdjacentHTML("beforeend",'<p class="note" style="margin-top:10px">Saved to Results. <button class="btn sm ghost" type="button" data-act="toResults">See results</button></p>');
   const ctl=$("pane").querySelector(".row");if(ctl)ctl.innerHTML='<button class="btn pri" type="button" data-act="run" id="runBtn">Run again</button><button class="btn ghost" type="button" data-act="reset">Clear</button>';
   pane.querySelectorAll('input[name=scen],.sim .seg button').forEach(x=>x.disabled=false);say("Test finished. "+$("simEnd").textContent.trim())}
 
+function record(r){const SC={book:"Replies and books",noreply:"Never replies",stop:"Texts STOP"};
+  S.runs.unshift({id:Date.now(),at:new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit",second:"2-digit"}),lang:S.leadLang,label:SC[r.scen],replied:false,booked:false,optout:false,blocked:false,followups:0,questions:S.q.length,...r});
+  S.runs=S.runs.slice(0,25);lsSet(RKEY,S.runs)}
 /* ---------- results ---------- */
 function bars(rows,max,cls){return `<ul class="bars">${rows.map(([l,v,s,c])=>`<li><div class="lr"><span>${l}</span><span>${v}${s?` · ${s}`:""}</span></div><div class="tr" aria-hidden="true"><div class="fill ${c||cls||""}" style="width:${(v/max*100).toFixed(1)}%"></div></div></li>`).join("")}</ul>`}
 function renderRes(){const r=$("resPane");
   if(S.state==="loading"){r.innerHTML=`<div class="kpis">${"<div class='card'><div class='sk' style='height:90px'></div></div>".repeat(4)}</div>`;return}
   if(S.empty){r.innerHTML=`<div class="card"><div class="empty"><b>No leads yet</b><p class="sub" style="margin:0">Results show up after the flow is on and the first lead comes in: speed to lead, reply rate, booked rate and cost per booked call.</p></div></div>`;return}
-  r.innerHTML=`<div class="res">${S.campaign!=="approved"?`<div class="banner" role="note" style="margin:0"><span class="dot warn" aria-hidden="true" style="margin-top:5px"></span><span><b>Texting is paused while the campaign is in review.</b> These numbers are from the last 30 days before the pause.</span></div>`:""}
-  <div class="reshead"><h2>Last 30 days</h2><span class="tag">Demo data · fictional med spa</span></div>
+  r.innerHTML=`<div class="res">${runsHTML()}${S.campaign!=="approved"?`<div class="banner" role="note" style="margin:0"><span class="dot warn" aria-hidden="true" style="margin-top:5px"></span><span><b>Texting is paused while the campaign is in review.</b> These numbers are from the last 30 days before the pause.</span></div>`:""}
+  <div class="reshead" style="margin-top:12px"><h2>Sample month · last 30 days</h2><span class="tag">Fictional demo data</span></div>
   <div class="kpis">
     <div class="card kpi"><span class="l">Speed to lead · median</span><span class="v">38<small>s</small></span><span class="s">96% of daytime leads texted within 60 s</span><span class="d">Before Relay: 47 min</span></div>
     <div class="card kpi"><span class="l">Reply rate</span><span class="v">64<small>%</small></span><span class="s">136 of 212 leads replied</span><span class="d">Follow-ups brought 36% of replies</span></div>
@@ -621,6 +650,29 @@ function renderRes(){const r=$("resPane");
     <section class="card" aria-labelledby="c5"><h2 id="c5">Compliance</h2><table class="mini"><tbody><tr><td>Opt-outs (STOP, ALTO and others)</td><td class="r">5 · 2.4%</td></tr><tr><td>Texts sent during quiet hours</td><td class="r">0</td></tr><tr><td>Carrier blocks</td><td class="r">0</td></tr><tr><td>Leads without consent (not texted)</td><td class="r">0</td></tr></tbody></table><p class="cnote">Every opt-out got one confirmation and no further texts.</p></section>
   </div></div>`}
 
+const RF={all:()=>true,booked:r=>r.booked,noreply:r=>!r.replied&&!r.blocked,optout:r=>r.optout,blocked:r=>r.blocked};
+const med=a=>{const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
+const fmt=s=>s==null?"–":s<60?s+" s":Math.floor(s/60)+" min "+(s%60)+" s";
+function runsHTML(){const R=S.runs;if(!R.length)return `<div class="card"><div class="empty"><b>No test runs yet</b><p class="sub" style="margin:0">Run a fake lead through the flow. Its speed to lead, replies and booking show up here, next to the sample month below.</p><button class="btn pri" type="button" data-r="gotest">Go to Test run</button></div></div>`;
+  const sent=R.filter(r=>!r.blocked),last=R[0],pct=(n,d)=>d?Math.round(n/d*100)+"%":"–";
+  const list=R.filter(RF[S.rfilter]);
+  return `<div class="reshead"><h2>From your test runs</h2><span class="row"><label class="vh" for="rFilter">Show runs</label><select id="rFilter" class="inp" style="width:auto"><option value="all">All runs</option><option value="booked"${S.rfilter==="booked"?" selected":""}>Booked</option><option value="noreply"${S.rfilter==="noreply"?" selected":""}>No reply</option><option value="optout"${S.rfilter==="optout"?" selected":""}>Opted out</option><option value="blocked"${S.rfilter==="blocked"?" selected":""}>Blocked</option></select><button class="btn sm" type="button" data-r="csv">Export CSV</button><button class="btn sm ghost" type="button" data-r="clear">Clear history</button></span></div>
+  <div class="kpis">
+    <div class="card kpi"><span class="l">Speed to lead · last run</span><span class="v">${last.blocked?"–":last.speed}<small>${last.blocked?"":"s"}</small></span><span class="s">${last.blocked?"Not sent: campaign in review":`Median ${med(sent.map(r=>r.speed))} s across ${sent.length} sent run${sent.length===1?"":"s"}`}</span><span class="d">Target: under 60 s</span></div>
+    <div class="card kpi"><span class="l">Reply rate</span><span class="v">${pct(sent.filter(r=>r.replied).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.replied).length} of ${sent.length} test leads replied</span><span class="d">Last run: ${last.blocked?"blocked":last.replied?"replied in "+fmt(last.replySec):"no reply"}</span></div>
+    <div class="card kpi"><span class="l">Booked rate</span><span class="v">${pct(sent.filter(r=>r.booked).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.booked).length} of ${sent.length} test leads booked</span><span class="d">Last run: ${last.booked?"booked in "+fmt(last.bookSec):"not booked"}</span></div>
+    <div class="card kpi"><span class="l">Texts per lead</span><span class="v">${sent.length?(sent.reduce((a,r)=>a+r.texts,0)/sent.length).toFixed(1):"–"}</span><span class="s">Last run: ${last.texts} text${last.texts===1?"":"s"}${last.followups?`, ${last.followups} follow-ups`:""}</span><span class="d">${sent.filter(r=>r.optout).length} opt-out${sent.filter(r=>r.optout).length===1?"":"s"} handled</span></div>
+  </div>
+  <section class="card" aria-labelledby="hrun"><h2 id="hrun">Test run history <span>${list.length} of ${R.length}</span></h2><div class="tscroll" tabindex="0" role="region" aria-label="Test run history"><table class="mini"><thead><tr><th scope="col">Time</th><th scope="col">Scenario</th><th scope="col">Language</th><th scope="col" class="r">First text</th><th scope="col">Outcome</th><th scope="col" class="r">Texts</th></tr></thead><tbody>
+  ${list.length?list.map(r=>`<tr><td class="m">${r.at}</td><td>${r.label}</td><td>${r.lang==="es"?"Spanish":"English"}</td><td class="r">${r.blocked?"–":r.speed+" s"}</td><td>${r.blocked?"Blocked, nothing sent":r.booked?"Booked in "+fmt(r.bookSec):r.optout?"Opted out":r.replied?"Replied":"No reply after 3 follow-ups"}</td><td class="r">${r.texts}</td></tr>`).join(""):`<tr><td colspan="6" style="color:var(--muted)"><b style="color:var(--cream);font-weight:500">No matches.</b> No runs with that outcome. <button class="btn sm" type="button" data-r="all">Show all</button></td></tr>`}
+  </tbody></table></div></section>`}
+$("resPane").addEventListener("click",e=>{const b=e.target.closest("[data-r]");if(!b)return;const a=b.dataset.r;
+  if(a==="gotest")setTab("test");
+  else if(a==="all"){S.rfilter="all";renderRes()}
+  else if(a==="csv"){const r=[["time","scenario","language","first_text_s","replied","booked","time_to_book_s","opted_out","blocked","texts","questions"],...S.runs.map(x=>[x.at,x.label,x.lang,x.speed??"",x.replied,x.booked,x.bookSec??"",x.optout,x.blocked,x.texts,x.questions])];
+    const t=r.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const l=document.createElement("a");l.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));l.download="relay-test-runs.csv";document.body.appendChild(l);l.click();setTimeout(()=>{URL.revokeObjectURL(l.href);l.remove()},500);toast(`Exported ${S.runs.length} test runs as CSV`)}
+  else if(a==="clear"){const old=S.runs;S.runs=[];lsSet(RKEY,[]);renderRes();toast("Test run history cleared",()=>{S.runs=old;lsSet(RKEY,old);renderRes();toast("History restored")})}});
+$("resPane").addEventListener("change",e=>{if(e.target.id==="rFilter"){S.rfilter=e.target.value;renderRes();const n=S.runs.filter(RF[S.rfilter]).length;toast(n?`${n} run${n===1?"":"s"}`:"No matches");$("rFilter").focus()}});
 /* ---------- tabs + states ---------- */
 const TABS=[...document.querySelectorAll('[role=tab]')];
 function setTab(t){if(S.running&&t!=="test")stopRun();S.tab=t;TABS.forEach(b=>{const on=b.dataset.tab===t;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});

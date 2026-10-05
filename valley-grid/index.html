@@ -377,7 +377,7 @@ add(new RoundedBoxGeometry(1.3,1.9,.8,2,.05),M.steel,3.7,1.6,2.75);
 add(new THREE.BoxGeometry(.02,1.6,.6),M.bronze,4.36,1.6,2.75);
 let led=add(new THREE.SphereGeometry(.06,12,8),M.glowA,4.38,2.25,2.6);
 
-/* Detailed exported model replaces the coded one when t2.json is published beside the page; the coded model stays as fallback. */
+/* Detailed model replaces the coded one when t2.json is published beside the page; the coded model stays as fallback. */
 let glbRings=null,glbFans=null,ringBMat=null,ringBColor=null,t2Ready=false,boardReady=false;
 fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
   root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material&&o.material.emissiveIntensity>1)o.material.toneMapped=false}});
@@ -625,7 +625,7 @@ function frame(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math
   PINS.forEach(p=>{const q=project(p.p);p.el.style.transform=`translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px)`;p.el.classList.toggle("below",q.y<150);if(!q.vis)p.el.style.opacity=0});
   composer.render()}
 
-/* ---------- gold circuit board scene: feeders, substation chips, energy pulses ---------- */
+/* ---------- gold circuit board: feeders, substation chips, energy pulses ---------- */
 let boardTick=null;
 Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
   const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));

@@ -210,6 +210,7 @@ details.csd dd{margin:0;color:var(--muted)}
 .qf-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:6px}
 .qf-nav .grow{flex:1}
 .qf-nav .keyhint{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.qerr{margin:0;font-size:13px;color:#E2725B}
 .endicon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);box-shadow:0 0 24px rgba(111,227,208,.25);font-size:20px}
 .endicon.mail{border-color:var(--bronze);color:var(--bronze);box-shadow:0 0 24px rgba(200,150,100,.2)}
 .recap{display:flex;flex-wrap:wrap;gap:6px}
@@ -349,7 +350,8 @@ details.csd dd{margin:0;color:var(--muted)}
             <button type="button" class="opt" role="radio" aria-checked="false" data-v="201–1,000 people">201–1,000</button>
             <button type="button" class="opt" role="radio" aria-checked="false" data-v="1,000+ people">1,000+</button>
           </div>
-          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="button" class="btn pri" data-next disabled>Next</button></div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="button" class="btn pri" data-next>Next</button></div>
+          <p class="qerr" id="q2err" role="alert" hidden></p>
         </div>
 
         <div class="step" data-step="3" hidden>
@@ -427,10 +429,13 @@ function setBudget(){const kind=A.need==="role"?"role":A.need==="ads"?"ads":"pro
   box.innerHTML=BUDGET[kind].map(([v,t],i)=>'<button type="button" class="opt" role="radio" aria-checked="'+(A.budget===v)+'" data-v="'+v+'" data-t="'+t+'"><span class="k">'+(i+1)+'</span><span>'+t+'</span></button>').join("")}
 function pick(group,btn){group.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked",o===btn?"true":"false"));A[group.dataset.key]=btn.dataset.v;if(btn.dataset.t)A.budgetText=btn.dataset.t}
 form.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){const g=o.closest("[data-key]");pick(g,o);const st=+o.closest(".step").dataset.step;
-    if(st===2){form.querySelector('[data-step="2"] [data-next]').disabled=!(A.ctype&&A.csize);return}
+    if(st===2){const er=document.getElementById('q2err');if(A.ctype&&A.csize)er.hidden=true;return}
     setTimeout(()=>{if(st===1)setBudget();show(st+1)},220);return}
-  if(e.target.closest("[data-next]"))show(cur+1);
+  if(e.target.closest("[data-next]")){if(cur===2&&!(A.ctype&&A.csize)){const er=document.getElementById("q2err");er.textContent=!A.ctype&&!A.csize?"Pick a company type and a size to continue.":!A.ctype?"Pick a company type to continue.":"Pick a company size to continue.";er.hidden=false;
+      const g=form.querySelector('[data-key="'+(A.ctype?"csize":"ctype")+'"] .opt');g&&g.focus();return}show(cur+1)}
   if(e.target.closest("[data-back]"))show(cur-1,true)});
+form.addEventListener("keydown",e=>{const o=e.target.closest&&e.target.closest(".opt");if(!o)return;const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();
+  const all=[...o.closest("[data-key]").querySelectorAll(".opt")];all[(all.indexOf(o)+d+all.length)%all.length].focus()});
 document.addEventListener("keydown",e=>{if(typeof cur!=="number"||cur===5||cur===2)return;if(e.target.closest&&e.target.closest("input,textarea"))return;
   const r=form.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
   const opts=form.querySelectorAll('.step[data-step="'+cur+'"] .opt'),i=+e.key-1;if(i>=0&&i<opts.length){e.preventDefault();opts[i].click()}});
@@ -461,7 +466,7 @@ function end(state){const strong=fit(),first=A.name.split(" ")[0];const body=lin
     if(BOOKING_URL){b.href=BOOKING_URL;b.target="_blank";b.rel="noopener"}else b.href=mailto("Call request: "+NAMES.need[A.need]+" from "+A.name,"Hi Cesar, I'd like to book a short call. Times that work for me:\n\n\n"+body);
     act.prepend(b)}
   show("end")}
-document.getElementById("qfRestart").addEventListener("click",()=>{for(const k in A)delete A[k];form.reset();form.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked","false"));form.querySelector('[data-step="2"] [data-next]').disabled=true;form.querySelectorAll(".fld").forEach(f=>{f.classList.remove("bad");const m=f.querySelector(".msg");if(m)m.textContent=""});show(1,true)});
+document.getElementById("qfRestart").addEventListener("click",()=>{for(const k in A)delete A[k];form.reset();form.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked","false"));document.getElementById('q2err').hidden=true;form.querySelectorAll(".fld").forEach(f=>{f.classList.remove("bad");const m=f.querySelector(".msg");if(m)m.textContent=""});show(1,true)});
 bar.style.width="4%";
 })();
 </script>
