@@ -13,14 +13,14 @@
 <meta property="og:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
-<meta property="og:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<meta property="og:image:alt" content="Cesar Navarro: I design interfaces that actually run, with six working prototypes">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cesar Navarro · Interface Lab">
 <meta name="twitter:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/og-image.png">
-<meta name="twitter:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<meta name="twitter:image:alt" content="Cesar Navarro: I design interfaces that actually run, with six working prototypes">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,6 +152,7 @@ details.csd dl{display:grid;grid-template-columns:96px 1fr;gap:10px 14px;margin:
 details.csd dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
 details.csd dd{margin:0;color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 28px}
+.proj.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;align-items:center}
 .proj{display:flex;flex-direction:column;gap:16px;min-width:0}
 .how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--edge)}
 .how div{padding:18px 18px 0 0;display:flex;flex-direction:column;gap:6px}
@@ -218,7 +219,7 @@ details.csd dd{margin:0;color:var(--muted)}
 .status b{color:var(--cream);font-weight:500}
 .sending{display:flex;align-items:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px}
 @media (prefers-reduced-motion:reduce){.step.in{animation:none}.qf-bar i{transition:none}}
-@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
+@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.proj.wide{display:flex}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
 @media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}}
 </style>
 </head>
@@ -275,6 +276,12 @@ details.csd dd{margin:0;color:var(--muted)}
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">SaaS analytics</span></div>
           <h3>Explaining why monthly revenue moved</h3><p class="value">From "revenue fell" to the four accounts behind it and a win-back plan, in a few clicks.</p>
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>HTML, SVG charts, JavaScript</dd></div></dl></div>
+      </article>
+      <article class="proj wide">
+        <a class="shot" href="relay/" aria-label="Prototype + case study: Relay, speed-to-lead builder"><img src="img/relay.jpg" alt="Relay: a test lead moving through the speed-to-lead flow while the text thread fills in" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Automation builder</span></div>
+          <h3>Booking Meta leads before they cool off</h3><p class="value">Texts new leads in under a minute, qualifies them with AI, books the consult and alerts the owner, in English and Spanish.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
     </div>
   </section>

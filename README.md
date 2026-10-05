@@ -13,6 +13,7 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | [Decision OS](decision-os/) | Working build | Import a sample ChatGPT export and see where everything stands. Demo uses fictional data. |
 | [Harbor CRM Copilot](harbor-copilot/) | Concept | Bulk deal cleanup from AI, shown as diffs in the table, with conflicts and undo |
 | [Tidewell Revenue Pulse](tidewell/) | Concept | Why June revenue fell, down to the four accounts and a win-back task |
+| [Relay](relay/) | Concept | Speed-to-lead builder: texts new Meta leads in under a minute, AI qualifies, books and alerts the owner, in English and Spanish |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 
