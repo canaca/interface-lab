@@ -11,12 +11,12 @@ A control-room operator on shift, responsible for nine substations, who needs to
 2. **One panel, one path.** Alert, evidence, likely cause, action, confirmation and resolution all happen in the same panel, so the operator never loses context.
 3. **Evidence before advice.** Readings and the 7-day trend come first. The likely cause is labeled as a suggestion, not a diagnosis.
 4. **Every action confirms.** Dispatch, acknowledge and escalate each show what will happen before anything is sent. A failed dispatch says nothing was sent and keeps the operator's choices.
-5. **Every state is designed.** Empty, loading, data error and dispatch error each have their own screen. Use the States menu to review them.
+5. **Every state is included.** Empty, loading, data error and dispatch error each have their own screen. Use the States menu to review them.
 6. **A quiet palette, one accent,** so warnings read instantly.
 
 ## Concept vs real
 **Concept:** all data, people, crews and the substation are fictional.
-**Real:** the working interface, the live 3D scene (built with AI-assisted tooling: Claude, Cursor) running in Three.js, the full state flow, and graphics quality that adapts to laptop hardware.
+**Real:** the concept running in the browser, the live 3D scene (AI-built with Claude and Cursor, directed by Cesar) running in Three.js, the full state flow, and graphics quality that adapts to laptop hardware. The Blender scripts that produced the 3D scene are AI-generated.
 **Not built:** live sensor data, sign-in, and a real crew dispatch integration.
 
 ---
