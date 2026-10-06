@@ -1,6 +1,6 @@
 # Interface Lab
 
-Live, working interface concepts for AI and data products, directed by Cesar Navarro.
+Live interface concepts for AI and data products, directed by Cesar Navarro.
 
 Every piece here runs in the browser. Click, drag, approve, undo, and see what happens.
 
@@ -10,10 +10,10 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | --- | --- | --- |
 | [Valley Grid Operations](valley-grid/) | Concept | Investigate an equipment alert on a live 3D transformer, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)) |
 | [Kestrel Agent Console](kestrel/) | Concept | An AI agent handles a refund ticket. A person approves the money and the reply. |
-| [Decision OS](decision-os/) | Working build | Import a sample ChatGPT export and see where everything stands. Demo uses fictional data. |
+| [Decision OS](decision-os/) | Also in the lab | Additional AI-built concept on fictional data, outside the four. Import a sample ChatGPT export and see where everything stands. |
 | [Harbor CRM Copilot](harbor-copilot/) | Concept | Bulk deal cleanup from AI, shown as diffs in the table, with conflicts and undo |
 | [Tidewell Revenue Pulse](tidewell/) | Concept | Why June revenue fell, down to the four accounts and a win-back task |
-| [Relay](relay/) | Concept | Speed-to-lead builder: texts new Meta leads in under a minute, AI qualifies, books and alerts the owner, in English and Spanish |
+| [Relay](relay/) | Also in the lab | Additional AI-built concept on fictional data, outside the four. Speed-to-lead builder: texts new Meta leads in under a minute, AI qualifies, books and alerts the owner, in English and Spanish |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 
@@ -23,7 +23,7 @@ Plain HTML, CSS, and JavaScript. Three.js for 3D, used only on Valley Grid, wher
 
 ## How these were made
 
-These are concepts directed by Cesar Navarro and built with AI tools (Claude, Cursor) under his direction: he set the problem, user, flow and design decisions, and reviewed every state. The code and 3D assets were generated with those tools.
+Cesar Navarro directed four interactive workflow concepts on fictional data: Kestrel (AI support agent), Harbor (CRM deal cleanup), Valley Grid (utility operations), and Tidewell (SaaS revenue analytics). They were built with AI tools (Claude, Cursor) with AI-assisted QA. He set the problem, user, flow, and design decisions, and reviewed every state. Decision OS and Relay are additional AI-built concepts, outside that count. The code and 3D assets were generated with those tools.
 
 ## Everything works
 
