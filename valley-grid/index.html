@@ -83,7 +83,7 @@ button,input,select{font:inherit;color:inherit}
 .head p{margin:0;color:var(--muted);font-size:14px}
 .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--dim);border:1px dashed rgba(255,222,190,.22);padding:3px 7px;border-radius:4px}
 .tools{grid-column:3;justify-self:end;display:flex;gap:8px;pointer-events:auto;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end}
-.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-decoration:none}
 .tbtn:hover{border-color:var(--edge-2)}
 .demo{display:inline-flex;align-items:center;gap:8px}
 .demo select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;cursor:pointer}
@@ -222,7 +222,7 @@ button,input,select{font:inherit;color:inherit}
 
   <div class="hud" id="hud">
     <header class="head reveal">
-      <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · fictional data</span></div>
+      <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · October 2026</span></div>
       <h1>Transformer <span>T2</span></h1>
       <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled</p>
     </header>
@@ -230,6 +230,7 @@ button,input,select{font:inherit;color:inherit}
       <label class="tbtn demo">States <select id="demo" aria-label="Review a state">
         <option value="live">Live alert</option><option value="empty">Empty · no alerts</option><option value="loading">Loading</option>
         <option value="dataerr">Error · trend unavailable</option><option value="senderr">Error · dispatch fails</option></select></label>
+      <a class="tbtn" href="../">All work</a>
       <button class="tbtn" id="filmBtn">▶ Film mode</button>
     </div>
 
@@ -242,7 +243,7 @@ button,input,select{font:inherit;color:inherit}
       <div class="lg"><span><i></i>Load</span><span><i class="t"></i>Oil temp</span><button class="tbtn" id="play" style="padding:5px 10px;margin-top:4px">❚❚ Pause</button></div>
     </section>
   </div>
-  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>Valley Grid Ops · concept by Cesar Navarro</span></div>
+  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>October 2026 concept · direction: Cesar Navarro</span></div>
   <button class="tbtn skip" id="skip" hidden>Skip intro</button>
   <div class="credit">CONCEPT DIRECTION: CESAR NAVARRO</div>
 </div>

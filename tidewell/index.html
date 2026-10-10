@@ -50,6 +50,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
 .brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
 .brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
@@ -140,11 +142,12 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 <main>
 <div class="wrap">
   <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
     <h1 class="brand"><b>Tidewell</b><span>Revenue Pulse</span></h1>
     <span class="crumbs">MRR · ALL SEGMENTS · LAST 12 MONTHS</span>
     <span class="sp"></span>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing unusual</option><option value="loading">Loading</option><option value="partial">Warning · data incomplete</option><option value="actionerr">Error · task fails</option></select></label>
-    <span class="tag">Concept · demo data</span>
+    <span class="tag">Concept · October 2026</span>
   </header>
   <div class="lay">
     <section class="card chart" aria-label="Revenue chart"><h2><span id="cTitle">MRR · last 12 months</span><i id="cNote">click any month</i></h2><p class="finding" id="finding"></p><div id="chart"></div><div class="legend" id="legend"></div></section>
@@ -153,7 +156,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept · prototype</span><h2>Explaining why monthly revenue moved</h2>
-      <p class="lede">When MRR drops, a finance or success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
+      <p class="lede">When monthly revenue drops, a customer-success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Problem</dt><dd>Dashboards show that revenue fell, but not why. Teams export data and rebuild the story by hand, so action comes late.</dd>
@@ -165,7 +168,8 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
         <li><b>Honest about the data.</b> If billing data is incomplete, the view says so before anyone acts on it.</li>
         <li><b>End in an action.</b> The explanation turns into a win-back task with an owner, confirmed before it's created.</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable prototype of the full path, from the drop to the bridge, the accounts, the signals and the task, with empty, loading, incomplete-data and task-error states. Not yet tested with real users or real billing data.</dd>
-      <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). This is not a finance background, and not a claim that these numbers came from a real company.</dd>
+      <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser. Not tested with real users or real billing data.</dd>
     </dl>
   </section>
   <div class="foot"><span>Interface Lab · Tidewell · concept</span><span>Concept direction: Cesar Navarro</span></div>

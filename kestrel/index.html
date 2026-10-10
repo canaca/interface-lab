@@ -50,6 +50,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
 .brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
 .brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
@@ -183,12 +185,13 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 <main>
 <div class="wrap">
   <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
     <h1 class="brand"><b>Kestrel</b><span>Agent Console</span></h1>
     <span class="crumbs">LEDGERLY · SUPPORT · TICKET #4182</span>
     <span class="sp"></span>
     <span class="chip" id="runPill">Idle</span>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live run</option><option value="empty">Empty · queue clear</option><option value="loading">Loading</option><option value="toolerr">Error · billing down</option><option value="senderr">Error · send fails</option></select></label>
-    <span class="tag">Concept · demo data</span>
+    <span class="tag">Concept · October 2026</span>
   </header>
 
   <section class="card pipe" aria-label="Run pipeline">
@@ -221,7 +224,8 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
         <li><b>Nothing leaves without a person.</b> The refund and the customer reply each have their own gate. Drafts say "not sent."</li>
         <li><b>Failures say what did not happen.</b> "Nothing was changed" and "Not sent. Draft saved."</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable prototype of the full run: ticket, tool calls, approval, refund, reply and send, with empty, loading, tool error and send error states. Not yet tested with real users or a real billing system.</dd>
-      <dt>Label</dt><dd>Concept. The company, customer and data are fictional. The interface and its state flow are real and run in the browser.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). Not a client project, and not a claim that he hand-coded the prototype.</dd>
+      <dt>Label</dt><dd>Concept. The company, customer and data are fictional. The interface and its state flow are real and run in the browser. Not tested with real users or a real billing system.</dd>
     </dl>
   </section>
   <div class="foot"><span>Interface Lab · Kestrel · concept</span><span>Concept direction: Cesar Navarro</span></div>
@@ -318,7 +322,7 @@ async function send(){const run=W.run;const t=$("draftText");if(t){W.draft=t.val
   W.tools++;stats();node("gate2","done");$("draftState").textContent="Sent";done(true)}
 function done(sent){W.state="done";pill("Done","ok");const secs=((performance.now()-W.t0)/1000).toFixed(0);
   need(`<div class="row" style="gap:12px"><span class="okmark">${CHECK}</span><div><div class="big" style="font-size:20px">${sent?"Ticket resolved":"Saved as draft"}</div><div class="sub">${W.decision==="approved"?`Refunded $${W.amount.toFixed(2)}. `:"No refund. "}${sent?"Reply sent to Dana.":"Reply waiting in drafts."} ${secs} s, ${W.tools} tool calls.</div></div></div>
-    <div class="row" style="margin-top:14px"><button class="btn pri" data-act="next">Next ticket</button></div>`,false);toast(sent?"Ticket #4182 resolved":"Draft saved. Nothing was sent.")}
+    <div class="row" style="margin-top:14px"><button class="btn pri" data-act="next">Clear the queue</button></div>`,false);toast(sent?"Ticket #4182 resolved":"Draft saved. Nothing was sent.")}
 
 $("need").addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b||b.disabled)return;const a=b.dataset.act;
   if(a==="run")runAgent();

@@ -1,6 +1,6 @@
 # Interface Lab
 
-Live, working interface concepts for AI and data products, directed by Cesar Navarro.
+Live, working interface concepts directed by Cesar Navarro. The pieces are October 2026 concept work. He set the problem, the user, and the flow. The builds were made with AI tools under that direction. Websites and landing pages, through Simple Solutions, since 2020.
 
 Every piece here runs in the browser. Click, drag, approve, undo, and see what happens.
 
@@ -8,11 +8,13 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 
 | Piece | Label | What it shows |
 | --- | --- | --- |
-| [Valley Grid Operations](valley-grid/) | Concept | Investigate an equipment alert on a live 3D transformer, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)) |
-| [Kestrel Agent Console](kestrel/) | Concept | An AI agent handles a refund ticket. A person approves the money and the reply. |
-| [Decision OS](decision-os/) | Working build | Import a sample ChatGPT export and see where everything stands. Demo uses fictional data. |
-| [Harbor CRM Copilot](harbor-copilot/) | Concept | Bulk deal cleanup from AI, shown as diffs in the table, with conflicts and undo |
-| [Tidewell Revenue Pulse](tidewell/) | Concept | Why June revenue fell, down to the four accounts and a win-back task |
+| [Keel Account Health](keel/) | Concept · October 2026 | A customer-success book: health from five visible signals, filters, a confirmed next step, tasks, undo, and a sample CSV |
+| [Relay Speed to Lead](relay/) | Concept · October 2026 | Instant reply, missed-call text, and a pipeline, previewed on fictional leads. Nothing sends |
+| [Valley Grid Operations](valley-grid/) | Concept · October 2026 | Investigate an equipment alert, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)). The 3D scene was generated with AI tools under direction |
+| [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money and the reply |
+| [Harbor CRM Copilot](harbor-copilot/) | Concept · October 2026 | Bulk deal cleanup shown as diffs in the table, with conflicts and undo |
+| [Decision OS](decision-os/) | Concept · October 2026 | Import a sample ChatGPT export and see where everything stands. Fictional data. Not a shipped product |
+| [Tidewell Revenue Pulse](tidewell/) | Concept · October 2026 | Why a fictional month of revenue moved, down to four accounts and a win-back task. Not a finance claim |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 
