@@ -9,6 +9,8 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | Piece | Label | What it shows |
 | --- | --- | --- |
 | [Keel Account Health](keel/) | Concept · October 2026 | A customer-success book: health from five visible signals, filters, a confirmed next step, tasks, undo, and a sample CSV |
+| [Linden Client Book](linden/) | Concept · October 2026 | A boutique morning book: who is due, what they prefer, and a draft that never sends. Fictional clients. No prices |
+| [Berth Onboarding](berth/) | Concept · October 2026 | A new-account checklist: blocked steps, who owes the next one, and a nudge that stays a task. Nothing is emailed |
 | [Relay Speed to Lead](relay/) | Concept · October 2026 | Instant reply, missed-call text, and a pipeline, previewed on fictional leads. Nothing sends |
 | [Valley Grid Operations](valley-grid/) | Concept · October 2026 | Investigate an equipment alert, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)). The 3D scene was generated with AI tools under direction |
 | [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money and the reply |
