@@ -50,6 +50,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
 .brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
 .brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
@@ -171,11 +173,12 @@ tr.failed td{background:rgba(226,114,91,.07)}
 <main>
 <div class="wrap">
   <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
     <h1 class="brand"><b>Harbor</b><span>Pipeline · Q4</span></h1>
     <span class="crumbs">14 OPEN DEALS · NORTH AMERICA</span>
     <span class="sp"></span>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing stalled</option><option value="loading">Loading · scanning</option><option value="partial">Error · 2 changes fail</option></select></label>
-    <span class="tag">Concept · demo data</span>
+    <span class="tag">Concept · October 2026</span>
   </header>
 
   <div class="lay">
@@ -204,7 +207,8 @@ tr.failed td{background:rgba(226,114,91,.07)}
         <li><b>Partial failure is precise.</b> It names the changes that failed and confirms the rest were applied.</li>
         <li><b>Undo at every level.</b> Undo one change from the log, or undo the whole set.</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable prototype of the full change-set flow: scan, review, bulk apply, conflict, partial failure and undo, plus empty and loading states. Not yet tested with real users or a real CRM.</dd>
-      <dt>Label</dt><dd>Concept. The company, people and deals are fictional. The interface and its state flow are real and run in the browser.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). Not a client pipeline, and not a claim that he hand-coded the prototype.</dd>
+      <dt>Label</dt><dd>Concept. The company, people and deals are fictional. The “14 deals” on this page are demo rows, not a client book. Not tested with real users or a real CRM.</dd>
     </dl>
   </section>
   <div class="foot"><span>Interface Lab · Harbor · concept</span><span>Concept direction: Cesar Navarro</span></div>
@@ -250,14 +254,15 @@ const prop=id=>S.mode==="review"||S.mode==="applying"?SET.find(p=>p.id===id):nul
 function cell(d,f,p){const c=p&&p.ch.find(x=>x[0]===f);const v=d[f];
   const base=f==="stage"?`<span class="st ${v==="Closed lost"?"lost":""}">${esc(v)}</span>`:esc(v);
   if(!c)return base;return `<div class="diff"><span class="old">${esc(v||"—")}</span><span class="new">${esc(c[1])}</span><span class="why">${esc(c[2])}</span></div>`}
+function changed(id){if(S.mode==="review"||S.mode==="applying")return !!SET.find(p=>p.id===id);return S.log.some(e=>e.id===id)}
 function table(){const showSel=S.mode==="review";
-  const rows=S.deals.slice().sort((a,b)=>b.amt-a.amt).map(d=>{const p=prop(d.id),conf=p&&p.conflict&&!S.conf[d.id];const cls=[p?"prop":"",p&&p.risky?"risky":"",conf?"conflict":"",S.only&&!p?"hide":"",S.failed.includes(d.id)?"failed":""].join(" ");
+  const rows=S.deals.slice().sort((a,b)=>b.amt-a.amt).map(d=>{const p=prop(d.id),conf=p&&p.conflict&&!S.conf[d.id];const cls=[p?"prop":"",p&&p.risky?"risky":"",conf?"conflict":"",S.only&&!changed(d.id)?"hide":"",S.failed.includes(d.id)?"failed":""].join(" ");
     const box=showSel&&p?(conf?`<div class="conf"><span>${esc(p.conflict.who)} ${esc(p.conflict.what)} ${esc(p.conflict.ago)}, after the copilot looked.</span><span class="row"><button class="btn sm" data-res="apply" data-id="${d.id}">Apply copilot's on top</button><button class="btn sm ghost" data-res="skip" data-id="${d.id}">Skip deal</button></span></div>`:S.conf[d.id]==="skip"?`<span class="chip">Skipped</span>`:`<input type="checkbox" class="cbx" data-id="${d.id}" ${S.sel.has(d.id)?"checked":""} aria-label="Apply changes to ${esc(d.co)}">`):"";
     const flagNew=p&&p.ch.find(x=>x[0]==="flag");
     return `<tr class="${cls}" data-row="${d.id}"><td style="width:${showSel?190:36}px">${box}</td><td><div class="co"><b style="font-weight:500">${esc(d.n)}${d.flag?`<span class="flag">${esc(d.flag)}</span>`:""}${flagNew?`<span class="flag" style="opacity:.75">+ At risk</span>`:""}</b><span>${esc(d.co)}</span></div></td>
       <td class="r m">${$f(d.amt)}</td><td>${cell(d,"stage",p)}</td><td>${cell(d,"owner",p)}</td><td class="m">${cell(d,"close",p)}</td><td>${cell(d,"next",p)}</td><td><span class="quiet ${d.quiet>=21&&d.stage!=="Closed lost"?"hot":""}">${d.quiet}d</span></td></tr>`}).join("");
   $("tbl").innerHTML=`<thead><tr><th><span class="vh">Select</span></th><th>Deal</th><th class="r">Amount</th><th>Stage</th><th>Owner</th><th>Close</th><th>Next step</th><th>Quiet</th></tr></thead><tbody>${rows}</tbody>`;
-  $("onlyWrap").hidden=!(S.mode==="review"||S.mode==="applying");$("tTitle").textContent=S.mode==="review"?"Proposed change set":"All deals";$("tCount").textContent=S.mode==="review"?`${SET.length} deals · ${SET.reduce((a,p)=>a+p.ch.length,0)} changes`:S.deals.length;bulk()}
+  $("onlyWrap").hidden=!(S.mode==="review"||S.mode==="applying"||(S.mode==="done"&&S.log.length));$("tTitle").textContent=S.mode==="review"?"Proposed change set":S.mode==="done"?"Deals after this pass":"All deals";$("tCount").textContent=S.mode==="review"?`${SET.length} deals · ${SET.reduce((a,p)=>a+p.ch.length,0)} changes`:S.deals.length;bulk()}
 function selCount(){return [...S.sel].reduce((a,id)=>a+SET.find(p=>p.id===id).ch.length,0)}
 function bulk(){const b=$("bulk");if(S.mode!=="review"){b.hidden=true;return}b.hidden=false;const n=S.sel.size,c=selCount(),held=SET.filter(p=>p.conflict&&!S.conf[p.id]).length;
   b.innerHTML=`<b style="font-weight:500">${n} deal${n===1?"":"s"} · ${c} change${c===1?"":"s"} selected</b>${held?`<span class="chip warn">${held} held: edited by a teammate</span>`:""}<span class="sp" style="flex:1"></span><button class="btn ghost" data-b="none">Clear</button><button class="btn ghost" data-b="safe">Select safe</button><button class="btn pri" data-b="apply" ${c?"":"disabled"}>Apply ${c} change${c===1?"":"s"}</button><button class="btn" data-b="discard">Discard set</button>`}
@@ -281,7 +286,7 @@ async function apply(){const my=++run;const ids=[...S.sel];S.mode="applying";tab
   S.log=batch.concat(S.log);S.mode="done";table();log();
   const n=batch.reduce((a,b)=>a+b.n,0),skipped=SET.filter(p=>p.conflict&&S.conf[p.id]!=="apply"&&!ids.includes(p.id)).length;
   cop(`<div class="me">Clean up stalled deals</div><p class="sum"><b>${n} change${n===1?"":"s"} applied</b> to ${batch.length} deal${batch.length===1?"":"s"}.${skipped?` ${skipped} held deal skipped.`:""}</p>
-   ${S.failed.length?`<div class="err"><div><b>${S.failed.length} deals didn't save.</b><br>The CRM rejected Fernwood Labs and Tandem Coaching. Everything else was applied.</div><button class="btn sm" data-c="retryFail">Retry those ${S.failed.length}</button></div>`:""}
+   ${S.failed.length?`<div class="err"><div><b>${S.failed.length} deal${S.failed.length===1?"":"s"} didn't save.</b><br>The CRM rejected ${S.failed.map(id=>{const d=S.deals.find(x=>x.id===id);return d?esc(d.co):"a deal"}).join(" and ")}. Everything else you selected was applied.</div><button class="btn sm" data-c="retryFail">Retry those ${S.failed.length}</button></div>`:""}
    <div class="row"><button class="btn" data-c="undoAll">Undo all</button><button class="btn ghost" data-c="restart">Done</button></div>`);
   toast(`${n} changes applied`,true)}
 async function retryFail(){const ids=S.failed.slice();S.failed=[];D="live";$("demo").value="live";const batch=[];

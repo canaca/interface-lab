@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Relay · Speed to lead, before anything sends</title>
+<meta name="description" content="October 2026 concept: assemble an instant reply, a missed-call text, and a pipeline, then preview it on fictional leads. Nothing sends.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Relay · Speed to lead, before anything sends">
+<meta property="og:description" content="October 2026 concept. A follow-up path for a fictional local service business. Previews never send.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/relay/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
+<meta property="og:image:alt" content="Relay: a follow-up builder with a preview that says nothing was sent">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Relay · Speed to lead, before anything sends">
+<meta name="twitter:description" content="October 2026 concept. Instant reply, missed-call text, and a pipeline on fictional leads.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
+<meta name="twitter:image:alt" content="Relay: a follow-up builder with a preview that says nothing was sent">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+a.home:hover{color:var(--cream)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.tbtn:hover{border-color:var(--edge-2)}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:11.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:12px 0 8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.err b{color:var(--cream);font-weight:500}
+.sheet{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2)}
+.sheet textarea,.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13px}
+.sheet textarea{min-height:72px;resize:vertical}
+@keyframes arrive{from{opacity:0;transform:translateY(-6px)}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+.spin.lt{border-color:rgba(255,222,190,.2);border-top-color:var(--cream)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.okmark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(111,227,208,.4);color:var(--accent);background:rgba(111,227,208,.08);flex:none}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer;color:var(--cream)}
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-family:var(--sans);font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;text-transform:none;color:var(--cream)}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.cs ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cs ol b{font-weight:600}
+.contact{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.contact code{color:var(--cream);user-select:all}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;border:1px dashed var(--edge-2);color:var(--muted);font-size:13px}
+.lay{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(0,1.4fr);gap:14px;align-items:start}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--edge)}
+.switch:first-child{border-top:0}
+.switch b{font-weight:500}
+.tog{width:42px;height:24px;border-radius:99px;border:1px solid var(--edge-2);background:rgba(0,0,0,.25);position:relative;cursor:pointer;flex:none}
+.tog i{position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:var(--muted);transition:.2s}
+.tog.on{border-color:var(--accent);background:rgba(111,227,208,.15)}
+.tog.on i{left:20px;background:var(--accent)}
+.preview{white-space:pre-wrap;border-radius:12px;border:1px solid var(--edge);padding:10px 12px;background:rgba(0,0,0,.2);color:var(--cream);font-size:13.5px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters select,.filters input{background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:8px 10px}
+.board{display:grid;grid-template-columns:repeat(4,minmax(160px,1fr));gap:8px;overflow:auto}
+.col{min-height:180px;border-radius:12px;border:1px dashed var(--edge);padding:8px;background:rgba(0,0,0,.15)}
+.col.over{border-color:var(--accent);background:rgba(111,227,208,.06)}
+.col h3{margin:0 0 8px;font-size:12px;font-weight:500;display:flex;justify-content:space-between;gap:6px;align-items:center}
+.col h3 input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--edge);color:var(--cream);font:inherit;font-size:12px;padding:2px 0}
+.lead{border:1px solid var(--edge);border-radius:12px;padding:10px;margin-bottom:8px;background:rgba(255,222,190,.04);cursor:grab}
+.lead header{display:flex;justify-content:space-between;gap:6px;align-items:flex-start}
+.lead b{font-weight:500}
+.lead .meta{color:var(--dim);font-size:12px;margin:4px 0 8px}
+.moves{display:flex;flex-wrap:wrap;gap:4px}
+.run{margin-top:14px}
+.steps{list-style:none;margin:8px 0 0;padding:0}
+.steps li{display:grid;grid-template-columns:18px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--edge)}
+.steps li:first-child{border-top:0}
+.dot{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--edge-2);margin-top:2px}
+.steps .ok .dot{background:var(--accent);border-color:var(--accent)}
+.steps .skip .dot{border-color:var(--dim)}
+.steps .stop .dot,.steps .fail .dot{background:var(--red);border-color:var(--red)}
+@media (max-width:1000px){.lay{grid-template-columns:minmax(0,1fr)}.board{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.board{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.cs{grid-template-columns:minmax(0,1fr)}.cs dl{grid-template-columns:1fr}.cs dt{padding-top:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.tog i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="wrap">
+  <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
+    <h1 class="brand"><b>Relay</b><span>Speed to lead</span></h1>
+    <span class="crumbs">CEDAR HEATING · SAMPLE LEADS</span>
+    <span class="sp"></span>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state">
+      <option value="live">Live preview</option>
+      <option value="empty">Empty · no leads</option>
+      <option value="loading">Loading</option>
+      <option value="senderr">Error · preview fails</option>
+    </select></label>
+    <span class="tag">Concept · October 2026</span>
+  </header>
+  <p class="banner">Sample data for Cedar Heating, a fictional local service business. Message previews never send a text or an email. This is not a live inbox and not a CRM login.</p>
+  <div class="lay">
+    <section class="card" aria-label="Follow-up builder">
+      <h2>Follow-up path <i>off until you turn a step on</i></h2>
+      <div id="builder"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn sm" id="exportBtn" type="button">Export summary</button>
+        <button class="btn sm" id="copyBtn" type="button">Copy summary</button>
+        <button class="btn sm ghost" id="resetBtn" type="button">Reset sample</button>
+      </div>
+    </section>
+    <section class="card" aria-label="Demo pipeline">
+      <h2>Demo leads <i id="leadNote">sample</i></h2>
+      <div class="filters" id="filters"></div>
+      <div class="row" style="margin-bottom:10px">
+        <button class="btn sm" id="undoBtn" type="button" disabled>Undo last move</button>
+        <span class="note" id="filterCount"></span>
+      </div>
+      <div class="board" id="board"></div>
+    </section>
+  </div>
+  <section class="card run" aria-label="Test run">
+    <h2>Test run <i>shows what would send</i></h2>
+    <div id="run"></div>
+  </section>
+
+  <section class="cs" aria-label="Case study">
+    <div><span class="tag">Concept · October 2026</span><h2>Showing the follow-up before anything goes out</h2>
+      <p class="lede">A local service business already has the lead. Relay is the path after the click or the missed call: an instant reply, a text-back, a stage, and a task. The owner reads the preview first.</p>
+      <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
+    <dl>
+      <dt>Problem</dt><dd>The form sits there, or the call hits voicemail, and nobody has a next step. Turning on an automation without seeing the message is how the wrong text goes out.</dd>
+      <dt>User</dt><dd>The owner or office manager of a local service business that already runs ads. They are not a CRM administrator. They need to see what would be sent, to whom, and what happens if a step is off.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>Preview, then nothing sends.</b> Every message card says so. The test run repeats it.</li>
+        <li><b>Each trigger can be off.</b> Form, missed call, and stage change are separate switches. An off trigger stops that path.</li>
+        <li><b>A duplicate does not get a second message.</b> The sample book includes one, and the run stops there.</li>
+        <li><b>The pipeline is the same list.</b> Move a lead with a button or by dragging. Undo puts it back.</li>
+        <li><b>A failed preview names what did not happen.</b> Nothing is marked sent, and the stage does not move.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the builder, the filters, the pipeline, the test run, and the export, with empty, loading, and preview-error states. Not tested with a real owner. No claim that replies got faster.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). The pattern is the kind of follow-up used in a CRM. It is not a GoHighLevel screenshot, not a certification, and not a client account.</dd>
+      <dt>Label</dt><dd>Concept. Cedar Heating and every lead are fictional. No prices. Nothing is sent.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Relay · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></div>
+</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden type="button">Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const TRIG={form:"Form submitted",call:"Call missed",stage:"Stage changed"};
+function seedLeads(){return [
+  {id:"l1",n:"Dana Ortiz",trigger:"form",stage:"New",when:"2 min ago",phone:"555-0142",dup:false,missed:false,sim:false},
+  {id:"l2",n:"Chris Lang",trigger:"call",stage:"New",when:"11 min ago",phone:"555-0177",dup:false,missed:true,sim:false},
+  {id:"l3",n:"Dana Ortiz",trigger:"form",stage:"New",when:"2 min ago",phone:"555-0142",dup:true,dupOf:"l1",missed:false,sim:false},
+  {id:"l4",n:"Riley Chen",trigger:"form",stage:"Contacted",when:"yesterday",phone:"555-0190",dup:false,missed:false,sim:false},
+  {id:"l5",n:"Jordan Hale",trigger:"call",stage:"Booked",when:"3 days ago",phone:"555-0114",dup:false,missed:true,sim:false},
+  {id:"l6",n:"Sam Patel",trigger:"stage",stage:"New",when:"today",phone:"555-0166",dup:false,missed:false,sim:false},
+  {id:"l7",n:"Avery Kim",trigger:"form",stage:"Closed",when:"last week",phone:"555-0188",dup:false,missed:false,sim:false},
+  {id:"l8",n:"Morgan Diaz",trigger:"call",stage:"Contacted",when:"4 hours ago",phone:"555-0133",dup:false,missed:true,sim:false}
+];}
+let D="live",run=0;
+const S={
+  leads:[],stages:["New","Contacted","Booked","Closed"],
+  triggers:{form:true,call:true,stage:false},
+  replyOn:true,reply:"Hi, this is Cedar Heating. We got your request and someone will call you shortly.",replySaved:"Hi, this is Cedar Heating. We got your request and someone will call you shortly.",
+  textOn:true,text:"Sorry we missed you. Reply here and we will get you on the schedule.",textSaved:"Sorry we missed you. Reply here and we will get you on the schedule.",
+  taskOn:true,task:"Call this lead back today.",taskSaved:"Call this lead back today.",
+  stageF:"all",triggerF:"all",statusF:"all",
+  pick:"",last:null,undo:[],errUsed:false,running:false
+};
+function reset(){run++;const b=seedLeads();Object.assign(S,{leads:b,stages:["New","Contacted","Booked","Closed"],triggers:{form:true,call:true,stage:false},replyOn:true,reply:S.reply,replySaved:"Hi, this is Cedar Heating. We got your request and someone will call you shortly.",textOn:true,text:S.text,textSaved:"Sorry we missed you. Reply here and we will get you on the schedule.",taskOn:true,task:S.task,taskSaved:"Call this lead back today.",stageF:"all",triggerF:"all",statusF:"all",pick:"",last:null,undo:[],errUsed:false,running:false});
+  S.reply=S.replySaved;S.text=S.textSaved;S.task=S.taskSaved;}
+function lead(id){return S.leads.find(l=>l.id===id)}
+function plan(l){
+  const steps=[{k:"ok",t:`${l.n} arrived · ${TRIG[l.trigger].toLowerCase()} · ${l.when}.`}];
+  if(l.dup){const o=lead(l.dupOf);steps.push({k:"stop",t:`Duplicate of ${o?o.n:"an earlier lead"}. No second message. Nothing was sent.`});return steps}
+  if(l.stage==="Closed"){steps.push({k:"stop",t:"This lead is Closed. No message. Nothing was sent."});return steps}
+  if(!S.triggers[l.trigger]){steps.push({k:"stop",t:`The “${TRIG[l.trigger]}” trigger is off. Path stopped. Nothing was sent.`});return steps}
+  if(l.trigger==="form"){
+    if(!S.replyOn)steps.push({k:"skip",t:"Instant reply is off. No reply would go out."});
+    else if(S.reply.trim()!==S.replySaved.trim())steps.push({k:"stop",t:"Instant reply has unsaved edits. Save the preview first. Nothing was sent."});
+    else if(S.replySaved.trim().length<3)steps.push({k:"stop",t:"Instant reply is on, but the message is not saved. Nothing was sent."});
+    else steps.push({k:"send",t:"Would send the instant reply.",body:S.replySaved});
+  }
+  if((l.trigger==="call"||l.missed)&&!steps.some(s=>s.k==="stop")){
+    if(!S.textOn)steps.push({k:"skip",t:"Missed-call text is off. No text would go out."});
+    else if(S.text.trim()!==S.textSaved.trim())steps.push({k:"stop",t:"Missed-call text has unsaved edits. Save the preview first. Nothing was sent."});
+    else if(S.textSaved.trim().length<3)steps.push({k:"stop",t:"Missed-call text is on, but the message is not saved. Nothing was sent."});
+    else steps.push({k:"send",t:"Would send the missed-call text.",body:S.textSaved});
+  }
+  if(steps.some(s=>s.k==="stop"))return steps;
+  if(S.taskOn){
+    if(S.task.trim()!==S.taskSaved.trim())steps.push({k:"skip",t:"Owner task has unsaved edits, so no task would be added."});
+    else if(S.taskSaved.trim().length<3)steps.push({k:"skip",t:"Owner task is on, but the task text is not saved. No task would be added."});
+    else steps.push({k:"ok",t:"Would add an owner task.",body:S.taskSaved});
+  }else steps.push({k:"skip",t:"Owner task is off."});
+  if(l.trigger==="stage")steps.push({k:"ok",t:"This lead’s event is a stage change, so no customer message is part of this path."});
+  steps.push({k:"ok",t:"End of preview. Nothing was sent."});
+  return steps;
+}
+function wouldText(l){if(l.sim)return false;const p=plan(l);return p.some(s=>s.k==="send")&&!p.some(s=>s.k==="stop")}
+function stillOpen(l){return l.stage==="New"||l.stage==="Contacted"}
+function shown(l){
+  if(S.stageF!=="all"&&l.stage!==S.stageF)return false;
+  if(S.triggerF!=="all"&&l.trigger!==S.triggerF)return false;
+  if(S.statusF==="text"&&!wouldText(l))return false;
+  if(S.statusF==="open"&&!stillOpen(l))return false;
+  return true;
+}
+let tt;function toast(m,u){$("toastMsg").textContent=m;$("toastUndo").hidden=!u;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),3200)}
+function snap(){S.undo.push(JSON.stringify(S.leads));if(S.undo.length>20)S.undo.shift();}
+function undo(){const raw=S.undo.pop();if(!raw)return;S.leads=JSON.parse(raw);render();toast("Undone on the sample book. Nothing was sent.");}
+
+function builder(){
+  const tog=(on,key,label,sub)=>`<div class="switch"><div><b>${label}</b><div class="note">${sub}</div></div><button type="button" class="tog${on?" on":""}" data-tog="${key}" role="switch" aria-checked="${on}" aria-label="${label}"><i></i></button></div>`;
+  const msg=(key,on,val,saved,label)=>`<div class="sec"><span>${label}</span><span>${on?"On":"Off"} · ${val.trim()===saved.trim()&&saved.trim().length>=3?"saved":"not saved"}</span></div>
+    <textarea id="${key}In" aria-label="${label}" ${D==="loading"?"disabled":""}>${esc(val)}</textarea>
+    <p class="note" id="${key}Err" hidden style="color:var(--red)">Write at least 3 characters, then save. Nothing was sent.</p>
+    <div class="row" style="margin-top:8px"><button class="btn sm" type="button" data-save="${key}">Save preview</button><span class="note">${on?"This step can be used in a test run.":"This step is off. A test run will skip it."}</span></div>
+    <div class="preview" style="margin-top:8px">${on&&saved.trim().length>=3?esc(saved):"No saved preview."}</div>`;
+  $("builder").innerHTML=tog(S.triggers.form,"form","Form submitted","A new form lead can get the instant reply.")+
+    tog(S.triggers.call,"call","Call missed","A missed call can get the text-back.")+
+    tog(S.triggers.stage,"stage","Stage changed","Moving a lead can add the owner task. It does not text anyone by itself.")+
+    msg("reply",S.replyOn,S.reply,S.replySaved,"Instant reply")+tog(S.replyOn,"replyOn","Instant reply step","Turn off to keep the words without using them.")+
+    msg("text",S.textOn,S.text,S.textSaved,"Missed-call text")+tog(S.textOn,"textOn","Missed-call step","Turn off and missed calls stay in the book with no text.")+
+    msg("task",S.taskOn,S.task,S.taskSaved,"Owner task")+tog(S.taskOn,"taskOn","Owner task step","A task for the person who returns the call. It is not a message to the lead.");
+}
+function filters(){
+  const opt=(v,l,cur)=>`<option value="${esc(v)}"${cur===v?" selected":""}>${esc(l)}</option>`;
+  const textN=S.leads.filter(wouldText).length, openN=S.leads.filter(stillOpen).length;
+  $("filters").innerHTML=`
+    <select id="fStage" aria-label="Stage">${opt("all","All stages",S.stageF)}${S.stages.map(s=>opt(s,s,S.stageF)).join("")}</select>
+    <select id="fTrig" aria-label="Trigger">${opt("all","All triggers",S.triggerF)}${opt("form","Form submitted",S.triggerF)}${opt("call","Call missed",S.triggerF)}${opt("stage","Stage changed",S.triggerF)}</select>
+    <select id="fStatus" aria-label="Status">${opt("all","All leads",S.statusF)}${opt("text","Would text ("+textN+")",S.statusF)}${opt("open","Still open ("+openN+")",S.statusF)}</select>
+    <button class="btn sm ghost" id="clearF" type="button">Clear filters</button>`;
+}
+function board(){
+  if(D==="loading"){$("board").innerHTML=[1,2,3,4].map(()=>`<div class="col"><div class="sk" style="height:18px"></div><div class="sk" style="height:64px;margin-top:8px"></div></div>`).join("");$("leadNote").textContent="loading";$("filterCount").textContent="";return}
+  if(D==="empty"){$("board").innerHTML=`<div class="empty"><span class="okmark">✓</span><b>No demo leads</b><div class="sub">The builder still works. Load the sample leads to preview a path.</div><button class="btn" type="button" data-load>Load sample leads</button></div>`;$("leadNote").textContent="empty";$("filterCount").textContent="";return}
+  const vis=S.leads.filter(shown);
+  $("leadNote").textContent=`${vis.length} of ${S.leads.length}`;
+  $("filterCount").textContent=vis.length===S.leads.length?"Showing the full sample book.":`Showing ${vis.length}. The others are hidden by the filter, not deleted.`;
+  $("board").innerHTML=S.stages.map(stage=>{
+    const cards=vis.filter(l=>l.stage===stage);
+    return `<div class="col" data-stage="${esc(stage)}"><h3><input data-rename="${esc(stage)}" value="${esc(stage)}" aria-label="Rename stage ${esc(stage)}" maxlength="24"><span class="chip">${cards.length}</span></h3>`+
+      (cards.length?cards.map(card).join(""):`<p class="note">${vis.length?"No lead in this stage for the current filter.":"No leads match."}</p>`)+`</div>`;
+  }).join("");
+}
+function card(l){
+  const text=wouldText(l), open=stillOpen(l);
+  const moves=S.stages.filter(s=>s!==l.stage).map(s=>`<button class="btn sm ghost" type="button" data-move="${l.id}" data-to="${esc(s)}">${esc(s)}</button>`).join("");
+  return `<article class="lead" draggable="true" data-id="${l.id}"><header><b>${esc(l.n)}</b><span class="chip">${esc(TRIG[l.trigger])}</span></header>
+    <div class="meta">${esc(l.when)} · ${esc(l.phone)} · ${esc(l.stage)}</div>
+    <div class="row" style="margin-bottom:8px">${l.dup?'<span class="chip bad">Duplicate</span>':""}${l.sim?'<span class="chip ok">Previewed</span>':text?'<span class="chip warn">Would text</span>':'<span class="chip">No text</span>'}${open?'<span class="chip">Open</span>':""}</div>
+    <div class="moves">${moves}<button class="btn sm" type="button" data-pick="${l.id}">Test this lead</button></div></article>`;
+}
+function runBox(){
+  const el=$("run");
+  if(D==="loading"){el.innerHTML='<div class="row"><span class="spin lt"></span><span class="sub">Leads are still loading. Nothing is being sent.</span></div>';return}
+  if(D==="empty"){el.innerHTML='<p class="note">No demo leads to run. The empty state does not send anything.</p>';return}
+  const opts=S.leads.map(l=>`<option value="${l.id}"${S.pick===l.id?" selected":""}>${esc(l.n)} · ${esc(l.stage)} · ${esc(TRIG[l.trigger])}${l.dup?" · duplicate":""}</option>`).join("");
+  el.innerHTML=`<div class="row"><label class="note" for="pick">Lead</label><select id="pick" aria-label="Lead to preview">${opts}</select><button class="btn pri" type="button" id="goRun" ${S.running?"disabled":""}>${S.running?"Running…":"Run preview"}</button></div>
+    <div id="transcript">${S.last?transcript(S.last):'<p class="note" style="margin-top:10px">Pick a lead and run the preview. You will see each step before any sample status changes.</p>'}</div>`;
+}
+function transcript(last){
+  return `<ol class="steps">${last.steps.map(s=>`<li class="${s.k}"><i class="dot"></i><div><div>${esc(s.t)}</div>${s.body?`<div class="preview" style="margin-top:6px">${esc(s.body)}</div>`:""}</div></li>`).join("")}</ol>`+
+    (last.failed?`<div class="err" style="margin-top:10px"><div><b>The preview did not finish.</b><br>Nothing was sent. The lead stayed in ${esc(last.stage)}.</div><button class="btn sm" type="button" id="tryRun">Try again</button></div>`:"");
+}
+function render(){builder();filters();board();runBox();$("undoBtn").disabled=!S.undo.length}
+function summary(){
+  const lines=[
+    "Relay speed-to-lead · sample data · October 2026 concept",
+    "Business: Cedar Heating (fictional). Nothing in this file was sent.",
+    "",
+    "Triggers:",
+    ...Object.keys(S.triggers).map(k=>`- ${TRIG[k]}: ${S.triggers[k]?"on":"off"}`),
+    "",
+    "Instant reply: "+(S.replyOn?"on":"off"),
+    S.replySaved||"(not saved)",
+    "",
+    "Missed-call text: "+(S.textOn?"on":"off"),
+    S.textSaved||"(not saved)",
+    "",
+    "Owner task: "+(S.taskOn?"on":"off"),
+    S.taskSaved||"(not saved)",
+    "",
+    "Stages: "+S.stages.join(" → "),
+    "",
+    "Demo leads:",
+    ...S.leads.map(l=>`- ${l.n} · ${l.stage} · ${TRIG[l.trigger]}${l.dup?" · duplicate":""}${l.sim?" · previewed":""}${wouldText(l)?" · would text":""}`),
+    "",
+    "Last preview:",
+    S.last?S.last.steps.map(s=>"- "+s.t+(s.body?"\n  "+s.body:"")).join("\n"):"No test run yet."
+  ];
+  return lines.join("\n");
+}
+function move(id,to){
+  const l=lead(id);if(!l||l.stage===to||!S.stages.includes(to))return;
+  snap();const from=l.stage;l.stage=to;
+  if(S.triggers.stage&&!l.dup)l.sim=false;
+  render();toast(`${l.n} moved from ${from} to ${to}. Nothing was sent.`,true);
+}
+async function goRun(){
+  const id=$("pick")?$("pick").value:S.pick;S.pick=id;const l=lead(id);if(!l)return;
+  const my=++run;S.running=true;runBox();
+  await sleep(500);if(my!==run)return;
+  let steps=plan(l);
+  const wouldSend=steps.some(s=>s.k==="send");
+  let failed=false;
+  if(D==="senderr"&&wouldSend&&!S.errUsed){
+    S.errUsed=true;failed=true;
+    const cut=[];
+    for(const s of steps){if(s.k==="send"){cut.push({k:"fail",t:"Preview failed before this message. Nothing was sent."});break}cut.push(s)}
+    steps=cut;
+  }
+  S.last={steps,failed,stage:l.stage,id:l.id};
+  if(!failed&&!steps.some(s=>s.k==="stop")&&steps.some(s=>s.k==="send")){
+    snap();l.sim=true;if(l.stage==="New")l.stage="Contacted";
+  }
+  S.running=false;render();
+  toast(failed?"Preview failed. Nothing was sent.":"Preview finished. Nothing was sent.");
+}
+function saveKey(key){
+  const el=$(key+"In");if(!el)return;const v=el.value;
+  if(key==="reply")S.reply=v;else if(key==="text")S.text=v;else S.task=v;
+  if(v.trim().length<3){$(key+"Err").hidden=false;return}
+  if(key==="reply")S.replySaved=v.trim();else if(key==="text")S.textSaved=v.trim();else S.taskSaved=v.trim();
+  render();toast("Preview saved. Nothing was sent.");
+}
+
+document.body.addEventListener("click",e=>{
+  const tog=e.target.closest("[data-tog]");
+  if(tog){const k=tog.dataset.tog;if(k==="replyOn"||k==="textOn"||k==="taskOn")S[k]=!S[k];else S.triggers[k]=!S.triggers[k];render();toast("Updated. Nothing was sent.");return}
+  const save=e.target.closest("[data-save]");if(save){saveKey(save.dataset.save);return}
+  if(e.target.closest("#clearF")){S.stageF=S.triggerF=S.statusF="all";render();return}
+  if(e.target.closest("[data-load]")){D="live";$("demo").value="live";reset();render();toast("Sample leads loaded. Nothing was sent.");return}
+  const mv=e.target.closest("[data-move]");if(mv){move(mv.dataset.move,mv.dataset.to);return}
+  const pk=e.target.closest("[data-pick]");if(pk){S.pick=pk.dataset.pick;S.last=null;render();$("run").scrollIntoView({behavior:reduce?"auto":"smooth",block:"nearest"});return}
+  if(e.target.closest("#goRun")){goRun();return}
+  if(e.target.closest("#tryRun")){D="live";$("demo").value="live";S.errUsed=false;goRun();return}
+});
+$("builder").addEventListener("input",e=>{const id=e.target.id;if(id==="replyIn")S.reply=e.target.value;else if(id==="textIn")S.text=e.target.value;else if(id==="taskIn")S.task=e.target.value;});
+$("filters").addEventListener("change",e=>{if(e.target.id==="fStage")S.stageF=e.target.value;else if(e.target.id==="fTrig")S.triggerF=e.target.value;else if(e.target.id==="fStatus")S.statusF=e.target.value;else return;board()});
+$("board").addEventListener("change",e=>{
+  const inp=e.target.closest("[data-rename]");if(!inp)return;
+  const from=inp.dataset.rename,to=inp.value.trim().slice(0,24);
+  if(to.length<2){toast("Stage name needs at least 2 characters.");board();return}
+  if(S.stages.some(s=>s.toLowerCase()===to.toLowerCase()&&s!==from)){toast("That stage name is already used.");board();return}
+  S.stages=S.stages.map(s=>s===from?to:s);
+  S.leads.forEach(l=>{if(l.stage===from)l.stage=to});
+  if(S.stageF===from)S.stageF=to;
+  render();toast("Stage renamed on the sample board.");
+});
+$("board").addEventListener("dragstart",e=>{const card=e.target.closest(".lead");if(!card)return;e.dataTransfer.setData("text/plain",card.dataset.id);e.dataTransfer.effectAllowed="move"});
+$("board").addEventListener("dragover",e=>{const col=e.target.closest(".col");if(!col)return;e.preventDefault();col.classList.add("over")});
+$("board").addEventListener("dragleave",e=>{const col=e.target.closest(".col");if(col)col.classList.remove("over")});
+$("board").addEventListener("drop",e=>{const col=e.target.closest(".col");if(!col)return;e.preventDefault();col.classList.remove("over");const id=e.dataTransfer.getData("text/plain");move(id,col.dataset.stage)});
+$("run").addEventListener("change",e=>{if(e.target.id==="pick"){S.pick=e.target.value;S.last=null;runBox()}});
+$("undoBtn").addEventListener("click",undo);
+$("toastUndo").addEventListener("click",()=>{undo();$("toast").classList.remove("on")});
+$("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample reset. Nothing was sent.")});
+function download(){const blob=new Blob([summary()],{type:"text/plain"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="relay-speed-to-lead-sample.txt";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);toast("Exported the sample summary. Nothing was sent.")}
+$("exportBtn").addEventListener("click",download);
+$("copyBtn").addEventListener("click",async()=>{const text=summary();try{await navigator.clipboard.writeText(text);toast("Summary copied. Sample data only.")}catch(_){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();try{document.execCommand("copy");toast("Summary copied. Sample data only.")}catch(__){toast("Copy was blocked in this browser. Use Export summary.")}ta.remove()}});
+$("demo").addEventListener("change",e=>{D=e.target.value;reset();if(D==="empty")S.leads=[];if(S.leads[0])S.pick=S.leads[0].id;render();if(D==="senderr")toast("The next preview that would text will fail once. Nothing is sent.");if(D==="loading")toast("Loading state. The builder is still on the page.");});
+reset();if(S.leads[0])S.pick=S.leads[0].id;render();
+})();
+</script>
+</body>
+</html>

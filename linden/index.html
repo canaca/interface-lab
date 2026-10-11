@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Linden · Who to contact before the store opens</title>
+<meta name="description" content="October 2026 concept: a clienteling book for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Linden · Who to contact before the store opens">
+<meta property="og:description" content="October 2026 concept: a clienteling book for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/linden/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/linden.jpg">
+<meta property="og:image:alt" content="Linden: a sample morning book with a client card, preferences, and a draft that was not sent">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linden · Who to contact before the store opens">
+<meta name="twitter:description" content="October 2026 concept. Fictional boutique. A working client book. Nothing is sent.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/linden.jpg">
+<meta name="twitter:image:alt" content="Linden: a sample morning book with a client card, preferences, and a draft that was not sent">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{position:absolute;left:16px;top:0;transform:translateY(-140%);background:var(--cream);color:#1B140F;padding:10px 14px;border-radius:10px;z-index:40;font-weight:600;text-decoration:none}
+.skip:focus{transform:translateY(12px)}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+a.home:hover{color:var(--cream)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer;min-height:32px}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:44px}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);overflow-wrap:anywhere}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:12.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:14px 0 8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px}
+.err b{color:var(--cream);font-weight:500}
+.fielderr{color:var(--red);font-size:12.5px;margin:4px 0 0}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2)}
+.sheet .q{font-size:16px;font-weight:500}
+label.lbl{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.sheet textarea,.inp,textarea,select.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:10px;color:var(--cream);font-size:14px;min-height:44px}
+textarea{min-height:72px;resize:vertical}
+::placeholder{color:var(--muted);opacity:1}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+.toast{position:fixed;left:50%;top:78px;transform:translate(-50%,-8px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:min(520px,calc(100% - 32px));pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:8px 12px;font-weight:600;cursor:pointer;color:var(--cream);min-height:44px;pointer-events:auto}
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-family:var(--sans);font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;text-transform:none;color:var(--cream)}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;border:1px dashed var(--edge-2);color:var(--muted);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{text-align:left;cursor:pointer;color:inherit;font:inherit;min-height:44px}
+.kpi b{display:block;font-weight:400;font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi.on{border-color:var(--accent)}
+.lay{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.95fr);gap:14px;align-items:start}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.filters input,.filters select{background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;min-width:0;min-height:44px}
+.filters input{flex:1;min-width:160px}
+.scroll{overflow:auto;max-height:720px}
+ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.person{width:100%;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:12px;border:1px solid transparent;background:transparent;color:inherit;min-height:44px}
+.person.on{border-color:var(--accent);background:rgba(111,227,208,.06)}
+.person:hover{background:rgba(255,222,190,.05)}
+.person .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.person .nm{font-weight:550;overflow-wrap:anywhere}
+.prefs{display:flex;gap:6px;flex-wrap:wrap;margin:0}
+.pref{display:inline-flex;align-items:center;gap:4px}
+.x{border:0;background:transparent;color:var(--muted);cursor:pointer;min-width:44px;min-height:44px;border-radius:8px}
+.x:hover{color:var(--cream)}
+.log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.log li{display:grid;grid-template-columns:72px 1fr;gap:8px}
+.log .w{font-family:var(--mono);font-size:11px;color:var(--dim)}
+@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (max-width:860px){
+  .lay,.kpis,.cs{grid-template-columns:1fr}
+  .cs dl{grid-template-columns:1fr}
+  .scroll{max-height:none}
+  .wrap{padding-inline:14px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#book">Skip to the client book</a>
+<div class="wrap">
+  <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
+    <h1 class="brand"><b>Linden</b><span>Client book</span></h1>
+    <span class="crumbs" id="crumbs">LINDEN · SAMPLE DAY</span>
+    <span class="sp"></span>
+    <button class="btn sm" id="exportBtn" type="button">Export sample</button>
+    <button class="btn sm" id="copyBtn" type="button">Copy this list</button>
+    <button class="btn sm ghost" id="undoBtn" type="button">Undo</button>
+    <button class="btn sm ghost" id="resetBtn" type="button">Reset</button>
+    <label class="tbtn">State
+      <select id="demo" aria-label="Demo state">
+        <option value="live">Live book</option>
+        <option value="empty">Empty book</option>
+        <option value="loading">Loading</option>
+        <option value="saveerr">Save fails once</option>
+      </select>
+    </label>
+    <span class="tag">Concept · Oct 2026</span>
+  </header>
+  <main id="book">
+  <p class="banner" id="banner">Sample day at Linden, a fictional boutique. Clients, notes, and drafts stay on this page. Nothing is sent. No prices.</p>
+  <div class="kpis" id="kpis">
+    <button type="button" class="card kpi" data-queue="today" aria-pressed="false"><b class="m" id="nToday">0</b><span class="sub">Due today</span></button>
+    <button type="button" class="card kpi" data-queue="overdue" aria-pressed="false"><b class="m" id="nOver">0</b><span class="sub">Overdue</span></button>
+    <button type="button" class="card kpi" data-queue="waiting" aria-pressed="false"><b class="m" id="nWait">0</b><span class="sub">Waiting on client</span></button>
+    <button type="button" class="card kpi" data-queue="clear" aria-pressed="false"><b class="m" id="nClear">0</b><span class="sub">Nothing open</span></button>
+  </div>
+  <div class="lay">
+    <section class="card" aria-labelledby="listHead">
+      <h2 id="listHead">Morning book <i id="count">—</i></h2>
+      <div class="filters">
+        <input id="q" type="search" placeholder="Search clients" aria-label="Search clients" autocomplete="off">
+        <select id="fAdvisor" aria-label="Advisor">
+          <option value="all">All advisors</option>
+          <option>Camille Ortiz</option>
+          <option>Jonah Hale</option>
+          <option>Elise Park</option>
+        </select>
+        <select id="fQueue" aria-label="Queue">
+          <option value="all">All clients</option>
+          <option value="today">Due today</option>
+          <option value="overdue">Overdue</option>
+          <option value="waiting">Waiting on client</option>
+          <option value="week">Later this week</option>
+          <option value="clear">Nothing open</option>
+        </select>
+        <select id="fSort" aria-label="Sort">
+          <option value="due">Sort by due date</option>
+          <option value="name">Sort by name</option>
+          <option value="visit">Sort by last visit</option>
+        </select>
+        <button class="btn sm ghost" id="clearF" type="button">Clear filters</button>
+      </div>
+      <div class="scroll">
+        <ul class="book" id="list"></ul>
+      </div>
+    </section>
+    <section class="card" aria-labelledby="detHead">
+      <h2 id="detHead">Client card <i id="detNote">select one</i></h2>
+      <div id="detail"></div>
+    </section>
+  </div>
+  <section class="cs">
+    <div>
+      <span class="tag">Case study</span>
+      <h2>The morning list should say why, not only who.</h2>
+      <p class="lede">A store manager opens the book and sees who is due, what they asked for last time, and a note the advisor can send by hand.</p>
+    </div>
+    <dl>
+      <dt>Problem</dt><dd>Follow-ups live in memory and in a group chat. The person on the floor does not know the size, the occasion, or why today is the day.</dd>
+      <dt>User</dt><dd>A client advisor or store manager at a boutique. Not a finance analyst, and not a media buyer.</dd>
+      <dt>Decisions</dt><dd>The queue is open follow-ups, with a reason on the card. Preferences can be added and removed. A message is a draft: the page says nothing is sent. Moving a client to another advisor asks first. A failed save keeps the note. Export is the filtered sample.</dd>
+      <dt>Outcome</dt><dd>A working prototype of the book, the card, the draft, undo, and export, with empty, loading, and save-error states. Not tested with a real store team. No sales figures.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). Not a client engagement. Linden draws on his real jewelry clienteling as Vice President at Talisman Collection Fine Jewelers in El Dorado Hills (May 2022 – Mar 2024), including pieces over $20k, and on his GIA Applied Jewelry Professional and Diamond Grader credential (2022–2023).</dd>
+      <dt>Label</dt><dd>Concept. Linden, the advisors, and the clients are fictional.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Linden · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden type="button">Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const ADVISORS=["Camille Ortiz","Jonah Hale","Elise Park"];
+const CHAN={call:"Call",note:"Note",store:"In the store"};
+function seedClients(){return [
+  {id:"c1",n:"Amara Singh",advisor:"Camille Ortiz",visit:6,size:"6",occasion:"Anniversary in 9 days",prefs:["Morning appointments","Navy and camel"],last:"Held the navy coat for a fitting.",draft:"",log:[["Oct 5","Fitting booked for the navy coat."]]},
+  {id:"c2",n:"Helen Cho",advisor:"Camille Ortiz",visit:4,size:"4",occasion:"A hold that ends today",prefs:["No calls before noon","Small gold pieces"],last:"Asked to hold the small gold earrings.",draft:"",log:[["Oct 7","Hold placed on the earrings."]]},
+  {id:"c3",n:"Robert Ellison",advisor:"Jonah Hale",visit:11,size:"Gift, size 2",occasion:"A gift for his sister",prefs:["Prefers a note, not a call"],last:"Looking for a gift. No piece chosen.",draft:"",log:[["Sep 30","Asked for two gift ideas."]]},
+  {id:"c4",n:"Priya Nair",advisor:"Elise Park",visit:2,size:"8",occasion:"Wedding guest",prefs:["Evening looks"],last:"Tried two dresses. Will decide after Friday.",draft:"",log:[["Oct 9","She will call after Friday."]]},
+  {id:"c5",n:"Marco Bell",advisor:"Jonah Hale",visit:0,size:"42R",occasion:"Work wardrobe",prefs:["Linen","In the store only"],last:"Came in this morning. Liked the linen jacket.",draft:"",log:[["Today","Visit note logged. Liked the linen jacket."]]},
+  {id:"c6",n:"Sophie Laurent",advisor:"Elise Park",visit:9,size:"36",occasion:"Travel",prefs:["Packable knits","Write first"],last:"Asked for a packing list, not a call.",draft:"",log:[["Oct 2","Promised a short packing list."]]},
+  {id:"c7",n:"David Okonkwo",advisor:"Jonah Hale",visit:1,size:"44L",occasion:"First visit",prefs:["First visit"],last:"No piece taken home. Asked what to wear to a dinner.",draft:"",log:[["Yesterday","First visit. Dinner next month."]]},
+  {id:"c8",n:"Ingrid Walsh",advisor:"Camille Ortiz",visit:15,size:"10",occasion:"Alteration ready",prefs:["Afternoon fittings","Wool"],last:"Coat is altered and ready to try.",draft:"",log:[["Sep 26","Alteration sent out."]]}
+];}
+function seedFollows(){return [
+  {id:"f1",cid:"c1",title:"Confirm the alteration pickup",due:-1,channel:"call",status:"open",note:""},
+  {id:"f2",cid:"c2",title:"Release or extend the earring hold",due:0,channel:"note",status:"open",note:""},
+  {id:"f3",cid:"c3",title:"Send two gift ideas",due:-3,channel:"note",status:"open",note:""},
+  {id:"f4",cid:"c4",title:"Wait for her Friday decision",due:2,channel:"call",status:"waiting",note:"She asked us to wait."},
+  {id:"f5",cid:"c5",title:"Log the morning visit",due:0,channel:"store",status:"done",note:"Liked the linen jacket."},
+  {id:"f6",cid:"c6",title:"Send the packing list",due:1,channel:"note",status:"waiting",note:"She asked for a note."},
+  {id:"f7",cid:"c7",title:"First-visit thank you",due:0,channel:"note",status:"open",note:""},
+  {id:"f8",cid:"c8",title:"Offer a fitting time",due:4,channel:"store",status:"open",note:""}
+];}
+let D="live",run=0,seq=9;
+const S={clients:[],follows:[],sel:"c1",q:"",advisor:"all",queue:"all",sort:"due",pending:null,pendingKind:null,pendingId:null,nextAdvisor:"",draft:"",errUsed:false,undo:[],buffer:{}};
+function reset(){run++;S.clients=seedClients();S.follows=seedFollows();S.sel="c1";S.q="";S.advisor="all";S.queue="all";S.sort="due";S.pending=null;S.pendingKind=null;S.pendingId=null;S.nextAdvisor="";S.draft="";S.pref="";S.ftitle="";S.errUsed=false;S.undo=[];S.buffer={};
+  $("q").value="";$("fAdvisor").value="all";$("fQueue").value="all";$("fSort").value="due";}
+function client(id){return S.clients.find(c=>c.id===id)}
+function follows(cid){return S.follows.filter(f=>f.cid===cid)}
+function dueText(d){if(d<0)return "Overdue "+(-d)+"d";if(d===0)return "Due today";if(d===1)return "Due tomorrow";return "Due in "+d+"d"}
+function visitText(d){if(d===0)return "Visited today";if(d===1)return "Visited yesterday";return "Visited "+d+" days ago"}
+function openOf(c){return follows(c.id).filter(f=>f.status==="open")}
+function inQueue(c){
+  const fs=follows(c.id),open=openOf(c);
+  if(S.queue==="today")return open.some(f=>f.due===0);
+  if(S.queue==="overdue")return open.some(f=>f.due<0);
+  if(S.queue==="waiting")return fs.some(f=>f.status==="waiting");
+  if(S.queue==="week")return open.some(f=>f.due>0&&f.due<=7);
+  if(S.queue==="clear")return fs.length>0&&fs.every(f=>f.status==="done");
+  return true;
+}
+function match(c){
+  if(S.advisor!=="all"&&c.advisor!==S.advisor)return false;
+  if(S.q&&!c.n.toLowerCase().includes(S.q.toLowerCase()))return false;
+  return inQueue(c);
+}
+function soonest(c){
+  const open=openOf(c);
+  if(open.length)return Math.min(...open.map(f=>f.due));
+  const wait=follows(c.id).filter(f=>f.status==="waiting");
+  if(wait.length)return 50+Math.min(...wait.map(f=>f.due));
+  return 1000;
+}
+function view(){
+  const rows=S.clients.filter(match);
+  rows.sort((a,b)=>{
+    if(S.sort==="name")return a.n.localeCompare(b.n);
+    if(S.sort==="visit")return b.visit-a.visit||a.n.localeCompare(b.n);
+    return soonest(a)-soonest(b)||a.n.localeCompare(b.n);
+  });
+  return rows;
+}
+function badge(c){
+  const fs=follows(c.id),open=openOf(c);
+  if(open.some(f=>f.due<0))return ["bad","Overdue"];
+  if(open.some(f=>f.due===0))return ["warn","Due today"];
+  if(fs.some(f=>f.status==="waiting"))return ["warn","Waiting"];
+  if(open.length)return ["","Open"];
+  if(fs.length&&fs.every(f=>f.status==="done"))return ["ok","Done"];
+  return ["","No follow-up"];
+}
+function nextLine(c){
+  const fs=follows(c.id).slice().sort((a,b)=>a.due-b.due);
+  const open=fs.find(f=>f.status==="open");
+  if(open)return open.title+" · "+dueText(open.due);
+  const wait=fs.find(f=>f.status==="waiting");
+  if(wait)return wait.title+" · waiting";
+  return "No open follow-up";
+}
+function snap(){S.undo.push(JSON.stringify({clients:S.clients,follows:S.follows,sel:S.sel}));if(S.undo.length>25)S.undo.shift();}
+function undo(){const raw=S.undo.pop();if(!raw)return;const p=JSON.parse(raw);S.clients=p.clients;S.follows=p.follows;S.sel=p.sel;S.pending=null;S.buffer={};render();toast("Undone. The sample book is back one step.");}
+let tt,toastN=0;function toast(m,u){toastN++;$("toast").dataset.n=String(toastN);$("toastMsg").textContent=m;$("toastUndo").hidden=!u;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),3400)}
+function counts(){
+  const all=S.clients;
+  return {
+    today:all.filter(c=>openOf(c).some(f=>f.due===0)).length,
+    overdue:all.filter(c=>openOf(c).some(f=>f.due<0)).length,
+    waiting:all.filter(c=>follows(c.id).some(f=>f.status==="waiting")).length,
+    clear:all.filter(c=>{const fs=follows(c.id);return fs.length&&fs.every(f=>f.status==="done")}).length
+  };
+}
+function paintKpis(){
+  const n=D==="loading"?null:D==="empty"?{today:0,overdue:0,waiting:0,clear:0}:counts();
+  $("nToday").textContent=n?n.today:"—";
+  $("nOver").textContent=n?n.overdue:"—";
+  $("nWait").textContent=n?n.waiting:"—";
+  $("nClear").textContent=n?n.clear:"—";
+  document.querySelectorAll("[data-queue]").forEach(b=>{
+    const on=D==="live"||D==="saveerr"?S.queue===b.dataset.queue:false;
+    b.classList.toggle("on",on);
+    b.setAttribute("aria-pressed",String(on));
+  });
+}
+function paintList(){
+  const list=$("list");
+  if(D==="loading"){list.innerHTML=[1,2,3,4].map(()=>`<li><div class="sk" style="height:64px"></div></li>`).join("");$("count").textContent="loading";$("crumbs").textContent="LINDEN · LOADING";return}
+  if(D==="empty"){list.innerHTML=`<li><div class="empty"><b>No clients in this book</b><p class="sub">The empty state is a review screen. Load the sample book to work the demo.</p><button class="btn" type="button" id="loadBtn">Load the sample book</button></div></li>`;$("count").textContent="empty";$("crumbs").textContent="LINDEN · EMPTY";return}
+  const rows=view();
+  $("count").textContent=rows.length+" of "+S.clients.length;
+  $("crumbs").textContent="LINDEN · "+rows.length+" SHOWN · SAMPLE";
+  if(!rows.length){list.innerHTML=`<li><div class="empty"><b>No clients match</b><p class="sub">Clear a filter or search to see the sample book again.</p></div></li>`;return}
+  list.innerHTML=rows.map(c=>{
+    const b=badge(c),on=S.sel===c.id;
+    return `<li><button type="button" class="person${on?" on":""}" data-id="${c.id}" aria-pressed="${on}"><span class="top"><span class="nm">${esc(c.n)}</span><span class="chip ${b[0]}">${b[1]}</span></span><span class="sub">${esc(c.occasion)}</span><span class="note">${esc(c.advisor)} · ${visitText(c.visit)} · ${esc(nextLine(c))}</span></button></li>`;
+  }).join("");
+}
+function followBlock(c){
+  const fs=follows(c.id).slice().sort((a,b)=>a.due-b.due||a.title.localeCompare(b.title));
+  if(!fs.length)return `<p class="note">No follow-ups yet.</p>`;
+  return fs.map(f=>{
+    const st=f.status==="done"?"ok":f.status==="waiting"?"warn":f.due<0?"bad":f.due===0?"warn":"";
+    const label=f.status==="done"?"Done":f.status==="waiting"?"Waiting":dueText(f.due);
+    const acts=f.status==="done"?"":`<div class="row">
+      <button class="btn sm pri" type="button" data-act="complete" data-fid="${f.id}">Mark done</button>
+      ${f.status==="open"?`<button class="btn sm" type="button" data-act="snooze" data-fid="${f.id}">Snooze 3 days</button>`:""}
+      ${f.status==="open"?`<button class="btn sm" type="button" data-act="waiting" data-fid="${f.id}">Waiting on client</button>`:""}
+    </div>`;
+    return `<article style="padding:10px 0;border-top:1px solid var(--edge)"><div class="top" style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(f.title)}</b><span class="chip ${st}">${label}</span></div><p class="note">${CHAN[f.channel]||esc(f.channel)}${f.note?" · "+esc(f.note):""}</p>${acts}</article>`;
+  }).join("");
+}
+function sheet(c){
+  const kind=S.pendingKind;
+  const f=S.follows.find(x=>x.id===S.pendingId);
+  const sending=S.pending==="sending",failed=S.pending==="failed";
+  const titles={complete:"Mark this follow-up done",waiting:"Mark waiting on the client",visit:"Log a visit note",reassign:"Move "+c.n+" to "+S.nextAdvisor+"?"};
+  const help={complete:"The follow-up leaves the open queue. The note stays on the card.",waiting:"It leaves Due today and Overdue. The client shows under Waiting.",visit:"Adds a note to the card. It does not close a follow-up.",reassign:"Open follow-ups stay on the card and move with the client."};
+  const needs=kind!=="reassign";
+  return `<div class="sheet" role="group" aria-labelledby="sheetQ"><div class="q" id="sheetQ">${esc(titles[kind]||"Confirm")}</div>
+    <p class="sub" style="margin:0">${f?esc(f.title)+". ":""}${help[kind]||""}</p>
+    ${needs?`<label class="lbl" for="note">Note (required)</label><textarea id="note" aria-describedby="noteErr" ${sending?"disabled":""}>${esc(S.draft)}</textarea><p class="fielderr" id="noteErr" hidden>Add a short note, at least 3 characters. Nothing was logged.</p>`:""}
+    ${failed?`<div class="err"><b>Nothing was logged.</b> The sample save failed. Your note is still here.</div>`:""}
+    <div class="row">${sending?`<button class="btn pri" disabled type="button"><span class="spin"></span>Saving…</button>`:`<button class="btn pri" type="button" id="goBtn">${failed?"Try again":kind==="reassign"?"Confirm move":"Confirm"}</button><button class="btn ghost" type="button" id="cancelBtn">Cancel</button>`}</div>
+    <p class="note">Sample only. Nothing is sent.</p></div>`;
+}
+function paintDetail(){
+  const el=$("detail");
+  if(D==="loading"){el.innerHTML=`<div class="sk" style="height:18px;width:46%"></div><div class="sk" style="height:88px;margin-top:12px"></div>`;$("detNote").textContent="loading";return}
+  if(D==="empty"){el.innerHTML=`<p class="note">Nothing to open.</p>`;$("detNote").textContent="empty";return}
+  const c=client(S.sel);
+  if(!c){el.innerHTML=`<div class="empty"><b>Select a client</b><p class="sub">Open a name to see the reason, the preferences, and the draft.</p></div>`;$("detNote").textContent="select one";return}
+  const b=badge(c);
+  $("detNote").textContent=b[1];
+  const hidden=!match(c)&&D!=="saveerr"&&D!=="live"?"":!match(c)?"<p class=\"note\" id=\"hiddenNote\">Hidden by the current filter. Clear filters to see them in the list.</p>":"";
+  if(S.pending){el.innerHTML=`<p id="clientName" tabindex="-1" style="font-size:22px;margin:0">${esc(c.n)}</p>${hidden}${sheet(c)}`;return}
+  const draft=S.buffer[c.id]!=null?S.buffer[c.id]:c.draft;
+  const advOpts=ADVISORS.map(a=>`<option${a===c.advisor?" selected":""}>${esc(a)}</option>`).join("");
+  el.innerHTML=`<p id="clientName" tabindex="-1" style="font-size:22px;margin:0">${esc(c.n)}</p>
+    <p class="sub" style="margin:4px 0 8px">${esc(c.advisor)} · ${visitText(c.visit)} · Size ${esc(c.size)}</p>
+    ${hidden}
+    <div class="row"><span class="chip ${b[0]}">${b[1]}</span><span class="chip">${esc(c.occasion)}</span></div>
+    <p class="sub">${esc(c.last)}</p>
+    <div class="sec"><span>Preferences</span><span>${c.prefs.length} of 8</span></div>
+    <div class="prefs" id="prefs">${c.prefs.map((p,i)=>`<span class="chip pref">${esc(p)}<button type="button" class="x" data-rm="${i}" aria-label="Remove preference: ${esc(p)}">Remove</button></span>`).join("")||`<span class="note">None yet.</span>`}</div>
+    <label class="lbl" for="pref" style="margin-top:10px">Add a preference</label>
+    <div class="row"><input class="inp" id="pref" type="text" maxlength="48" placeholder="Example: afternoon fittings" aria-describedby="prefErr" style="flex:1;min-width:160px" value="${esc(S.pref||"")}"><button class="btn sm" type="button" id="addPref" ${c.prefs.length>=8?"disabled":""}>Add</button></div>
+    <p class="fielderr" id="prefErr" hidden>Add a short preference, at least 2 characters.</p>
+    <div class="sec"><span>Follow-ups</span></div>
+    ${followBlock(c)}
+    <label class="lbl" for="ftitle" style="margin-top:8px">New follow-up</label>
+    <input class="inp" id="ftitle" type="text" maxlength="80" placeholder="What should happen next" aria-describedby="fErr" value="${esc(S.ftitle||"")}">
+    <div class="row" style="margin-top:8px">
+      <select class="inp" id="fchan" aria-label="Channel" style="width:auto"><option value="note">Note</option><option value="call">Call</option><option value="store">In the store</option></select>
+      <select class="inp" id="fdue" aria-label="When" style="width:auto"><option value="0">Due today</option><option value="3">In 3 days</option><option value="7">Next week</option></select>
+      <button class="btn sm pri" type="button" id="addF">Add follow-up</button>
+    </div>
+    <p class="fielderr" id="fErr" hidden>Add a short title, at least 3 characters. Nothing was added.</p>
+    <div class="sec"><span>Draft the advisor sends by hand</span></div>
+    <label class="lbl" for="draft">Message</label>
+    <textarea id="draft" aria-describedby="draftErr sendNote">${esc(draft)}</textarea>
+    <p class="fielderr" id="draftErr" hidden>Write at least 3 characters before saving. Nothing was sent.</p>
+    <p class="note" id="sendNote">Nothing is sent from this page. Copy the draft and the advisor sends it themselves.</p>
+    <div class="row" style="margin-top:8px">
+      <button class="btn sm pri" type="button" id="saveDraft">Save draft</button>
+      <button class="btn sm" type="button" id="copyDraft">Copy draft</button>
+      <button class="btn sm" type="button" id="floorBtn">Copy floor card</button>
+      <button class="btn sm" type="button" data-act="visit">Log a visit</button>
+    </div>
+    <div class="sec"><span>Advisor</span></div>
+    <div class="row">
+      <select class="inp" id="adv" aria-label="Move to advisor" style="width:auto">${advOpts}</select>
+      <button class="btn sm" type="button" id="moveBtn">Move client</button>
+    </div>
+    <p class="fielderr" id="advErr" hidden>Choose a different advisor. Nothing was moved.</p>
+    <div class="sec"><span>Recent notes</span></div>
+    <ul class="log">${c.log.map(l=>`<li><span class="w">${esc(l[0])}</span><span>${esc(l[1])}</span></li>`).join("")}</ul>`;
+}
+function render(){paintKpis();paintList();paintDetail();
+  const off=D==="loading"||D==="empty";
+  $("exportBtn").disabled=off;$("copyBtn").disabled=off;$("undoBtn").disabled=off||!S.undo.length;
+  $("book").setAttribute("aria-busy",D==="loading"?"true":"false");
+}
+function summary(){
+  const rows=view();
+  const lines=rows.map(c=>"- "+c.n+" · "+badge(c)[1]+" · "+c.advisor+" · "+c.occasion+" · "+nextLine(c));
+  return ["Linden client book · sample data · October 2026 concept","Fictional boutique. Nothing was sent.","Showing "+rows.length+" of "+S.clients.length+". Advisor="+S.advisor+", queue="+S.queue+", search="+(S.q||"—")+".",...lines].join("\n");
+}
+function floorCard(c){
+  const open=follows(c.id).filter(f=>f.status!=="done").map(f=>f.title+" ("+ (f.status==="waiting"?"waiting":dueText(f.due))+")");
+  return ["Linden floor card · sample · not a client file",c.n,"Advisor: "+c.advisor,"Size: "+c.size,"Occasion: "+c.occasion,"Preferences: "+(c.prefs.join(", ")||"none"),"Last note: "+c.last,"Open: "+(open.join("; ")||"none"),"Nothing was sent."].join("\n");
+}
+async function copyText(text,okMsg){
+  try{await navigator.clipboard.writeText(text)}
+  catch(_){const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove()}
+  toast(okMsg);
+}
+function apply(){
+  const c=client(S.sel);if(!c)return;
+  const kind=S.pendingKind,note=S.draft.trim();
+  snap();
+  if(kind==="complete"){const f=S.follows.find(x=>x.id===S.pendingId);if(f){f.status="done";f.note=note}c.log.unshift(["Today","Follow-up done. "+note]);c.last=note}
+  else if(kind==="waiting"){const f=S.follows.find(x=>x.id===S.pendingId);if(f){f.status="waiting";f.note=note}c.log.unshift(["Today","Waiting on the client. "+note])}
+  else if(kind==="visit"){c.visit=0;c.last=note;c.log.unshift(["Today","Visit. "+note])}
+  else if(kind==="reassign"){const prev=c.advisor;c.advisor=S.nextAdvisor;c.log.unshift(["Today","Moved from "+prev+" to "+c.advisor+"."])}
+  S.pending=null;S.pendingKind=null;S.pendingId=null;S.draft="";render();
+  toast(kind==="reassign"?"Moved on the sample book. Nothing was sent.":"Logged on the sample card. Nothing was sent.",true);
+}
+async function confirm(){
+  if(S.pending==="sending")return;
+  const kind=S.pendingKind;
+  const box=$("note");
+  if(box)S.draft=box.value;
+  const note=(S.draft||"").trim();
+  if(kind!=="reassign"&&note.length<3){const err=$("noteErr");if(err)err.hidden=false;if(box){box.setAttribute("aria-invalid","true");box.focus()}return}
+  const my=++run;S.pending="sending";paintDetail();
+  await sleep(650);if(my!==run)return;
+  if(D==="saveerr"&&!S.errUsed){S.errUsed=true;S.pending="failed";paintDetail();const n=$("note");if(n)n.focus();toast("Save failed. Nothing was logged.");return}
+  apply();
+}
+function openSheet(kind,fid){
+  S.pending="confirm";S.pendingKind=kind;S.pendingId=fid||null;S.draft="";paintDetail();
+  const n=$("note")||$("goBtn");if(n)n.focus();
+}
+function select(id){
+  if(S.sel===id&&!S.pending){paintList();return}
+  S.sel=id;S.pending=null;S.draft="";paintList();paintDetail();
+  const h=$("clientName");if(h)h.focus();
+}
+function addPref(){
+  const input=$("pref"),v=(input?input.value:"").trim(),err=$("prefErr"),c=client(S.sel);
+  if(!c)return;
+  if(v.length<2){err.hidden=false;err.textContent="Add a short preference, at least 2 characters.";if(input)input.focus();return}
+  if(c.prefs.some(p=>p.toLowerCase()===v.toLowerCase())){err.hidden=false;err.textContent="That preference is already on the card.";return}
+  if(c.prefs.length>=8){err.hidden=false;err.textContent="Eight preferences is the limit on this card.";return}
+  snap();c.prefs.push(v);S.pref="";render();toast("Preference added on the sample card.",true);
+}
+function addFollow(){
+  const input=$("ftitle"),title=(input?input.value:"").trim(),err=$("fErr"),c=client(S.sel);
+  if(!c)return;
+  if(title.length<3){err.hidden=false;if(input){input.setAttribute("aria-invalid","true");input.focus()}return}
+  const channel=$("fchan").value,due=Number($("fdue").value);
+  snap();
+  S.follows.unshift({id:"f"+(seq++),cid:c.id,title,due,channel,status:"open",note:""});
+  S.ftitle="";c.log.unshift(["Today","Follow-up added: "+title+"."]);
+  render();toast("Follow-up added. Nothing was sent.",true);
+}
+function saveDraft(){
+  const c=client(S.sel);if(!c)return;
+  const box=$("draft");const text=(box?box.value:"").trim();
+  if(text.length<3){const err=$("draftErr");if(err)err.hidden=false;if(box){box.setAttribute("aria-invalid","true");box.focus()}return}
+  snap();c.draft=text;S.buffer[c.id]=text;render();toast("Draft saved on this card. Nothing was sent.",true);
+}
+$("kpis").addEventListener("click",e=>{
+  const b=e.target.closest("[data-queue]");if(!b||D==="empty"||D==="loading")return;
+  const q=b.dataset.queue;S.queue=S.queue===q?"all":q;$("fQueue").value=S.queue;paintKpis();paintList();paintDetail();
+});
+$("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()});
+$("fAdvisor").addEventListener("change",e=>{S.advisor=e.target.value;paintList();paintDetail()});
+$("fQueue").addEventListener("change",e=>{S.queue=e.target.value;paintKpis();paintList();paintDetail()});
+$("fSort").addEventListener("change",e=>{S.sort=e.target.value;paintList()});
+$("clearF").addEventListener("click",()=>{S.q="";S.advisor="all";S.queue="all";S.sort="due";$("q").value="";$("fAdvisor").value="all";$("fQueue").value="all";$("fSort").value="due";paintKpis();paintList();paintDetail()});
+$("list").addEventListener("click",e=>{
+  const load=e.target.closest("#loadBtn");if(load){D="live";$("demo").value="live";reset();render();toast("Sample book loaded.");return}
+  const b=e.target.closest("[data-id]");if(b)select(b.dataset.id);
+});
+$("detail").addEventListener("click",e=>{
+  if(e.target.closest("#cancelBtn")){S.pending=null;S.draft="";paintDetail();toast("Canceled. Nothing was logged.");return}
+  if(e.target.closest("#goBtn")){confirm();return}
+  const rm=e.target.closest("[data-rm]");if(rm){const c=client(S.sel);if(!c)return;snap();const gone=c.prefs.splice(Number(rm.dataset.rm),1);render();toast("Removed: "+(gone[0]||"preference")+".",true);return}
+  if(e.target.closest("#addPref")){addPref();return}
+  if(e.target.closest("#addF")){addFollow();return}
+  if(e.target.closest("#saveDraft")){saveDraft();return}
+  if(e.target.closest("#copyDraft")){const text=($("draft")?$("draft").value:"").trim();if(text.length<1){toast("Nothing to copy. Nothing was sent.");return}copyText(text,"Draft copied. Nothing was sent.");return}
+  if(e.target.closest("#floorBtn")){const c=client(S.sel);if(c)copyText(floorCard(c),"Floor card copied. Nothing was sent.");return}
+  if(e.target.closest("#moveBtn")){const c=client(S.sel);if(!c)return;const v=$("adv").value;if(v===c.advisor){const err=$("advErr");if(err)err.hidden=false;return}S.nextAdvisor=v;openSheet("reassign");return}
+  const act=e.target.closest("[data-act]");if(!act)return;
+  const kind=act.dataset.act,fid=act.dataset.fid||null;
+  if(kind==="snooze"){const f=S.follows.find(x=>x.id===fid);const c=client(S.sel);if(!f||!c)return;snap();f.due=f.due+3;c.log.unshift(["Today","Snoozed 3 days: "+f.title+"."]);render();toast("Moved 3 days. Still open. Nothing was sent.",true);return}
+  openSheet(kind,fid);
+});
+$("detail").addEventListener("input",e=>{
+  if(e.target.id==="note")S.draft=e.target.value;
+  if(e.target.id==="draft"&&S.sel)S.buffer[S.sel]=e.target.value;
+  if(e.target.id==="pref")S.pref=e.target.value;
+  if(e.target.id==="ftitle")S.ftitle=e.target.value;
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&S.pending){S.pending=null;S.draft="";paintDetail();toast("Canceled. Nothing was logged.");}
+});
+$("exportBtn").addEventListener("click",()=>{
+  const rows=view();
+  const head=["sample","client","advisor","occasion","size","last_visit_days","status","next","preferences","draft"];
+  const body=rows.map(c=>["yes",c.n,c.advisor,c.occasion,c.size,c.visit,badge(c)[1],nextLine(c),c.prefs.join(" | "),c.draft||""].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(","));
+  const csv=['"October 2026 concept. Fictional Linden clients. Nothing was sent."',head.join(","),...body].join("\n");
+  const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="linden-client-book-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
+  toast("Exported "+rows.length+" sample client"+(rows.length===1?"":"s")+".");
+});
+$("copyBtn").addEventListener("click",()=>copyText(summary(),"List copied. Sample data only. Nothing was sent."));
+$("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
+$("undoBtn").addEventListener("click",undo);
+$("toastUndo").addEventListener("click",()=>{undo();$("toast").classList.remove("on")});
+$("demo").addEventListener("change",e=>{
+  D=e.target.value;reset();
+  if(D==="empty"){S.clients=[];S.follows=[];S.sel=null}
+  render();
+  if(D==="loading")toast("Loading state. Switch back to Live book when you want the data.");
+  if(D==="saveerr")toast("The next save will fail once. Your note is kept.");
+});
+reset();render();
+})();
+</script>
+</body>
+</html>

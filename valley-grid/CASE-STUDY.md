@@ -1,5 +1,7 @@
 # Valley Grid Ops: investigate an equipment alert
 
+October 2026 concept, directed by Cesar Navarro. The 3D scene was generated with AI tools he directed (Claude, Cursor). He did not write the generator scripts. Not tested with real operators or live data. The substation, crews, and readings are fictional.
+
 ## Problem
 Grid operators get alarms with numbers but no context. Deciding whether a reading needs a crew means jumping between monitoring screens, trend tools and phone calls.
 
