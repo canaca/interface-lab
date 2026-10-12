@@ -435,7 +435,7 @@ function buildCanvas(){[...cv.querySelectorAll(".node,.stephint")].forEach(n=>n.
   if(S.state==="loading"){cv.insertAdjacentHTML("beforeend",Object.keys(POS0).slice(0,7).map(k=>`<div class="node sk" style="left:${POS0[k][0]}px;top:${POS0[k][1]}px;border:0" aria-hidden="true"></div>`).join(""));wires.innerHTML="";return}
   const ids=S.empty?["trig"]:Object.keys(NODES);
   ids.forEach(id=>{const n=NODES[id];const b=document.createElement("button");b.type="button";b.className=`node ${n.type}`;b.dataset.id=id;
-    b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]}</span><b>${n.t}</b><small data-sub></small></span>`;cv.appendChild(b)});
+    b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]} </span><b>${n.t} </b><small data-sub></small></span>`;cv.appendChild(b)});
   if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="stephint" style="left:290px;top:150px;width:200px"><span class="tx"><span class="k">Next step</span><b>Add the first step</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
   updateNodes();placeAll()}
 function updateNodes(){const iss=smsIssues().length;cv.querySelectorAll(".node[data-id]").forEach(b=>{const id=b.dataset.id;b.querySelector("[data-sub]").textContent=sub(id);
