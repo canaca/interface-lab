@@ -18,7 +18,7 @@ A control-room operator on shift, responsible for nine substations, who needs to
 
 ## Concept vs real
 **Concept:** all data, people, crews and the substation are fictional.
-**Real:** the interface and its state flow run in the browser. On a wide screen the 3D scene is the detailed model. On a phone the same workflow runs on the lighter built-in model so the page can load. AI-assisted build (Claude, Cursor).
+**Real:** the interface and its state flow run in the browser. On a wide screen the 3D scene is the detailed model. On a phone the same workflow runs in the panel, and the 3D scene is not downloaded, so the page can load. AI-assisted build (Claude, Cursor).
 **Not built:** live sensor data, sign-in, and a real crew dispatch integration.
 
 ---

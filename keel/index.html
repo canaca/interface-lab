@@ -118,7 +118,7 @@ a.home:hover{color:var(--cream)}
 .filters input{flex:1;min-width:140px}
 .scroll{overflow:auto;max-height:640px}
 table{width:100%;border-collapse:collapse;font-size:13.5px}
-th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px;position:sticky;top:0;background:#1A1410}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;position:sticky;top:0;background:#1A1410}
 td{padding:10px 8px;border-top:1px solid var(--edge);vertical-align:middle}
 tr.acct{cursor:pointer}
 tr.acct:hover td{background:rgba(255,222,190,.04)}
@@ -390,7 +390,7 @@ $("kpis").addEventListener("click",e=>{const b=e.target.closest("[data-kpi]");if
 $("filters").addEventListener("input",e=>{if(e.target.id==="q"){S.q=e.target.value;table();kpis()}});
 $("filters").addEventListener("change",e=>{const id=e.target.id,v=e.target.value;if(id==="fHealth")S.health=v;else if(id==="fOwner")S.owner=v;else if(id==="fPlan")S.plan=v;else if(id==="fFocus")S.focus=v;else if(id==="fSort")S.sort=v;else return;table();kpis()});
 document.body.addEventListener("click",e=>{
-  if(e.target.closest("#clearF")||e.target.closest("[data-clear]")){S.q="";S.health=S.owner=S.plan=S.focus="all";S.sort="risk";render();return}
+  if(e.target.closest("#clearF")||e.target.closest("[data-clear]")){S.q="";S.health=S.owner=S.plan=S.focus="all";S.sort="risk";render();toast("Filters cleared.");return}
   if(e.target.closest("[data-load]")){D="live";$("demo").value="live";reset();render();toast("Sample book loaded.");return}
   const row=e.target.closest("tr.acct");if(row){select(row.dataset.id);return}
   const act=e.target.closest("[data-act]");if(act){S.pendingKind=act.dataset.act;S.pending="confirm";S.draft="";detail();return}

@@ -61,7 +61,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
 .card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
 .card h2 i{font-style:normal;color:var(--dim)}
-.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;min-height:44px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
 .btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
@@ -119,7 +119,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 nav b{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--cream)}
 nav .links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
-nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--cream)}
+nav a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}nav a:hover{color:var(--cream)}
 .open{display:inline-flex;align-items:center;gap:7px;color:var(--accent)}
 .open::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
 .hero{display:flex;flex-direction:column;gap:20px;max-width:920px}
@@ -206,7 +206,8 @@ details.csd dd{margin:0;color:var(--muted)}
 .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(111,227,208,.12)}
 .fld .msg{font-size:12px;color:#E2725B;min-height:0}
 .fld.bad input{border-color:#E2725B}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.hp{position:absolute;width:0;height:0;overflow:hidden}
+.hp input{position:absolute;width:0;height:0;margin:0;padding:0;border:0;opacity:0;pointer-events:none}
 .qf-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:6px}
 .qf-nav .grow{flex:1}
 .qf-nav .keyhint{font-family:var(--mono);font-size:11px;color:var(--dim)}
@@ -220,7 +221,7 @@ details.csd dd{margin:0;color:var(--muted)}
 .status b{color:var(--cream);font-weight:500}
 .sending{display:flex;align-items:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px}
 @media (prefers-reduced-motion:reduce){.step.in{animation:none}.qf-bar i{transition:none}}
-@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.proj.wide{display:flex}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
+@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.proj.wide{display:flex;flex-direction:column}.shot{width:100%}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
 @media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}}
 </style>
 </head>

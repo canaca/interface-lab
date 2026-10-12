@@ -42,8 +42,7 @@ html,body{min-height:100%}
 body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.skip{position:absolute;left:16px;top:0;transform:translateY(-140%);background:var(--cream);color:#1B140F;padding:10px 14px;border-radius:10px;z-index:40;font-weight:600;text-decoration:none}
-.skip:focus{transform:translateY(12px)}
+.skip{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-weight:600;text-decoration:none}
 .m{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
 .bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
@@ -136,9 +135,9 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 </style>
 </head>
 <body>
-<a class="skip" href="#book">Skip to the client book</a>
 <div class="wrap">
   <header class="bar">
+    <a class="skip" href="#book">Skip to the client book</a>
     <a class="home" href="../">Interface Lab</a>
     <h1 class="brand"><b>Linden</b><span>Client book</span></h1>
     <span class="crumbs" id="crumbs">LINDEN · SAMPLE DAY</span>
@@ -469,7 +468,7 @@ function openSheet(kind,fid){
   const n=$("note")||$("goBtn");if(n)n.focus();
 }
 function select(id){
-  if(S.sel===id&&!S.pending){paintList();return}
+  if(S.sel===id&&!S.pending){const c=client(id);toast((c?c.n:"This client")+" is already open.");const h=$("clientName");if(h)h.focus();return}
   S.sel=id;S.pending=null;S.draft="";paintList();paintDetail();
   const h=$("clientName");if(h)h.focus();
 }
@@ -505,7 +504,7 @@ $("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()
 $("fAdvisor").addEventListener("change",e=>{S.advisor=e.target.value;paintList();paintDetail()});
 $("fQueue").addEventListener("change",e=>{S.queue=e.target.value;paintKpis();paintList();paintDetail()});
 $("fSort").addEventListener("change",e=>{S.sort=e.target.value;paintList()});
-$("clearF").addEventListener("click",()=>{S.q="";S.advisor="all";S.queue="all";S.sort="due";$("q").value="";$("fAdvisor").value="all";$("fQueue").value="all";$("fSort").value="due";paintKpis();paintList();paintDetail()});
+$("clearF").addEventListener("click",()=>{S.q="";S.advisor="all";S.queue="all";S.sort="due";$("q").value="";$("fAdvisor").value="all";$("fQueue").value="all";$("fSort").value="due";paintKpis();paintList();paintDetail();toast("Filters cleared.")});
 $("list").addEventListener("click",e=>{
   const load=e.target.closest("#loadBtn");if(load){D="live";$("demo").value="live";reset();render();toast("Sample book loaded.");return}
   const b=e.target.closest("[data-id]");if(b)select(b.dataset.id);

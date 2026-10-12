@@ -139,6 +139,11 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .elbl rect{fill:#1A1410;stroke:rgba(255,222,190,.2)}
 .elbl text{fill:#C9B4A0;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.04em}
 .pk{fill:var(--accent);filter:drop-shadow(0 0 6px rgba(111,227,208,.9))}
+.stephint{position:absolute;width:200px;min-height:76px;padding:10px 12px;border-radius:14px;background:rgba(32,24,19,.72);border:1px dashed var(--edge-2);display:flex}
+.stephint .tx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stephint .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.stephint b{font-size:13.5px;font-weight:600;line-height:1.25}
+.stephint small{font-size:12px;color:var(--muted);line-height:1.3}
 .node{position:absolute;width:200px;min-height:76px;padding:10px 12px;border-radius:14px;background:rgba(32,24,19,.96);border:1px solid var(--edge-2);
   text-align:left;cursor:grab;display:flex;gap:10px;align-items:flex-start;touch-action:none;user-select:none;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:border-color .2s,box-shadow .2s,opacity .3s}
 .node:active{cursor:grabbing}
@@ -420,12 +425,12 @@ function sub(id){switch(id){
 function outs(id){return EDGES.filter(e=>e[0]===id)}
 function nodeLabel(id){const n=NODES[id];const br=outs(id).map(e=>(e[4]?e[4]+" goes to ":"Then ")+NODES[e[2]].t).join(". ");
   return `${KIND[n.type]}: ${n.t}. ${sub(id)}.${br?" "+br+".":""}`}
-function buildCanvas(){[...cv.querySelectorAll(".node")].forEach(n=>n.remove());
+function buildCanvas(){[...cv.querySelectorAll(".node,.stephint")].forEach(n=>n.remove());
   if(S.state==="loading"){cv.insertAdjacentHTML("beforeend",Object.keys(POS0).slice(0,7).map(k=>`<div class="node sk" style="left:${POS0[k][0]}px;top:${POS0[k][1]}px;border:0" aria-hidden="true"></div>`).join(""));wires.innerHTML="";return}
   const ids=S.empty?["trig"]:Object.keys(NODES);
   ids.forEach(id=>{const n=NODES[id];const b=document.createElement("button");b.type="button";b.className=`node ${n.type}`;b.dataset.id=id;
     b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]}</span><b>${n.t}</b><small data-sub></small></span>`;cv.appendChild(b)});
-  if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="node ghost" style="left:290px;top:150px;width:200px" ><span class="tx"><span class="k">Next step</span><b>Add the first step</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
+  if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="stephint" style="left:290px;top:150px;width:200px"><span class="tx"><span class="k">Next step</span><b>Add the first step</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
   updateNodes();placeAll()}
 function updateNodes(){const iss=smsIssues().length;cv.querySelectorAll(".node[data-id]").forEach(b=>{const id=b.dataset.id;b.querySelector("[data-sub]").textContent=sub(id);
   b.setAttribute("aria-pressed",String(S.sel===id));b.setAttribute("aria-label",nodeLabel(id)+(id==="sms"&&iss?" Has an issue to fix.":""));
