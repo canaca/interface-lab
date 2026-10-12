@@ -50,8 +50,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
 .brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
 .brand span{color:var(--muted)}
-a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
-a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
@@ -135,6 +133,19 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .opt{display:grid;grid-template-columns:18px 1fr;gap:10px;align-items:center;padding:9px 11px;border-radius:10px;border:1px solid var(--edge);cursor:pointer}
 .opt:has(input:checked){border-color:var(--cream)}
 .opt input{accent-color:#F4E7D7}
+.atools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}.atools input{flex:1 1 160px;width:auto}.atools select{width:auto}
+.nomatch{padding:12px;border:1px dashed var(--edge-2);border-radius:12px;color:var(--muted);font-size:13px;margin-bottom:8px}.nomatch b{color:var(--cream);font-weight:500}
+.owners{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}.owners[aria-invalid=true] .opt{border-color:rgba(226,114,91,.6)}
+.lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:0}
+textarea.inp{min-height:56px;resize:vertical}
+.tcard{margin-top:14px}
+.tasks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tasks li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--edge);font-size:13.5px}
+.tasks li:first-child{border-top:0}
+.tasks li .s{display:block;font-size:12px;color:var(--muted)}
+.tasks li.done b{text-decoration:line-through;text-decoration-color:rgba(255,222,190,.4);color:var(--muted)}
+.tasks .tempty{display:block;color:var(--muted);font-size:13px}
+.tchk input{accent-color:#6FE3D0;width:16px;height:16px}
 @media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
@@ -142,23 +153,27 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 <main>
 <div class="wrap">
   <header class="bar">
-    <a class="home" href="../">Interface Lab</a>
     <h1 class="brand"><b>Tidewell</b><span>Revenue Pulse</span></h1>
     <span class="crumbs">MRR · ALL SEGMENTS · LAST 12 MONTHS</span>
     <span class="sp"></span>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing unusual</option><option value="loading">Loading</option><option value="partial">Warning · data incomplete</option><option value="actionerr">Error · task fails</option></select></label>
-    <span class="tag">Concept · October 2026</span>
+    <span class="tag">Concept · demo data</span>
   </header>
   <div class="lay">
     <section class="card chart" aria-label="Revenue chart"><h2><span id="cTitle">MRR · last 12 months</span><i id="cNote">click any month</i></h2><p class="finding" id="finding"></p><div id="chart"></div><div class="legend" id="legend"></div></section>
     <section class="card" aria-label="Explanation" aria-live="polite"><h2>Explain <i id="pNote">what moved revenue</i></h2><div id="panel"></div></section>
   </div>
+  <section class="card tcard" id="tasksCard" tabindex="-1" aria-label="Win-back tasks"><h2>Win-back tasks <i id="tCount">none yet</i></h2>
+    <div class="row" style="margin-bottom:10px"><label class="lab" for="tFilter">Show</label><select id="tFilter" class="inp" style="width:auto"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Done</option></select><span class="sp" style="flex:1"></span><button class="btn sm" id="tExport" type="button">Export CSV</button></div>
+    <ul class="tasks" id="tasks" aria-live="polite"></ul><p class="note" style="margin-top:8px">Tasks are saved in this browser. Demo data only.</p></section>
 
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept · prototype</span><h2>Explaining why monthly revenue moved</h2>
-      <p class="lede">When monthly revenue drops, a customer-success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
+      <p class="lede">When MRR drops, a finance or success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
       <dt>Problem</dt><dd>Dashboards show that revenue fell, but not why. Teams export data and rebuild the story by hand, so action comes late.</dd>
       <dt>User</dt><dd>A head of customer success at a SaaS company, preparing for the monthly revenue review.</dd>
       <dt>Decisions</dt><dd><ol>
@@ -168,14 +183,13 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
         <li><b>Honest about the data.</b> If billing data is incomplete, the view says so before anyone acts on it.</li>
         <li><b>End in an action.</b> The explanation turns into a win-back task with an owner, confirmed before it's created.</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable prototype of the full path, from the drop to the bridge, the accounts, the signals and the task, with empty, loading, incomplete-data and task-error states. Not yet tested with real users or real billing data.</dd>
-      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). This is not a finance background, and not a claim that these numbers came from a real company.</dd>
-      <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser. Not tested with real users or real billing data.</dd>
+      <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>
   <div class="foot"><span>Interface Lab · Tidewell · concept</span><span>Concept direction: Cesar Navarro</span></div>
 </div>
 </main>
-<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
 
 <script>
 (function(){
@@ -235,38 +249,85 @@ async function bridge(i){const r=ROWS[i];S.view="bridge";S.sel=i;const W=760,H=3
   const wfs=[...document.querySelectorAll(".wf")],lbls=[...document.querySelectorAll(".lbl")];
   for(let j=0;j<wfs.length;j++){const w=wfs[j];w.style.transition=reduce?"none":"y .45s ease, height .45s ease";requestAnimationFrame(()=>requestAnimationFrame(()=>{w.style.y=w.dataset.y+"px";w.style.height=w.dataset.h+"px"}));lbls[j].setAttribute("opacity",1);await sleep(140)}}
 
+/* ---------- explanation panel, win-back tasks (persist in localStorage il-tidewell-tasks) ---------- */
+const TKEY="il-tidewell-tasks";
+const store={get(){try{return JSON.parse(localStorage.getItem(TKEY))||[]}catch(e){return[]}},set(v){try{localStorage.setItem(TKEY,JSON.stringify(v))}catch(e){}}};
+S.tasks=store.get();S.q="";S.seg="";S.sort="v";S.tfilter="all";S.scope="all";S.owner="";S.due="This week";S.note="";S.err="";
+const OWN={Priya:"Mid-market success",Marcus:"SMB success"};
 function panel(h){$("panel").innerHTML=h}
 function pIdle(){if(D==="empty"){panel(`<div class="empty"><span class="okmark">✓</span><b>Nothing to explain</b><div class="sub">Every month this year moved within its normal range. Click any month to see its parts anyway.</div></div>`);return}
-  panel(`<div class="row" style="margin-bottom:10px"><span class="chip bad">Drop</span><span class="chip">June</span></div><p style="font-size:20px;margin:0">MRR fell ${k(-ROWS[8].net)} in June.</p><p class="sub">That's the only month this year with a net loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="explain">Explain June</button></div>`)}
+  panel(`<div class="row" style="margin-bottom:10px"><span class="chip bad">Drop</span><span class="chip">June</span></div><p style="font-size:20px;margin:0">MRR fell ${k(-ROWS[8].net)} in June.</p><p class="sub">That's the only month this year with a net loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" type="button" data-a="explain">Explain June</button></div>`)}
 async function explain(i){const my=++run;S.acct=null;panel(`<div class="row"><span class="spin lt"></span><span class="sub">Comparing ${ROWS[i].m} with ${ROWS[i-1]?ROWS[i-1].m:"the month before"}…</span></div><div class="sk" style="height:18px;width:70%;margin-top:14px"></div><div class="sk" style="height:60px;margin-top:10px"></div>`);
   await sleep(D==="loading"?1e9:850);if(my!==run)return;await bridge(i);if(my!==run)return;
   const r=ROWS[i],warn=D==="partial"&&i===8?`<div class="err" style="margin-bottom:12px;border-color:rgba(233,164,110,.55)"><div><b>June's data is incomplete.</b><br>2 days of billing (Jun 29–30) are missing. These numbers may change.</div></div>`:"";
-  if(i!==8){panel(`<button class="btn ghost back" data-a="home">← Overview</button><p style="font-size:18px;margin:0">${r.m}: net ${sk(r.net)}</p><p class="sub">New ${sk(r.p[0])}, expansion ${sk(r.p[1])}, contraction ${sk(r.p[2])}, churn ${sk(r.p[3])}.</p><p class="note">Account-level detail is included for June only in this demo.</p>`);return}
-  panel(`<button class="btn ghost back" data-a="home">← Overview</button>${warn}<div class="sec"><span>Biggest cause</span><span>vs normal month</span></div>
+  if(i!==8){panel(`<button class="btn ghost back" type="button" data-a="home">← Overview</button><p style="font-size:18px;margin:0">${r.m}: net ${sk(r.net)}</p><p class="sub">New ${sk(r.p[0])}, expansion ${sk(r.p[1])}, contraction ${sk(r.p[2])}, churn ${sk(r.p[3])}.</p><p class="note">Account-level detail is included for June only in this demo.</p><div class="row"><button class="btn" type="button" data-a="explain">Explain June instead</button></div>`);return}
+  panel(`<button class="btn ghost back" type="button" data-a="home">← Overview</button>${warn}<div class="sec"><span>Biggest cause</span><span>vs normal month</span></div>
     <p style="font-size:20px;margin:0 0 6px">Churn: ${k(-r.p[3])} lost</p><p class="sub" style="margin:0 0 12px">A normal month loses about $6.5K to churn. New business and expansion held steady.</p>
-    <button class="btn pri" data-a="accounts">See the 4 accounts</button>`)}
-function accounts(){panel(`<button class="btn ghost back" data-a="bridge">← June bridge</button><div class="sec"><span>Churned in June</span><span>MRR lost</span></div>
-  ${CHURN.map((a,i)=>`<button class="acct" data-acct="${i}" aria-pressed="${S.acct===i}"><b>${esc(a.n)}</b><span class="v">−$${a.v.toFixed(1)}K</span><span class="s">${esc(a.seg)} · ${esc(a.why)}</span></button>`).join("")}
-  <p class="note">The two Mid-market accounts are 69% of the loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="task">Create win-back task</button></div>`)}
-function account(i){S.acct=i;const a=CHURN[i];panel(`<button class="btn ghost back" data-a="accounts">← All 4 accounts</button><p style="font-size:20px;margin:0">${esc(a.n)}</p><p class="sub" style="margin:2px 0 12px">${esc(a.seg)} · −$${a.v.toFixed(1)}K MRR · ${esc(a.why)}</p>
+    <button class="btn pri" type="button" data-a="accounts">See the 4 accounts</button>`)}
+function acctList(){const q=S.q.trim().toLowerCase();let l=CHURN.map((a,i)=>({...a,i})).filter(a=>(!S.seg||a.seg===S.seg)&&(!q||(a.n+" "+a.why).toLowerCase().includes(q)));
+  l.sort((a,b)=>S.sort==="n"?a.n.localeCompare(b.n):b.v-a.v);return l}
+function hasTask(i){return S.tasks.some(t=>t.acct===CHURN[i].n&&!t.done)}
+function accountsHTML(){const l=acctList();
+  return l.length?l.map(a=>`<button class="acct" type="button" data-acct="${a.i}" aria-pressed="${S.acct===a.i}"><b>${esc(a.n)}</b><span class="v">−$${a.v.toFixed(1)}K</span><span class="s">${esc(a.seg)} · ${esc(a.why)}${hasTask(a.i)?" · task open":""}</span></button>`).join(""):
+    `<div class="nomatch"><b>No matches</b> for ${S.q?`“${esc(S.q)}”`:"that filter"}. <button class="btn sm" type="button" data-a="clearf">Clear</button></div>`}
+function accounts(){S.view="accounts";panel(`<button class="btn ghost back" type="button" data-a="bridge">← June bridge</button><div class="sec"><span>Churned in June</span><span>MRR lost</span></div>
+  <div class="atools"><label class="vh" for="aq">Find an account</label><input id="aq" type="search" class="inp" placeholder="Find an account or reason" value="${esc(S.q)}" autocomplete="off">
+   <label class="vh" for="aseg">Segment</label><select id="aseg" class="inp"><option value="">All segments</option><option${S.seg==="Mid-market"?" selected":""}>Mid-market</option><option${S.seg==="SMB"?" selected":""}>SMB</option></select>
+   <label class="vh" for="asort">Sort</label><select id="asort" class="inp"><option value="v"${S.sort==="v"?" selected":""}>Most MRR lost</option><option value="n"${S.sort==="n"?" selected":""}>Name A to Z</option></select></div>
+  <div id="alist" aria-live="polite">${accountsHTML()}</div>
+  <p class="note">The two Mid-market accounts are 69% of the loss.</p><div class="row" style="margin-top:12px"><button class="btn pri" type="button" data-a="task">Create win-back tasks for all 4</button><button class="btn" type="button" data-a="csv">Export CSV</button></div>`)}
+function account(i){S.acct=i;S.view="account";const a=CHURN[i];panel(`<button class="btn ghost back" type="button" data-a="accounts">← All 4 accounts</button><p style="font-size:20px;margin:0">${esc(a.n)}</p><p class="sub" style="margin:2px 0 12px">${esc(a.seg)} · −$${a.v.toFixed(1)}K MRR · ${esc(a.why)}</p>
   <div class="sec"><span>Signals before they left</span></div><ul class="sig">${a.sig.map(s=>`<li><span class="d">${s[0]}</span><span>${esc(s[1])}</span></li>`).join("")}</ul>
-  <p class="note" style="margin-top:8px">${a.sig.length>2?"The first warning came weeks before the cancellation.":"Few signals before this one left."}</p><div class="row" style="margin-top:12px"><button class="btn pri" data-a="task">Create win-back task</button></div>`)}
-function task(sending,failed){panel(`<button class="btn ghost back" data-a="accounts">← Accounts</button><div class="sheet"><div class="q">Create a win-back task for 4 accounts?</div><p class="sub" style="margin:0">Each account gets a task with the churn reason and its signals attached.</p>
-  ${["Priya","Marcus"].map(o=>`<label class="opt"><input type="radio" name="own" value="${o}" ${S.owner===o?"checked":""} ${sending?"disabled":""}><span>Assign to ${o} · ${o==="Priya"?"Mid-market success":"SMB success"}</span></label>`).join("")}
-  ${failed?`<div class="err"><div><b>The tasks weren't created.</b><br>Nothing was saved. Your choices are kept.</div></div>`:""}
-  <div class="row">${sending?'<button class="btn pri" disabled><span class="spin"></span>Creating…</button>':`<button class="btn pri" data-a="confirm">${failed?"Try again":"Create 4 tasks"}</button><button class="btn ghost" data-a="accounts">Cancel</button>`}</div></div>`)}
-async function confirm(){const my=++run;const o=document.querySelector('input[name="own"]:checked');if(o)S.owner=o.value;task(true);await sleep(1000);if(my!==run)return;
+  <p class="note" style="margin-top:8px">${a.sig.length>2?"The first warning came weeks before the cancellation.":"Few signals before this one left."}</p>
+  <div class="row" style="margin-top:12px">${hasTask(i)?`<span class="chip ok">Task open</span><button class="btn" type="button" data-a="tasks">See it in the task list</button>`:`<button class="btn pri" type="button" data-a="task1" data-i="${i}">Create win-back task</button>`}</div>`)}
+function scopeName(){return S.scope==="all"?"4 accounts":CHURN[S.scope].n}
+function task(sending,failed){S.view="task";const one=S.scope!=="all";
+  panel(`<button class="btn ghost back" type="button" data-a="${one?"acct":"accounts"}">← ${one?esc(CHURN[S.scope].n):"Accounts"}</button><div class="sheet"><div class="q">Create a win-back task for ${esc(scopeName())}?</div><p class="sub" style="margin:0">${one?"The task":"Each account gets a task that"} includes the churn reason and its signals.</p>
+  <fieldset class="owners" aria-describedby="ownErr"${S.err?' aria-invalid="true"':""}><legend class="lab">Owner</legend>${["Priya","Marcus"].map(o=>`<label class="opt"><input type="radio" name="own" value="${o}" ${S.owner===o?"checked":""} ${sending?"disabled":""}><span>Assign to ${o} · ${OWN[o]}</span></label>`).join("")}</fieldset>
+  <p class="note" id="ownErr" role="alert" ${S.err?"":"hidden"} style="color:var(--red);margin:0">${S.err||""}</p>
+  <div class="row" style="gap:10px"><label class="lab" for="due">Due</label><select id="due" class="inp" style="width:auto"${sending?" disabled":""}><option${S.due==="This week"?" selected":""}>This week</option><option${S.due==="Next week"?" selected":""}>Next week</option></select></div>
+  <label class="lab" for="tnote">Note (optional)</label><textarea id="tnote" class="inp" maxlength="200" placeholder="Anything the owner should know"${sending?" disabled":""}>${esc(S.note)}</textarea>
+  ${failed?`<div class="err" role="alert"><div><b>The tasks weren't created.</b><br>Nothing was saved. Your choices are kept.</div></div>`:""}
+  <div class="row">${sending?'<span class="btn pri" aria-live="polite"><span class="spin"></span>Creating…</span>':`<button class="btn pri" type="button" data-a="confirm">${failed?"Try again":one?"Create task":"Create 4 tasks"}</button><button class="btn ghost" type="button" data-a="${one?"acct":"accounts"}">Cancel</button>`}</div></div>`)}
+async function confirm(){const o=document.querySelector('input[name="own"]:checked');S.note=$("tnote").value;S.due=$("due").value;
+  if(!o){S.err="Choose who owns this. Pick Priya or Marcus.";task();document.querySelector('input[name="own"]').focus();return}
+  S.owner=o.value;S.err="";const my=++run;task(true);await sleep(900);if(my!==run)return;
   if(D==="actionerr"&&S.tries++===0){task(false,true);return}
-  panel(`<div class="empty"><span class="okmark">✓</span><b>4 win-back tasks created</b><div class="sub">Assigned to ${S.owner}, with each churn reason and its signals attached.</div><div class="row"><button class="btn" data-a="home">Back to overview</button></div></div>`);toast("4 tasks created")}
-let tt;function toast(m){$("toastMsg").textContent=m;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),2800)}
+  const idx=S.scope==="all"?CHURN.map((_,i)=>i):[S.scope];const made=[];
+  idx.forEach(i=>{if(hasTask(i))return;const t={id:Date.now()+i,acct:CHURN[i].n,seg:CHURN[i].seg,why:CHURN[i].why,owner:S.owner,due:S.due,note:S.note,done:false,created:new Date().toLocaleDateString([], {month:"short",day:"numeric"})};made.push(t)});S.tasks=made.concat(S.tasks);
+  store.set(S.tasks);renderTasks();const n=made.length;S.note="";
+  panel(`<div class="empty"><span class="okmark">✓</span><b>${n?`${n} win-back task${n===1?"":"s"} created`:"Nothing new to create"}</b><div class="sub">${n?`Assigned to ${S.owner}, due ${S.due.toLowerCase()}, with each churn reason and its signals attached.`:"Every account here already has an open task."}</div><div class="row"><button class="btn" type="button" data-a="tasks">See the task list</button><button class="btn ghost" type="button" data-a="home">Back to overview</button></div></div>`);
+  if(n)toast(`${n} task${n===1?"":"s"} created`,()=>{S.tasks=S.tasks.filter(t=>!made.includes(t));store.set(S.tasks);renderTasks();toast("Tasks removed. Nothing was saved.")});else toast("No new tasks. They already exist.")}
+function renderTasks(){const f=S.tfilter;const l=S.tasks.filter(t=>f==="all"||(f==="open"?!t.done:t.done));const open=S.tasks.filter(t=>!t.done).length;
+  $("tCount").textContent=S.tasks.length?`${open} open · ${S.tasks.length-open} done`:"none yet";
+  $("tasks").innerHTML=!S.tasks.length?`<li class="tempty">No tasks yet. Explain June, open the churned accounts, then create win-back tasks.</li>`:
+    !l.length?`<li class="tempty"><b>No matches.</b> No ${f} tasks. <button class="btn sm" type="button" data-t="showall">Show all</button></li>`:
+    l.map(t=>`<li class="${t.done?"done":""}"><label class="tchk"><input type="checkbox" data-done="${t.id}" ${t.done?"checked":""}><span class="vh">Mark ${esc(t.acct)} done</span></label><div><b>${esc(t.acct)}</b><span class="s">${esc(t.owner)} · due ${esc(t.due.toLowerCase())} · ${esc(t.why)}${t.note?` · “${esc(t.note)}”`:""}</span></div><button class="btn sm ghost" type="button" data-del="${t.id}" aria-label="Remove the task for ${esc(t.acct)}">Remove</button></li>`).join("")}
+function csv(rows,name){const t=rows.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
+let tt;function toast(m,undo){$("toastMsg").textContent=m;const b=$("toastUndo");b.hidden=!undo;b.onclick=undo?()=>{$("toast").classList.remove("on");undo()}:null;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),undo?5000:2800)}
 
 $("panel").addEventListener("click",e=>{const b=e.target.closest("[data-a],[data-acct]");if(!b||b.disabled)return;if(b.dataset.acct){account(+b.dataset.acct);return}const a=b.dataset.a;
-  if(a==="explain")explain(8);else if(a==="home"){run++;overview();pIdle()}else if(a==="bridge")explain(8);else if(a==="accounts")accounts();else if(a==="task")task();else if(a==="confirm")confirm()});
+  if(a==="explain")explain(8);else if(a==="home"){run++;overview();pIdle()}else if(a==="bridge")explain(8);else if(a==="accounts"){S.err="";accounts()}
+  else if(a==="task"){S.scope="all";S.owner="";S.err="";task()}else if(a==="task1"){S.scope=+b.dataset.i;S.owner=CHURN[S.scope].seg==="SMB"?"Marcus":"Priya";S.err="";task()}
+  else if(a==="acct"){S.err="";account(S.scope)}else if(a==="confirm")confirm();
+  else if(a==="tasks"){$("tasksCard").scrollIntoView({behavior:reduce?"auto":"smooth",block:"start"});$("tasksCard").focus({preventScroll:true});toast(`${S.tasks.filter(t=>!t.done).length} open tasks`)}
+  else if(a==="clearf"){S.q="";S.seg="";accounts();toast("Filters cleared")}
+  else if(a==="csv"){const l=acctList();csv([["account","segment","mrr_lost_k","reason","signals"],...l.map(x=>[x.n,x.seg,x.v,x.why,x.sig.map(s=>s[0]+": "+s[1]).join("; ")])],"tidewell-june-churn.csv");toast(`Exported ${l.length} accounts as CSV`)}});
+$("panel").addEventListener("input",e=>{if(e.target.id==="aq"){S.q=e.target.value;$("alist").innerHTML=accountsHTML()}if(e.target.id==="tnote")S.note=e.target.value});
+$("panel").addEventListener("change",e=>{const id=e.target.id;if(id==="aseg"||id==="asort"){if(id==="aseg")S.seg=e.target.value;else S.sort=e.target.value;$("alist").innerHTML=accountsHTML();const n=acctList().length;toast(id==="asort"?`Sorted by ${S.sort==="n"?"name":"MRR lost"}`:n?`${n} account${n===1?"":"s"}`:"No matches")}
+  if(e.target.name==="own"){S.owner=e.target.value;if(S.err){S.err="";$("ownErr").hidden=true}}if(id==="due")S.due=e.target.value});
+$("tasks").addEventListener("change",e=>{const id=+e.target.dataset.done;if(!id)return;const t=S.tasks.find(x=>x.id===id);t.done=e.target.checked;store.set(S.tasks);renderTasks();toast(`${t.acct} marked ${t.done?"done":"open"}`)});
+$("tasks").addEventListener("click",e=>{if(e.target.closest("[data-t=showall]")){S.tfilter="all";$("tFilter").value="all";renderTasks();return}
+  const d=e.target.closest("[data-del]");if(!d)return;const id=+d.dataset.del,i=S.tasks.findIndex(x=>x.id===id),t=S.tasks[i];S.tasks.splice(i,1);store.set(S.tasks);renderTasks();
+  toast(`Removed the task for ${t.acct}`,()=>{S.tasks.splice(i,0,t);store.set(S.tasks);renderTasks();toast("Task restored")})});
+$("tFilter").addEventListener("change",e=>{S.tfilter=e.target.value;renderTasks();toast(`Showing ${S.tfilter} tasks`)});
+$("tExport").addEventListener("click",()=>{if(!S.tasks.length){toast("No tasks to export yet.");return}csv([["account","segment","owner","due","status","reason","note","created"],...S.tasks.map(t=>[t.acct,t.seg,t.owner,t.due,t.done?"done":"open",t.why,t.note,t.created])],"tidewell-winback-tasks.csv");toast(`Exported ${S.tasks.length} tasks as CSV`)});
 $("chart").addEventListener("click",e=>{const c=e.target.closest("[data-churn]");if(c){accounts();return}const g=e.target.closest(".mbar[data-i]");if(g)explain(+g.dataset.i)});
 $("chart").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const g=e.target.closest(".mbar[data-i]");if(g){e.preventDefault();explain(+g.dataset.i)}const c=e.target.closest("[data-churn]");if(c){e.preventDefault();accounts()}});
 $("demo").addEventListener("change",e=>{D=e.target.value;run++;S.tries=0;build(D==="empty");overview();pIdle();if(D==="loading"||D==="partial"||D==="actionerr")explain(8)});
-overview();pIdle();
+overview();pIdle();renderTasks();
 })();
+
 </script>
 </body>
 </html>

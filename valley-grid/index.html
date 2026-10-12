@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>if(matchMedia("(max-width:800px)").matches)document.documentElement.classList.add("vg-narrow")</script>
 <style>
 /* Layout: one hero transformer on the gold board, centered. Two frosted panels only: unit status (left) and the alert panel (right) that walks through the whole investigation. Timeline below. Single warm dark look by design. */
 :root{
@@ -71,6 +72,7 @@ button,input,select{font:inherit;color:inherit}
 /* HUD */
 .hud{position:absolute;inset:0;pointer-events:none;padding:28px 32px;display:grid;grid-template-columns:360px 1fr 410px;grid-template-rows:auto 1fr auto;gap:18px}
 .reveal{opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
+.head.reveal{opacity:1;transform:none}
 .on .reveal{opacity:1;transform:none}
 .on .reveal.d1{transition-delay:.15s}.on .reveal.d2{transition-delay:.3s}.on .reveal.d3{transition-delay:.45s}
 .head{grid-column:1/3;pointer-events:auto;display:flex;flex-direction:column;gap:6px;text-shadow:0 2px 18px rgba(10,7,5,.9)}
@@ -83,7 +85,7 @@ button,input,select{font:inherit;color:inherit}
 .head p{margin:0;color:var(--muted);font-size:14px}
 .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--dim);border:1px dashed rgba(255,222,190,.22);padding:3px 7px;border-radius:4px}
 .tools{grid-column:3;justify-self:end;display:flex;gap:8px;pointer-events:auto;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end}
-.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);text-decoration:none}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .tbtn:hover{border-color:var(--edge-2)}
 .demo{display:inline-flex;align-items:center;gap:8px}
 .demo select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;cursor:pointer}
@@ -211,6 +213,17 @@ button,input,select{font:inherit;color:inherit}
   .read{grid-template-columns:1fr 1fr}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Phone: show the interface immediately, keep type at least 12px, and keep controls easy to tap. */
+html.vg-narrow .reveal{opacity:1;transform:none;transition:none}
+html.vg-narrow .skip,html.vg-narrow .grain{display:none}
+@media (max-width:800px){
+  .tag,.tbtn,.demo select,.card h2,.eyebrow,.read small,.sec,.chip,.note,.alert .meta,.steps .tm,.steps i,.lg,.clock small,.credit,.endcard span,.pin .chip small{font-size:12px;letter-spacing:.04em}
+  .btn,.tbtn,.opt{min-height:44px}
+  .demo select{min-height:44px;padding:8px 4px}
+  .card,.tbtn,.pin .chip,.endcard,.toast{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card{background:rgba(28,21,17,.94)}
+  .tbtn{text-decoration:none}
+}
 </style>
 </head>
 <body>
@@ -222,7 +235,7 @@ button,input,select{font:inherit;color:inherit}
 
   <div class="hud" id="hud">
     <header class="head reveal">
-      <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · October 2026</span></div>
+      <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · fictional data</span></div>
       <h1>Transformer <span>T2</span></h1>
       <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled</p>
     </header>
@@ -243,7 +256,7 @@ button,input,select{font:inherit;color:inherit}
       <div class="lg"><span><i></i>Load</span><span><i class="t"></i>Oil temp</span><button class="tbtn" id="play" style="padding:5px 10px;margin-top:4px">❚❚ Pause</button></div>
     </section>
   </div>
-  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>October 2026 concept · direction: Cesar Navarro</span></div>
+  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>Concept direction: Cesar Navarro · AI-assisted build (Claude, Cursor)</span></div>
   <button class="tbtn skip" id="skip" hidden>Skip intro</button>
   <div class="credit">CONCEPT DIRECTION: CESAR NAVARRO</div>
 </div>
@@ -265,36 +278,39 @@ import {BokehPass} from "three/addons/postprocessing/BokehPass.js";
 
 const $=id=>document.getElementById(id);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const narrow=matchMedia("(max-width: 800px)").matches;
 const COL={bronze:0xC08A57,orange:0xE9A46E,brown:0x5A4434,cream:0xF4E7D7,accent:0x6FE3D0,dark:0x2A211B};
 
 /* ---------- fictional unit model ---------- */
 const load=h=>120+85*Math.exp(-Math.pow((h-18)/3.4,2))+30*Math.exp(-Math.pow((h-8.5)/2.3,2));
 const temp=h=>40+40*Math.pow(load(h-1.5)/240,1.8);
-const S={hour:14,playing:!reduce,mode:"intro",t:0,fault:"active"};
+const S={hour:14,playing:!reduce&&!narrow,mode:narrow||reduce?"orbit":"intro",t:0,fault:"active"};
 const pdB=()=>S.fault==="resolved"?96:Math.round(372+70*load(S.hour)/240);
 
 /* ---------- renderer: starts light, upgrades only if the machine is fast ---------- */
 const canvas=$("gl"),stage=$("stage");
 let renderer;
-try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:"high-performance"});}catch(e){stage.insertAdjacentHTML("beforeend",'<div class="fallback">3D is not available here. The panels still work.</div>');}
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:!narrow,powerPreference:narrow?"low-power":"high-performance"});}catch(e){stage.insertAdjacentHTML("beforeend",'<div class="fallback">3D is not available here. The panels still work.</div>');}
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(32,1,.1,300);
 let composer,gtao,bokeh;
 if(renderer){
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.setClearColor(0x000000,0);
+  renderer.setPixelRatio(narrow?1:Math.min(devicePixelRatio||1,1.5));renderer.setClearColor(0x000000,0);
   renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
-  composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,cam));
-  gtao=new GTAOPass(scene,cam,1,1);gtao.output=GTAOPass.OUTPUT.Default;gtao.blendIntensity=1.1;gtao.updateGtaoMaterial({radius:.9,distanceExponent:1.6,thickness:1.2,scale:1.2});gtao.enabled=false;composer.addPass(gtao);
-  bokeh=new BokehPass(scene,cam,{focus:24,aperture:.0016,maxblur:.006});composer.addPass(bokeh);
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(1,1),.32,.55,.92));composer.addPass(new OutputPass());
+  renderer.shadowMap.enabled=!narrow;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  if(!narrow){
+    const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+    composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,cam));
+    gtao=new GTAOPass(scene,cam,1,1);gtao.output=GTAOPass.OUTPUT.Default;gtao.blendIntensity=1.1;gtao.updateGtaoMaterial({radius:.9,distanceExponent:1.6,thickness:1.2,scale:1.2});gtao.enabled=false;composer.addPass(gtao);
+    bokeh=new BokehPass(scene,cam,{focus:24,aperture:.0016,maxblur:.006});composer.addPass(bokeh);
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(1,1),.32,.55,.92));composer.addPass(new OutputPass());
+  }
 }
 scene.fog=new THREE.Fog(0x120E0B,40,110);
 
 /* ---------- lights: warm key, soft fill, accent rim ---------- */
 scene.add(new THREE.HemisphereLight(0xFFE2C4,0x1A120C,.55));
-const key=new THREE.DirectionalLight(0xFFD2A8,2.6);key.position.set(-9,14,10);key.castShadow=true;
+const key=new THREE.DirectionalLight(0xFFD2A8,2.6);key.position.set(-9,14,10);key.castShadow=!narrow;
 key.shadow.mapSize.set(1536,1536);Object.assign(key.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:50});key.shadow.bias=-.0004;key.shadow.radius=6;scene.add(key);
 const rim=new THREE.DirectionalLight(COL.accent,.9);rim.position.set(10,8,-12);scene.add(rim);
 const warmUp=new THREE.PointLight(0xE9A46E,14,18,2);warmUp.position.set(0,1.2,5);scene.add(warmUp);
@@ -378,9 +394,9 @@ add(new RoundedBoxGeometry(1.3,1.9,.8,2,.05),M.steel,3.7,1.6,2.75);
 add(new THREE.BoxGeometry(.02,1.6,.6),M.bronze,4.36,1.6,2.75);
 let led=add(new THREE.SphereGeometry(.06,12,8),M.glowA,4.38,2.25,2.6);
 
-/* Detailed exported model replaces the coded one when t2.json is published beside the page; the coded model stays as fallback. */
-let glbRings=null,glbFans=null,ringBMat=null,ringBColor=null,t2Ready=false,boardReady=false;
-fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
+/* Detailed model replaces the coded one on wide screens. Phones keep the coded model so the page does not download the large scene files. */
+let glbRings=null,glbFans=null,ringBMat=null,ringBColor=null,t2Ready=narrow,boardReady=narrow;
+if(!narrow)fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
   root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material&&o.material.emissiveIntensity>1)o.material.toneMapped=false}});
   scene.remove(T);scene.add(root);
   glbRings=["A","B","C"].map((k,i)=>({o:root.getObjectByName("Ring_"+k),phase:i*.33})).filter(r=>r.o);
@@ -424,7 +440,7 @@ const baseR=()=>(canvas.clientWidth<720?30:canvas.clientWidth<1100?20:27)+(FLOOR
 function focusCam(on){
   if(on){if(!overview)overview={r:orbit.r,phi:orbit.phi,look:orbit.look.clone()};orbit.look=BUSH_B.clone();orbit.r=canvas.clientWidth<1100?13:11;orbit.phi=1.2}
   else if(overview){orbit.r=overview.r;orbit.phi=overview.phi;orbit.look=overview.look;overview=null}}
-function size(){if(!renderer)return;const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);composer.setSize(w,h);gtao.setSize(w,h);cam.aspect=w/h;
+function size(){if(!renderer)return;const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);if(composer)composer.setSize(w,h);if(gtao)gtao.setSize(w,h);cam.aspect=w/h;
   cam.fov=w<720?44:32;cam.updateProjectionMatrix();if(!overview)orbit.r=baseR()}
 new ResizeObserver(size).observe(canvas);size();
 let drag=null,lastInput=0;
@@ -483,11 +499,11 @@ function head(chip){return `<div class="hd"><div class="row" style="align-items:
 function trendSVG(){const days=["Sep 28","Sep 29","Sep 30","Oct 1","Oct 2","Oct 3","Today"],B=[338,346,352,365,381,402,pdB()],A=[121,118,124,119,122,120,118],C=[139,142,138,141,144,140,141];
   const w=360,h=120,L=8,R=8,y0=12,yb=100,x=i=>L+i*(w-L-R)/6,y=v=>yb-((v-300)/220)*(yb-y0);const line=a=>a.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
   return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Partial discharge on bushing B rose from 338 to ${pdB()} pC over 7 days, under the 500 pC limit">
-   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="9.5" font-family="JetBrains Mono, monospace">limit 500 pC</text>
+   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="12" font-family="JetBrains Mono, monospace">limit 500 pC</text>
    <path d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
-   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="11" font-family="JetBrains Mono, monospace">${B[6]} pC</text>
-   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="9.5" font-family="JetBrains Mono, monospace">${d}</text>`:"").join("")}
-   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
+   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="12" font-family="JetBrains Mono, monospace">${B[6]} pC</text>
+   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${d}</text>`:"").join("")}
+   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
 function readings(){return `<div class="read"><div><small>Now</small><b class="warn" id="pdNow">${pdB()} pC</b><span>limit 500</span></div><div><small>7 days</small><b>+${Math.round((pdB()/338-1)*100)}%</b><span>was 338</span></div><div><small>Hydrogen</small><b>118 ppm</b><span>watch &gt; 100</span></div></div>`}
 function cause(){return `<div><div class="sec"><span>Likely cause</span><span>from sensor patterns</span></div><div class="cause">
   <div class="c top"><b>Moisture in bushing B insulation</b><ul><li>Discharge climbs on humid nights</li><li>Hydrogen up 15% in 7 days</li><li>Phases A and C stay flat</li></ul></div>
@@ -557,7 +573,7 @@ function renderStatus(k=1){const el=$("status");
 let countFrom=null;function countUp(){countFrom=performance.now()}
 function drawSpark(){const s=$("spark");if(!s)return;const w=300,h=56;s.setAttribute("viewBox",`0 0 ${w} ${h}`);const x=t=>t/24*w,y=v=>h-4-(v-40)/(95-40)*(h-10);
   let d="";for(let t=0;t<=24;t+=.5)d+=(t?"L":"M")+x(t).toFixed(1)+" "+y(temp(t)).toFixed(1);
-  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">95 °C alarm</text>
+  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">95 °C alarm</text>
    <path d="${d} L${w} ${h} L0 ${h}Z" fill="rgba(111,227,208,.08)"/><path d="${d}" fill="none" stroke="#6FE3D0" stroke-width="1.6"/><circle cx="${x(S.hour)}" cy="${y(temp(S.hour))}" r="3.5" fill="#6FE3D0"/>`}
 function renderPins(){PINS.forEach(p=>{p.el.classList.toggle("warn",p.warn());p.b.textContent=p.val()})}
 function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textContent=pdB()+" pC";const r=$("pdRow");if(r)r.textContent=pdB()+" pC · limit 500";
@@ -565,7 +581,7 @@ function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textCo
 function drawCurve(){const svg=$("curveSvg"),w=$("curve").clientWidth||800,h=52;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
   const x=t=>t/24*w,yl=v=>h-4-(v-100)/120*(h-10),yt=v=>h-4-(v-40)/(95-40)*(h-10);let a="",b="";
   for(let t=0;t<=24;t+=.25){a+=(t?"L":"M")+x(t).toFixed(1)+" "+yl(load(t)).toFixed(1);b+=(t?"L":"M")+x(t).toFixed(1)+" "+yt(temp(t)).toFixed(1)}
-  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">${String(t).padStart(2,"0")}:00</text>`).join("");
+  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${String(t).padStart(2,"0")}:00</text>`).join("");
   svg.innerHTML=`${ticks}<path d="${a} L${w} ${h} L0 ${h}Z" fill="rgba(192,138,87,.12)"/><path d="${a}" fill="none" stroke="#C08A57" stroke-width="1.8"/><path d="${b}" fill="none" stroke="#6FE3D0" stroke-width="1.2" opacity=".8"/>
    <line x1="${x(S.hour)}" x2="${x(S.hour)}" y1="0" y2="${h}" stroke="#F4E7D7" stroke-width="1" opacity=".7"/><circle cx="${x(S.hour)}" cy="${yl(load(S.hour))}" r="4" fill="#F4E7D7"/>`
   {const cv=$("curve"),m=Math.round(S.hour*60)%1440,hh=Math.floor(m/60),mm=m%60,txt=`${(hh%12)||12}:${String(mm).padStart(2,"0")} ${hh<12?"AM":"PM"}`;if(cv.getAttribute("aria-valuetext")!==txt){cv.setAttribute("aria-valuenow",(m/60).toFixed(2));cv.setAttribute("aria-valuetext",txt)}}}
@@ -601,8 +617,8 @@ function project(p){const w=canvas.clientWidth,h=canvas.clientHeight;v3.copy(p).
 /* starts light for integrated graphics; turns on ambient occlusion only on fast machines; steps down if frames run slow */
 const Q={n:0,acc:0,level:0,checks:0,hi:false};
 function adapt(raw){if(!renderer||Q.checks>=4)return;Q.n++;Q.acc+=raw;if(Q.n<120)return;const ms=Q.acc/Q.n*1000;Q.n=0;Q.acc=0;Q.checks++;
-  if(ms<12&&!Q.hi&&Q.level===0&&canvas.clientWidth>=1100){Q.hi=true;gtao.enabled=true;return}
-  if(ms>24){if(Q.hi){Q.hi=false;gtao.enabled=false;return}Q.level=Math.min(2,Q.level+1);
+  if(gtao&&ms<12&&!Q.hi&&Q.level===0&&canvas.clientWidth>=1100){Q.hi=true;gtao.enabled=true;return}
+  if(ms>24){if(Q.hi&&gtao){Q.hi=false;gtao.enabled=false;return}Q.level=Math.min(2,Q.level+1);
     if(Q.level===2){renderer.setPixelRatio(1);size();key.shadow.mapSize.set(1024,1024);if(key.shadow.map){key.shadow.map.dispose();key.shadow.map=null}}}}
 function frame(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math.min(raw,.05),t=clock.elapsedTime;adapt(raw);
   if(S.playing&&S.mode!=="film")S.hour=(S.hour+dt*.05)%24;
@@ -617,18 +633,18 @@ function frame(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math
   else if(t-lastTick>.3){lastTick=t;liveTick()}
   if(!renderer)return;
   cam.position.copy(camPos);cam.lookAt(camLook);
-  bokeh.enabled=Q.level===0&&S.mode!=="orbit";bokeh.uniforms.focus.value=camPos.distanceTo(camLook);bokeh.uniforms.aperture.value=.0022;
+  if(bokeh){bokeh.enabled=Q.level===0&&S.mode!=="orbit";bokeh.uniforms.focus.value=camPos.distanceTo(camLook);bokeh.uniforms.aperture.value=.0022}
   const L=load(S.hour);(glbFans||fans).forEach((f,i)=>f.rotation.y+=dt*(L>165||i%2===0?14:0));
   if(glbRings)glbRings.forEach(r=>{const p=((t*.45+r.phase)%1);r.o.position.y=5.53+p*2.9;r.o.scale.setScalar(1+Math.sin(p*Math.PI)*.15)});
   if(boardTick)boardTick(t,dt);
   rings.forEach(r=>{const p=((t*.45+r.phase)%1);r.r.position.y=.5+p*2.9;r.r.scale.setScalar(1+Math.sin(p*Math.PI)*.15);r.r.visible=!reduce});
   led.visible=Math.sin(t*3)>0;
   PINS.forEach(p=>{const q=project(p.p);p.el.style.transform=`translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px)`;p.el.classList.toggle("below",q.y<150);if(!q.vis)p.el.style.opacity=0});
-  composer.render()}
+  if(composer)composer.render();else renderer.render(scene,cam)}
 
-/* ---------- gold circuit board scene: feeders, substation chips, energy pulses ---------- */
+/* ---------- gold circuit board: feeders, substation chips, energy pulses ---------- */
 let boardTick=null;
-Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
+if(!narrow)Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
   const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));
   new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene,k=1/P.scale;
     root.scale.setScalar(k);root.position.y=-.1*k;
@@ -651,7 +667,7 @@ Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fet
       if(faultMat&&S.fault!=="resolved")faultMat.emissiveIntensity=(Math.floor(t*4)%4<2)?9:1.5};
     boardReady=true;checkBoot()},()=>{boardReady=true;checkBoot()});}).catch(()=>{boardReady=true;checkBoot()});
 
-if(reduce){S.mode="orbit";reveal(true)}else{$("skip").hidden=false}
+if(reduce||narrow){S.mode="orbit";$("skip").hidden=true;if(t2Ready&&boardReady)checkBoot();reveal(true)}else{$("skip").hidden=false}
 renderPanel();renderStatus();renderPins();frame();
 </script>
 </body>

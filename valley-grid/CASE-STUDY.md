@@ -1,6 +1,6 @@
 # Valley Grid Ops: investigate an equipment alert
 
-October 2026 concept, directed by Cesar Navarro. The 3D scene was generated with AI tools he directed (Claude, Cursor). He did not write the generator scripts. Not tested with real operators or live data. The substation, crews, and readings are fictional.
+October 2026 concept. **Role:** Concept direction. **Tools:** AI-assisted build (Claude, Cursor). The 3D scene was generated with those tools under Cesar Navarro's direction. He did not model it by hand. Not tested with real operators or live data. The substation, crews, and readings are fictional.
 
 ## Problem
 Grid operators get alarms with numbers but no context. Deciding whether a reading needs a crew means jumping between monitoring screens, trend tools and phone calls.
@@ -18,7 +18,7 @@ A control-room operator on shift, responsible for nine substations, who needs to
 
 ## Concept vs real
 **Concept:** all data, people, crews and the substation are fictional.
-**Real:** the working interface, the live 3D scene (built with AI-assisted tooling: Claude, Cursor) running in Three.js, the full state flow, and graphics quality that adapts to laptop hardware.
+**Real:** the interface and its state flow run in the browser. On a wide screen the 3D scene is the detailed model. On a phone the same workflow runs on the lighter built-in model so the page can load. AI-assisted build (Claude, Cursor).
 **Not built:** live sensor data, sign-in, and a real crew dispatch integration.
 
 ---
