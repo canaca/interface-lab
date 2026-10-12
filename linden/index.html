@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Linden · Who to contact before the store opens</title>
-<meta name="description" content="October 2026 concept: a clienteling book for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
+<meta name="description" content="October 2026 concept: a client follow-up list for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
 <meta property="og:title" content="Linden · Who to contact before the store opens">
-<meta property="og:description" content="October 2026 concept: a clienteling book for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
+<meta property="og:description" content="October 2026 concept: a client follow-up list for a fictional boutique. Due follow-ups, preferences, and a draft that is never sent.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/linden/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/linden.jpg">
 <meta property="og:image:alt" content="Linden: a sample morning book with a client card, preferences, and a draft that was not sent">
@@ -157,7 +157,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
     <span class="tag">Concept · Oct 2026</span>
   </header>
   <main id="book">
-  <p class="banner" id="banner">Sample day at Linden, a fictional boutique. Clients, notes, and drafts stay on this page. Nothing is sent. No prices.</p>
+  <p class="banner" id="banner">A sample day at Linden, a fictional boutique. Clients, notes, and drafts stay on this page. Nothing is sent. No prices are shown.</p>
   <div class="kpis" id="kpis">
     <button type="button" class="card kpi" data-queue="today" aria-pressed="false"><b class="m" id="nToday">0</b><span class="sub">Due today</span></button>
     <button type="button" class="card kpi" data-queue="overdue" aria-pressed="false"><b class="m" id="nOver">0</b><span class="sub">Overdue</span></button>
@@ -202,17 +202,17 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
   <section class="cs">
     <div>
       <span class="tag">Case study</span>
-      <h2>The morning list should say why, not only who.</h2>
-      <p class="lede">A store manager opens the book and sees who is due, what they asked for last time, and a note the advisor can send by hand.</p>
+      <h2>The morning list should say why someone needs a follow-up, not only who.</h2>
+      <p class="lede">A store manager opens the client list and sees who needs a follow-up, what they asked for last time, and a note the advisor can send personally.</p>
     </div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
       <dt>Problem</dt><dd>Follow-ups live in memory and in a group chat. The person on the floor does not know the size, the occasion, or why today is the day.</dd>
-      <dt>User</dt><dd>A client advisor or store manager at a boutique. Not a finance analyst, and not a media buyer.</dd>
-      <dt>Decisions</dt><dd>The queue is open follow-ups, with a reason on the card. Preferences can be added and removed. A message is a draft: the page says nothing is sent. Moving a client to another advisor asks first. A failed save keeps the note. Export is the filtered sample.</dd>
-      <dt>Outcome</dt><dd>A working prototype of the book, the card, the draft, undo, and export, with empty, loading, and save-error states. Not tested with a real store team. No sales figures.</dd>
-      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro. AI-assisted build (Claude, Cursor). Not a client engagement. Linden draws on his jewelry clienteling as Vice President at Talisman Collection Fine Jewelers in El Dorado Hills (May 2022 – Mar 2024), and on his GIA Applied Jewelry Professional Diploma (2023) and GIA Diamond Grading Certificate (in-person at AGS Laboratories, 2022).</dd>
+      <dt>User</dt><dd>A client advisor or store manager at a boutique.</dd>
+      <dt>Decisions</dt><dd>The list shows open follow-ups, each with a reason. Preferences can be added and removed. A message is a draft: the page says nothing is sent. Moving a client to another advisor asks you to confirm first. If a save fails, your note is not lost. Export saves only what your filters show. The file says the data is fictional.</dd>
+      <dt>Outcome</dt><dd>A working prototype of the client list, the card, the draft, undo, and export, with empty, loading, and save-error screens. Not tested with a real store team. No sales figures.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro. AI-assisted build (Claude, Cursor). Not a client engagement. Linden draws on his jewelry clienteling as Vice President at Talisman Collection Fine Jewelers in El Dorado Hills (May 2022 – Mar 2024). It also draws on his GIA Applied Jewelry Professional Diploma (2023) and GIA Diamond Grading Certificate (in-person at AGS Laboratories, 2022).</dd>
       <dt>Label</dt><dd>Concept. Linden, the advisors, and the clients are fictional.</dd>
     </dl>
   </section>
@@ -539,7 +539,7 @@ $("exportBtn").addEventListener("click",()=>{
   const body=rows.map(c=>["yes",c.n,c.advisor,c.occasion,c.size,c.visit,badge(c)[1],nextLine(c),c.prefs.join(" | "),c.draft||""].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(","));
   const csv=['"October 2026 concept. Fictional Linden clients. Nothing was sent."',head.join(","),...body].join("\n");
   const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="linden-client-book-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
-  toast("Exported "+rows.length+" sample client"+(rows.length===1?"":"s")+".");
+  toast(rows.length?("Exported "+rows.length+" sample client"+(rows.length===1?"":"s")+"."):"Nothing to export. The list is empty.");
 });
 $("copyBtn").addEventListener("click",()=>copyText(summary(),"List copied. Sample data only. Nothing was sent."));
 $("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
@@ -549,8 +549,8 @@ $("demo").addEventListener("change",e=>{
   D=e.target.value;reset();
   if(D==="empty"){S.clients=[];S.follows=[];S.sel=null}
   render();
-  if(D==="loading")toast("Loading state. Switch back to Live book when you want the data.");
-  if(D==="saveerr")toast("The next save will fail once. Your note is kept.");
+  if(D==="loading")toast("This shows the loading screen. Switch back to Live book to see the data.");
+  if(D==="saveerr")toast("This test makes the next save fail. Your note stays safe.");
 });
 reset();render();
 })();

@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tidewell · Why monthly revenue moved</title>
+<title>Tidewell · Explaining why monthly revenue changed</title>
 <meta name="description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
-<meta property="og:title" content="Tidewell · Why monthly revenue moved">
+<meta property="og:title" content="Tidewell · Explaining why monthly revenue changed">
 <meta property="og:description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/tidewell/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/tidewell.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tidewell · Why monthly revenue moved">
+<meta name="twitter:title" content="Tidewell · Explaining why monthly revenue changed">
 <meta name="twitter:description" content="Concept prototype: see why June revenue fell, down to the four accounts behind it and a win-back task.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/tidewell.jpg">
 <meta name="twitter:image:alt" content="Tidewell: June revenue change broken into a waterfall">
@@ -36,6 +36,7 @@
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
+svg text{font-family:var(--mono)}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -156,7 +157,7 @@ textarea.inp{min-height:56px;resize:vertical}
     <h1 class="brand"><b>Tidewell</b><span>Revenue Pulse</span></h1>
     <span class="crumbs">MRR · ALL SEGMENTS · LAST 12 MONTHS</span>
     <span class="sp"></span>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing unusual</option><option value="loading">Loading</option><option value="partial">Warning · data incomplete</option><option value="actionerr">Error · task fails</option></select></label>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing unusual</option><option value="loading">Loading</option><option value="partial">Warning · data incomplete</option><option value="actionerr">Error · task can't be created</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
   <div class="lay">
@@ -168,8 +169,8 @@ textarea.inp{min-height:56px;resize:vertical}
     <ul class="tasks" id="tasks" aria-live="polite"></ul><p class="note" style="margin-top:8px">Tasks are saved in this browser. Demo data only.</p></section>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag">Concept · prototype</span><h2>Explaining why monthly revenue moved</h2>
-      <p class="lede">When MRR drops, a finance or success lead needs the cause in minutes, not a spreadsheet afternoon. The month breaks into its parts, then into the accounts behind them.</p>
+    <div><span class="tag">Concept · prototype</span><h2>Explaining why monthly revenue changed</h2>
+      <p class="lede">When monthly recurring revenue (MRR) drops, a finance or success lead needs the cause fast, without an afternoon in a spreadsheet. The month breaks into its parts, then into the accounts behind them.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
@@ -177,11 +178,11 @@ textarea.inp{min-height:56px;resize:vertical}
       <dt>Problem</dt><dd>Dashboards show that revenue fell, but not why. Teams export data and rebuild the story by hand, so action comes late.</dd>
       <dt>User</dt><dd>A head of customer success at a SaaS company, preparing for the monthly revenue review.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The title is the finding.</b> Every view states what happened, with the number.</li>
-        <li><b>The month splits into a bridge.</b> The drop breaks into new, expansion, contraction and churn, so the biggest cause is obvious.</li>
-        <li><b>Drill from cause to customer.</b> One click from the churn step to the accounts, and one more to the warning signs they showed.</li>
-        <li><b>Honest about the data.</b> If billing data is incomplete, the view says so before anyone acts on it.</li>
-        <li><b>End in an action.</b> The explanation turns into a win-back task with an owner, confirmed before it's created.</li></ol></dd>
+        <li><b>The title states the main finding.</b> Every view states what happened, with the number.</li>
+        <li><b>The month breaks into parts.</b> The drop splits into new customers, upgrades, downgrades, and cancellations, so the biggest cause is obvious.</li>
+        <li><b>Go from the cause to the customers behind it.</b> One click from the churn step to the accounts, and one more to the warning signs they showed.</li>
+        <li><b>It shows when data is missing.</b> If billing data is incomplete, the view says so before anyone acts on it.</li>
+        <li><b>It ends with a follow-up task.</b> The explanation turns into a win-back task with an owner, confirmed before it's created.</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable prototype of the full path, from the drop to the bridge, the accounts, the signals and the task, with empty, loading, incomplete-data and task-error states. Not yet tested with real users or real billing data.</dd>
       <dt>Label</dt><dd>Concept. The company, accounts and numbers are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
@@ -213,16 +214,16 @@ function overview(){S.view="overview";const W=760,H=330,L=56,R=16,T=16,mid=190,B
   const lo=Math.min(...ROWS.map(r=>r.end))-10,hi=Math.max(...ROWS.map(r=>r.end))+10;const band=(W-L-R)/12,x=i=>L+band*(i+.5),y=v=>T+(hi-v)/(hi-lo)*(mid-T-20);
   const nmax=Math.max(...ROWS.map(r=>Math.abs(r.net))),nz=mid+70,ny=v=>nz-v/nmax*55;
   const path=ROWS.map((r,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(r.end).toFixed(1)).join(" ");
-  const ticks=[lo+10,(lo+hi)/2,hi-10].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,222,190,.07)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5" font-family="JetBrains Mono, monospace">$${Math.round(v)}K</text>`).join("");
+  const ticks=[lo+10,(lo+hi)/2,hi-10].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="rgba(255,222,190,.07)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5">$${Math.round(v)}K</text>`).join("");
   const bars=ROWS.map((r,i)=>{const neg=r.net<0,sel=i===S.sel&&D!=="empty";return `<g class="mbar" data-i="${i}" tabindex="0" role="button" aria-label="${r.m}: net ${sk(r.net)}. Explain."><rect x="${x(i)-band/2}" y="${T}" width="${band}" height="${H-T}" fill="transparent"/>
     <rect x="${x(i)-band*.22}" y="${neg?nz:ny(r.net)}" width="${band*.44}" height="${Math.abs(ny(r.net)-nz)}" rx="3" fill="${neg?"var(--down)":"var(--up)"}" fill-opacity="${sel?1:.55}"><title>${r.m}: net ${sk(r.net)}</title></rect>
     <text x="${x(i)}" y="${H-10}" text-anchor="middle" fill="${sel?"#F4E7D7":"#7F6B5B"}" font-size="11" font-weight="${sel?600:400}">${r.m}</text></g>`}).join("");
   const j=ROWS[8];
   $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="MRR over 12 months with monthly net change; June fell ${k(-j.net)}">${ticks}
-    <path d="${path} L${x(11)} ${mid-20} L${x(0)} ${mid-20}Z" fill="rgba(192,138,87,.08)"/><path d="${path}" fill="none" stroke="var(--bronze)" stroke-width="2"/>
-    ${ROWS.map((r,i)=>i===11||(i===8&&D!=="empty")?`<circle cx="${x(i)}" cy="${y(r.end)}" r="4" fill="${i===8?"var(--down)":"var(--bronze)"}"/><text x="${x(i)+(i===11?-6:0)}" y="${y(r.end)-10}" text-anchor="${i===11?"end":"middle"}" fill="#F4E7D7" font-size="11" font-family="JetBrains Mono, monospace">${k(r.end)}</text>`:"").join("")}
-    <line x1="${L}" x2="${W-R}" y1="${nz}" y2="${nz}" stroke="rgba(255,222,190,.2)"/><text x="${L-8}" y="${nz+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5" font-family="JetBrains Mono, monospace">$0</text>
-    <text x="${L}" y="${mid+4}" fill="#7F6B5B" font-size="10" font-family="JetBrains Mono, monospace">NET CHANGE BY MONTH</text>${bars}</svg>`;
+    <path aria-hidden="true" d="${path} L${x(11)} ${mid-20} L${x(0)} ${mid-20}Z" fill="rgba(192,138,87,.08)"/><path aria-hidden="true" d="${path}" fill="none" stroke="var(--bronze)" stroke-width="2"/>
+    ${ROWS.map((r,i)=>i===11||(i===8&&D!=="empty")?`<circle cx="${x(i)}" cy="${y(r.end)}" r="4" fill="${i===8?"var(--down)":"var(--bronze)"}"/><text x="${x(i)+(i===11?-6:0)}" y="${y(r.end)-10}" text-anchor="${i===11?"end":"middle"}" fill="#F4E7D7" font-size="11">${k(r.end)}</text>`:"").join("")}
+    <line x1="${L}" x2="${W-R}" y1="${nz}" y2="${nz}" stroke="rgba(255,222,190,.2)"/><text x="${L-8}" y="${nz+4}" text-anchor="end" fill="#7F6B5B" font-size="10.5">$0</text>
+    <text x="${L}" y="${mid+4}" fill="#7F6B5B" font-size="10">NET CHANGE BY MONTH</text>${bars}</svg>`;
   $("cTitle").textContent="MRR · last 12 months";$("cNote").textContent="click any month";
   $("finding").textContent=D==="empty"?`MRR grew every month, ending at ${k(ROWS[11].end)}`:`MRR fell ${k(-j.net)} in June, the only drop this year`;
   $("legend").innerHTML='<span><i style="background:var(--bronze)"></i>MRR</span><span><i style="background:var(--up)"></i>Net gain</span><span><i style="background:var(--down)"></i>Net loss</span>'}
@@ -234,12 +235,12 @@ async function bridge(i){const r=ROWS[i];S.view="bridge";S.sel=i;const W=760,H=3
   const band=(W-L-R)/6,x=j=>L+band*(j+.5),y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
   const color={total:"var(--total)",up:"var(--up)",down:"var(--down)"};
   $("chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="group" aria-label="${r.m} bridge: start ${k(r.start)}, new ${sk(r.p[0])}, expansion ${sk(r.p[1])}, contraction ${sk(r.p[2])}, churn ${sk(r.p[3])}, end ${k(r.end)}">
-    <text x="${L}" y="16" fill="#7F6B5B" font-size="10" font-family="JetBrains Mono, monospace">AXIS STARTS AT $${Math.round(lo)}K</text>
+    <text x="${L}" y="16" fill="#7F6B5B" font-size="10">AXIS STARTS AT $${Math.round(lo)}K</text>
     ${geo.map((g,j)=>{const top=g.t==="total"?y(g.b):y(Math.max(g.a,g.b)),bot=g.t==="total"?H-B:y(Math.min(g.a,g.b));const isChurn=g.l==="Churn";
       return `<g class="${isChurn&&i===8?"mbar":""}" ${isChurn&&i===8?'data-churn="1" tabindex="0" role="button" aria-label="Churn: see accounts"':""}>
       <rect class="wf" x="${x(j)-band*.3}" style="y:${bot}px;height:0px" width="${band*.6}" rx="3" fill="${color[g.t]}" fill-opacity="${g.t==="total"?.55:.9}" data-y="${top}" data-h="${Math.max(2,bot-top)}"><title>${g.l}: ${g.t==="total"?k(g.v):sk(g.v)}</title></rect>
-      ${j<5?`<line x1="${x(j)+band*.3}" x2="${x(j+1)-band*.3}" y1="${y(g.b)}" y2="${y(g.b)}" stroke="rgba(255,222,190,.25)" stroke-dasharray="3 3"/>`:""}
-      <text x="${x(j)}" y="${top-8}" text-anchor="middle" fill="#F4E7D7" font-size="12" font-family="JetBrains Mono, monospace" class="lbl" opacity="0">${g.t==="total"?k(g.v):sk(g.v)}</text>
+      ${j<5?`<line aria-hidden="true" x1="${x(j)+band*.3}" x2="${x(j+1)-band*.3}" y1="${y(g.b)}" y2="${y(g.b)}" stroke="rgba(255,222,190,.25)" stroke-dasharray="3 3"/>`:""}
+      <text x="${x(j)}" y="${top-8}" text-anchor="middle" fill="#F4E7D7" font-size="12" class="lbl" opacity="0">${g.t==="total"?k(g.v):sk(g.v)}</text>
       <text x="${x(j)}" y="${H-16}" text-anchor="middle" fill="${isChurn&&i===8?"#F4E7D7":"#B9A08A"}" font-size="12" font-weight="${isChurn&&i===8?600:400}">${g.l}</text></g>`}).join("")}</svg>`;
   const big=r.p[3]<-15?"Churn":Math.abs(r.p[0])>=Math.abs(r.p[3])?"New business":"Churn";
   $("cTitle").textContent=`${r.m} · what moved MRR`;$("cNote").textContent=i===8?"click churn for accounts":"";

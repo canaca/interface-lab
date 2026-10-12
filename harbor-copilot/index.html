@@ -196,27 +196,27 @@ input.srch{width:220px}
       <div class="bulk" id="bulk" hidden></div>
     </section>
     <aside class="rail">
-      <section class="card cop" aria-label="Copilot"><h2>Copilot <i>changes nothing until you apply</i></h2><div id="cop"></div></section>
+      <section class="card cop" aria-label="Copilot"><h2>Copilot <i>nothing changes until you approve</i></h2><div id="cop"></div></section>
       <section class="card" aria-label="Change log"><h2>Change log <span class="row" style="gap:8px"><i id="logN">empty</i><button class="btn sm ghost" id="logAll" type="button" hidden style="font-family:var(--sans);letter-spacing:0;text-transform:none;font-size:12.5px">Undo all</button></span></h2><ol class="log" id="log"><li style="border:0;color:var(--dim);font-size:12.5px">Applied changes show here, each with its own undo.</li></ol></section>
     </aside>
   </div>
 
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept · prototype</span><h2>Helping sales reps clean up stalled deals without losing control</h2>
-      <p class="lede">The copilot proposes a change set across many deals. The rep sees every change inside the table, picks what to apply, and can undo any of it.</p>
+      <p class="lede">Concept prototype: the AI suggests cleanup for stalled deals. Changes show right in the table, clashing edits wait for you, and you can undo at every level.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Pipelines rot: deals go quiet, owners leave, close dates slip. Fixing it is tedious, and letting an AI edit the CRM in bulk feels risky.</dd>
+      <dt>Problem</dt><dd>Sales deals get stuck: customers go quiet, owners leave, close dates slip. Fixing it is slow, and letting an AI edit the CRM in bulk feels risky.</dd>
       <dt>User</dt><dd>A sales manager cleaning up the team pipeline before a forecast call.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The diff lives in the cell.</b> Old value crossed out, new value below, with the reason. No separate review screen.</li>
-        <li><b>Bulk by default, risky by exception.</b> Safe changes are pre-selected. Closing a deal is never pre-selected.</li>
-        <li><b>Conflicts are shown, not overwritten.</b> If a teammate edited a deal after the copilot looked, that deal is held until the rep chooses.</li>
-        <li><b>Partial failure is precise.</b> It names the changes that failed and confirms the rest were applied.</li>
-        <li><b>Undo at every level.</b> Undo one change from the log, or undo the whole set.</li></ol></dd>
-      <dt>Outcome</dt><dd>A clickable prototype of the full change-set flow: scan, review, bulk apply, conflict, partial failure and undo, plus empty and loading states. Not yet tested with real users or a real CRM.</dd>
+        <li><b>Changes show right in the table.</b> The old value is crossed out, with the new value and the reason below it. You don't need a separate review screen.</li>
+        <li><b>Safe changes are picked for you. Risky ones are not.</b> Closing a deal is never pre-selected.</li>
+        <li><b>Clashing edits wait for you.</b> If a teammate edited a deal after the copilot looked, that deal is held until the rep chooses.</li>
+        <li><b>If some changes fail, it says which ones.</b> It names the changes that failed and confirms the rest were applied.</li>
+        <li><b>Undo one change or all of them.</b> Undo one change from the log, or undo the whole set.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the full flow: the AI scans, you review, apply many changes at once, handle clashes and failures, and undo, plus empty and loading screens. Not yet tested with real users or a real CRM.</dd>
       <dt>Label</dt><dd>Concept. The company, people and deals are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>

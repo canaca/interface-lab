@@ -153,7 +153,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
     <span class="tag">Concept · Oct 2026</span>
   </header>
   <main id="book">
-  <p class="banner" id="banner">Sample onboarding book for Fieldnote, a fictional product. Progress is steps done. A nudge is a task on this page. Nothing is emailed.</p>
+  <p class="banner" id="banner">A sample onboarding tracker for Fieldnote, a fictional product. Progress means steps done. A nudge is a reminder on this page. Nothing is emailed.</p>
   <div class="kpis" id="kpis">
     <button type="button" class="card kpi" data-status="blocked" aria-pressed="false"><b class="m" id="nBlocked">0</b><span class="sub">Blocked</span></button>
     <button type="button" class="card kpi" data-status="not" aria-pressed="false"><b class="m" id="nNot">0</b><span class="sub">Not started</span></button>
@@ -196,16 +196,16 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
   <section class="cs">
     <div>
       <span class="tag">Case study</span>
-      <h2>A new account should show the stuck step, and who owes it.</h2>
-      <p class="lede">The success manager sees five steps, a blocker written in words, and a nudge that stays on the page.</p>
+      <h2>A new account should show the stuck step, and who needs to act next.</h2>
+      <p class="lede">The customer success manager sees five steps, a plain reason for what's stuck, and a reminder that stays on the page.</p>
     </div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Onboarding is a checklist in a doc. The owner cannot see which step is blocked, or whether the next move is theirs or the client's.</dd>
-      <dt>User</dt><dd>A customer success manager running the first weeks of a new account. Not a finance analyst.</dd>
-      <dt>Decisions</dt><dd>Progress is steps marked done, not a score. Marking a later step first asks, and still allows it with a note. A blocker needs a reason. A nudge creates a task. It does not email anyone. Moving the account asks first. A failed save keeps the note.</dd>
-      <dt>Outcome</dt><dd>A working prototype of the book, the checklist, the nudge list, undo, and export, with empty, loading, and save-error states. Not tested with a real success team. No time-to-value claim.</dd>
+      <dt>Problem</dt><dd>When onboarding lives in a document, it's hard to see which step is stuck, or whether the team or the client needs to act next.</dd>
+      <dt>User</dt><dd>A customer success manager running the first weeks of a new account.</dd>
+      <dt>Decisions</dt><dd>Progress is steps marked done, not a score. If you mark a later step done first, the page checks with you, and you can still do it with a note. A stuck step needs a reason. A nudge creates a task. It does not email anyone. Moving the account asks you to confirm first. If a save fails, your note is not lost.</dd>
+      <dt>Outcome</dt><dd>A working prototype of the account list, the checklist, the reminder list, undo, and export, with empty, loading, and save-error screens. Not tested with a real success team. It makes no claim about how fast accounts see value.</dd>
       <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro. AI-assisted build (Claude, Cursor). Not a client engagement. Fieldnote is the same fictional company used in Keel. This is a separate prototype.</dd>
       <dt>Label</dt><dd>Concept. Fieldnote, the accounts, and the people are fictional.</dd>
     </dl>
@@ -379,7 +379,7 @@ function paintDetail(){
   if(D==="loading"){el.innerHTML=`<div class="sk" style="height:18px;width:40%"></div><div class="sk" style="height:120px;margin-top:12px"></div>`;$("detNote").textContent="loading";return}
   if(D==="empty"){el.innerHTML=`<p class="note">Nothing to open.</p>`;$("detNote").textContent="empty";return}
   const a=acct(S.sel);
-  if(!a){el.innerHTML=`<div class="empty"><b>Select an account</b><p class="sub">Open a name to see the five steps and who owes the next one.</p></div>`;$("detNote").textContent="select one";return}
+  if(!a){el.innerHTML=`<div class="empty"><b>Select an account</b><p class="sub">Open a name to see the five steps and who needs to act next.</p></div>`;$("detNote").textContent="select one";return}
   const st=status(a),d=doneCount(a),pct=Math.round(d/a.steps.length*100);
   $("detNote").textContent=d+" of "+a.steps.length;
   const hidden=!match(a)?"<p class=\"note\" id=\"hiddenNote\">Hidden by the current filter. Clear filters to see them in the list.</p>":"";
@@ -500,7 +500,7 @@ $("exportBtn").addEventListener("click",()=>{
   });
   const csv=['"October 2026 concept. Fictional Fieldnote accounts. Nothing was emailed."',head.join(","),...body].join("\n");
   const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="berth-onboarding-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
-  toast("Exported "+rows.length+" sample account"+(rows.length===1?"":"s")+".");
+  toast(rows.length?("Exported "+rows.length+" sample account"+(rows.length===1?"":"s")+"."):"Nothing to export. The list is empty.");
 });
 $("copyBtn").addEventListener("click",()=>copyText(summary(),"List copied. Sample data only. Nothing was emailed."));
 $("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
@@ -510,8 +510,8 @@ $("demo").addEventListener("change",e=>{
   D=e.target.value;reset();
   if(D==="empty"){S.accounts=[];S.sel=null}
   render();
-  if(D==="loading")toast("Loading state. Switch back to Live book when you want the data.");
-  if(D==="saveerr")toast("The next save will fail once. Your note is kept.");
+  if(D==="loading")toast("This shows the loading screen. Switch back to Live book to see the data.");
+  if(D==="saveerr")toast("This test makes the next save fail. Your note stays safe.");
 });
 reset();render();
 })();

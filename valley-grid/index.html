@@ -44,6 +44,7 @@ if(matchMedia("(max-width:800px)").matches){
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
+svg text{font-family:var(--mono)}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -255,12 +256,12 @@ html.vg-narrow .phone-note{display:block;margin-top:8px;font-size:15px;line-heig
     <header class="head reveal">
       <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · fictional data</span></div>
       <h1>Transformer <span>T2</span></h1>
-      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled<span class="phone-note">On a phone, the steps are in the panel. The full 3D model opens on a wider screen.</span></p>
+      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled<span class="phone-note">On a phone, follow the steps in the panel. The full 3D model opens on a wider screen.</span></p>
     </header>
     <div class="tools reveal d1">
       <label class="tbtn demo">States <select id="demo" aria-label="Review a state">
         <option value="live">Live alert</option><option value="empty">Empty · no alerts</option><option value="loading">Loading</option>
-        <option value="dataerr">Error · trend unavailable</option><option value="senderr">Error · dispatch fails</option></select></label>
+        <option value="dataerr">Error · trend data unavailable</option><option value="senderr">Error · couldn't send the crew request</option></select></label>
       <a class="tbtn" href="../">All work</a>
       <button class="tbtn" id="filmBtn">▶ Film mode</button>
     </div>
@@ -269,8 +270,8 @@ html.vg-narrow .phone-note{display:block;margin-top:8px;font-size:15px;line-heig
     <section class="card panel reveal d2" aria-label="Alerts and investigation" aria-live="polite" id="panel"></section>
 
     <section class="card tl reveal d3" aria-label="24 hour timeline">
-      <div class="clock" id="clock">14:00<small>VALLEY TIME · DRAG TO SCRUB</small></div>
-      <div class="curve" id="curve" role="slider" aria-label="Time of day" aria-valuemin="0" aria-valuemax="24" aria-valuenow="14" aria-valuetext="2:00 PM" tabindex="0"><svg id="curveSvg" preserveAspectRatio="none"></svg></div>
+      <div class="clock" id="clock">14:00<small>VALLEY TIME · DRAG TO MOVE THROUGH THE DAY</small></div>
+      <div class="curve" id="curve" role="slider" aria-label="Time of day" aria-valuemin="0" aria-valuemax="24" aria-valuenow="14" aria-valuetext="2:00 PM" tabindex="0"><svg id="curveSvg" preserveAspectRatio="none" aria-hidden="true"></svg></div>
       <div class="lg"><span><i></i>Load</span><span><i class="t"></i>Oil temp</span><button class="tbtn" id="play" style="padding:5px 10px;margin-top:4px">❚❚ Pause</button></div>
     </section>
   </div>
@@ -549,7 +550,7 @@ const clockStr=()=>{const h=S.hour,hh=Math.floor(h),mm=Math.floor((h-hh)*60);ret
 const CREWS={c4:{name:"Crew 4",base:"Placerville",eta:18},c2:{name:"Crew 2",base:"Folsom",eta:35}};
 function setState(s){W.state=s;renderPanel();renderPins()}
 function resetWorkflow(){W.run++;Object.assign(W,{alert:null,action:null,crew:"c4",note:"",tries:0,step:0,reply:false,acked:false,ev:{}});S.fault="active";setFaultVisual(false);focusCam(false)}
-function raiseAlert(){if(W.alert)return;W.alert={id:"A-2207"};W.ev={raised:clockStr()};S.fault="active";setFaultVisual(false);setState("alert");toast("New alert · Partial discharge rising on bushing B",true)}
+function raiseAlert(){if(W.alert)return;W.alert={id:"A-2207"};W.ev={raised:clockStr()};S.fault="active";setFaultVisual(false);setState("alert");toast("New alert · Partial discharge is rising on bushing B",true)}
 async function investigate(fast){const run=W.run;if(!W.alert)return;W.ev.opened=clockStr();focusCam(true);setState("loading");
   await sleep(fast?450:1100);if(run!==W.run)return;setState(D==="dataerr"?"detail-err":"detail")}
 async function retryTrend(){const run=W.run;setState("loading");await sleep(800);if(run!==W.run)return;D="live";$("demo").value="live";setState("detail")}
@@ -579,17 +580,17 @@ function setFaultVisual(resolved){
 /* ---------- panel templates ---------- */
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const sk=(w,h,mt=0)=>`<div class="sk" style="width:${w};height:${h}px;margin-top:${mt}px"></div>`;
-const CHECK='<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHECK='<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function head(chip){return `<div class="hd"><div class="row" style="align-items:center;margin-bottom:10px">${chip}<span class="chip">${W.alert?W.alert.id:""}</span></div>
-  <div class="t">Partial discharge rising on bushing B</div><div class="w">Transformer T2 · Sierra Gate · raised ${W.ev.raised||"—"}</div></div>`}
+  <div class="t">Partial discharge is rising on bushing B</div><div class="w">Transformer T2 · Sierra Gate · raised ${W.ev.raised||"—"}</div></div>`}
 function trendSVG(){const days=["Sep 28","Sep 29","Sep 30","Oct 1","Oct 2","Oct 3","Today"],B=[338,346,352,365,381,402,pdB()],A=[121,118,124,119,122,120,118],C=[139,142,138,141,144,140,141];
   const w=360,h=120,L=8,R=8,y0=12,yb=100,x=i=>L+i*(w-L-R)/6,y=v=>yb-((v-300)/220)*(yb-y0);const line=a=>a.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
   return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Partial discharge on bushing B rose from 338 to ${pdB()} pC over 7 days, under the 500 pC limit">
-   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="12" font-family="JetBrains Mono, monospace">limit 500 pC</text>
-   <path d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
-   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="12" font-family="JetBrains Mono, monospace">${B[6]} pC</text>
-   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${d}</text>`:"").join("")}
-   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
+   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="12">limit 500 pC</text>
+   <path aria-hidden="true" d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path aria-hidden="true" d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
+   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="12">${B[6]} pC</text>
+   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="12">${d}</text>`:"").join("")}
+   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="12">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
 function readings(){return `<div class="read"><div><small>Now</small><b class="warn" id="pdNow">${pdB()} pC</b><span>limit 500</span></div><div><small>7 days</small><b>+${Math.round((pdB()/338-1)*100)}%</b><span>was 338</span></div><div><small>Hydrogen</small><b>118 ppm</b><span>watch &gt; 100</span></div></div>`}
 function cause(){return `<div><div class="sec"><span>Likely cause</span><span>from sensor patterns</span></div><div class="cause">
   <div class="c top"><b>Moisture in bushing B insulation</b><ul><li>Discharge climbs on humid nights</li><li>Hydrogen up 15% in 7 days</li><li>Phases A and C stay flat</li></ul></div>
@@ -646,7 +647,7 @@ $("panel").addEventListener("change",e=>{if(e.target.name==="crew")W.crew=e.targ
 function renderStatus(k=1){const el=$("status");
   if(W.state==="boot"||D==="loading"){if(el.dataset.mode!=="sk"){el.dataset.mode="sk";el.innerHTML=`<h2>Unit status <i>connecting</i></h2><div class="gauge"><div class="sk" style="width:92px;height:92px;border-radius:50%"></div><div>${sk("120px",40)}${sk("90px",12,10)}</div></div><div class="rule"></div>${sk("60%",12)}${sk("40%",40,8)}${sk("100%",50,8)}`}return}
   if(el.dataset.mode!=="live"){el.dataset.mode="live";el.innerHTML=`<h2>Unit status <i>now</i></h2>
-    <div class="gauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,222,190,.1)" stroke-width="7" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><circle id="gArc" cx="50" cy="50" r="40" fill="none" stroke="var(--bronze)" stroke-width="7" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><text id="gPct" x="50" y="56" text-anchor="middle" fill="var(--cream)" font-family="JetBrains Mono, monospace" font-size="15">0%</text></svg>
+    <div class="gauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,222,190,.1)" stroke-width="7" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><circle id="gArc" cx="50" cy="50" r="40" fill="none" stroke="var(--bronze)" stroke-width="7" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><text id="gPct" x="50" y="56" text-anchor="middle" fill="var(--cream)" font-size="15">0%</text></svg>
     <div><div class="big" id="vLoad">0<small>MW</small></div><div class="sub">load · of 240 MVA rating</div></div></div>
     <div class="rule"></div><div><div class="big" id="vTemp">0<small>°C</small></div><div class="sub" id="vTempS">top-oil temperature</div><svg class="spark" id="spark" preserveAspectRatio="none" aria-hidden="true"></svg></div>
     <div class="rule"></div><div class="row" style="justify-content:space-between;align-items:center"><span class="sub" style="margin:0">Bushing health</span><span id="bh"></span></div>`;countUp()}
@@ -659,7 +660,7 @@ function renderStatus(k=1){const el=$("status");
 let countFrom=null;function countUp(){countFrom=performance.now()}
 function drawSpark(){const s=$("spark");if(!s)return;const w=300,h=56;s.setAttribute("viewBox",`0 0 ${w} ${h}`);const x=t=>t/24*w,y=v=>h-4-(v-40)/(95-40)*(h-10);
   let d="";for(let t=0;t<=24;t+=.5)d+=(t?"L":"M")+x(t).toFixed(1)+" "+y(temp(t)).toFixed(1);
-  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">95 °C alarm</text>
+  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="12">95 °C alarm</text>
    <path d="${d} L${w} ${h} L0 ${h}Z" fill="rgba(111,227,208,.08)"/><path d="${d}" fill="none" stroke="#6FE3D0" stroke-width="1.6"/><circle cx="${x(S.hour)}" cy="${y(temp(S.hour))}" r="3.5" fill="#6FE3D0"/>`}
 function renderPins(){PINS.forEach(p=>{if(!p.el)return;p.el.classList.toggle("warn",p.warn());p.b.textContent=p.val()})}
 function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textContent=pdB()+" pC";const r=$("pdRow");if(r)r.textContent=pdB()+" pC · limit 500";
@@ -667,7 +668,7 @@ function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textCo
 function drawCurve(){const svg=$("curveSvg"),w=$("curve").clientWidth||800,h=52;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
   const x=t=>t/24*w,yl=v=>h-4-(v-100)/120*(h-10),yt=v=>h-4-(v-40)/(95-40)*(h-10);let a="",b="";
   for(let t=0;t<=24;t+=.25){a+=(t?"L":"M")+x(t).toFixed(1)+" "+yl(load(t)).toFixed(1);b+=(t?"L":"M")+x(t).toFixed(1)+" "+yt(temp(t)).toFixed(1)}
-  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="12" font-family="JetBrains Mono, monospace">${String(t).padStart(2,"0")}:00</text>`).join("");
+  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="12">${String(t).padStart(2,"0")}:00</text>`).join("");
   svg.innerHTML=`${ticks}<path d="${a} L${w} ${h} L0 ${h}Z" fill="rgba(192,138,87,.12)"/><path d="${a}" fill="none" stroke="#C08A57" stroke-width="1.8"/><path d="${b}" fill="none" stroke="#6FE3D0" stroke-width="1.2" opacity=".8"/>
    <line x1="${x(S.hour)}" x2="${x(S.hour)}" y1="0" y2="${h}" stroke="#F4E7D7" stroke-width="1" opacity=".7"/><circle cx="${x(S.hour)}" cy="${yl(load(S.hour))}" r="4" fill="#F4E7D7"/>`
   {const cv=$("curve"),m=Math.round(S.hour*60)%1440,hh=Math.floor(m/60),mm=m%60,txt=`${(hh%12)||12}:${String(mm).padStart(2,"0")} ${hh<12?"AM":"PM"}`;if(cv.getAttribute("aria-valuetext")!==txt){cv.setAttribute("aria-valuenow",(m/60).toFixed(2));cv.setAttribute("aria-valuetext",txt)}}}
@@ -692,7 +693,7 @@ function endIntro(){S.mode="orbit";$("skip").hidden=true;if(!$("hud").classList.
 const FILM=[[6,()=>reveal(true)],[7.4,()=>raiseAlert()],[9.2,()=>investigate(true)],[10.6,()=>chooseAction("dispatch")],[11.2,()=>confirmAction(true)],[12.9,()=>$("endcard").classList.add("on")]];
 let filmNext=0;
 function filmReset(){S.t=0;filmNext=0;reveal(false);$("endcard").classList.remove("on");resetWorkflow();D="live";$("demo").value="live";if(t2Ready&&boardReady){W.state="empty";renderPanel()}S.hour=14;renderStatus()}
-function startFilm(){S.mode="film";stage.classList.add("film");$("skip").hidden=true;clearTimeout(alertTimer);filmReset();toast("Film mode: 15 s loop. Press Esc to exit.")}
+function startFilm(){S.mode="film";stage.classList.add("film");$("skip").hidden=true;clearTimeout(alertTimer);filmReset();toast("Film mode plays a 15-second loop. Press Esc to exit.")}
 function exitFilm(){stage.classList.remove("film");$("endcard").classList.remove("on");endIntro()}
 $("filmBtn").addEventListener("click",startFilm);
 $("skip").addEventListener("click",endIntro);

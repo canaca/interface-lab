@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Relay · Booking Meta leads before they cool off</title>
+<title>Relay · Reaching new Meta leads while they're still interested</title>
 <meta name="description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
-<meta property="og:title" content="Relay · Booking Meta leads before they cool off">
+<meta property="og:title" content="Relay · Reaching new Meta leads while they're still interested">
 <meta property="og:description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/relay/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Relay · Booking Meta leads before they cool off">
+<meta name="twitter:title" content="Relay · Reaching new Meta leads while they're still interested">
 <meta name="twitter:description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
 <meta name="twitter:image:alt" content="Relay: a test lead moving through the speed-to-lead flow">
@@ -280,7 +280,7 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
     <span class="crumbs">DEMO WORKSPACE · FICTIONAL MED SPA</span>
     <span class="sp"></span>
     <span class="chip ok" id="flowPill">Flow on</span>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live flow</option><option value="empty">Empty · new flow</option><option value="loading">Loading</option><option value="pending">Error · carrier review pending</option></select></label>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live flow</option><option value="empty">Empty · new flow</option><option value="loading">Loading</option><option value="pending">Error · phone carrier review pending</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
 
@@ -293,9 +293,9 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
   </div>
 
   <div class="lay" id="lay">
-    <section class="card" aria-label="Flow canvas">
+    <section class="card" aria-label="Workflow canvas">
       <h2><span>Flow · New lead to booked consult</span><span class="cvtools"><button class="btn sm" id="zOut" type="button" aria-label="Zoom out">−</button><span class="zoomv" id="zVal" aria-live="polite">100%</span><button class="btn sm" id="zIn" type="button" aria-label="Zoom in">+</button><button class="btn sm" id="zFit" type="button">Fit</button><button class="btn sm" id="tidy" type="button">Reset layout</button><button class="btn sm" id="resetFlow" type="button">Reset flow</button></span></h2>
-      <div class="cvwrap" id="cvwrap" tabindex="0" role="region" aria-label="Flow canvas. Tab to a step. Enter opens it, arrow keys move it." aria-describedby="nodeHint">
+      <div class="cvwrap" id="cvwrap" tabindex="0" role="region" aria-label="Workflow canvas. Tab to a step. Enter opens it, arrow keys move it." aria-describedby="nodeHint">
         <div class="sizer" id="sizer"><div class="cv" id="cv"><svg id="wires" aria-hidden="true"></svg></div></div>
       </div>
       <p class="hint" id="nodeHint">Drag steps to arrange them. With a keyboard, Tab to a step, press Enter to edit it, and use the arrow keys to move it (Shift moves farther).</p>
@@ -306,21 +306,21 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
   <section role="tabpanel" id="resPane" aria-labelledby="t-res" hidden></section>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag">Concept · prototype</span><h2>Booking Meta leads before they cool off</h2>
+    <div><span class="tag">Concept · prototype</span><h2>Reaching new Meta leads while they're still interested</h2>
       <p class="lede">A new lead gets a text in under a minute, answers two or three questions, and lands on the calendar. The owner just gets the alert.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Med spas and home-service shops pay for Meta leads, then reply hours later. By then the lead has booked with whoever texted first.</dd>
-      <dt>Workflow</dt><dd>A lead form fires a text within 60 seconds. An AI asks two or three questions, books a consult and alerts the owner. No reply gets follow-ups at 5 minutes, 1 hour and the next day. STOP ends everything.</dd>
+      <dt>Problem</dt><dd>Med spas and home-service shops pay for Meta leads, then often reply hours later. By then the lead may have booked with whoever texted first.</dd>
+      <dt>Workflow</dt><dd>A lead form sends a text within 60 seconds. An AI asks two or three questions, books a consult, and alerts the owner. If the lead doesn't reply, follow-ups go out at 5 minutes, 1 hour, and the next day. Replying STOP ends everything.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The whole path on one canvas.</b> Every branch, including opt-out and no reply, is a visible step, not a hidden setting.</li>
-        <li><b>Compliance lives in the flow.</b> A2P 10DLC status, the opt-out line and quiet hours are checked as you edit, and a flow that would break them can't be tested.</li>
-        <li><b>English and Spanish side by side.</b> Each text has both versions, with a live count of message segments, since accents change the count.</li>
-        <li><b>The AI knows when to stop.</b> Price, medical and upset messages go to a person.</li></ol></dd>
+        <li><b>The whole process in one place.</b> Every branch, including opt-out and no reply, is a visible step, not a hidden setting.</li>
+        <li><b>Texting rules are built in.</b> A2P 10DLC status, the opt-out line, and quiet hours are checked as you edit. A flow that breaks them can't be tested.</li>
+        <li><b>English and Spanish side by side.</b> Each text has both versions, with a live count of message segments, since accented letters can change the count.</li>
+        <li><b>The AI knows when to hand off to a person.</b> Questions about price, medical concerns, and upset messages go to a person.</li></ol></dd>
       <dt>What I'd test</dt><dd>Whether owners trust the AI to book without checking first, whether two questions book more than three, and which first text gets more replies in each language.</dd>
-      <dt>Outcome target</dt><dd>Median first text under 60 seconds, 30% or more of leads booked, and opt-outs under 3%.</dd>
+      <dt>Goals (not results)</dt><dd>Goals: median first text under 60 seconds, 30% or more of leads booked, and opt-outs under 3%.</dd>
       <dt>Label</dt><dd>Concept. The business, leads and results are fictional demo data. The builder, test run and states are real and run in the browser.</dd>
     </dl>
   </section>
@@ -388,6 +388,12 @@ const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSO
      {en:"When would you like to come in: this week, this month, or just looking?",es:"¿Cuándo le gustaría venir: esta semana, este mes o solo está mirando?"},
      {en:"Have you visited us before?",es:"¿Nos ha visitado antes?"}]};
 const ANS={en:["Botox for my forehead lines","This week if possible","First time"],es:["Botox para las líneas de la frente","Esta semana si se puede","Primera vez"]};
+const TIMES={en:["Thu 2:40 PM","Fri 10:20 AM","Sat 11:00 AM"],es:["jueves 2:40 PM","viernes 10:20 AM","sábado 11:00 AM"]};
+const DAYNAME={Thu:"Thursday",Fri:"Friday",Sat:"Saturday"};
+function offeredTimes(lang){const list=lang==="es"?TIMES.es:TIMES.en;let n=parseInt(S.slots,10);if(!Number.isFinite(n)||n<1)n=2;return list.slice(0,Math.min(list.length,n))}
+function pickedTime(lang){return offeredTimes(lang)[0]||""}
+function pickedName(lang){const t=pickedTime(lang);if(!t)return "";if(lang==="es")return t.split(" ")[0];return DAYNAME[t.slice(0,3)]||""}
+function pickedReply(lang){const name=pickedName(lang);if(!name)return lang==="es"?"Ese horario me queda":"That time works";return lang==="es"?`El ${name}`:`${name} works`}
 
 /* ---------- persistence: flow edits and test runs are saved in this browser (localStorage il-relay-*) ---------- */
 const FKEY="il-relay-flow",RKEY="il-relay-runs";
@@ -402,7 +408,7 @@ function restoreSnap(o){PERSIST.forEach(k=>S[k]=JSON.parse(JSON.stringify(o[k]))
 
 /* ---------- SMS segment math: GSM-7 vs Unicode ---------- */
 const GSM="@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà",GSMX="^{}\\[~]|€";
-function seg(t){const s=t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,"Thu 2:40 PM");let gsm=true,n=0;
+function seg(t){const when=pickedTime("en")||TIMES.en[0];const s=t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,when);let gsm=true,n=0;
   for(const ch of s){if(GSM.includes(ch))n++;else if(GSMX.includes(ch))n+=2;else{gsm=false;break}}
   if(!gsm)n=s.length;const per=gsm?160:70,multi=gsm?153:67;return{n,gsm,segs:n<=per?1:Math.ceil(n/multi),per,firstBad:gsm?"":[...s].find(ch=>!GSM.includes(ch)&&!GSMX.includes(ch))}}
 function smsIssues(){const out=[];["en","es"].forEach(l=>{const t=S.tpl.sms[l];const L=l==="en"?"English":"Spanish";
@@ -414,9 +420,9 @@ const cv=$("cv"),wires=$("wires"),wrap=$("cvwrap");
 function sub(id){switch(id){
   case"trig":return `“${S.form}” form · consent required`;
   case"sms":return `${WITHIN[S.within][0]} · English + Spanish`;
-  case"reply":return `Up to ${S.wait} min · 3 paths`;
+  case"reply":{const w=String(S.wait??"").trim();return w?`Up to ${w} min · 3 paths`:"3 paths"}
   case"optout":return "Stop all texts, confirm once";
-  case"fu":return `${S.wait} min · ${S.fu2} hr · ${S.fu3==="two10"?"2 days":"next day"}`;
+  case"fu":{const w=String(S.wait??"").trim();return `${w?w+" min":"Wait"} · ${S.fu2?S.fu2+" hr":"later"} · ${S.fu3==="two10"?"2 days":"next day"}`}
   case"ai":return `${S.q.length} questions · hands off when needed`;
   case"qual":return "Wants a treatment, within 30 days";
   case"book":return `Offers ${S.slots} open times · 20 min`;
@@ -485,7 +491,7 @@ function renderComp(){const c=$("comp");if(S.state==="loading"){c.innerHTML='<sp
 /* ---------- inspector ---------- */
 function langSeg(){return `<div class="seg" role="group" aria-label="Template language"><button type="button" data-lang="en" aria-pressed="${S.lang==="en"}">English</button><button type="button" data-lang="es" aria-pressed="${S.lang==="es"}">Español</button></div>`}
 function meter(t){const s=seg(t);return `<b>${s.n}</b> characters · <b>${s.segs}</b> segment${s.segs>1?"s":""} · ${s.gsm?"standard text (160 per segment)":`Unicode, because of “${esc(s.firstBad)}” (70 per segment)`}`}
-function fillT(t,lang){return t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,lang==="es"?"jueves 2:40 PM":"Thu 2:40 PM")}
+function fillT(t,lang){const when=pickedTime(lang);let s=String(t||"").replace(/\{first_name\}/g,"Daniela");if(when)return s.replace(/\{time\}/g,when);return s.replace(/\{time\},?\s*/g,"").replace(/\s{2,}/g," ").trim()}
 function tplField(key,label){const t=S.tpl[key][S.lang];return `<div class="fl"><label for="tx_${key}">${label} · ${S.lang==="en"?"English":"Spanish"}</label><textarea class="inp" id="tx_${key}" data-tpl="${key}" aria-describedby="mt_${key}">${esc(t)}</textarea><div class="meter" id="mt_${key}">${meter(t)}</div><p class="note ferr" id="er_${key}" role="alert"${t.trim()?" hidden":""}>This text can't be empty. A blank text is never sent.</p></div>`}
 function checks(list){return `<ul class="checks">${list.map(([s,t])=>`<li><span class="s ${s}" aria-hidden="true">${s==="y"?"✓":s==="n"?"!":"i"}</span><span><span class="vh">${s==="y"?"Passes: ":s==="n"?"Problem: ":"Note: "}</span>${t}</span></li>`).join("")}</ul>`}
 function smsChecks(){const t=S.tpl.sms[S.lang],s=seg(t);return checks([[t.includes(BIZ)?"y":"n",t.includes(BIZ)?"Names the business":"Add the business name so the lead knows who is texting"],
@@ -505,10 +511,10 @@ function inspector(){const id=S.sel;let h="";
     `<div class="fl"><span class="lab">Message</span>${langSeg()}</div>`+tplField("sms","First text")+`<div class="prev" aria-label="Preview"><span class="bubble sys">Preview · sample lead Daniela</span><div class="bubble out" id="pv_sms">${esc(fillT(S.tpl.sms[S.lang],S.lang))}</div></div><div id="ck_sms">${smsChecks()}</div><p class="note">The language comes from the lead's form answer. No answer means English.</p>`;break;
   case"reply":h+=head(id,"Waits for the lead to answer, then sends them down one of three paths.")+sel("wait","Wait up to",{"2":"2 minutes","5":"5 minutes","10":"10 minutes"},S.wait)+branches(id)+
     `<div class="fl"><span class="lab">Opt-out keywords</span><p style="margin:0;font-size:13.5px">STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, QUIT<br><span class="sub">Also in Spanish: ALTO, PARAR, CANCELAR</span></p></div>`+checks([["y","Opt-out is checked before anything else, on every reply"],["i","HELP gets an automatic reply with the studio's phone number."]]);break;
-  case"optout":h+=head(id,"Runs when a lead texts STOP or a Spanish keyword. Ends every text to that number.")+`<div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("optout","Confirmation text")+
+  case"optout":h+=head(id,"Runs when a lead texts STOP or a Spanish stop word. Stops all texts to that number.")+`<div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("optout","Confirmation text")+
     checks([["y","Number is added to the do-not-text list"],["y","All pending follow-ups are cancelled"],["y","Only this one confirmation is sent"]]);break;
   case"fu":h+=head(id,"Runs only when there's no reply. Stops the moment the lead answers.")+`<div class="fl"><span class="lab">Messages</span>${langSeg()}</div>`+
-    `<div class="fu"><div class="top"><b>1 · After the ${S.wait}-minute wait</b><span class="chip">Set on “Wait for a reply”</span></div>${tplField("fu1","Follow-up 1")}</div>`+
+    `<div class="fu"><div class="top"><b>1 · ${String(S.wait??"").trim()?`After the ${S.wait}-minute wait`:"After the wait"}</b><span class="chip">Set on “Wait for a reply”</span></div>${tplField("fu1","Follow-up 1")}</div>`+
     `<div class="fu"><div class="top"><b>2</b></div>${sel("fu2","Send",FU2,S.fu2)}${tplField("fu2","Follow-up 2")}</div>`+
     `<div class="fu"><div class="top"><b>3 · last one</b></div>${sel("fu3","Send",FU3,S.fu3)}${tplField("fu3","Follow-up 3")}</div>`+
     checks([["i","A follow-up that lands in quiet hours (9 PM to 8 AM) waits until 8 AM."],["y","After the third one, the lead is tagged “No reply” and texts stop."]])+branches(id);break;
@@ -519,7 +525,7 @@ function inspector(){const id=S.sel;let h="";
   case"book":h+=head(id,"Offers real open times from the calendar and books the one the lead picks.")+`<div class="fl"><span class="lab">Calendar</span><p style="margin:0;font-size:13.5px">Consult calendar · 20-minute slots (demo)</p></div>`+sel("slots","Times to offer",{"2":"2 open times","3":"3 open times"},S.slots)+
     `<label class="cbx"><input type="checkbox" data-remind${S.remind?" checked":""}> Send a reminder 24 hours before</label><div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("book","Booking confirmation")+branches(id);break;
   case"alert":h+=head(id,"Tells the owner right away, with everything needed to walk into the consult prepared.")+`<fieldset class="radios"><legend>Send to the owner by</legend><label class="cbx"><input type="checkbox" data-ch="alertText"${S.alertText?" checked":""}> Text</label><label class="cbx"><input type="checkbox" data-ch="alertEmail"${S.alertEmail?" checked":""}> Email</label></fieldset>`+
-    `<div class="alertcard"><span class="lab">Preview · owner alert</span><b>New consult booked · Daniela R.</b><span>Thu 2:40 PM · Botox · first visit · Spanish</span><span class="sub">First text in 41 s · booked in 5 min 32 s</span></div>`+(!S.alertText&&!S.alertEmail?checks([["n","Pick at least one way to reach the owner."]]):"");break;
+    `<div class="alertcard"><span class="lab">Preview · owner alert</span><b>New consult booked · Daniela R.</b><span>${pickedTime(S.lang)||"Offered time"} · Botox · first visit · ${S.lang==="es"?"Spanish":"English"}</span><span class="sub">${Number.isFinite(Number((WITHIN[S.within]||[])[2]))?`First text in ${(WITHIN[S.within]||[])[2]} s`:"First text time follows the send setting"} · booked in 5 min 32 s</span></div>`+(!S.alertText&&!S.alertEmail?checks([["n","Pick at least one way to reach the owner."]]):"");break;
   case"handoff":h+=head(id,"For leads the AI shouldn't handle. The AI stops replying and a person picks it up.")+`<div class="fl"><span class="lab">Who gets it</span><p style="margin:0;font-size:13.5px">Front desk (demo) by text, with the full thread</p></div>`+checks([["i","Also runs when the AI hands off: price, medical or upset messages."]]);break}
   return h}
 function renderPane(){const p=$("pane");p.setAttribute("aria-labelledby",S.tab==="test"?"t-test":"t-build");
@@ -570,20 +576,20 @@ function quiet(sec){const s=sec%86400;return s>=21*3600||s<8*3600}
 function toMorning(sec){const s=sec%86400;return s>=21*3600?sec-s+86400+8*3600:sec-s+8*3600}
 function script(){const L=S.leadLang,f=t=>fillT(t,L),ev=[];let t=T0;const at=d=>(t+=d,t);
   ev.push({n:"trig",at:at(0),tl:"Lead form submitted",sm:`Daniela R. · ${L==="es"?"Spanish":"English"} · consent given`,sys:L==="es"?"Formulario enviado · 7:46 PM":"Form submitted · 7:46 PM"});
-  const sp=WITHIN[S.within][2];const tFirst=at(sp);
-  ev.push({n:"sms",e:"trig>sms",at:tFirst,out:f(S.tpl.sms[L]),tl:"Instant text sent",sm:`Speed to lead: ${sp} s`,send:true});
+  const within=WITHIN[S.within]||WITHIN["60"];const sp=within[2];const tFirst=at(Number.isFinite(Number(sp))?sp:0);
+  ev.push({n:"sms",e:"trig>sms",at:tFirst,out:f(S.tpl.sms[L]),tl:"Instant text sent",sm:Number.isFinite(Number(sp))?`Speed to lead: ${sp} s`:"Speed to lead wasn't recorded for this step.",send:true});
   if(S.scen==="book"){
     ev.push({n:"reply",e:"sms>reply",at:at(77),in:L==="es"?"Claro, adelante":"Sure, go ahead",tl:"Lead replied",sm:"No opt-out keyword · goes to the AI"});
     S.q.forEach((q,i)=>{ev.push({n:"ai",e:i?null:"reply>ai",at:at(4),out:q[L],tl:`AI asks question ${i+1}`,sm:q[L]});ev.push({n:"ai",at:at([38,37,25,30][i]),in:(ANS[L][i]||(L==="es"?"No, nada más":"No, that's all")),tl:"Lead answered",sm:""})});
     ev.push({n:"qual",e:"ai>qual",at:at(1),tl:"Qualified",sm:"Wants Botox and can come this week"});
-    const slots=L==="es"?["jueves 2:40 PM","viernes 10:20 AM","sábado 11:00 AM"]:["Thu 2:40 PM","Fri 10:20 AM","Sat 11:00 AM"];const offer=slots.slice(0,+S.slots);
-    ev.push({n:"book",e:"qual>book",at:at(2),out:L==="es"?`¡Perfecto! Tengo ${offer.join(" o ")}. ¿Cuál le queda mejor?`:`Great! I have ${offer.join(" or ")}. Which works best?`,tl:`Offered ${offer.length} open times`,sm:"From the consult calendar"});
-    ev.push({n:"book",at:at(91),in:L==="es"?"El jueves":"Thursday works",tl:"Lead picked Thursday",sm:""});
-    ev.push({n:"book",at:at(2),out:f(S.tpl.book[L]),tl:"Consult booked",sm:`Thu 2:40 PM · 20 min${S.remind?" · reminder set":""}`});
+    const offer=offeredTimes(L);const chosen=pickedTime(L);const day=pickedName(L);
+    ev.push({n:"book",e:"qual>book",at:at(2),out:offer.length?(L==="es"?`¡Perfecto! Tengo ${offer.join(" o ")}. ¿Cuál le queda mejor?`:`Great! I have ${offer.join(" or ")}. Which works best?`):(L==="es"?"¡Perfecto! Confirmo el horario libre.":"Great! I'll confirm the open time."),tl:offer.length?`Offered ${offer.length} open times`:"No open times to offer",sm:"From the consult calendar"});
+    ev.push({n:"book",at:at(91),in:pickedReply(L),tl:day?`Lead picked ${day}`:"Lead picked an offered time",sm:""});
+    ev.push({n:"book",at:at(2),out:f(S.tpl.book[L]),tl:"Consult booked",sm:chosen?`${chosen} · 20 min${S.remind?" · reminder set":""}`:`20 min consult${S.remind?" · reminder set":""}`});
     ev.push({n:"alert",e:"book>alert",at:at(1),tl:"Owner alerted",sm:[S.alertText&&"Text",S.alertEmail&&"email"].filter(Boolean).join(" and ")+" sent",person:true,end:"book"});
   }else if(S.scen==="noreply"){
-    const w=+S.wait*60;ev.push({n:"reply",e:"sms>reply",at:at(w),tl:`No reply in ${S.wait} min`,sm:"Goes to follow-ups",muted:true});
-    ev.push({n:"fu",e:"reply>fu",at:at(0),out:f(S.tpl.fu1[L]),tl:"Follow-up 1 sent",sm:`${S.wait} min after the first text`});
+    const wMin=String(S.wait??"").trim();const w=(Number.isFinite(Number(wMin))?Number(wMin):5)*60;ev.push({n:"reply",e:"sms>reply",at:at(w),tl:wMin?`No reply in ${wMin} min`:"No reply before the follow-ups",sm:"Goes to follow-ups",muted:true});
+    ev.push({n:"fu",e:"reply>fu",at:at(0),out:f(S.tpl.fu1[L]),tl:"Follow-up 1 sent",sm:wMin?`${wMin} min after the first text`:"After the first text"});
     let t2=tFirst+(+S.fu2)*3600,held=quiet(t2);if(held)t2=toMorning(t2);
     ev.push({n:"fu",at:t2,out:f(S.tpl.fu2[L]),tl:"Follow-up 2 sent",sm:held?"Held for quiet hours, sent at 8 AM":`${S.fu2} hr after the first text`});
     const base=Math.floor(T0/86400)*86400,t3={next10:base+86400+10*3600,next12:base+86400+12*3600,two10:base+2*86400+10*3600}[S.fu3];
@@ -610,7 +616,7 @@ async function play(){if(smsIssues().length||S.empty)return;const my=++S.runId;S
     if(prev&&prev!==ev.n){const b=cv.querySelector(`.node[data-id="${prev}"]`);b&&b.classList.replace("act","ok");runMarks.push([prev,"ok"])}
     mark(ev.n,"act");prev=ev.n;
     if(ev.sys)addBubble("sys",ev.sys);
-    if(ev.send&&S.campaign!=="approved"){await sleep(500);if(!live())return;addTL({at:ev.at,tl:"Not sent",sm:"Carrier blocked it: campaign still in review"},"x");
+    if(ev.send&&S.campaign!=="approved"){await sleep(500);if(!live())return;addTL({at:ev.at,tl:"Not sent",sm:"The phone carrier blocked it because the campaign is still in review."},"x");
       $("simEnd").innerHTML=`<div class="err" role="alert"><b>Not sent. Nothing reached the lead.</b><span>Texting is paused until the 10DLC campaign is approved. The test stopped at the instant text.</span><button class="btn sm" type="button" data-act="recheck">Check campaign status</button></div>`;
       S.running=false;S.ran=true;cv.classList.remove("running");const rb=$("runBtn");if(rb){rb.disabled=false;rb.textContent="Run again"}
       record({scen:S.scen,blocked:true,speed:null,texts:0});return}
@@ -619,8 +625,12 @@ async function play(){if(smsIssues().length||S.empty)return;const my=++S.runId;S
     addTL(ev,ev.person?"p":ev.muted?"m":"");
     await sleep(ev.out||ev.in?720:520)}
   if(!live())return;const last=evs[evs.length-1];const b=cv.querySelector(`.node[data-id="${prev}"]`);b&&b.classList.replace("act","ok");runMarks.push([prev,"ok"]);
-  const dur=last.at-T0,mm=Math.floor(dur/60),ss=dur%60,sp=WITHIN[S.within][2];
-  $("simEnd").innerHTML=last.end==="book"?`<div class="alertcard" style="margin-bottom:10px"><span class="lab">Owner alert · ${[S.alertText&&"text",S.alertEmail&&"email"].filter(Boolean).join(" + ")}</span><b>New consult booked · Daniela R.</b><span>Thu 2:40 PM · Botox · first visit · ${S.leadLang==="es"?"Spanish":"English"}</span></div><div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Booked in ${mm} min ${ss} s.</b> First text in ${sp} s, ${S.q.length} questions, no one at the front desk touched it.</span></div>`
+  const dur=last.at-T0,mm=Math.floor(dur/60),ss=dur%60,sp=(WITHIN[S.within]||WITHIN["60"])[2];
+  const bookedHead=Number.isFinite(mm)&&Number.isFinite(ss)?`Booked in ${mm} min ${ss} s.`:"Booked.";
+  const speedBit=Number.isFinite(Number(sp))?`First text in ${sp} s`:"First text time wasn't recorded";
+  const qBit=Number.isFinite(Number(S.q.length))?`${S.q.length} question${S.q.length===1?"":"s"}`:"the questions";
+  const when=pickedTime(S.leadLang);
+  $("simEnd").innerHTML=last.end==="book"?`<div class="alertcard" style="margin-bottom:10px"><span class="lab">Owner alert · ${[S.alertText&&"text",S.alertEmail&&"email"].filter(Boolean).join(" + ")||"no channel selected"}</span><b>New consult booked · Daniela R.</b><span>${when?when+" · ":""}Botox · first visit · ${S.leadLang==="es"?"Spanish":"English"}</span></div><div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>${bookedHead}</b> ${speedBit}, ${qBit}, no one at the front desk touched it.</span></div>`
    :last.end==="stop"?`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Opt-out handled.</b> One confirmation sent, follow-ups cancelled, number blocked from future texts.</span></div>`
    :`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Follow-ups finished.</b> 4 texts in total, none in quiet hours. The lead is tagged “No reply”.</span></div>`;
   S.running=false;S.ran=true;cv.classList.remove("running");
@@ -657,25 +667,25 @@ function renderRes(){const r=$("resPane");
 
 const RF={all:()=>true,booked:r=>r.booked,noreply:r=>!r.replied&&!r.blocked,optout:r=>r.optout,blocked:r=>r.blocked};
 const med=a=>{const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
-const fmt=s=>s==null?"–":s<60?s+" s":Math.floor(s/60)+" min "+(s%60)+" s";
+const fmt=s=>{const n=Number(s);if(!Number.isFinite(n))return "";return n<60?n+" s":Math.floor(n/60)+" min "+(n%60)+" s"};
 function runsHTML(){const R=S.runs;if(!R.length)return `<div class="card"><div class="empty"><b>No test runs yet</b><p class="sub" style="margin:0">Run a fake lead through the flow. Its speed to lead, replies and booking show up here, next to the sample month below.</p><button class="btn pri" type="button" data-r="gotest">Go to Test run</button></div></div>`;
   const sent=R.filter(r=>!r.blocked),last=R[0],pct=(n,d)=>d?Math.round(n/d*100)+"%":"–";
   const list=R.filter(RF[S.rfilter]);
   return `<div class="reshead"><h2>From your test runs</h2><span class="row"><label class="vh" for="rFilter">Show runs</label><select id="rFilter" class="inp" style="width:auto"><option value="all">All runs</option><option value="booked"${S.rfilter==="booked"?" selected":""}>Booked</option><option value="noreply"${S.rfilter==="noreply"?" selected":""}>No reply</option><option value="optout"${S.rfilter==="optout"?" selected":""}>Opted out</option><option value="blocked"${S.rfilter==="blocked"?" selected":""}>Blocked</option></select><button class="btn sm" type="button" data-r="csv">Export CSV</button><button class="btn sm ghost" type="button" data-r="clear">Clear history</button></span></div>
   <div class="kpis">
-    <div class="card kpi"><span class="l">Speed to lead · last run</span><span class="v">${last.blocked?"–":last.speed}<small>${last.blocked?"":"s"}</small></span><span class="s">${last.blocked?"Not sent: campaign in review":`Median ${med(sent.map(r=>r.speed))} s across ${sent.length} sent run${sent.length===1?"":"s"}`}</span><span class="d">Target: under 60 s</span></div>
+    <div class="card kpi"><span class="l">Speed to lead · last run</span><span class="v">${last.blocked||!Number.isFinite(Number(last.speed))?"–":last.speed}<small>${last.blocked||!Number.isFinite(Number(last.speed))?"":"s"}</small></span><span class="s">${last.blocked?"Not sent: campaign in review":sent.length?`Median ${med(sent.map(r=>r.speed).filter(n=>Number.isFinite(Number(n))))} s across ${sent.length} sent run${sent.length===1?"":"s"}`:"No sent runs yet"}</span><span class="d">Target: under 60 s</span></div>
     <div class="card kpi"><span class="l">Reply rate</span><span class="v">${pct(sent.filter(r=>r.replied).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.replied).length} of ${sent.length} test leads replied</span><span class="d">Last run: ${last.blocked?"blocked":last.replied?"replied in "+fmt(last.replySec):"no reply"}</span></div>
     <div class="card kpi"><span class="l">Booked rate</span><span class="v">${pct(sent.filter(r=>r.booked).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.booked).length} of ${sent.length} test leads booked</span><span class="d">Last run: ${last.booked?"booked in "+fmt(last.bookSec):"not booked"}</span></div>
     <div class="card kpi"><span class="l">Texts per lead</span><span class="v">${sent.length?(sent.reduce((a,r)=>a+r.texts,0)/sent.length).toFixed(1):"–"}</span><span class="s">Last run: ${last.texts} text${last.texts===1?"":"s"}${last.followups?`, ${last.followups} follow-ups`:""}</span><span class="d">${sent.filter(r=>r.optout).length} opt-out${sent.filter(r=>r.optout).length===1?"":"s"} handled</span></div>
   </div>
   <section class="card" aria-labelledby="hrun"><h2 id="hrun">Test run history <span>${list.length} of ${R.length}</span></h2><div class="tscroll" tabindex="0" role="region" aria-label="Test run history"><table class="mini"><thead><tr><th scope="col">Time</th><th scope="col">Scenario</th><th scope="col">Language</th><th scope="col" class="r">First text</th><th scope="col">Outcome</th><th scope="col" class="r">Texts</th></tr></thead><tbody>
-  ${list.length?list.map(r=>`<tr><td class="m">${r.at}</td><td>${r.label}</td><td>${r.lang==="es"?"Spanish":"English"}</td><td class="r">${r.blocked?"–":r.speed+" s"}</td><td>${r.blocked?"Blocked, nothing sent":r.booked?"Booked in "+fmt(r.bookSec):r.optout?"Opted out":r.replied?"Replied":"No reply after 3 follow-ups"}</td><td class="r">${r.texts}</td></tr>`).join(""):`<tr><td colspan="6" style="color:var(--muted)"><b style="color:var(--cream);font-weight:500">No matches.</b> No runs with that outcome. <button class="btn sm" type="button" data-r="all">Show all</button></td></tr>`}
+  ${list.length?list.map(r=>{const spd=Number.isFinite(Number(r.speed))?r.speed+" s":"–";const booked=fmt(r.bookSec);return `<tr><td class="m">${r.at}</td><td>${r.label}</td><td>${r.lang==="es"?"Spanish":"English"}</td><td class="r">${r.blocked?"–":spd}</td><td>${r.blocked?"Blocked, nothing sent":r.booked?(booked?`Booked in ${booked}`:"Booked"):r.optout?"Opted out":r.replied?"Replied":"No reply after 3 follow-ups"}</td><td class="r">${Number.isFinite(Number(r.texts))?r.texts:"–"}</td></tr>`}).join(""):`<tr><td colspan="6" style="color:var(--muted)"><b style="color:var(--cream);font-weight:500">No matches.</b> No runs with that outcome. <button class="btn sm" type="button" data-r="all">Show all</button></td></tr>`}
   </tbody></table></div></section>`}
 $("resPane").addEventListener("click",e=>{const b=e.target.closest("[data-r]");if(!b)return;const a=b.dataset.r;
   if(a==="gotest")setTab("test");
   else if(a==="all"){S.rfilter="all";renderRes()}
   else if(a==="csv"){const r=[["time","scenario","language","first_text_s","replied","booked","time_to_book_s","opted_out","blocked","texts","questions"],...S.runs.map(x=>[x.at,x.label,x.lang,x.speed??"",x.replied,x.booked,x.bookSec??"",x.optout,x.blocked,x.texts,x.questions])];
-    const t=r.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const l=document.createElement("a");l.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));l.download="relay-test-runs.csv";document.body.appendChild(l);l.click();setTimeout(()=>{URL.revokeObjectURL(l.href);l.remove()},500);toast(`Exported ${S.runs.length} test runs as CSV`)}
+    if(!S.runs.length){toast("Nothing to export. There are no test runs yet.");return}const t=r.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const l=document.createElement("a");l.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));l.download="relay-test-runs.csv";document.body.appendChild(l);l.click();setTimeout(()=>{URL.revokeObjectURL(l.href);l.remove()},500);toast(`Exported ${S.runs.length} test run${S.runs.length===1?"":"s"} as CSV`)}
   else if(a==="clear"){const old=S.runs;S.runs=[];lsSet(RKEY,[]);renderRes();toast("Test run history cleared",()=>{S.runs=old;lsSet(RKEY,old);renderRes();toast("History restored")})}});
 $("resPane").addEventListener("change",e=>{if(e.target.id==="rFilter"){S.rfilter=e.target.value;renderRes();const n=S.runs.filter(RF[S.rfilter]).length;toast(n?`${n} run${n===1?"":"s"}`:"No matches");$("rFilter").focus()}});
 /* ---------- tabs + states ---------- */

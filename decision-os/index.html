@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Decision OS · Where everything stands</title>
-<meta name="description" content="Concept. Import a fictional sample export and see what you hold, wait on and have decided. Not connected to an account.">
+<meta name="description" content="Concept. Import a fictional sample export and see what's in your hands, what you're waiting on, and what's decided. Not connected to an account.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
@@ -187,7 +187,7 @@ input.finp{flex:1 1 200px}select.finp option{background:#151A23}
     <h1 class="brand"><b style="font-family:var(--serif);font-weight:400;font-size:22px">Decision OS</b><span>Today</span></h1>
     <div class="lenses" id="lenses" role="group" aria-label="Lens"><button type="button" data-l="attention" aria-pressed="true">Attention</button><button type="button" data-l="ceo" aria-pressed="false">CEO</button><button type="button" data-l="execution" aria-pressed="false">Execution</button><button type="button" data-l="network" aria-pressed="false">Network</button></div>
     <span class="sp"></span>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">New workspace</option><option value="loading">Loading · import running</option><option value="partial">Error · some unreadable</option><option value="fail">Error · file won't open</option></select></label>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">New workspace</option><option value="loading">Importing your file…</option><option value="partial">Error · some items can't be read</option><option value="fail">Error · file won't open</option></select></label>
     <span class="tag">Concept · fictional demo</span>
   </header>
 
@@ -196,24 +196,24 @@ input.finp{flex:1 1 200px}select.finp option{background:#151A23}
   <div class="main">
     <section class="card" aria-label="Import"><h2>Import from ChatGPT <i id="impNote">demo export</i></h2><div id="imp"></div></section>
     <section class="card" aria-label="The Chart"><h2>The Chart <i id="chartNote">current state</i></h2><div class="ftools"><label class="vh" for="fq">Search the Chart</label><input id="fq" type="search" class="finp" placeholder="Search items, people, sources" autocomplete="off"><label class="vh" for="fp">Filter by project</label><select id="fp" class="finp"><option value="">All projects</option><option>Northline Solar</option><option>Seed Round</option><option>Ops Hire</option></select><button class="btn sm ghost" id="fClear" type="button" hidden>Clear filters</button></div><p class="note" id="lensNote" aria-live="polite" style="margin:0 0 10px"></p><p class="nomatch" id="nomatch" role="status" hidden><b>No matches.</b> Nothing in the Chart fits that search or project.</p><div class="chart" id="chart"></div>
-      <div class="row" style="margin-top:12px;justify-content:space-between"><p class="note">Facts come from your sources. Nothing here is a score or a guess. Duplicates are shown, never merged for you.</p><span class="row"><button class="btn sm" id="exportCsv" type="button">Export CSV</button><button class="btn sm" id="handoff" type="button">Copy handoff for AI</button></span></div></section>
+      <div class="row" style="margin-top:12px;justify-content:space-between"><p class="note">Every item comes from your source file. Nothing here is a score or a guess. Possible duplicates are shown, never merged for you.</p><span class="row"><button class="btn sm" id="exportCsv" type="button">Export CSV</button><button class="btn sm" id="handoff" type="button">Copy a summary for AI</button></span></div></section>
   </div>
 
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept</span><h2>Showing a founder where everything stands, without digging through chat</h2>
-      <p class="lede">Decision OS organizes work around current state: what you hold, what you're waiting on, and what's decided. This page is a concept demo of that import flow, with fictional data. It is not connected to a ChatGPT account.</p>
+      <p class="lede">Decision OS shows where your work stands: what's in your hands, what you're waiting on, and what's decided. This page is a concept demo of that import flow, with fictional data. It is not connected to a ChatGPT account.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Founders run their work through long AI chats. The decisions and promises inside those chats get buried, so "where do things stand?" takes an hour to answer.</dd>
+      <dt>Problem</dt><dd>Founders run their work through long AI chats. The decisions and promises inside get buried, so finding out where things stand takes too long.</dd>
       <dt>User</dt><dd>A founder juggling a few projects at once, who already plans and decides inside ChatGPT.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>State, not chat.</b> Imports become four kinds of state: in hand, waiting on, decided, and not recorded.</li>
+        <li><b>Where things stand, not just the chat.</b> Each import is sorted into four groups: in hand, waiting on, decided, and not recorded.</li>
         <li><b>Every item shows its source.</b> Each one quotes the line it came from, so it can be checked.</li>
-        <li><b>Unknown is not none.</b> A missing value is shown as "not recorded," never as empty.</li>
-        <li><b>Never merge for the user.</b> Possible duplicates are flagged and kept until the person decides.</li>
-        <li><b>A fixed sentence, not generated text.</b> The Standing Sentence is built from set templates, with no scores or urgency.</li></ol></dd>
+        <li><b>Unknown is not the same as none.</b> A missing value is shown as "not recorded," never as empty.</li>
+        <li><b>Let people decide what gets combined.</b> Possible duplicates are flagged and kept until the person decides.</li>
+        <li><b>Fixed wording, not AI writing.</b> The Standing Sentence uses set wording, with no scores and no pressure.</li></ol></dd>
       <dt>Outcome</dt><dd>A clickable concept of the import flow: a fictional sample file, review, and The Chart. Not connected to a ChatGPT account. Not a shipped product. Not tested with real users.</dd>
       <dt>Label</dt><dd>Concept. This page uses a fictional sample export. It does not read a real account.</dd>
     </dl>

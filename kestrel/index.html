@@ -189,6 +189,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .tctl select{background:rgba(0,0,0,.28);border:1px solid var(--edge);border-radius:9px;color:var(--cream);padding:5px 8px;font-size:12.5px}
 .tctl select option{background:#241B15}
 .amt input{width:120px}
+#amtErr{color:var(--red)}
 @media (max-width:1180px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.grid .insp{grid-column:1/-1}}
 @media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}.flow{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}.wire,.packet{display:none}}
 </style>
@@ -202,14 +203,14 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
     <span class="sp"></span>
     <span class="chip" id="runPill">Idle</span>
     <button class="btn sm ghost" id="resetDemo" type="button">Reset demo</button>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live run</option><option value="empty">Empty · queue clear</option><option value="loading">Loading</option><option value="toolerr">Error · billing down</option><option value="senderr">Error · send fails</option></select></label>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live run</option><option value="empty">Empty · queue clear</option><option value="loading">Loading</option><option value="toolerr">Error · billing system is down</option><option value="senderr">Error · send fails</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
 
   <section class="card pipe" aria-label="Run pipeline">
     <h2>Run <i id="pipeNote">The agent works until a person has to decide</i></h2>
     <div class="flow" id="flow"></div>
-    <div class="legend"><span><i class="a"></i>Agent step</span><span><i class="p"></i>A person decides</span><span>Work stops at every orange gate until someone acts. Click a step to open it.</span></div>
+    <div class="legend"><span><i class="a" aria-hidden="true"></i>Agent step</span><span><i class="p" aria-hidden="true"></i>Approval step</span><span>Work stops at every orange approval step until a person acts. Click a step to open it.</span></div>
   </section>
   <section class="card stepcard" id="stepCard" hidden aria-label="Step detail"><button class="btn sm ghost close" id="stepClose" type="button" aria-label="Close step detail">Close</button><div id="stepBody"></div></section>
 
@@ -224,8 +225,8 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
   </div>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag">Concept · prototype</span><h2>Letting support teams trust an AI agent with refunds</h2>
-      <p class="lede">An agent finds a double charge, cites the policy it used, and stops for a person before it moves money or emails a customer.</p>
+    <div><span class="tag">Concept · prototype</span><h2>Helping support teams trust an AI agent with refunds</h2>
+      <p class="lede">The AI finds a double charge, shows the policy it used, and stops for a person before it moves money or emails a customer.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
@@ -233,12 +234,12 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
       <dt>Problem</dt><dd>Support teams want agents to handle refunds, but one wrong refund costs money and trust. Most agent tools show a chat log, not what the agent is about to do.</dd>
       <dt>User</dt><dd>A support lead who reviews agent actions between tickets and owns the refund policy.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The run is a pipeline with people as gates.</b> Work visibly stops at each decision, so nobody wonders what happens next.</li>
-        <li><b>Approve the exact call, not a summary.</b> The approval shows the tool, the charge and the amount, and the amount can be changed.</li>
-        <li><b>Every claim cites a source.</b> The billing record and the policy line sit next to the decision.</li>
+        <li><b>The work runs step by step, and a person approves the key steps.</b> Work visibly stops at each decision, so nobody wonders what happens next.</li>
+        <li><b>Approve the exact action, not a summary.</b> The approval shows the tool, the charge and the amount, and the amount can be changed.</li>
+        <li><b>Every claim shows its source.</b> The billing record and the policy line sit next to the decision.</li>
         <li><b>Nothing leaves without a person.</b> The refund and the customer reply each have their own gate. Drafts say "not sent."</li>
-        <li><b>Failures say what did not happen.</b> "Nothing was changed" and "Not sent. Draft saved."</li></ol></dd>
-      <dt>Outcome</dt><dd>A clickable prototype of the full run: ticket, tool calls, approval, refund, reply and send, with empty, loading, tool error and send error states. Not yet tested with real users or a real billing system.</dd>
+        <li><b>If something fails, it says what did not happen.</b> "Nothing was changed" and "Not sent. Draft saved."</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the full run: ticket, tool calls, approval, refund, reply and send, with screens for an empty queue, loading, a system error, and a failed send. Not yet tested with real users or a real billing system.</dd>
       <dt>Label</dt><dd>Concept. The company, customer and data are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>
@@ -259,7 +260,8 @@ const hl=o=>esc(JSON.stringify(o,null,2)).replace(/&quot;([^&]+?)&quot;:/g,'<spa
 const CHECK='<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const KEY="il-kestrel-state",DKEY="il-kestrel-draft";
 const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
-const money=v=>"$"+v.toFixed(2);
+const money=v=>{const n=Number(v);return Number.isFinite(n)?"$"+n.toFixed(2):"";};
+const refundSaid=(amount,saved)=>{const m=money(amount);return (m?`Refunded ${m}.`:"Refunded.")+(saved?" I drafted a reply below. It is saved, not sent.":" I drafted a reply below.");};
 const clock=()=>new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit",second:"2-digit"});
 
 /* pipeline: agent steps and person gates */
@@ -271,7 +273,7 @@ const NODES=[["read","Read ticket","agent","Reads the customer's message and pul
   ["reply","Draft reply","agent","Writes the reply to the customer and saves it as a draft. It is never sent from here."],
   ["gate2","Send reply","person","Kestrel stops again. Only a person can send the reply."]];
 const IDX=Object.fromEntries(NODES.map((n,i)=>[n[0],i]));
-$("flow").innerHTML=NODES.map(([k,l,t],i)=>`<button type="button" class="node ${t==="person"?"person":""}" id="n_${k}" data-step="${k}" aria-expanded="false" aria-controls="stepCard"><span class="dotn">${t==="person"?"YOU":i+1}</span><span class="nl">${l}</span><small>${t==="person"?"person":"agent"}</small><span class="vh" id="ns_${k}">, not run yet</span></button>`).join("")+NODES.slice(0,-1).map((_,i)=>`<div class="wire" id="w${i}"><i></i></div>`).join("")+'<div class="packet" id="packet"></div>';
+$("flow").innerHTML=NODES.map(([k,l,t],i)=>`<button type="button" class="node ${t==="person"?"person":""}" id="n_${k}" data-step="${k}" aria-expanded="false" aria-controls="stepCard"><span class="dotn">${t==="person"?"YOU":i+1}</span><span class="nl">${l}</span><small>${t==="person"?"Approval":"Agent"}</small><span class="vh" id="ns_${k}">, not run yet</span></button>`).join("")+NODES.slice(0,-1).map((_,i)=>`<div class="wire" id="w${i}"><i></i></div>`).join("")+'<div class="packet" id="packet"></div>';
 function layoutWires(){const f=$("flow").getBoundingClientRect();NODES.slice(0,-1).forEach((_,i)=>{const a=$("n_"+NODES[i][0]).getBoundingClientRect(),b=$("n_"+NODES[i+1][0]).getBoundingClientRect();
   const w=$("w"+i);w.style.left=(a.left+a.width/2-f.left+18)+"px";w.style.width=Math.max(0,(b.left+b.width/2)-(a.left+a.width/2)-36)+"px"})}
 new ResizeObserver(layoutWires).observe($("flow"));
@@ -346,10 +348,10 @@ const RUN={
     finish(r,"done",774,{charge:"ch_8KR4",amount:W.amount},{refund:"re_3MxV",status:"succeeded",amount:W.amount});W.out.refund=r;node("refund","done");ticket("Refunded · reply not sent");return"ok"},
   async reply(run){node("reply","active");const d=step("Draft customer reply","helpdesk.save_draft","Write the reply. Saved as a draft, not sent.");
     const approved=W.decision==="approved";
-    const body=approved?`Hi Dana,\n\nYou're right, you were charged twice on September 3. We've refunded ${money(W.amount)}. It should reach your card in 5 to 10 business days.\n\nSorry for the trouble.\nLedgerly Support`:
+    const body=approved?`Hi Dana,\n\nYou're right, you were charged twice on September 3. ${money(W.amount)?`We've refunded ${money(W.amount)}.`:"We've refunded the duplicate charge."} It should reach your card in 5 to 10 business days.\n\nSorry for the trouble.\nLedgerly Support`:
       `Hi Dana,\n\nThanks for flagging this. Could you send a card statement showing both charges? Once we have it, our team will review the refund.\n\nLedgerly Support`;
     await sleep(700);if(run!==W.run)return"x";W.tools++;stats();finish(d,"done",1120,{ticket:4182,send:false},{draft:"dr_552",status:"saved"});W.out.reply=d;node("reply","done");
-    const m=msg("Kestrel","agent");await stream(m,approved?`Refunded ${money(W.amount)}. I drafted a reply below. It is saved, not sent.`:"No refund made. I drafted a reply asking for a statement. It is saved, not sent.",run);if(run!==W.run)return"x";
+    const m=msg("Kestrel","agent");await stream(m,approved?refundSaid(W.amount,true):"No refund made. I drafted a reply asking for a statement. It is saved, not sent.",run);if(run!==W.run)return"x";
     const saved=store.get(DKEY);W.draft=saved&&saved.decision===W.decision?saved.text:body;draftBox();return"ok"},
   async gate2(){gateSend();openStep("gate2",true);return"stop"}};
 function draftBox(sent){if($("draftText"))return;const box=document.createElement("div");box.className="draft";box.innerHTML=`<div class="dh"><span>Draft · to dana@acmedental.example</span><span class="row" style="gap:10px"><span id="draftState">${sent?"Sent":"Saved · not sent"}</span><button class="btn sm ghost" type="button" data-act="copy">Copy</button></span></div><label class="vh" for="draftText">Reply draft</label><textarea id="draftText"${sent?" disabled":""}>${esc(W.draft)}</textarea><p class="note" id="draftErr" role="alert" hidden style="color:var(--red);padding:0 12px 10px">The reply is empty. Write something before sending.</p>`;$("feed").appendChild(box);
@@ -360,18 +362,18 @@ async function runTo(target){if(W.busy)return;W.busy=true;const run=W.run;if(!W.
     if(run===W.run&&W.next<NODES.length&&!["gate1","gate2","toolerr"].includes(W.state)){pill("Paused","");W.state="paused";
       need(`<p class="sub" style="margin:0 0 12px">Paused after <b>${NODES[W.next-1][1]}</b>. Run the next step or the rest of the run.</p><div class="row"><button class="btn pri" data-act="run">Run the rest</button><button class="btn" data-act="stepnext">Run next step: ${NODES[W.next][1]}</button></div>`)}}
   finally{if(run===W.run)W.busy=false;else W.busy=false}}
-function renderGate1(editing,err){need(`<div class="big">Refund ${money(W.amount)} to Acme Dental?</div>
+function renderGate1(editing,err){need(`<div class="big">${money(W.amount)?`Refund ${money(W.amount)} to Acme Dental?`:"Refund this charge to Acme Dental?"}</div>
     <p class="sub" style="margin:8px 0">Charge ch_8KR4 duplicates ch_8KQ1 [1]. Policy §2.1 needs your approval over $200 [2].</p>
     <pre class="code">${hl({tool:"billing.refund",charge:"ch_8KR4",amount:W.amount,currency:"USD",reason:"duplicate"})}</pre>
     ${gateControls(editing,err)}<p class="note" style="margin-top:10px">Kestrel won't touch billing until you decide.</p>`,true)}
-function gateControls(editing,err){return editing?`<div class="sheet" style="margin-top:12px"><div class="q">Change the amount</div><div class="amt"><span class="m" aria-hidden="true">$</span><label class="vh" for="amtIn">Refund amount in dollars</label><input class="inp" id="amtIn" type="number" min="1" max="249" step="0.01" value="${W.amount}" aria-describedby="amtErr amtHint"${err?' aria-invalid="true"':""}><span class="note" id="amtHint">Up to $249.00</span></div><p class="note" id="amtErr" role="alert" ${err?"":"hidden"} style="color:var(--red)">Enter an amount between $1 and $249.</p><div class="row"><button class="btn pri" data-act="amtSave">Use this amount</button><button class="btn ghost" data-act="amtCancel">Cancel</button></div></div>`:
+function gateControls(editing,err){return editing?`<div class="sheet" style="margin-top:12px"><div class="q">Change the amount</div><div class="amt"><span class="m" aria-hidden="true">$</span><label class="vh" for="amtIn">Refund amount in dollars</label><input class="inp" id="amtIn" type="number" min="1" max="249" step="0.01" value="${Number.isFinite(Number(W.amount))?W.amount:""}" aria-describedby="amtHint"${err?' aria-invalid="true" aria-errormessage="amtErr"':""}><span class="note" id="amtHint">Up to $249.00</span></div><p class="note" id="amtErr" role="alert" ${err?"":"hidden"}>Enter an amount between $1 and $249.</p><div class="row"><button class="btn pri" data-act="amtSave">Use this amount</button><button class="btn ghost" data-act="amtCancel">Cancel</button></div></div>`:
     `<div class="row" style="margin-top:12px"><button class="btn warn" data-act="approve">Approve refund</button><button class="btn" data-act="edit">Change amount</button><button class="btn ghost" data-act="decline">Decline</button></div>`}
 /* gate 1: approve or decline, with a 5-second undo window before anything runs */
 function decide(approved){const run=W.run;W.decision=approved?"approved":"declined";const li=W.gateLi;
   finish(li,approved?"done":"fail",null,{tool:"billing.refund",charge:"ch_8KR4",amount:W.amount},null,approved?"✓":"–",approved?"approved by you":"declined by you");li.kind="decision";
-  const d=W.decLi=step(approved?`You approved a ${money(W.amount)} refund`:"You declined the refund",null,approved?"Refund will run in 5 s unless you undo.":"No refund. Kestrel will draft a reply asking for a statement.","decision");finish(d,"done",null,null,null,"✓",clock());
+  const d=W.decLi=step(approved?(money(W.amount)?`You approved a ${money(W.amount)} refund`:"You approved the refund"):"You declined the refund",null,approved?"Refund will run in 5 s unless you undo.":"No refund. Kestrel will draft a reply asking for a statement.","decision");finish(d,"done",null,null,null,"✓",clock());
   node("gate1",approved?"done":"fail");ticket(approved?"Refund approved":"Refund declined");W.state="undo1";pill(approved?"Approved":"Declined","ok");
-  let s=5;const tick=()=>{need(`<div class="row" style="gap:12px;align-items:flex-start"><span class="okmark">${CHECK}</span><div><div class="big" style="font-size:20px">${approved?`Refund of ${money(W.amount)} approved`:"Refund declined"}</div><div class="sub" id="undoNote">${approved?"Kestrel issues it":"Kestrel drafts the reply"} in ${s} s. Changed your mind?</div></div></div><div class="row" style="margin-top:12px"><button class="btn" data-act="undo1">Undo</button><button class="btn ghost" data-act="now1">Continue now</button></div>`,true)};tick();
+  let s=5;const tick=()=>{need(`<div class="row" style="gap:12px;align-items:flex-start"><span class="okmark">${CHECK}</span><div><div class="big" style="font-size:20px">${approved?(money(W.amount)?`Refund of ${money(W.amount)} approved`:"Refund approved"):"Refund declined"}</div><div class="sub" id="undoNote">${approved?"Kestrel issues it":"Kestrel drafts the reply"} in ${s} s. Changed your mind?</div></div></div><div class="row" style="margin-top:12px"><button class="btn" data-act="undo1">Undo</button><button class="btn ghost" data-act="now1">Continue now</button></div>`,true)};tick();
   toast(approved?`Refund approved. Running in 5 s.`:"Refund declined.",()=>undo1());
   clearTimeout(W.undoT);const loop=()=>{if(run!==W.run||W.state!=="undo1")return;s--;if(s<=0){cont1();return}const n=$("undoNote");if(n)n.textContent=`${approved?"Kestrel issues it":"Kestrel drafts the reply"} in ${s} s. Changed your mind?`;W.undoT=setTimeout(loop,1000)};W.undoT=setTimeout(loop,1000);
   if(W.open)renderStep()}
@@ -397,7 +399,7 @@ async function reallySend(){if(W.state!=="undo2")return;clearTimeout(W.undoT);co
   W.tools++;stats();const s=step("Send reply","helpdesk.send","Sent by you to dana@acmedental.example.");finish(s,"done",640,{draft:"dr_552"},{message:"msg_7731",status:"sent"});
   node("gate2","done");$("draftState").textContent="Sent";W.sent=true;store.del(DKEY);done(true)}
 function done(sent){W.state="done";W.sent=sent;pill("Done","ok");W.secs=W.secs||((performance.now()-(W.t0||performance.now()))/1000).toFixed(0);ticket(sent?"Resolved":"Open · draft saved");
-  need(`<div class="row" style="gap:12px"><span class="okmark">${CHECK}</span><div><div class="big" style="font-size:20px">${sent?"Ticket resolved":"Saved as draft"}</div><div class="sub">${W.decision==="approved"?`Refunded ${money(W.amount)}. `:"No refund. "}${sent?"Reply sent to Dana.":"Reply waiting in drafts."} ${W.secs} s, ${W.tools} tool calls.</div></div></div>
+  need(`<div class="row" style="gap:12px"><span class="okmark">${CHECK}</span><div><div class="big" style="font-size:20px">${sent?"Ticket resolved":"Saved as draft"}</div><div class="sub">${W.decision==="approved"?(money(W.amount)?`Refunded ${money(W.amount)}. `:"Refunded. "):"No refund. "}${sent?"Reply sent to Dana.":"Reply waiting in drafts."} ${Number.isFinite(Number(W.secs))?W.secs+" s":"Time not recorded"}, ${Number.isFinite(Number(W.tools))?W.tools:"no"} tool calls.</div></div></div>
     <div class="row" style="margin-top:14px"><button class="btn pri" data-act="next">Next ticket</button><button class="btn ghost" data-act="reset">Replay this ticket</button></div>`,false);persist();if(W.open)renderStep()}
 
 /* step detail: every pipeline step opens; the next step can be run from here */
@@ -413,9 +415,9 @@ function renderStep(){const k=W.open;if(!k)return;const [_,label,type,what]=NODE
       `<p class="note">Not run yet.</p><div class="row"><button class="btn ${isNext?"pri":""}" data-act="runto" data-k="${k}">${isNext?"Run this step":"Run to this step"}</button></div>`}
   else if(st==="active")body=`<p class="note">Running now…</p>`;
   else if(st==="skip")body=`<p class="note">Skipped because you declined the refund.</p>`;
-  else if(k==="gate1"&&st==="wait")body=`<p class="sub" style="margin:0">Refund ${money(W.amount)} on charge ch_8KR4.</p>${gateControls(false)}`;
+  else if(k==="gate1"&&st==="wait")body=`<p class="sub" style="margin:0">${money(W.amount)?`Refund ${money(W.amount)} on charge ch_8KR4.`:"Refund the duplicate charge on ch_8KR4."}</p>${gateControls(false)}`;
   else if(k==="gate2"&&st==="wait")body=W.state==="undo2"?`<p class="sub">Sending in a few seconds.</p><div class="row"><button class="btn" data-act="undo2">Undo send</button></div>`:W.state==="sending"?`<p class="note">Sending…</p>`:`<p class="sub" style="margin:0 0 10px">The draft is on the left. Edit it first if you want.</p><div class="row"><button class="btn warn" data-act="send">Send reply</button><button class="btn ghost" data-act="keep">Keep as draft</button></div>`;
-  else if(k==="gate1")body=`<p class="sub" style="margin:0">${W.decision==="approved"?`You approved ${money(W.amount)}.`:"You declined the refund."}</p>${W.state==="undo1"?'<div class="row" style="margin-top:10px"><button class="btn" data-act="undo1">Undo</button></div>':""}`;
+  else if(k==="gate1")body=`<p class="sub" style="margin:0">${W.decision==="approved"?(money(W.amount)?`You approved ${money(W.amount)}.`:"You approved the refund."):"You declined the refund."}</p>${W.state==="undo1"?'<div class="row" style="margin-top:10px"><button class="btn" data-act="undo1">Undo</button></div>':""}`;
   else if(k==="gate2")body=`<p class="sub" style="margin:0">${W.sent?"You sent the reply to Dana.":"Kept as a draft."}</p>`;
   else if(o)body=`${o.ms!=null?`<p class="note">${o.tool?`<span class="tool" style="font-family:var(--mono);color:var(--accent)">${o.tool}</span> · `:""}${o.ms} ms</p>`:""}${o.input?`<pre class="code">${hl(o.input)}</pre>`:""}${o.output?`<pre class="code">${hl(o.output)}</pre>`:""}${st==="fail"?'<div class="row" style="margin-top:10px"><button class="btn" data-act="retry">Retry run</button></div>':""}`;
   $("stepBody").innerHTML=`<span class="kind">${type==="person"?"Person gate":"Agent step"} · ${i+1} of 7</span><div class="row" style="gap:12px;margin-top:2px"><h3 id="stepTitle" style="margin:0;font-size:18px;font-weight:500">${label}</h3><span class="${chip[0]}">${chip[1]}</span></div><p class="sub" style="margin:8px 0 12px">${what}</p>${body}`}
@@ -434,13 +436,13 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(
   else if(a==="edit"){renderGate1(true);if(W.open==="gate1")$("stepBody").querySelector(".row").outerHTML='<p class="note">Change the amount in the Needs you panel.</p>';setTimeout(()=>$("amtIn")&&$("amtIn").focus(),0)}
   else if(a==="amtCancel"){renderGate1(false);toast("Amount unchanged.")}
   else if(a==="amtSave"){const v=parseFloat($("amtIn").value);if(!(v>=1&&v<=249)){renderGate1(true,true);$("amtIn").focus();return}W.amount=Math.round(v*100)/100;
-    W.gateLi.desc=`Paused. Amount changed by you to ${money(W.amount)}.`;renderTrace();renderGate1(false);if(W.open)renderStep();toast(`Refund amount set to ${money(W.amount)}`)}
+    W.gateLi.desc=`Paused. Amount changed by you to ${money(W.amount)}.`;renderTrace();renderGate1(false);if(W.open)renderStep();toast(money(W.amount)?`Refund amount set to ${money(W.amount)}`:"Refund amount updated.")}
   else if(a==="undo1")undo1();else if(a==="now1")cont1();
   else if(a==="send"){if(W.state==="gate2")send()}
   else if(a==="undo2")undo2();else if(a==="now2")reallySend();
   else if(a==="keep"){if(W.state!=="gate2")return;node("gate2","");const k=step("Kept as draft",null,"You chose not to send. The draft stays in the help desk.","decision");finish(k,"done",null,null,null,"✓",clock());done(false);
     toast("Draft kept. Nothing was sent.",()=>{W.log=W.log.filter(i=>i!==k);renderTrace();store.del(KEY);gateSend()})}
-  else if(a==="copy"){const t=$("draftText").value;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Reply copied to the clipboard"),()=>{$("draftText").select();toast("Select-all done. Press Ctrl+C to copy.")})}
+  else if(a==="copy"){const t=$("draftText").value;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Reply copied to the clipboard"),()=>{$("draftText").select();toast("Text selected. Press Ctrl+C to copy.")})}
   else if(a==="next"){store.del(KEY);showEmpty();toast("Ticket closed. The queue is clear.")}
   else if(a==="load"||a==="reset"){store.del(KEY);store.del(DKEY);D="live";$("demo").value="live";showReady();toast(a==="reset"?"Ticket reset. Run it again.":"Sample ticket loaded.")}});
 $("demo").addEventListener("change",e=>{D=e.target.value;store.del(KEY);if(D==="empty")showEmpty();else if(D==="loading")showLoading();else{showReady();if(D!=="live")runTo(6)}});
@@ -451,7 +453,7 @@ function restore(s){fresh();msg("Acme Dental","cust",TICKET);Object.assign(W,{de
   ["read","bill","pol"].forEach(k=>node(k,"done"));node("gate1",s.decision==="approved"?"done":"fail");node("refund",s.decision==="approved"?"done":"skip");node("reply","done");node("gate2",s.sent?"done":"");
   W.log.forEach(i=>{const k={"Read the ticket":"read","Search charges":"bill","Check refund policy":"pol","Issue refund":"refund","Draft customer reply":"reply"}[i.title];if(k&&i.st==="done")W.out[k]=i});
   W.gateLi=W.log.find(i=>i.title==="Refund duplicate charge");source(1,"Billing record · INV-2209","Two $249.00 charges on Sep 3, two minutes apart, same invoice.");source(2,"Refund Policy · §2.1","Duplicate charges are refunded in full. Refunds over $200 need a person to approve.");
-  msg("Kestrel","agent",s.decision==="approved"?`Refunded ${money(s.amount)}. I drafted a reply below.`:"No refund made. I drafted a reply asking for a statement.");draftBox(s.sent);renderTrace();stats();$("sEl").textContent=s.secs+"s";done(s.sent);toast("Restored your last run of this ticket.")}
+  msg("Kestrel","agent",s.decision==="approved"?refundSaid(s.amount,false):"No refund made. I drafted a reply asking for a statement.");draftBox(s.sent);renderTrace();stats();$("sEl").textContent=Number.isFinite(Number(s.secs))?s.secs+"s":"—";done(s.sent);toast("Restored your last run of this ticket.")}
 const saved=store.get(KEY);
 if(saved)restore(saved);else{showLoading();setTimeout(()=>{if(D==="live"&&W.state==="loading")showReady()},reduce?0:900)}
 })();

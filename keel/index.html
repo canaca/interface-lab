@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Keel · Account health before the renewal</title>
+<title>Keel · Seeing account health before renewal</title>
 <meta name="description" content="October 2026 concept: a customer-success book of fictional accounts, scored from visible signals, with filters, a save plan, and a sample export.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
-<meta property="og:title" content="Keel · Account health before the renewal">
+<meta property="og:title" content="Keel · Seeing account health before renewal">
 <meta property="og:description" content="October 2026 concept: a customer-success book of fictional accounts, scored from visible signals, with filters, a save plan, and a sample export.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/keel/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/keel.jpg">
@@ -17,7 +17,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Keel · Account health before the renewal">
+<meta name="twitter:title" content="Keel · Seeing account health before renewal">
 <meta name="twitter:description" content="October 2026 concept. Fictional accounts. A working health board for a success or account manager.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/keel.jpg">
 <meta name="twitter:image:alt" content="Keel: a sample account book with health, renewal, and a save plan waiting for a person">
@@ -163,7 +163,7 @@ tr.acct.on td{background:rgba(111,227,208,.07)}
     </select></label>
     <span class="tag">Concept · October 2026</span>
   </header>
-  <p class="banner">Sample data for a fictional product, Fieldnote. Health is a visible sum of five signals, not a forecast and not a finance report. Nothing is written to a live customer book.</p>
+  <p class="banner">Sample data for a fictional product, Fieldnote. The health score adds up five signals you can see. It is not a prediction or a finance report. Nothing here changes a real customer list.</p>
   <div class="kpis" id="kpis"></div>
   <div class="lay">
     <section class="card" aria-label="Account book">
@@ -185,21 +185,21 @@ tr.acct.on td{background:rgba(111,227,208,.07)}
   </div>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag">Concept · October 2026</span><h2>Seeing which accounts need a person this week</h2>
+    <div><span class="tag">Concept · October 2026</span><h2>Seeing which accounts need someone to reach out this week</h2>
       <p class="lede">A success or account manager opens one book, sees why an account is at risk, and logs the next step. The score is the sum of the signals on the card.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Renewal week arrives and the book is a spreadsheet of names. The person who owns the relationship cannot see, in one place, who went quiet, whose champion left, and whose onboarding never finished.</dd>
-      <dt>User</dt><dd>A customer success or account manager working a book of business-to-business accounts. Not a finance analyst, and not a reporting-tool specialist.</dd>
+      <dt>Problem</dt><dd>Renewal week arrives and the account list is a spreadsheet of names. The account owner can't see in one place who went quiet, whose main contact left, and whose onboarding never finished.</dd>
+      <dt>User</dt><dd>A customer success or account manager working a book of business-to-business accounts.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The score shows its work.</b> Five signals, each with points. No hidden model and no revenue forecast.</li>
-        <li><b>Filters change the book.</b> Health, owner, plan, and a focus (needs a touch, renewal soon, onboarding stalled) all narrow the same list. The counts above are those filters.</li>
-        <li><b>A next step is confirmed.</b> Check-in, save plan, and onboarding follow-up ask for a note before anything is logged. Snooze is explicit.</li>
+        <li><b>You can see what makes up each score.</b> Five signals, each with points. No hidden model and no revenue forecast.</li>
+        <li><b>Filters narrow the list.</b> Health, owner, plan, and a focus (needs a touch, renewal soon, onboarding stalled) all narrow the same list. The numbers at the top match your filters.</li>
+        <li><b>You confirm each next step.</b> Check-in, save plan, and onboarding follow-up ask for a note before anything is logged. You can snooze an account, but only on purpose.</li>
         <li><b>A failed save keeps the note.</b> The error says nothing was logged. Try again uses the same words.</li>
-        <li><b>Export is the filtered sample.</b> The file says it is fictional. It is not a live book.</li></ol></dd>
-      <dt>Outcome</dt><dd>A clickable prototype of the book, the account, the task list, undo, and export, with empty, loading, and save-error states. Not tested with a real success team. No churn rate is claimed.</dd>
+        <li><b>Export saves only what your filters show.</b> The file says the data is fictional.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the book, the account, the task list, undo, and export, with empty, loading, and save-error states. Not tested with a real success team. It makes no claim about how many customers stay or leave.</dd>
       <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). Not a client engagement, and not a finance tool.</dd>
       <dt>Label</dt><dd>Concept. Fieldnote, the accounts, and the people are fictional.</dd>
     </dl>
@@ -407,13 +407,13 @@ $("exportBtn").addEventListener("click",()=>{
   const body=rows.map(a=>{const s=score(a);return ["yes",a.n,a.plan,a.owner,BAND[s.band],s.total,a.renewal,a.touch,a.tickets,a.onboard,a.champion,a.seats,a.active,a.qbr].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")});
   const csv=['"October 2026 concept. Fictional Fieldnote accounts. Not a live book."',head.join(","),...body].join("\n");
   const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="keel-account-health-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
-  toast(`Exported ${rows.length} sample account${rows.length===1?"":"s"}.`);
+  toast(rows.length?`Exported ${rows.length} sample account${rows.length===1?"":"s"}.`:"Nothing to export. The list is empty.");
 });
 $("copyBtn").addEventListener("click",async()=>{const text=summary();try{await navigator.clipboard.writeText(text);toast("Summary copied. Sample data only.")}catch(_){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Summary copied. Sample data only.")}});
 $("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
 $("undoBtn").addEventListener("click",undo);
 $("toastUndo").addEventListener("click",()=>{undo();$("toast").classList.remove("on")});
-$("demo").addEventListener("change",e=>{D=e.target.value;reset();if(D==="empty"){S.accounts=[];S.tasks=[];}render();if(D==="loading")toast("Loading state. Switch back to Live book when you want the data.");if(D==="saveerr")toast("The next save will fail once. Your note is kept.")});
+$("demo").addEventListener("change",e=>{D=e.target.value;reset();if(D==="empty"){S.accounts=[];S.tasks=[];}render();if(D==="loading")toast("This shows the loading screen. Switch back to Live book to see the data.");if(D==="saveerr")toast("This test makes the next save fail. Your note stays safe.")});
 reset();render();
 })();
 </script>
