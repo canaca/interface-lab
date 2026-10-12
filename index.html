@@ -4,23 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Cesar Navarro · Interface Lab</title>
-<meta name="description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta name="description" content="Interface Lab by Cesar Navarro. Concept prototypes you can click. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
 <meta property="og:title" content="Cesar Navarro · Interface Lab">
-<meta property="og:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta property="og:description" content="Interface Lab by Cesar Navarro. Concept prototypes you can click. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
-<meta property="og:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<meta property="og:image:alt" content="Cesar Navarro, Interface Lab: concept prototypes you can click">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cesar Navarro · Interface Lab">
-<meta name="twitter:description" content="Cesar Navarro designs interfaces for AI and data products. Every case study is a working prototype you can click.">
+<meta name="twitter:description" content="Interface Lab by Cesar Navarro. Concept prototypes you can click. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/og-image.png">
-<meta name="twitter:image:alt" content="Cesar Navarro: I design interfaces that actually run, with five working prototypes">
+<meta name="twitter:image:alt" content="Cesar Navarro, Interface Lab: concept prototypes you can click">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +61,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
 .card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
 .card h2 i{font-style:normal;color:var(--dim)}
-.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;min-height:44px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
 .btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
@@ -119,7 +119,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 nav b{font-family:var(--sans);font-size:15px;font-weight:600;color:var(--cream)}
 nav .links{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
-nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--cream)}
+nav a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}nav a:hover{color:var(--cream)}
 .open{display:inline-flex;align-items:center;gap:7px;color:var(--accent)}
 .open::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
 .hero{display:flex;flex-direction:column;gap:20px;max-width:920px}
@@ -152,6 +152,7 @@ details.csd dl{display:grid;grid-template-columns:96px 1fr;gap:10px 14px;margin:
 details.csd dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
 details.csd dd{margin:0;color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 28px}
+.proj.wide{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:32px;align-items:center}
 .proj{display:flex;flex-direction:column;gap:16px;min-width:0}
 .how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--edge)}
 .how div{padding:18px 18px 0 0;display:flex;flex-direction:column;gap:6px}
@@ -205,10 +206,12 @@ details.csd dd{margin:0;color:var(--muted)}
 .fld input:focus,.fld textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(111,227,208,.12)}
 .fld .msg{font-size:12px;color:#E2725B;min-height:0}
 .fld.bad input{border-color:#E2725B}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.hp{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.hp input{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;opacity:0;pointer-events:none}
 .qf-nav{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:6px}
 .qf-nav .grow{flex:1}
 .qf-nav .keyhint{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.qerr{margin:0;font-size:13px;color:#E2725B}
 .endicon{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);box-shadow:0 0 24px rgba(111,227,208,.25);font-size:20px}
 .endicon.mail{border-color:var(--bronze);color:var(--bronze);box-shadow:0 0 24px rgba(200,150,100,.2)}
 .recap{display:flex;flex-wrap:wrap;gap:6px}
@@ -218,24 +221,24 @@ details.csd dd{margin:0;color:var(--muted)}
 .status b{color:var(--cream);font-weight:500}
 .sending{display:flex;align-items:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px}
 @media (prefers-reduced-motion:reduce){.step.in{animation:none}.qf-bar i{transition:none}}
-@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
+@media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.proj.wide{display:flex;flex-direction:column}.shot{width:100%}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
 @media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="hub">
-  <nav><b>Cesar Navarro</b><span class="open">Open for projects</span><div class="links"><a href="#work">Work</a><a href="#how">How I work</a><a href="#offers">Offers</a><a href="#contact">Contact</a></div></nav>
+  <nav><b>Cesar Navarro</b><span class="open">Open to roles and projects</span><div class="links"><a href="#work">Work</a><a href="#how">How I work</a><a href="#offers">Offers</a><a href="#contact">Contact</a></div></nav>
 
   <main>
   <header class="hero">
-    <span class="eyebrow">Product design for AI and data products</span>
-    <h1>I design interfaces that <span>actually run.</span></h1>
-    <p>Every project below is a working prototype you can click, with one real workflow designed end to end, including the empty, loading and error states. Each is labeled honestly as a concept or a working build.</p>
+    <span class="eyebrow">Concept direction · AI-assisted build (Claude, Cursor)</span>
+    <h1>I design and build interfaces <span>you can try for yourself.</span></h1>
+    <p>These projects are working concepts you can click. Each one shows a full task from start to finish, including what you see when there's no data, while something loads, and when something goes wrong. I set the problem, the user, and the flow. The data is fictional. This work started in October 2026.</p>
     <div class="cta"><a class="btn pri" href="#work">See the work</a><a class="btn" href="#contact">Start a project</a></div>
   </header>
 
   <section id="work">
-    <div class="sechead"><h2>Work</h2><span>Concept: fictional data, real working interface. Working build: a real product in development.</span></div>
+    <div class="sechead"><h2>Work</h2><span>Concept prototypes. Fictional demo data. Concept direction. AI-assisted build (Claude, Cursor).</span></div>
     <article class="feature">
       <a class="shot" href="valley-grid/" aria-label="Open prototype: Valley Grid, grid operations"><img src="img/grid-workflow.jpg" alt="Valley Grid: an operator investigates bushing B on a live 3D transformer" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
       <div class="info">
@@ -246,35 +249,59 @@ details.csd dd{margin:0;color:var(--muted)}
         <details class="csd"><summary>Read the case study</summary><dl>
           <dt>Problem</dt><dd>Grid operators get alarms with numbers but no context, so deciding whether to send a crew means jumping between screens and phone calls.</dd>
           <dt>User</dt><dd>A control-room operator on shift, responsible for nine substations.</dd>
-          <dt>Decisions</dt><dd>The equipment is the interface. One panel holds the whole path. Evidence comes before advice. Every action confirms before it sends. Every state is designed.</dd>
-          <dt>Outcome</dt><dd>A working prototype of the full alert workflow, with a live 3D scene built with AI-assisted tooling (Claude, Cursor) running in the browser and a 15-second film mode. Not tested with real operators or live data.</dd>
+          <dt>Decisions</dt><dd>You work right on the 3D equipment. One panel holds every step. You see the evidence before any advice. Every action asks you to confirm before it sends. Empty, loading, and error screens are all designed.</dd>
+          <dt>Outcome</dt><dd>A clickable prototype of the full alert workflow, with a 3D scene that runs in the browser and a 15-second film mode. Not tested with real operators or live data.</dd>
           <dt>Label</dt><dd>Concept. Fictional data, people and substation.</dd></dl></details>
       </div>
     </article>
     <div class="grid">
       <article class="proj">
-        <a class="shot" href="kestrel/" aria-label="Prototype + case study: Kestrel, AI agent console"><img src="img/kestrel.jpg" alt="Kestrel: an agent run paused at the refund approval gate" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <a class="shot" href="kestrel/" aria-label="Open prototype: Kestrel, AI agent console"><img src="img/kestrel.jpg" alt="Kestrel: an agent run paused at the refund approval gate" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">AI agent interface</span></div>
-          <h3>Letting support teams trust an AI agent with refunds</h3><p class="value">The agent does the research. A person approves the money and the message.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>HTML, CSS, JavaScript</dd></div></dl></div>
+          <h3>Helping support teams trust an AI agent with refunds</h3><p class="value">The agent does the research. A person approves the money and the message.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
       <article class="proj">
-        <a class="shot" href="decision-os/" aria-label="Demo + case study: Decision OS, working build"><img src="img/dos.jpg" alt="Decision OS: imported items placed on The Chart" loading="lazy" width="1200" height="750"><span class="go">Demo + case study <span aria-hidden="true">↗</span></span></a>
-        <div class="info"><div class="kindrow"><span class="tag build">Working build</span><span class="kind">AI operating system</span></div>
-          <h3>Showing a founder where everything stands, without digging through chat</h3><p class="value">Turns ChatGPT history into current state: what you hold, what you wait on, what's decided.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Product owner, design direction</dd></div><div><dt>Status</dt><dd>ChatGPT import works. The Chart approved. Not in production. Demo uses fictional data.</dd></div></dl></div>
+        <a class="shot" href="keel/" aria-label="Open prototype: Keel, account health"><img src="img/keel.jpg" alt="Keel: a fictional account book with health from visible signals and a save plan" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Customer success</span></div>
+          <h3>Seeing which accounts need someone to reach out this week</h3><p class="value">A list of fictional accounts, each scored from five signals you can see, with a confirmed next step and a sample export.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
       <article class="proj">
-        <a class="shot" href="harbor-copilot/" aria-label="Prototype + case study: Harbor, CRM copilot"><img src="img/harbor.jpg" alt="Harbor: a proposed change set shown as diffs inside the deals table" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <a class="shot" href="berth/" aria-label="Open prototype: Berth, onboarding"><img src="img/berth.jpg" alt="Berth: a fictional onboarding book with a blocked step and the reason written out" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Client onboarding</span></div>
+          <h3>Seeing which new account is stuck, and who needs to act next</h3><p class="value">Five steps, a plain reason for what's stuck, and a reminder that stays on the page. Nothing is emailed.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="linden/" aria-label="Open prototype: Linden, client book"><img src="img/linden.jpg" alt="Linden: a fictional morning book with a client card, preferences, and a draft that was not sent" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Retail clienteling</span></div>
+          <h3>Knowing who to contact before the store opens</h3><p class="value">A daily client list for a fictional boutique: who needs a follow-up and why, what they like, and a draft that never sends.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="decision-os/" aria-label="Open prototype: Decision OS, concept"><img src="img/dos.jpg" alt="Decision OS: a fictional sample export placed on The Chart" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Where work stands</span></div>
+          <h3>Showing where everything stands, without digging through chat</h3><p class="value">A fictional sample file turns into a clear list: what's in your hands, what you're waiting on, and what's decided. Not connected to an account.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="harbor-copilot/" aria-label="Open prototype: Harbor, CRM copilot"><img src="img/harbor.jpg" alt="Harbor: a proposed change set shown as diffs inside the deals table" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">In-product AI copilot</span></div>
-          <h3>Helping sales reps clean up stalled deals without losing control</h3><p class="value">Bulk changes from AI, reviewed in the table, with conflicts held and undo at every level.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>HTML, CSS, JavaScript</dd></div></dl></div>
+          <h3>Helping sales reps clean up stalled deals without losing control</h3><p class="value">The AI suggests many changes at once. You review them in the table, clashing edits wait for you, and you can undo anything.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
       <article class="proj">
-        <a class="shot" href="tidewell/" aria-label="Prototype + case study: Tidewell, revenue analytics"><img src="img/tidewell.jpg" alt="Tidewell: June's revenue drop broken into a waterfall" loading="lazy" width="1200" height="750"><span class="go">Prototype + case study <span aria-hidden="true">↗</span></span></a>
+        <a class="shot" href="tidewell/" aria-label="Open prototype: Tidewell, revenue analytics"><img src="img/tidewell.jpg" alt="Tidewell: a fictional month broken into a waterfall" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">SaaS analytics</span></div>
-          <h3>Explaining why monthly revenue moved</h3><p class="value">From "revenue fell" to the four accounts behind it and a win-back plan, in a few clicks.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>HTML, SVG charts, JavaScript</dd></div></dl></div>
+          <h3>Explaining why a month of revenue moved</h3><p class="value">Trace a drop to the four fictional accounts behind it, then create a task to win them back. These are not real financial results.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj wide">
+        <a class="shot" href="relay/" aria-label="Open prototype: Relay, speed-to-lead builder"><img src="img/relay.jpg" alt="Relay: a test lead moving through the speed-to-lead flow while the text thread fills in" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Automation builder</span></div>
+          <h3>Reaching new Meta leads while they're still interested</h3><p class="value">Texts new leads in under a minute, qualifies them with AI, books the consult and alerts the owner, in English and Spanish.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
     </div>
   </section>
@@ -282,26 +309,26 @@ details.csd dd{margin:0;color:var(--muted)}
   <section id="how">
     <div class="sechead"><h2>How I work</h2><span>Two-week sprint, start to finish</span></div>
     <div class="how">
-      <div><span class="d">Day 1</span><b>Map the job</b><p>Find the one workflow that matters most and who does it.</p></div>
-      <div><span class="d">Days 2–5</span><b>First live build</b><p>You click a working version by the end of week one.</p></div>
-      <div><span class="d">Days 6–9</span><b>Every state</b><p>Empty, loading, errors and edge cases, designed and built.</p></div>
-      <div><span class="d">Day 10</span><b>Hand off</b><p>Live link, clean code and a short walkthrough video.</p></div>
+      <div><span class="d">Day 1</span><b>Understand the problem</b><p>Find the one workflow that matters most and who does it.</p></div>
+      <div><span class="d">Days 2–5</span><b>Build the first working version</b><p>You click a working version by the end of week one.</p></div>
+      <div><span class="d">Days 6–9</span><b>Every screen</b><p>Every screen designed and built: empty, loading, errors, and unusual cases.</p></div>
+      <div><span class="d">Day 10</span><b>Hand off</b><p>A live link and a short walkthrough of the prototype.</p></div>
     </div>
   </section>
 
   <section id="offers">
-    <div class="sechead"><h2>Ways to work together</h2><span>Clear scope. Working code.</span></div>
+    <div class="sechead"><h2>Ways to work together</h2><span>A clear plan and something you can actually use.</span></div>
     <div class="offers">
-      <div class="card offer"><span class="tier">Start here</span><h3>AI UX Audit</h3><div class="price">Scoped after a short discovery call.</div><ul><li>Walkthrough of your product</li><li>Top 10 fixes, ranked by impact</li><li>One key screen rebuilt as a live prototype</li></ul></div>
-      <div class="card offer feat"><span class="tier">Best first project</span><h3>Live Prototype Sprint</h3><div class="price">Scoped after a short discovery call.</div><ul><li>One core workflow, designed and built</li><li>All states, with real or sample data</li><li>Ready for user tests and investor demos</li></ul></div>
-      <div class="card offer"><span class="tier">Ongoing</span><h3>Fractional Design Partner</h3><div class="price">Scoped after a short discovery call.</div><ul><li>Weekly sprints shipped as working screens</li><li>A design system that grows with you</li><li>In your Slack and standups</li></ul></div>
+      <div class="card offer"><span class="tier">Start here</span><h3>AI UX Audit</h3><div class="price">Scoped after a short discovery call.</div><ul><li>Walkthrough of your product</li><li>The 10 changes that could make the biggest difference</li><li>One key screen rebuilt as a live prototype</li></ul></div>
+      <div class="card offer feat"><span class="tier">Best first project</span><h3>Live Prototype Sprint</h3><div class="price">Scoped after a short discovery call.</div><ul><li>One core workflow, designed and built</li><li>Every screen, including empty, loading, and error, with real or sample data</li><li>Ready for user tests and investor demos</li></ul></div>
+      <div class="card offer"><span class="tier">Ongoing</span><h3>Fractional Design Partner</h3><div class="price">Scoped after a short discovery call.</div><ul><li>New working screens delivered each week</li><li>A consistent look and feel that grows with your product</li><li>In your Slack and team check-ins</li></ul></div>
     </div>
   </section>
 
   <section class="contact" id="contact">
     <div class="cside">
       <h2>Have a workflow that needs to work better?</h2>
-      <p>Answer a few quick questions. It takes about a minute, and it helps me reply with something useful instead of a generic hello.</p>
+      <p>Tell me a little about your project. It takes about a minute and helps me give you a more useful reply.</p>
       <p class="direct">Prefer plain email? <a href="mailto:cnavarro.business@gmail.com">cnavarro.business@gmail.com</a></p>
       <p class="privacy">Privacy: your answers go only to me, so I can reply to you. No mailing list, no tracking, and I never share or sell them. Ask me anytime and I'll delete them.</p>
     </div>
@@ -342,7 +369,8 @@ details.csd dd{margin:0;color:var(--muted)}
             <button type="button" class="opt" role="radio" aria-checked="false" data-v="201–1,000 people">201–1,000</button>
             <button type="button" class="opt" role="radio" aria-checked="false" data-v="1,000+ people">1,000+</button>
           </div>
-          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="button" class="btn pri" data-next disabled>Next</button></div>
+          <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="button" class="btn pri" data-next>Next</button></div>
+          <p class="qerr" id="q2err" role="alert" hidden></p>
         </div>
 
         <div class="step" data-step="3" hidden>
@@ -357,8 +385,8 @@ details.csd dd{margin:0;color:var(--muted)}
         </div>
 
         <div class="step" data-step="4" hidden>
-          <h3 class="q" tabindex="-1" id="q4">What budget do you have in mind?</h3>
-          <p class="qhint" id="q4hint">A rough range is fine. It helps me suggest the right size of project.</p>
+          <h3 class="q" tabindex="-1" id="q4">How big is the project?</h3>
+          <p class="qhint" id="q4hint">A rough sense is fine. It helps me suggest the right size of project.</p>
           <div class="opts" role="radiogroup" data-key="budget" aria-labelledby="q4" id="budgetOpts"></div>
           <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><span class="keyhint">Press a number</span></div>
         </div>
@@ -370,7 +398,7 @@ details.csd dd{margin:0;color:var(--muted)}
             <div class="fld"><label for="fEmail">Work email</label><input id="fEmail" name="email" type="email" autocomplete="email" required><span class="msg" aria-live="polite"></span></div>
             <div class="fld wide"><label for="fCo">Company</label><input id="fCo" type="text" name="company" autocomplete="organization"></div>
             <div class="fld wide"><label for="fNote">Short note <span style="text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="fNote" name="note" maxlength="600" placeholder="A link to your product, and what's not working."></textarea></div>
-            <div class="hp" aria-hidden="true"><label for="fGot">Leave this empty</label><input id="fGot" type="text" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+            <div class="hp" aria-hidden="true"><label for="fGot" aria-hidden="true">Leave this empty</label><input id="fGot" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
           </div>
           <div class="qf-nav"><button type="button" class="btn ghost sm" data-back>Back</button><span class="grow"></span><button type="submit" class="btn pri" id="qfSend">Send</button></div>
         </div>
@@ -404,31 +432,34 @@ const CONTACT_EMAIL = "cnavarro.business@gmail.com";
 (function(){
 const form=document.getElementById("qf"),bar=document.getElementById("qfBar"),count=document.getElementById("qfCount"),label=document.getElementById("qfLabel");
 const steps=[...form.querySelectorAll(".step")],A={},NAMES={need:{role:"Product design role",freelance:"Freelance product design",website:"Website",ads:"Meta ads"},timeline:{asap:"Start right away",month:"Start this month",quarter:"Start in 1 to 3 months",exploring:"Just exploring"}};
-const LABELS={1:"What you need",2:"Your company",3:"Timeline",4:"Budget",5:"Contact"};
-// Budget screen adapts: a hiring manager gets role type instead of a project budget.
+const LABELS={1:"What you need",2:"Your company",3:"Timeline",4:"Scope",5:"Contact"};
+// Scope screen adapts: a hiring manager picks a role type. No dollar amounts.
 const WORDS=[["small","Small / getting started"],["mid","Moderate"],["large","Significant"],["unsure","Not sure yet"]];
-const BUDGET={project:WORDS,ads:WORDS,role:[["fulltime","Full-time"],["c2h","Contract to hire"],["contract","Contract"],["unsure","Still deciding"]]};
+const BUDGET={project:WORDS,ads:WORDS,role:[["cs","Customer success"],["am","Account management"],["clienteling","Retail clienteling"],["mops","Marketing operations"],["design","Product design"]]};
 let cur=1;
 function show(id,back){steps.forEach(s=>{const on=s.dataset.step==String(id);s.hidden=!on;s.classList.remove("in","back");if(on){void s.offsetWidth;s.classList.add("in");if(back)s.classList.add("back")}});
   const n=typeof id==="number"?id:5,done=id==="end";bar.style.width=(done?100:((n-1)/5*100+4))+"%";
   count.textContent=done?"Done":"0"+n+" / 05";label.textContent=done?"Inquiry received":(LABELS[n]||"Inquiry");
   const h=form.querySelector('.step[data-step="'+id+'"] .q');if(h&&cur!==id)h.focus({preventScroll:true});cur=id}
 function setBudget(){const kind=A.need==="role"?"role":A.need==="ads"?"ads":"project";const box=document.getElementById("budgetOpts");
-  document.getElementById("q4").textContent=kind==="role"?"What kind of role is it?":kind==="ads"?"What monthly ad budget do you have in mind?":"What budget do you have in mind?";
-  document.getElementById("q4hint").textContent=kind==="role"?"So I know how it would work day to day.":"A rough sense is fine. It helps me suggest the right size of project.";
+  document.getElementById("q4").textContent=kind==="role"?"What kind of role is it?":kind==="ads"?"What kind of help do you need with your ads?":"How big is the project?";
+  document.getElementById("q4hint").textContent=kind==="role"?"So I can focus on what matters to you.":"A rough sense is fine. It helps me suggest the right size of project.";
   if(box.dataset.kind!==kind){delete A.budget;box.dataset.kind=kind}
   box.innerHTML=BUDGET[kind].map(([v,t],i)=>'<button type="button" class="opt" role="radio" aria-checked="'+(A.budget===v)+'" data-v="'+v+'" data-t="'+t+'"><span class="k">'+(i+1)+'</span><span>'+t+'</span></button>').join("")}
 function pick(group,btn){group.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked",o===btn?"true":"false"));A[group.dataset.key]=btn.dataset.v;if(btn.dataset.t)A.budgetText=btn.dataset.t}
 form.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){const g=o.closest("[data-key]");pick(g,o);const st=+o.closest(".step").dataset.step;
-    if(st===2){form.querySelector('[data-step="2"] [data-next]').disabled=!(A.ctype&&A.csize);return}
+    if(st===2){const er=document.getElementById('q2err');if(A.ctype&&A.csize)er.hidden=true;return}
     setTimeout(()=>{if(st===1)setBudget();show(st+1)},220);return}
-  if(e.target.closest("[data-next]"))show(cur+1);
+  if(e.target.closest("[data-next]")){if(cur===2&&!(A.ctype&&A.csize)){const er=document.getElementById("q2err");er.textContent=!A.ctype&&!A.csize?"Pick a company type and a size to continue.":!A.ctype?"Pick a company type to continue.":"Pick a company size to continue.";er.hidden=false;
+      const g=form.querySelector('[data-key="'+(A.ctype?"csize":"ctype")+'"] .opt');g&&g.focus();return}show(cur+1)}
   if(e.target.closest("[data-back]"))show(cur-1,true)});
+form.addEventListener("keydown",e=>{const o=e.target.closest&&e.target.closest(".opt");if(!o)return;const d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key];if(!d)return;e.preventDefault();
+  const all=[...o.closest("[data-key]").querySelectorAll(".opt")];all[(all.indexOf(o)+d+all.length)%all.length].focus()});
 document.addEventListener("keydown",e=>{if(typeof cur!=="number"||cur===5||cur===2)return;if(e.target.closest&&e.target.closest("input,textarea"))return;
   const r=form.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
   const opts=form.querySelectorAll('.step[data-step="'+cur+'"] .opt'),i=+e.key-1;if(i>=0&&i<opts.length){e.preventDefault();opts[i].click()}});
 function fit(){if(A.timeline==="exploring")return false;if(A.need==="role")return true;return A.budget==="large"||(A.budget==="mid"&&A.need!=="website")}
-function lines(){return["What I need: "+NAMES.need[A.need],"Company: "+A.ctype+", "+A.csize,"Timeline: "+NAMES.timeline[A.timeline],(A.need==="role"?"Role type: ":"Budget: ")+A.budgetText,"","Name: "+A.name,"Email: "+A.email,"Company name: "+(A.company||"-"),"","Note:",A.note||"-"]}
+function lines(){return["What I need: "+NAMES.need[A.need],"Company: "+A.ctype+", "+A.csize,"Timeline: "+NAMES.timeline[A.timeline],(A.need==="role"?"Role type: ":"Scope: ")+A.budgetText,"","Name: "+A.name,"Email: "+A.email,"Company name: "+(A.company||"-"),"","Note:",A.note||"-"]}
 function mailto(subject,body){return"mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body)}
 function valid(){let ok=true;[["fName",v=>v.trim().length>1,"Please add your name."],["fEmail",v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}/.test(v.trim())&&!/\s/.test(v.trim()),"Please check this email."]].forEach(([id,t,m])=>{const el=document.getElementById(id),f=el.closest(".fld"),bad=!t(el.value);f.classList.toggle("bad",bad);f.querySelector(".msg").textContent=bad?m:"";if(bad&&ok){el.focus();ok=false}});return ok}
 form.addEventListener("submit",async e=>{e.preventDefault();if(!valid())return;
@@ -440,7 +471,7 @@ form.addEventListener("submit",async e=>{e.preventDefault();if(!valid())return;
       body:JSON.stringify({need:NAMES.need[A.need],company_type:A.ctype,company_size:A.csize,timeline:NAMES.timeline[A.timeline],budget_or_role:A.budgetText,name:A.name,email:A.email,company:A.company,note:A.note,fit:fit()?"strong":"review",_replyto:A.email,_subject:"Inquiry: "+NAMES.need[A.need]+" from "+A.name})});
     end(res.ok?"sent":"failed")}catch(err){end("failed")}});
 function end(state){const strong=fit(),first=A.name.split(" ")[0];const body=lines().join("\n");
-  document.getElementById("endTitle").textContent=strong?"This looks like a strong fit, "+first+".":"Thanks, "+first+".";
+  document.getElementById("endTitle").textContent=strong?"This sounds like something we should talk about, "+first+".":"Thanks, "+first+".";
   document.getElementById("endText").textContent=strong?(A.need==="role"?"Let's set up a short call to talk about the role and your team.":"Let's talk it through on a short call. I'll come with first ideas for your workflow."):(state==="sent"?"I'll reply by email within one business day, with a few questions or first thoughts.":"Once you send the email below, I'll reply by email within one business day.");
   document.getElementById("endIcon").className="endicon"+(strong?"":" mail");document.getElementById("endIcon").textContent=strong?"✓":"✉";
   document.getElementById("recap").innerHTML=[NAMES.need[A.need],A.ctype,A.csize,NAMES.timeline[A.timeline],A.budgetText].map(t=>"<span>"+t.replace(/</g,"&lt;")+"</span>").join("");
@@ -454,7 +485,7 @@ function end(state){const strong=fit(),first=A.name.split(" ")[0];const body=lin
     if(BOOKING_URL){b.href=BOOKING_URL;b.target="_blank";b.rel="noopener"}else b.href=mailto("Call request: "+NAMES.need[A.need]+" from "+A.name,"Hi Cesar, I'd like to book a short call. Times that work for me:\n\n\n"+body);
     act.prepend(b)}
   show("end")}
-document.getElementById("qfRestart").addEventListener("click",()=>{for(const k in A)delete A[k];form.reset();form.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked","false"));form.querySelector('[data-step="2"] [data-next]').disabled=true;form.querySelectorAll(".fld").forEach(f=>{f.classList.remove("bad");const m=f.querySelector(".msg");if(m)m.textContent=""});show(1,true)});
+document.getElementById("qfRestart").addEventListener("click",()=>{for(const k in A)delete A[k];form.reset();form.querySelectorAll(".opt").forEach(o=>o.setAttribute("aria-checked","false"));document.getElementById('q2err').hidden=true;form.querySelectorAll(".fld").forEach(f=>{f.classList.remove("bad");const m=f.querySelector(".msg");if(m)m.textContent=""});show(1,true)});
 bar.style.width="4%";
 })();
 </script>

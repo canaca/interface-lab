@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Berth · Which new account is stuck</title>
+<meta name="description" content="October 2026 concept: an onboarding tracker for a customer-success manager. Steps, blockers, and a nudge that stays a task.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Berth · Which new account is stuck">
+<meta property="og:description" content="October 2026 concept: an onboarding tracker for a customer-success manager. Steps, blockers, and a nudge that stays a task.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/berth/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/berth.jpg">
+<meta property="og:image:alt" content="Berth: a sample onboarding book with a blocked step and the reason written out">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Berth · Which new account is stuck">
+<meta name="twitter:description" content="October 2026 concept. Fictional accounts. A working onboarding tracker. A nudge is a task, not an email.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/berth.jpg">
+<meta name="twitter:image:alt" content="Berth: a sample onboarding book with a blocked step and the reason written out">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.skip{display:inline-flex;align-items:center;min-height:44px;color:var(--accent);font-weight:600;text-decoration:none}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+a.home:hover{color:var(--cream)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer;min-height:32px}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:44px}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);overflow-wrap:anywhere}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:12.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:14px 0 8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px}
+.err b{color:var(--cream);font-weight:500}
+.fielderr{color:var(--red);font-size:12.5px;margin:4px 0 0}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2)}
+.sheet .q{font-size:16px;font-weight:500}
+label.lbl{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+textarea,.inp,select.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:10px;color:var(--cream);font-size:14px;min-height:44px}
+textarea{min-height:72px;resize:vertical}
+::placeholder{color:var(--muted);opacity:1}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+.toast{position:fixed;left:50%;top:78px;transform:translate(-50%,-8px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:min(520px,calc(100% - 32px));pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:8px 12px;font-weight:600;cursor:pointer;color:var(--cream);min-height:44px;pointer-events:auto}
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-family:var(--sans);font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;text-transform:none;color:var(--cream)}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;border:1px dashed var(--edge-2);color:var(--muted);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{text-align:left;cursor:pointer;color:inherit;font:inherit;min-height:44px}
+.kpi b{display:block;font-weight:400;font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi.on{border-color:var(--accent)}
+.lay{display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,1.1fr);gap:14px;align-items:start}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.filters input,.filters select{background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;min-width:0;min-height:44px}
+.filters input{flex:1;min-width:160px}
+.scroll{overflow:auto;max-height:720px}
+ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.person{width:100%;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:12px;border:1px solid transparent;background:transparent;color:inherit;min-height:44px}
+.person.on{border-color:var(--accent);background:rgba(111,227,208,.06)}
+.person:hover{background:rgba(255,222,190,.05)}
+.person .top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.nm{font-weight:550;overflow-wrap:anywhere}
+.track{height:6px;border-radius:99px;background:rgba(255,222,190,.1);overflow:hidden}
+.track i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.step{padding:12px 0;border-top:1px solid var(--edge)}
+.task{padding:10px 0;border-top:1px solid var(--edge);display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (max-width:860px){
+  .lay,.kpis,.cs{grid-template-columns:1fr}
+  .cs dl{grid-template-columns:1fr}
+  .scroll{max-height:none}
+  .wrap{padding-inline:14px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <a class="skip" href="#book">Skip to the onboarding book</a>
+    <a class="home" href="../">Interface Lab</a>
+    <h1 class="brand"><b>Berth</b><span>Onboarding</span></h1>
+    <span class="crumbs" id="crumbs">FIELDNOTE · SAMPLE BOOK</span>
+    <span class="sp"></span>
+    <button class="btn sm" id="exportBtn" type="button">Export sample</button>
+    <button class="btn sm" id="copyBtn" type="button">Copy this list</button>
+    <button class="btn sm ghost" id="undoBtn" type="button">Undo</button>
+    <button class="btn sm ghost" id="resetBtn" type="button">Reset</button>
+    <label class="tbtn">State
+      <select id="demo" aria-label="Demo state">
+        <option value="live">Live book</option>
+        <option value="empty">Empty book</option>
+        <option value="loading">Loading</option>
+        <option value="saveerr">Save fails once</option>
+      </select>
+    </label>
+    <span class="tag">Concept · Oct 2026</span>
+  </header>
+  <main id="book">
+  <p class="banner" id="banner">A sample onboarding tracker for Fieldnote, a fictional product. Progress means steps done. A nudge is a reminder on this page. Nothing is emailed.</p>
+  <div class="kpis" id="kpis">
+    <button type="button" class="card kpi" data-status="blocked" aria-pressed="false"><b class="m" id="nBlocked">0</b><span class="sub">Blocked</span></button>
+    <button type="button" class="card kpi" data-status="not" aria-pressed="false"><b class="m" id="nNot">0</b><span class="sub">Not started</span></button>
+    <button type="button" class="card kpi" data-status="track" aria-pressed="false"><b class="m" id="nTrack">0</b><span class="sub">On track</span></button>
+    <button type="button" class="card kpi" data-status="complete" aria-pressed="false"><b class="m" id="nDone">0</b><span class="sub">Complete</span></button>
+  </div>
+  <div class="lay">
+    <section class="card" aria-labelledby="listHead">
+      <h2 id="listHead">New accounts <i id="count">—</i></h2>
+      <div class="filters">
+        <input id="q" type="search" placeholder="Search accounts" aria-label="Search accounts" autocomplete="off">
+        <select id="fOwner" aria-label="Owner">
+          <option value="all">All owners</option>
+          <option>Priya Shah</option>
+          <option>Elena Voss</option>
+        </select>
+        <select id="fStatus" aria-label="Status">
+          <option value="all">All statuses</option>
+          <option value="blocked">Blocked</option>
+          <option value="not">Not started</option>
+          <option value="track">On track</option>
+          <option value="complete">Complete</option>
+        </select>
+        <select id="fSort" aria-label="Sort">
+          <option value="status">Sort by status</option>
+          <option value="name">Sort by name</option>
+          <option value="progress">Sort by progress</option>
+        </select>
+        <button class="btn sm ghost" id="clearF" type="button">Clear filters</button>
+      </div>
+      <div class="scroll">
+        <ul class="book" id="list"></ul>
+      </div>
+    </section>
+    <section class="card" aria-labelledby="detHead">
+      <h2 id="detHead">Checklist <i id="detNote">select one</i></h2>
+      <div id="detail"></div>
+    </section>
+  </div>
+  <section class="cs">
+    <div>
+      <span class="tag">Case study</span>
+      <h2>A new account should show the stuck step, and who needs to act next.</h2>
+      <p class="lede">The customer success manager sees five steps, a plain reason for what's stuck, and a reminder that stays on the page.</p>
+    </div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>When onboarding lives in a document, it's hard to see which step is stuck, or whether the team or the client needs to act next.</dd>
+      <dt>User</dt><dd>A customer success manager running the first weeks of a new account.</dd>
+      <dt>Decisions</dt><dd>Progress is steps marked done, not a score. If you mark a later step done first, the page checks with you, and you can still do it with a note. A stuck step needs a reason. A nudge creates a task. It does not email anyone. Moving the account asks you to confirm first. If a save fails, your note is not lost.</dd>
+      <dt>Outcome</dt><dd>A working prototype of the account list, the checklist, the reminder list, undo, and export, with empty, loading, and save-error screens. Not tested with a real success team. It makes no claim about how fast accounts see value.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro. AI-assisted build (Claude, Cursor). Not a client engagement. Fieldnote is the same fictional company used in Keel. This is a separate prototype.</dd>
+      <dt>Label</dt><dd>Concept. Fieldnote, the accounts, and the people are fictional.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Berth · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></div>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden type="button">Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const OWNERS=["Priya Shah","Elena Voss"];
+const LABELS={blocked:"Blocked",not:"Not started",track:"On track",complete:"Complete"};
+const STEP={not:"Not started",doing:"In progress",blocked:"Blocked",done:"Done"};
+function steps(owner,preset){
+  const names=["Kickoff scheduled","Access granted","Training session","First workflow live","Week-one check-in"];
+  return names.map((name,i)=>{
+    const p=preset[i]||{};
+    return {name,status:p.status||"not",owner:p.owner||owner,note:p.note||"",blocker:p.blocker||""};
+  });
+}
+function seed(){return [
+  {id:"b1",n:"Summit Heating",owner:"Priya Shah",started:"Sep 2",note:"The admin never accepted the invite.",tasks:[],
+    steps:steps("Priya Shah",[
+      {status:"done",note:"Kickoff held Sep 2."},
+      {status:"blocked",owner:"Client",blocker:"The admin never accepted the invite."},
+      {status:"not"},{status:"not"},{status:"not"}
+    ])},
+  {id:"b2",n:"Brightline Plumbing",owner:"Elena Voss",started:"Sep 20",note:"Training is the next step.",tasks:[],
+    steps:steps("Elena Voss",[
+      {status:"done",note:"Kickoff held."},
+      {status:"done",note:"Access granted."},
+      {status:"doing",note:"Training is booked for this week."},
+      {status:"not"},{status:"not"}
+    ])},
+  {id:"b3",n:"Atlas Movers",owner:"Priya Shah",started:"Oct 8",note:"Kickoff is not on the calendar.",tasks:[],
+    steps:steps("Priya Shah",[{},{},{},{},{}])},
+  {id:"b4",n:"Keystone Rehab",owner:"Elena Voss",started:"Sep 12",note:"Week-one check-in is the last step.",tasks:[],
+    steps:steps("Elena Voss",[
+      {status:"done",note:"Kickoff held."},
+      {status:"done",note:"Access granted."},
+      {status:"done",note:"Training held."},
+      {status:"done",note:"Scheduling is live."},
+      {status:"doing",note:"Check-in is due."}
+    ])},
+  {id:"b5",n:"Granite Legal",owner:"Priya Shah",started:"Aug 18",note:"All five steps are done.",tasks:[],
+    steps:steps("Priya Shah",[
+      {status:"done",note:"Done."},{status:"done",note:"Done."},{status:"done",note:"Done."},{status:"done",note:"Done."},{status:"done",note:"Check-in held."}
+    ])},
+  {id:"b6",n:"Copperleaf Spa",owner:"Elena Voss",started:"Sep 28",note:"Nobody named the day-to-day owner.",tasks:[],
+    steps:steps("Elena Voss",[
+      {status:"done",note:"Kickoff held."},
+      {status:"blocked",owner:"Client",blocker:"No one has said who the day-to-day owner is."},
+      {status:"not"},{status:"not"},{status:"not"}
+    ])}
+];}
+let D="live",run=0,seq=1;
+const S={accounts:[],sel:"b1",q:"",owner:"all",status:"all",sort:"status",pending:null,pendingKind:null,pendingStep:null,nextOwner:"",draft:"",anyway:false,errUsed:false,undo:[]};
+function reset(){run++;S.accounts=seed();S.sel="b1";S.q="";S.owner="all";S.status="all";S.sort="status";S.pending=null;S.pendingKind=null;S.pendingStep=null;S.nextOwner="";S.draft="";S.anyway=false;S.errUsed=false;S.undo=[];
+  $("q").value="";$("fOwner").value="all";$("fStatus").value="all";$("fSort").value="status";}
+function acct(id){return S.accounts.find(a=>a.id===id)}
+function status(a){
+  if(a.steps.every(s=>s.status==="done"))return "complete";
+  if(a.steps.some(s=>s.status==="blocked"))return "blocked";
+  if(a.steps.every(s=>s.status==="not"))return "not";
+  return "track";
+}
+function doneCount(a){return a.steps.filter(s=>s.status==="done").length}
+function chipClass(st){return st==="blocked"?"bad":st==="not"?"warn":st==="complete"?"ok":""}
+function match(a){
+  if(S.owner!=="all"&&a.owner!==S.owner)return false;
+  if(S.q&&!a.n.toLowerCase().includes(S.q.toLowerCase()))return false;
+  if(S.status!=="all"&&status(a)!==S.status)return false;
+  return true;
+}
+function view(){
+  const rows=S.accounts.filter(match);
+  const rank={blocked:0,not:1,track:2,complete:3};
+  rows.sort((a,b)=>{
+    if(S.sort==="name")return a.n.localeCompare(b.n);
+    if(S.sort==="progress")return doneCount(a)-doneCount(b)||a.n.localeCompare(b.n);
+    return rank[status(a)]-rank[status(b)]||a.n.localeCompare(b.n);
+  });
+  return rows;
+}
+function nextStep(a){
+  const i=a.steps.findIndex(s=>s.status!=="done");
+  if(i<0)return "All steps done";
+  const s=a.steps[i];
+  return s.name+" · "+STEP[s.status]+" · "+s.owner;
+}
+function snap(){S.undo.push(JSON.stringify({accounts:S.accounts,sel:S.sel}));if(S.undo.length>25)S.undo.shift();}
+function undo(){const raw=S.undo.pop();if(!raw)return;const p=JSON.parse(raw);S.accounts=p.accounts;S.sel=p.sel;S.pending=null;render();toast("Undone. The sample book is back one step.");}
+let tt,toastN=0;function toast(m,u){toastN++;$("toast").dataset.n=String(toastN);$("toastMsg").textContent=m;$("toastUndo").hidden=!u;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),3400)}
+function counts(){
+  const c={blocked:0,not:0,track:0,complete:0};
+  S.accounts.forEach(a=>{c[status(a)]++});
+  return c;
+}
+function paintKpis(){
+  const n=D==="loading"?null:D==="empty"?{blocked:0,not:0,track:0,complete:0}:counts();
+  $("nBlocked").textContent=n?n.blocked:"—";
+  $("nNot").textContent=n?n.not:"—";
+  $("nTrack").textContent=n?n.track:"—";
+  $("nDone").textContent=n?n.complete:"—";
+  document.querySelectorAll("[data-status]").forEach(b=>{
+    const on=(D==="live"||D==="saveerr")&&S.status===b.dataset.status;
+    b.classList.toggle("on",on);
+    b.setAttribute("aria-pressed",String(on));
+  });
+}
+function paintList(){
+  const list=$("list");
+  if(D==="loading"){list.innerHTML=[1,2,3,4].map(()=>`<li><div class="sk" style="height:72px"></div></li>`).join("");$("count").textContent="loading";$("crumbs").textContent="FIELDNOTE · LOADING";return}
+  if(D==="empty"){list.innerHTML=`<li><div class="empty"><b>No accounts in this book</b><p class="sub">The empty state is a review screen. Load the sample book to work the demo.</p><button class="btn" type="button" id="loadBtn">Load the sample book</button></div></li>`;$("count").textContent="empty";$("crumbs").textContent="FIELDNOTE · EMPTY";return}
+  const rows=view();
+  $("count").textContent=rows.length+" of "+S.accounts.length;
+  $("crumbs").textContent="FIELDNOTE · "+rows.length+" SHOWN · SAMPLE";
+  if(!rows.length){list.innerHTML=`<li><div class="empty"><b>No accounts match</b><p class="sub">Clear a filter or search to see the sample book again.</p></div></li>`;return}
+  list.innerHTML=rows.map(a=>{
+    const st=status(a),d=doneCount(a),on=S.sel===a.id,pct=Math.round(d/a.steps.length*100);
+    return `<li><button type="button" class="person${on?" on":""}" data-id="${a.id}" aria-pressed="${on}"><span class="top"><span class="nm">${esc(a.n)}</span><span class="chip ${chipClass(st)}">${LABELS[st]}</span></span><span class="note">${esc(a.owner)} · started ${esc(a.started)} · ${d} of ${a.steps.length} steps</span><span class="track" aria-hidden="true"><i style="width:${pct}%"></i></span><span class="sub">${esc(nextStep(a))}</span></button></li>`;
+  }).join("");
+}
+function earlierOpen(a,i){return a.steps.slice(0,i).find(s=>s.status!=="done")}
+function sheet(a){
+  const kind=S.pendingKind,step=a.steps[S.pendingStep],sending=S.pending==="sending",failed=S.pending==="failed";
+  const earlier=step?earlierOpen(a,S.pendingStep):null;
+  let title="Confirm",help="";
+  if(kind==="done"){title="Mark “"+step.name+"” done";help="This step counts toward progress."}
+  if(kind==="anyway"){title="“"+earlier.name+"” is still open";help="Mark “"+step.name+"” anyway, with a note, or go back and finish the earlier step."}
+  if(kind==="block"){title="Mark “"+step.name+"” blocked";help="The reason shows on the account. Progress does not move."}
+  if(kind==="clear"){title="Clear the blocker on “"+step.name+"”";help="The step returns to in progress."}
+  if(kind==="nudge"){title="Save a nudge for “"+step.name+"”";help="This creates a task on the page. Nothing is emailed."}
+  if(kind==="move"){title="Move "+a.n+" to "+S.nextOwner+"?";help="Steps "+a.owner+" owns move with the account. Steps the client owns stay with the client."}
+  const needs=kind!=="move"&&kind!=="clear";
+  const optional=kind==="clear";
+  return `<div class="sheet" role="group" aria-labelledby="sheetQ"><div class="q" id="sheetQ">${esc(title)}</div>
+    <p class="sub" style="margin:0">${esc(help)}</p>
+    ${needs?`<label class="lbl" for="note">Note (required)</label><textarea id="note" aria-describedby="noteErr" ${sending?"disabled":""}>${esc(S.draft)}</textarea><p class="fielderr" id="noteErr" hidden>Add a short note, at least 3 characters. Nothing was logged.</p>`:""}
+    ${optional?`<label class="lbl" for="note">Note (optional)</label><textarea id="note" ${sending?"disabled":""}>${esc(S.draft)}</textarea>`:""}
+    ${failed?`<div class="err"><b>Nothing was logged.</b> The sample save failed. Your note is still here.</div>`:""}
+    <div class="row">${sending?`<button class="btn pri" disabled type="button"><span class="spin"></span>Saving…</button>`:`${kind==="anyway"?`<button class="btn pri" type="button" id="goBtn">Mark anyway</button>`:`<button class="btn pri" type="button" id="goBtn">${failed?"Try again":kind==="move"?"Confirm move":kind==="nudge"?"Save nudge":"Confirm"}</button>`}<button class="btn ghost" type="button" id="cancelBtn">Cancel</button>`}</div>
+    <p class="note" id="sendNote">Sample only. Nothing is emailed.</p></div>`;
+}
+function stepCard(a,s,i){
+  const cls=s.status==="done"?"ok":s.status==="blocked"?"bad":s.status==="doing"?"warn":"";
+  const waiting=s.owner==="Client"&&s.status!=="done";
+  let acts="";
+  if(s.status!=="done"){
+    const bits=[];
+    if(s.status==="not")bits.push(`<button class="btn sm" type="button" data-act="start" data-i="${i}">Start</button>`);
+    if(s.status!=="blocked")bits.push(`<button class="btn sm pri" type="button" data-act="done" data-i="${i}">Mark done</button>`);
+    if(s.status!=="blocked")bits.push(`<button class="btn sm warn" type="button" data-act="block" data-i="${i}">Mark blocked</button>`);
+    if(s.status==="blocked")bits.push(`<button class="btn sm pri" type="button" data-act="clear" data-i="${i}">Clear blocker</button>`);
+    bits.push(`<button class="btn sm" type="button" data-act="nudge" data-i="${i}">Nudge</button>`);
+    bits.push(`<button class="btn sm" type="button" data-act="own" data-i="${i}">${s.owner==="Client"?"Assign to "+esc(a.owner.split(" ")[0]):"Waiting on the client"}</button>`);
+    acts=`<div class="row" style="margin-top:8px">${bits.join("")}</div>`;
+  }
+  return `<article class="step"><div class="top" style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${i+1}. ${esc(s.name)}</b><span class="chip ${cls}">${STEP[s.status]}</span></div>
+    <p class="note">Owner: ${esc(s.owner)}${waiting?" · waiting on the client":""}</p>
+    ${s.blocker?`<p class="sub">Blocker: ${esc(s.blocker)}</p>`:""}
+    ${s.note?`<p class="sub">${esc(s.note)}</p>`:""}
+    ${acts}</article>`;
+}
+function paintDetail(){
+  const el=$("detail");
+  if(D==="loading"){el.innerHTML=`<div class="sk" style="height:18px;width:40%"></div><div class="sk" style="height:120px;margin-top:12px"></div>`;$("detNote").textContent="loading";return}
+  if(D==="empty"){el.innerHTML=`<p class="note">Nothing to open.</p>`;$("detNote").textContent="empty";return}
+  const a=acct(S.sel);
+  if(!a){el.innerHTML=`<div class="empty"><b>Select an account</b><p class="sub">Open a name to see the five steps and who needs to act next.</p></div>`;$("detNote").textContent="select one";return}
+  const st=status(a),d=doneCount(a),pct=Math.round(d/a.steps.length*100);
+  $("detNote").textContent=d+" of "+a.steps.length;
+  const hidden=!match(a)?"<p class=\"note\" id=\"hiddenNote\">Hidden by the current filter. Clear filters to see them in the list.</p>":"";
+  if(S.pending){el.innerHTML=`<p id="acctName" tabindex="-1" style="font-size:22px;margin:0">${esc(a.n)}</p><p class="sub">${d} of ${a.steps.length} steps done</p>${hidden}${sheet(a)}`;return}
+  const ownOpts=OWNERS.map(o=>`<option${o===a.owner?" selected":""}>${esc(o)}</option>`).join("");
+  const tasks=a.tasks.length?a.tasks.map(t=>`<div class="task"><div><b>${esc(t.title)}</b><p class="note">${esc(t.note)}</p></div>${t.status==="open"?`<button class="btn sm" type="button" data-task="${t.id}">Mark done</button>`:`<span class="chip ok">Done</span>`}</div>`).join(""):`<p class="note">No nudges yet. A nudge stays on this page.</p>`;
+  el.innerHTML=`<p id="acctName" tabindex="-1" style="font-size:22px;margin:0">${esc(a.n)}</p>
+    <p class="sub" style="margin:4px 0 8px">${esc(a.owner)} · started ${esc(a.started)}</p>
+    ${hidden}
+    <div class="row"><span class="chip ${chipClass(st)}">${LABELS[st]}</span><span class="chip">${d} of ${a.steps.length} done</span></div>
+    <div class="track" style="margin-top:10px" role="img" aria-label="${d} of ${a.steps.length} steps done"><i style="width:${pct}%"></i></div>
+    <p class="sub">${esc(a.note)}</p>
+    <p class="note">Next: ${esc(nextStep(a))}</p>
+    <div class="sec"><span>Steps</span><span>a person confirms</span></div>
+    ${a.steps.map((s,i)=>stepCard(a,s,i)).join("")}
+    <div class="sec"><span>Nudges</span><span>not emails</span></div>
+    <div id="tasks">${tasks}</div>
+    <div class="sec"><span>Account owner</span></div>
+    <div class="row">
+      <select class="inp" id="own" aria-label="Move to owner" style="width:auto">${ownOpts}</select>
+      <button class="btn sm" type="button" id="moveBtn">Move account</button>
+    </div>
+    <p class="fielderr" id="ownErr" hidden>Choose a different owner. Nothing was moved.</p>`;
+}
+function render(){paintKpis();paintList();paintDetail();
+  const off=D==="loading"||D==="empty";
+  $("exportBtn").disabled=off;$("copyBtn").disabled=off;$("undoBtn").disabled=off||!S.undo.length;
+  $("book").setAttribute("aria-busy",D==="loading"?"true":"false");
+}
+function summary(){
+  const rows=view();
+  const lines=rows.map(a=>"- "+a.n+" · "+LABELS[status(a)]+" · "+doneCount(a)+" of 5 · "+a.owner+" · "+nextStep(a));
+  return ["Berth onboarding · sample data · October 2026 concept","Fictional Fieldnote book. A nudge is a task. Nothing was emailed.","Showing "+rows.length+" of "+S.accounts.length+". Owner="+S.owner+", status="+S.status+", search="+(S.q||"—")+".",...lines].join("\n");
+}
+async function copyText(text,okMsg){
+  try{await navigator.clipboard.writeText(text)}
+  catch(_){const ta=document.createElement("textarea");ta.value=text;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.left="-9999px";document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove()}
+  toast(okMsg);
+}
+function apply(){
+  const a=acct(S.sel);if(!a)return;
+  const kind=S.pendingKind,i=S.pendingStep,note=(S.draft||"").trim();
+  const step=a.steps[i];
+  snap();
+  if(kind==="done"||kind==="anyway"){step.status="done";step.blocker="";step.note=note;a.note=step.name+" marked done."+(kind==="anyway"?" Out of order.":"");a.note=a.note+" "+note}
+  else if(kind==="block"){step.status="blocked";step.blocker=note;step.note="";a.note="Blocked: "+note}
+  else if(kind==="clear"){step.status="doing";step.blocker="";if(note)step.note=note;a.note="Blocker cleared on "+step.name+"."}
+  else if(kind==="nudge"){a.tasks.unshift({id:"n"+(seq++),title:"Nudge: "+step.name,note,status:"open"});a.note="Nudge saved for "+step.name+"."}
+  else if(kind==="move"){const prev=a.owner;a.steps.forEach(s=>{if(s.owner===prev)s.owner=S.nextOwner});a.owner=S.nextOwner;a.note="Moved from "+prev+" to "+a.owner+"."}
+  S.pending=null;S.pendingKind=null;S.pendingStep=null;S.draft="";S.anyway=false;render();
+  const msg=kind==="nudge"?"Nudge saved as a task. Nothing was emailed.":kind==="move"?"Moved on the sample book. Nothing was emailed.":"Logged on the sample checklist. Nothing was emailed.";
+  toast(msg,true);
+}
+async function confirm(){
+  if(S.pending==="sending")return;
+  const kind=S.pendingKind;
+  const box=$("note");
+  if(box)S.draft=box.value;
+  const note=(S.draft||"").trim();
+  const needs=kind!=="move"&&kind!=="clear";
+  if(needs&&note.length<3){const err=$("noteErr");if(err)err.hidden=false;if(box){box.setAttribute("aria-invalid","true");box.focus()}return}
+  const my=++run;S.pending="sending";paintDetail();
+  await sleep(650);if(my!==run)return;
+  if(D==="saveerr"&&!S.errUsed&&kind!=="move"){S.errUsed=true;S.pending="failed";paintDetail();const n=$("note");if(n)n.focus();toast("Save failed. Nothing was logged.");return}
+  apply();
+}
+function openSheet(kind,i){
+  S.pending="confirm";S.pendingKind=kind;S.pendingStep=i;S.draft="";paintDetail();
+  const n=$("note")||$("goBtn");if(n)n.focus();
+}
+function select(id){
+  if(S.sel===id&&!S.pending){const a=S.accounts.find(x=>x.id===id);toast((a?a.n:"This account")+" is already open.");const h=$("acctName");if(h)h.focus();return}
+  S.sel=id;S.pending=null;S.draft="";paintList();paintDetail();
+  const h=$("acctName");if(h)h.focus();
+}
+$("kpis").addEventListener("click",e=>{
+  const b=e.target.closest("[data-status]");if(!b||D==="empty"||D==="loading")return;
+  const st=b.dataset.status;S.status=S.status===st?"all":st;$("fStatus").value=S.status;paintKpis();paintList();paintDetail();
+});
+$("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()});
+$("fOwner").addEventListener("change",e=>{S.owner=e.target.value;paintList();paintDetail()});
+$("fStatus").addEventListener("change",e=>{S.status=e.target.value;paintKpis();paintList();paintDetail()});
+$("fSort").addEventListener("change",e=>{S.sort=e.target.value;paintList()});
+$("clearF").addEventListener("click",()=>{S.q="";S.owner="all";S.status="all";S.sort="status";$("q").value="";$("fOwner").value="all";$("fStatus").value="all";$("fSort").value="status";paintKpis();paintList();paintDetail();toast("Filters cleared.")});
+$("list").addEventListener("click",e=>{
+  const load=e.target.closest("#loadBtn");if(load){D="live";$("demo").value="live";reset();render();toast("Sample book loaded.");return}
+  const b=e.target.closest("[data-id]");if(b)select(b.dataset.id);
+});
+$("detail").addEventListener("click",e=>{
+  if(e.target.closest("#cancelBtn")){S.pending=null;S.draft="";paintDetail();toast("Canceled. Nothing was logged.");return}
+  if(e.target.closest("#goBtn")){confirm();return}
+  const task=e.target.closest("[data-task]");
+  if(task){const a=acct(S.sel);const t=a&&a.tasks.find(x=>x.id===task.dataset.task);if(!t)return;snap();t.status="done";render();toast("Nudge marked done. Nothing was emailed.",true);return}
+  if(e.target.closest("#moveBtn")){const a=acct(S.sel);if(!a)return;const v=$("own").value;if(v===a.owner){$("ownErr").hidden=false;return}S.nextOwner=v;openSheet("move");return}
+  const act=e.target.closest("[data-act]");if(!act)return;
+  const a=acct(S.sel);if(!a)return;
+  const i=Number(act.dataset.i),kind=act.dataset.act,step=a.steps[i];
+  if(kind==="own"){snap();step.owner=step.owner==="Client"?a.owner:"Client";render();toast(step.owner==="Client"?"This step now waits on the client.":"This step is back with "+a.owner+".",true);return}
+  if(kind==="start"){
+    const earlier=earlierOpen(a,i);
+    if(earlier){toast(earlier.name+" is still open. Finish it first, or use Mark done and choose Mark anyway.");return}
+    snap();step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
+  if(kind==="done"){
+    const earlier=earlierOpen(a,i);
+    openSheet(earlier?"anyway":"done",i);return}
+  openSheet(kind,i);
+});
+$("detail").addEventListener("input",e=>{if(e.target.id==="note")S.draft=e.target.value});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&S.pending){S.pending=null;S.draft="";paintDetail();toast("Canceled. Nothing was logged.");}
+});
+$("exportBtn").addEventListener("click",()=>{
+  const rows=view();
+  const head=["sample","account","owner","status","steps_done","next","kickoff","access","training","workflow","checkin"];
+  const body=rows.map(a=>{
+    const ss=a.steps.map(s=>s.status);
+    return ["yes",a.n,a.owner,LABELS[status(a)],doneCount(a)+" of 5",nextStep(a),...ss].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",");
+  });
+  const csv=['"October 2026 concept. Fictional Fieldnote accounts. Nothing was emailed."',head.join(","),...body].join("\n");
+  const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="berth-onboarding-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
+  toast(rows.length?("Exported "+rows.length+" sample account"+(rows.length===1?"":"s")+"."):"Nothing to export. The list is empty.");
+});
+$("copyBtn").addEventListener("click",()=>copyText(summary(),"List copied. Sample data only. Nothing was emailed."));
+$("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
+$("undoBtn").addEventListener("click",undo);
+$("toastUndo").addEventListener("click",()=>{undo();$("toast").classList.remove("on")});
+$("demo").addEventListener("change",e=>{
+  D=e.target.value;reset();
+  if(D==="empty"){S.accounts=[];S.sel=null}
+  render();
+  if(D==="loading")toast("This shows the loading screen. Switch back to Live book to see the data.");
+  if(D==="saveerr")toast("This test makes the next save fail. Your note stays safe.");
+});
+reset();render();
+})();
+</script>
+</body>
+</html>

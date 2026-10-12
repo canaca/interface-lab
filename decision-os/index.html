@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Decision OS · Where everything stands</title>
-<meta name="description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta name="description" content="Concept. Import a fictional sample export and see what's in your hands, what you're waiting on, and what's decided. Not connected to an account.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
 <meta property="og:title" content="Decision OS · Where everything stands">
-<meta property="og:description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta property="og:description" content="Concept. A fictional sample export on The Chart. Not connected to an account. Not a shipped product.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/decision-os/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/dos.jpg">
 <meta property="og:image:alt" content="Decision OS: imported items placed on The Chart">
@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Decision OS · Where everything stands">
-<meta name="twitter:description" content="Working build, shown with fictional demo data: import a sample ChatGPT export and see what you hold, wait on and have decided.">
+<meta name="twitter:description" content="Concept. A fictional sample export on The Chart. Not connected to an account. Not a shipped product.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/dos.jpg">
 <meta name="twitter:image:alt" content="Decision OS: imported items placed on The Chart">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
@@ -135,6 +135,22 @@ body{background:var(--bg)}
 .lane h3 .n{font-size:16px;letter-spacing:0;color:var(--cream)}
 .lane.hand h3{color:var(--hand)}.lane.wait h3{color:var(--wait)}.lane.decided h3{color:var(--decided)}.lane.unrec h3{color:var(--unrec)}
 .items{display:flex;flex-direction:column;gap:8px}
+.lanebtn{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-radius:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+.lanebtn:focus-visible,.it:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
+.lanebtn:hover span:first-child{text-decoration:underline;text-underline-offset:3px}
+.lane.on{border-color:var(--edge-2)}
+.chart.focus{grid-template-columns:minmax(0,1fr)}.chart.focus .lane:not(.on){display:none}.chart.focus .lane{min-height:0}
+.n small{font-size:11px;color:var(--muted)}
+button.it{display:block;width:100%;text-align:left;color:inherit;font:inherit;font-size:13px;cursor:pointer}
+button.it:hover{border-color:var(--edge-2)}
+.itd{margin:6px 0 2px;padding:8px 10px;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.25);display:flex;flex-direction:column;gap:6px}
+.itd .lab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.itd blockquote{margin:0;padding-left:10px;border-left:2px solid var(--edge-2);color:var(--muted);font-size:12.5px;font-style:italic}
+.ftools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.finp{background:#0F131A;border:1px solid var(--edge);border-radius:9px;color:var(--cream);padding:7px 10px;font-size:13px;min-width:0}
+input.finp{flex:1 1 200px}select.finp option{background:#151A23}
+.finp:focus{outline:none;border-color:var(--wait)}
+.nomatch{margin:0 0 10px;padding:10px 12px;border:1px dashed var(--edge-2);border-radius:10px;color:var(--muted);font-size:13px}.nomatch b{color:var(--cream);font-weight:500}
 .it{border-radius:10px;padding:9px 10px;background:#0F131A;border:1px solid var(--edge);font-size:13px;line-height:1.35}
 .it .p{display:block;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px;letter-spacing:.04em}
 .lane.hand .it{border-left:2px solid var(--hand)}.lane.wait .it{border-left:2px solid var(--wait)}.lane.decided .it{border-left:2px solid var(--decided)}.lane.unrec .it{border:1px dashed var(--unrec);color:var(--muted)}
@@ -169,50 +185,57 @@ body{background:var(--bg)}
 <div class="wrap">
   <header class="bar">
     <h1 class="brand"><b style="font-family:var(--serif);font-weight:400;font-size:22px">Decision OS</b><span>Today</span></h1>
-    <div class="lenses" id="lenses" role="group" aria-label="Lens"><button data-l="attention" aria-pressed="true">Attention</button><button data-l="ceo" aria-pressed="false">CEO</button><button data-l="execution" aria-pressed="false">Execution</button><button data-l="network" aria-pressed="false">Network</button></div>
+    <div class="lenses" id="lenses" role="group" aria-label="Lens"><button type="button" data-l="attention" aria-pressed="true">Attention</button><button type="button" data-l="ceo" aria-pressed="false">CEO</button><button type="button" data-l="execution" aria-pressed="false">Execution</button><button type="button" data-l="network" aria-pressed="false">Network</button></div>
     <span class="sp"></span>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">New workspace</option><option value="loading">Loading · import running</option><option value="partial">Error · some unreadable</option><option value="fail">Error · file won't open</option></select></label>
-    <span class="tag build">Working build · demo data</span>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">New workspace</option><option value="loading">Importing your file…</option><option value="partial">Error · some items can't be read</option><option value="fail">Error · file won't open</option></select></label>
+    <span class="tag">Concept · fictional demo</span>
   </header>
 
   <p class="standing" id="standing" aria-live="polite"></p>
 
   <div class="main">
     <section class="card" aria-label="Import"><h2>Import from ChatGPT <i id="impNote">demo export</i></h2><div id="imp"></div></section>
-    <section class="card" aria-label="The Chart"><h2>The Chart <i id="chartNote">current state</i></h2><div class="chart" id="chart"></div>
-      <div class="row" style="margin-top:12px;justify-content:space-between"><p class="note">Facts come from your sources. Nothing here is a score or a guess. Duplicates are shown, never merged for you.</p><button class="btn sm" id="handoff" disabled>Copy handoff for AI</button></div></section>
+    <section class="card" aria-label="The Chart"><h2>The Chart <i id="chartNote">current state</i></h2><div class="ftools"><label class="vh" for="fq">Search the Chart</label><input id="fq" type="search" class="finp" placeholder="Search items, people, sources" autocomplete="off"><label class="vh" for="fp">Filter by project</label><select id="fp" class="finp"><option value="">All projects</option><option>Northline Solar</option><option>Seed Round</option><option>Ops Hire</option></select><button class="btn sm ghost" id="fClear" type="button" hidden>Clear filters</button></div><p class="note" id="lensNote" aria-live="polite" style="margin:0 0 10px"></p><p class="nomatch" id="nomatch" role="status" hidden><b>No matches.</b> Nothing in the Chart fits that search or project.</p><div class="chart" id="chart"></div>
+      <div class="row" style="margin-top:12px;justify-content:space-between"><p class="note">Every item comes from your source file. Nothing here is a score or a guess. Possible duplicates are shown, never merged for you.</p><span class="row"><button class="btn sm" id="exportCsv" type="button">Export CSV</button><button class="btn sm" id="handoff" type="button">Copy a summary for AI</button></span></div></section>
   </div>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag build">Working build · not in production</span><h2>Showing a founder where everything stands, without digging through chat</h2>
-      <p class="lede">Decision OS organizes work around current state: what you hold, what you're waiting on, and what's decided. This page is a demo of its import flow with fictional data.</p>
+    <div><span class="tag">Concept</span><h2>Showing a founder where everything stands, without digging through chat</h2>
+      <p class="lede">Decision OS shows where your work stands: what's in your hands, what you're waiting on, and what's decided. This page is a concept demo of that import flow, with fictional data. It is not connected to a ChatGPT account.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
-      <dt>Problem</dt><dd>Founders run their work through long AI chats. The decisions and promises inside those chats get buried, so "where do things stand?" takes an hour to answer.</dd>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>Founders run their work through long AI chats. The decisions and promises inside get buried, so finding out where things stand takes too long.</dd>
       <dt>User</dt><dd>A founder juggling a few projects at once, who already plans and decides inside ChatGPT.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>State, not chat.</b> Imports become four kinds of state: in hand, waiting on, decided, and not recorded.</li>
+        <li><b>Where things stand, not just the chat.</b> Each import is sorted into four groups: in hand, waiting on, decided, and not recorded.</li>
         <li><b>Every item shows its source.</b> Each one quotes the line it came from, so it can be checked.</li>
-        <li><b>Unknown is not none.</b> A missing value is shown as "not recorded," never as empty.</li>
-        <li><b>Never merge for the user.</b> Possible duplicates are flagged and kept until the person decides.</li>
-        <li><b>A fixed sentence, not generated text.</b> The Standing Sentence is built from set templates, with no scores or urgency.</li></ol></dd>
-      <dt>Outcome</dt><dd>The working build imports ChatGPT history. Its visual system, The Chart, was approved at Phase 9. It is not deployed to production.</dd>
-      <dt>Label</dt><dd>Working build. This page is a separate demo with fictional data, not the product.</dd>
+        <li><b>Unknown is not the same as none.</b> A missing value is shown as "not recorded," never as empty.</li>
+        <li><b>Let people decide what gets combined.</b> Possible duplicates are flagged and kept until the person decides.</li>
+        <li><b>Fixed wording, not AI writing.</b> The Standing Sentence uses set wording, with no scores and no pressure.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable concept of the import flow: a fictional sample file, review, and The Chart. Not connected to a ChatGPT account. Not a shipped product. Not tested with real users.</dd>
+      <dt>Label</dt><dd>Concept. This page uses a fictional sample export. It does not read a real account.</dd>
     </dl>
   </section>
-  <div class="foot"><span>Interface Lab · Decision OS · demo of a working build</span><span>Product owner and design direction: Cesar Navarro</span></div>
+  <div class="foot"><span>Interface Lab · Decision OS · concept</span><span>Concept direction: Cesar Navarro</span></div>
 </div>
 </main>
-<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
 
 <script>
 (function(){
+/* Decision OS demo: import a fictional ChatGPT export, review what was found, add it to state, then read it through lenses,
+   lane focus, a project filter and search. State persists (localStorage il-dos-*). Demo data only. */
 const $=id=>document.getElementById(id);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY="il-dos-state";
+const store={get(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}},set(v){try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}},del(){try{localStorage.removeItem(KEY)}catch(e){}}};
 const KIND={hand:"In hand",wait:"Waiting on",decided:"Decided",unrec:"Not recorded"};
 const COLOR={hand:"var(--hand)",wait:"var(--wait)",decided:"var(--decided)",unrec:"var(--unrec)"};
+const LANES=["hand","wait","decided","unrec"];
 /* fictional sample export: every item quotes its source line */
 const FOUND=[
  {id:1,k:"hand",t:"Send the revised ad set to Northline",p:"Northline Solar",src:"Northline Q4 plan",q:"I'll send Marisol the revised ad set once the copy is final."},
@@ -227,69 +250,94 @@ const FOUND=[
  {id:10,k:"decided",t:"Ops lead role is full-time remote",p:"Ops Hire",src:"Hiring an ops lead",q:"Let's make it full-time and remote."},
  {id:11,k:"unrec",t:"Salary band for the ops lead",p:"Ops Hire",src:"Hiring an ops lead",q:"We still need to set the salary band.",why:"Mentioned, but no value was found."},
  {id:12,k:"unrec",t:"Northline contract end date",p:"Northline Solar",src:"Northline Q4 plan",q:"Check when the Northline contract ends.",why:"Mentioned, but no date was found."}];
-const S={state:"empty",lens:"attention",accepted:new Set(FOUND.map(f=>f.id)),dupKeep:"both",items:[],retry:0};let D="live",run=0;
-
+const LENS={attention:["hand","wait"],ceo:["decided","unrec"],execution:["hand"],network:["wait"]};
+const LENSNOTE={attention:"Attention: what needs a move, from you or from someone else.",ceo:"CEO: what's decided, and what's still not recorded.",execution:"Execution: only what you hold.",network:"Network: who holds the next move."};
+const S={state:"empty",lens:"attention",accepted:new Set(FOUND.map(f=>f.id)),dupKeep:"both",items:[],retry:0,focus:null,proj:"",q:"",open:null,msg:""};let D="live",run=0;
+function save(){store.set({items:S.items,lens:S.lens})}
 /* Standing Sentence: fixed templates only, no scores, no time words */
 function plural(n,a,b){return n+" "+(n===1?a:b)}
 function standing(){const it=S.items,c=k=>it.filter(i=>i.k===k).length;
   if(!it.length){$("standing").innerHTML=S.state==="importing"?"Reading your export…":"Nothing is recorded yet. Import a ChatGPT export to see where things stand.";return}
   const projects=new Set(it.filter(i=>i.k==="hand").map(i=>i.p)).size,people=new Set(it.filter(i=>i.k==="wait").map(i=>i.t.split("· ")[1])).size;
   $("standing").innerHTML=`You hold <span class="cl hand">${plural(c("hand"),"commitment","commitments")}</span> across ${plural(projects,"project","projects")}. <span class="cl wait">${plural(people,"person holds","people hold")}</span> the next move on ${plural(c("wait"),"item","items")}. <span class="cl decided">${plural(c("decided"),"decision is","decisions are")}</span> recorded, and <span class="cl unrec">${plural(c("unrec"),"field is","fields are")}</span> not recorded.`}
-
-const LENS={attention:["hand","wait"],ceo:["decided","unrec"],execution:["hand"],network:["wait"]};
-function chart(){const lanes=["hand","wait","decided","unrec"];
-  $("chart").innerHTML=lanes.map(k=>{const its=S.items.filter(i=>i.k===k);
-    return `<div class="lane ${k} ${LENS[S.lens].includes(k)?"":"dim"}" data-k="${k}"><h3><span>${KIND[k]}</span><span class="n">${its.length}</span></h3><div class="items">${its.length?its.map(i=>`<div class="it ${i.dup&&S.dupKeep==="both"&&its.filter(x=>x.dup===i.dup).length>1?"dup":""}" data-id="${i.id}">${esc(i.t)}<span class="p">${esc(i.p)}${i.why?" · "+esc(i.why):""}</span></div>`).join(""):`<div class="ph">${S.state==="importing"?"Waiting for import":"Nothing recorded"}</div>`}</div></div>`}).join("");
-  $("handoff").disabled=!S.items.length;standing()}
-
+const match=i=>(!S.proj||i.p===S.proj)&&(!S.q||[i.t,i.p,i.src,i.q].join(" ").toLowerCase().includes(S.q.toLowerCase()));
+function chart(){const filtering=S.proj||S.q;const shown=S.items.filter(match);
+  $("chart").className="chart"+(S.focus?" focus":"");
+  $("chart").innerHTML=LANES.map(k=>{const all=S.items.filter(i=>i.k===k),its=all.filter(match);
+    const countText=filtering&&its.length!==all.length?`${its.length}/${all.length}`:String(its.length);
+    return `<div class="lane ${k} ${LENS[S.lens].includes(k)?"":"dim"} ${S.focus===k?"on":""}" data-k="${k}"><h3><button type="button" class="lanebtn" data-lane="${k}" aria-pressed="${S.focus===k}" aria-label="${KIND[k]} ${countText}. ${S.focus===k?"Show all lanes":"Show only this lane"}"><span>${KIND[k]} </span><span class="n">${filtering&&its.length!==all.length?`${its.length}<small>/${all.length}</small>`:its.length}</span></button></h3><div class="items">${its.length?its.map(i=>{const o=S.open===i.id;
+      return `<div class="itw"><button type="button" class="it ${i.dup&&S.dupKeep==="both"&&all.filter(x=>x.dup===i.dup).length>1?"dup":""}" data-id="${i.id}" aria-expanded="${o}">${esc(i.t)}<span class="p">${esc(i.p)}${i.why?" · "+esc(i.why):""}</span></button>${o?`<div class="itd"><span class="lab">Source · ${esc(i.src)}</span><blockquote>“${esc(i.q)}”</blockquote><div class="row"><button class="btn sm ghost" type="button" data-rm="${i.id}">Remove from state</button></div></div>`:""}</div>`}).join(""):`<div class="ph">${S.state==="importing"?"Waiting for import":filtering&&all.length?"No matches here":"Nothing recorded"}</div>`}</div></div>`}).join("");
+  $("nomatch").hidden=!(filtering&&S.items.length&&!shown.length);$("fClear").hidden=!filtering;
+  $("lensNote").textContent=S.items.length?LENSNOTE[S.lens]+(S.focus?` Showing only ${KIND[S.focus]}.`:""):"";standing()}
 function imp(){const el=$("imp");
   if(S.state==="empty")el.innerHTML=`<div class="drop"><b style="font-weight:500;font-size:16px">Start with what you already have</b><p class="sub" style="margin:0">Decision OS reads your ChatGPT history and finds projects, commitments, decisions and what you're waiting on.</p>
     <div class="file"><span class="chip">ZIP</span><span style="flex:1">chatgpt-export-demo.zip</span><span style="color:var(--dim)">42 chats · sample</span></div>
-    <button class="btn pri" data-act="import">Import sample export</button><p class="note">This demo uses a fictional sample file. It never reads files from your computer.</p></div>`;
-  else if(S.state==="importing")el.innerHTML=`<div class="drop"><div class="file"><span class="spin lt"></span><span style="flex:1">chatgpt-export-demo.zip</span><span id="pct" style="color:var(--dim)">0%</span></div><div class="prog" style="width:100%"><i id="bar"></i></div><ul class="plog" id="plog"></ul></div>`;
-  else if(S.state==="fail")el.innerHTML=`<div class="err"><div><b>Couldn't open chatgpt-export-demo.zip.</b><br>The file looks damaged. Nothing was imported and your state didn't change.</div><div class="row"><button class="btn" data-act="restart">Try another file</button></div></div>`;
-  else if(S.state==="review"){const groups=["hand","wait","decided","unrec"];const n=[...S.accepted].filter(id=>!(S.dupKeep==="first"&&id===9)&&!(S.dupKeep==="second"&&id===8)).length;
-    el.innerHTML=`${D==="partial"&&!S.retry?`<div class="err" style="margin-bottom:10px"><div><b>3 of 42 chats couldn't be read.</b><br>Nothing from them was added. Everything below came from the other 39.</div><button class="btn sm" data-act="retry3">Retry those 3</button></div>`:""}
+    <button class="btn pri" type="button" data-act="import">Import sample export</button><p class="note">This demo uses a fictional sample file. It never reads files from your computer.</p></div>`;
+  else if(S.state==="importing")el.innerHTML=`<div class="drop"><div class="file"><span class="spin lt"></span><span style="flex:1">chatgpt-export-demo.zip</span><span id="pct" style="color:var(--dim)">0%</span></div><div class="prog" style="width:100%"><i id="bar"></i></div><ul class="plog" id="plog"></ul><button class="btn ghost sm" type="button" data-act="cancel">Cancel import</button></div>`;
+  else if(S.state==="fail")el.innerHTML=`<div class="err" role="alert"><div><b>Couldn't open chatgpt-export-demo.zip.</b><br>The file looks damaged. Nothing was imported and your state didn't change.</div><div class="row"><button class="btn" type="button" data-act="restart">Try another file</button></div></div>`;
+  else if(S.state==="review"){const groups=LANES;const n=count();
+    el.innerHTML=`${D==="partial"&&!S.retry?`<div class="err" style="margin-bottom:10px"><div><b>3 of 42 chats couldn't be read.</b><br>Nothing from them was added. Everything below came from the other 39.</div><button class="btn sm" type="button" data-act="retry3">Retry those 3</button></div>`:""}
     <p class="sub" style="margin:0 0 6px">Found ${FOUND.length} items in ${D==="partial"&&!S.retry?39:42} chats. Uncheck anything that's wrong, then add the rest.</p>
+    <div class="row" style="gap:6px;margin-bottom:4px"><button class="btn sm ghost" type="button" data-act="all">Select all</button><button class="btn sm ghost" type="button" data-act="none">Select none</button></div>
     <div class="reviewlist">${groups.map(k=>`<div class="grp"><h3 style="color:${COLOR[k]}"><i style="background:${COLOR[k]}"></i>${KIND[k]}</h3>${FOUND.filter(f=>f.k===k).map(f=>{
       const row=`<label class="rv ${S.accepted.has(f.id)?"":"off"}" data-row="${f.id}"><input type="checkbox" data-id="${f.id}" ${S.accepted.has(f.id)?"checked":""}><div><div class="t">${esc(f.t)}</div><span class="p m" style="font-size:10.5px;color:var(--dim)">${esc(f.p)}${f.why?" · "+esc(f.why):""}</span><details><summary>Source · ${esc(f.src)}</summary><blockquote>“${esc(f.q)}”</blockquote></details></div></label>`;
       if(f.id===8)return `<div class="dupbox"><span class="lab">Suggestion · these may be the same decision</span>${row}`;
       if(f.id===9)return `${row}<label><input type="radio" name="dup" value="both" ${S.dupKeep==="both"?"checked":""}>Keep both, flagged</label><label><input type="radio" name="dup" value="first" ${S.dupKeep==="first"?"checked":""}>Keep only the first</label><label><input type="radio" name="dup" value="second" ${S.dupKeep==="second"?"checked":""}>Keep only the second</label></div>`;
       return row}).join("")}</div>`).join("")}</div>
-    <div class="row" style="margin-top:12px"><button class="btn pri" data-act="add" ${n?"":"disabled"}>Add ${n} item${n===1?"":"s"} to state</button><button class="btn ghost" data-act="cancel">Cancel import</button></div>`}
-  else if(S.state==="added")el.innerHTML=`<div class="empty"><span class="okmark"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>${S.items.length} items added</b><div class="sub">Your state now reflects the sample export. Switch lenses above to see it from each angle.</div>
-    <div class="row"><button class="btn" data-act="restart">Start over</button></div></div>`}
-
-async function doImport(){const my=++run;S.state="importing";S.items=[];imp();chart();
+    ${S.msg?`<p class="note" role="alert" style="color:var(--orange);margin:10px 0 0">${S.msg}</p>`:""}
+    <div class="row" style="margin-top:12px"><button class="btn pri" type="button" data-act="add">Add ${n} item${n===1?"":"s"} to state</button><button class="btn ghost" type="button" data-act="cancel">Cancel import</button></div>`}
+  else if(S.state==="added")el.innerHTML=`<div class="empty"><span class="okmark"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>${S.items.length} items in state</b><div class="sub">Your state reflects the sample export and is saved in this browser. Switch lenses, focus a lane, or filter by project.</div>
+    <div class="row"><button class="btn" type="button" data-act="restart">Start over</button></div></div>`}
+function count(){return [...S.accepted].filter(id=>!(S.dupKeep==="first"&&id===9)&&!(S.dupKeep==="second"&&id===8)).length}
+async function doImport(){const my=++run;S.state="importing";S.items=[];S.open=null;imp();chart();
   const steps=["Reading 42 chats","Finding projects","Finding commitments","Finding decisions","Checking for duplicates"];
   for(let i=0;i<steps.length;i++){if(my!==run)return;$("plog").insertAdjacentHTML("beforeend",`<li id="pl${i}">${steps[i]}…</li>`);$("bar").style.width=((i+.5)/steps.length*100)+"%";$("pct").textContent=Math.round((i+.5)/steps.length*100)+"%";
     await sleep(D==="loading"?1e9:650);if(my!==run)return;
     if(D==="fail"&&i===0){S.state="fail";imp();chart();return}
     $("pl"+i).className="done";$("pl"+i).textContent=steps[i]}
-  S.state="review";S.accepted=new Set(FOUND.map(f=>f.id));S.dupKeep="both";S.retry=0;imp();chart()}
-
-function addToState(){const keep=FOUND.filter(f=>S.accepted.has(f.id)&&!(S.dupKeep==="first"&&f.id===9)&&!(S.dupKeep==="second"&&f.id===8));
-  /* capture where each row sits in the review list, then fly it into its lane on the Chart */
+  S.state="review";S.accepted=new Set(FOUND.map(f=>f.id));S.dupKeep="both";S.retry=0;S.msg="";imp();chart()}
+function addToState(){if(!count()){S.msg="Pick at least one item to add.";imp();toast("Nothing selected to add");return}
+  const keep=FOUND.filter(f=>S.accepted.has(f.id)&&!(S.dupKeep==="first"&&f.id===9)&&!(S.dupKeep==="second"&&f.id===8));
   const from={};keep.forEach(f=>{const r=document.querySelector(`[data-row="${f.id}"]`);if(r)from[f.id]=r.getBoundingClientRect()});
-  S.items=keep.map(f=>({...f}));S.state="added";chart();
+  S.items=keep.map(f=>({...f}));S.state="added";S.proj="";S.q="";$("fq").value="";$("fp").value="";S.focus=null;chart();save();
   if(!reduce)keep.forEach((f,i)=>{const a=from[f.id],t=document.querySelector(`#chart [data-id="${f.id}"]`);if(!a||!t)return;const b=t.getBoundingClientRect();
     t.style.opacity=0;const fly=document.createElement("div");fly.className="fly";fly.textContent=f.t;fly.style.left=a.left+"px";fly.style.top=a.top+"px";fly.style.width=a.width+"px";fly.style.borderLeft=`2px solid ${COLOR[f.k]}`;document.body.appendChild(fly);
     setTimeout(()=>{fly.style.transform=`translate(${b.left-a.left}px,${b.top-a.top}px)`;fly.style.width=b.width+"px"},30+i*55);
     setTimeout(()=>{t.style.transition="opacity .25s";t.style.opacity=1;fly.remove()},800+i*55)});
   imp();toast(`${keep.length} items added to state`)}
-
-$("imp").addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b||b.disabled)return;const a=b.dataset.act;
-  if(a==="import")doImport();else if(a==="add")addToState();else if(a==="cancel"||a==="restart"){run++;S.state="empty";S.items=[];D=D==="fail"?"live":D;$("demo").value=D;imp();chart()}
+function startOver(){const prev=S.items.slice();run++;S.state="empty";S.items=[];S.focus=null;S.open=null;D=D==="fail"?"live":D;$("demo").value=D;store.del();imp();chart();
+  if(prev.length)toast("State cleared.",()=>{S.items=prev;S.state="added";save();imp();chart();toast("State restored")});else toast("Back to the start. Nothing was imported.")}
+function csv(){if(!S.items.length){toast("Nothing to export yet. Import the sample first.");return}const r=[["state","item","project","source_chat","quote"],...S.items.map(i=>[KIND[i.k],i.t,i.p,i.src,i.q])];
+  const t=r.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="decision-os-state.csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast(`Exported ${S.items.length} items as CSV`)}
+$("imp").addEventListener("click",e=>{if(e.target.name==="dup"&&e.target.value===S.dupKeep){toast({both:"Keeping both, flagged as a possible duplicate.",first:"Keeping only the first one.",second:"Keeping only the second one."}[S.dupKeep]);return}
+  const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
+  if(a==="import")doImport();else if(a==="add")addToState();
+  else if(a==="cancel"){run++;S.state="empty";S.items=[];D=D==="fail"?"live":D;$("demo").value=D;imp();chart();toast("Import cancelled. Nothing was added.")}
+  else if(a==="restart")startOver();
+  else if(a==="all"){S.accepted=new Set(FOUND.map(f=>f.id));S.msg="";imp();toast("All 12 items selected")}
+  else if(a==="none"){S.accepted=new Set();imp();toast("No items selected")}
   else if(a==="retry3"){S.retry=1;D="live";$("demo").value="live";imp();toast("All 42 chats read")}});
-$("imp").addEventListener("change",e=>{if(e.target.type==="checkbox"){const id=+e.target.dataset.id;e.target.checked?S.accepted.add(id):S.accepted.delete(id);imp()}
+$("imp").addEventListener("change",e=>{if(e.target.type==="checkbox"){const id=+e.target.dataset.id;e.target.checked?S.accepted.add(id):S.accepted.delete(id);S.msg="";imp()}
   if(e.target.name==="dup"){S.dupKeep=e.target.value;if(S.dupKeep==="first")S.accepted.add(8);if(S.dupKeep==="second")S.accepted.add(9);imp()}});
-$("lenses").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;S.lens=b.dataset.l;[...$("lenses").children].forEach(x=>x.setAttribute("aria-pressed",x===b));chart()});
-$("demo").addEventListener("change",e=>{D=e.target.value;run++;S.items=[];S.state="empty";imp();chart();if(D!=="live")doImport()});
-$("handoff").addEventListener("click",()=>{const txt=["Where things stand (from Decision OS, demo data)",...["hand","wait","decided","unrec"].map(k=>`\n${KIND[k]}:\n`+S.items.filter(i=>i.k===k).map(i=>`- ${i.t} (${i.p})`).join("\n"))].join("\n");
+$("lenses").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const same=S.lens===b.dataset.l;S.lens=b.dataset.l;[...$("lenses").children].forEach(x=>x.setAttribute("aria-pressed",x===b));chart();save();
+  const on=LENS[S.lens].map(k=>KIND[k]).join(" and ");toast(S.items.length?`${same?"Already on":"Lens:"} ${b.textContent}. Bright lanes: ${on}.`:`${b.textContent} lens set. Import the sample to see it.`)});
+$("chart").addEventListener("click",e=>{const l=e.target.closest("[data-lane]");if(l){const k=l.dataset.lane;S.focus=S.focus===k?null:k;chart();$("chart").querySelector(`[data-lane="${k}"]`).focus();toast(S.focus?`Showing only ${KIND[k]}`:"Showing all four lanes");return}
+  const r=e.target.closest("[data-rm]");if(r){const id=+r.dataset.rm,idx=S.items.findIndex(i=>i.id===id),it=S.items[idx];S.items.splice(idx,1);S.open=null;save();chart();
+    toast(`Removed “${it.t}”`,()=>{S.items.splice(idx,0,it);save();chart();toast("Item restored")});return}
+  const it=e.target.closest(".it[data-id]");if(it){const id=+it.dataset.id;S.open=S.open===id?null:id;chart();const n=$("chart").querySelector(`.it[data-id="${id}"]`);n&&n.focus()}});
+$("fq").addEventListener("input",e=>{S.q=e.target.value;chart()});
+$("fp").addEventListener("change",e=>{S.proj=e.target.value;chart();const n=S.items.filter(match).length;toast(S.items.length?(n?`${n} item${n===1?"":"s"} in ${S.proj||"all projects"}`:"No matches"):"Import the sample to filter it")});
+$("fClear").addEventListener("click",()=>{S.q="";S.proj="";$("fq").value="";$("fp").value="";chart();toast("Filters cleared")});
+$("demo").addEventListener("change",e=>{D=e.target.value;run++;S.items=[];S.state="empty";store.del();imp();chart();if(D!=="live")doImport()});
+$("handoff").addEventListener("click",()=>{if(!S.items.length){toast("Nothing to copy yet. Import the sample first.");return}
+  const txt=["Where things stand (from Decision OS, demo data)",...LANES.map(k=>`\n${KIND[k]}:\n`+S.items.filter(i=>i.k===k).map(i=>`- ${i.t} (${i.p})`).join("\n"))].join("\n");
   try{navigator.clipboard.writeText(txt).then(()=>toast("Handoff copied. Paste it into any assistant. Nothing was sent."),()=>toast("Copy blocked here. Select the Chart text instead."))}catch(_){toast("Copy blocked here.")}});
-let tt;function toast(m){$("toastMsg").textContent=m;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),2800)}
+$("exportCsv").addEventListener("click",csv);
+let tt;function toast(m,undo){$("toastMsg").textContent=m;const b=$("toastUndo");b.hidden=!undo;b.onclick=undo?()=>{$("toast").classList.remove("on");undo()}:null;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),undo?5000:2800)}
+const saved=store.get();if(saved&&saved.items&&saved.items.length){S.items=saved.items;S.state="added";S.lens=saved.lens||"attention";[...$("lenses").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.l===S.lens))}
 imp();chart();
 })();
+
 </script>
 </body>
 </html>

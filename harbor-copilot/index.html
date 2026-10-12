@@ -163,6 +163,16 @@ tr.failed td{background:rgba(226,114,91,.07)}
 .log li:first-child{border-top:0}
 .log .w{font-size:11px;color:var(--dim);font-family:var(--mono)}
 .log li.undone{opacity:.5;text-decoration:line-through}
+.sortb{all:unset;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;display:inline-flex;gap:2px;border-radius:4px}
+.sortb:hover{color:var(--cream)}.sortb:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+th[aria-sort] .sortb{color:var(--cream)}
+.nomatch{padding:28px 16px;text-align:center;color:var(--muted)}.nomatch b{color:var(--cream);font-weight:500}
+.selc{display:inline-flex;gap:10px;align-items:center}
+.tf{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.srch{width:auto;min-width:0;padding:7px 10px;font-size:12.5px}
+input.srch{width:220px}
+.bmsg{flex-basis:100%;font-size:12.5px;color:var(--orange)}
+@media (max-width:640px){.tf{flex-basis:100%}input.srch{flex:1 1 140px;width:auto}}
 .prog{height:4px;border-radius:2px;background:var(--edge);overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 @media (max-width:1180px){.lay{grid-template-columns:minmax(0,1fr)}.rail{position:static}}
 </style>
@@ -174,51 +184,58 @@ tr.failed td{background:rgba(226,114,91,.07)}
     <h1 class="brand"><b>Harbor</b><span>Pipeline · Q4</span></h1>
     <span class="crumbs">14 OPEN DEALS · NORTH AMERICA</span>
     <span class="sp"></span>
+    <button class="btn sm ghost" id="resetDemo" type="button">Reset demo</button>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live</option><option value="empty">Empty · nothing stalled</option><option value="loading">Loading · scanning</option><option value="partial">Error · 2 changes fail</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
 
   <div class="lay">
     <section class="card tablecard" aria-label="Deals">
-      <div class="tbar"><b id="tTitle">All deals</b><span class="chip" id="tCount">14</span><span class="sp"></span><label class="switch" id="onlyWrap" hidden><input type="checkbox" id="only"> Show changed deals only</label></div>
+      <div class="tbar"><b id="tTitle">All deals</b><span class="chip" id="tCount" aria-live="polite">14</span><span class="sp"></span><label class="switch" id="onlyWrap" hidden><input type="checkbox" id="only"> Show changed deals only</label><span class="tf"><label class="vh" for="q">Search deals</label><input id="q" type="search" class="inp srch" placeholder="Search deals, companies, owners" autocomplete="off"><label class="vh" for="stageF">Filter by stage</label><select id="stageF" class="inp srch sel"><option value="">All stages</option><option>Discovery</option><option>Qualified</option><option>Proposal</option><option>Negotiation</option><option>Closed lost</option></select><button class="btn sm" id="exportCsv" type="button">Export CSV</button></span></div>
       <div class="scroll" tabindex="0" role="region" aria-label="Deals table, scrolls sideways"><table id="tbl" aria-label="Deals table"></table></div>
       <div class="bulk" id="bulk" hidden></div>
     </section>
     <aside class="rail">
-      <section class="card cop" aria-label="Copilot"><h2>Copilot <i>changes nothing until you apply</i></h2><div id="cop"></div></section>
-      <section class="card" aria-label="Change log"><h2>Change log <i id="logN">empty</i></h2><ol class="log" id="log"><li style="border:0;color:var(--dim);font-size:12.5px">Applied changes show here, each with its own undo.</li></ol></section>
+      <section class="card cop" aria-label="Copilot"><h2>Copilot <i>nothing changes until you approve</i></h2><div id="cop"></div></section>
+      <section class="card" aria-label="Change log"><h2>Change log <span class="row" style="gap:8px"><i id="logN">empty</i><button class="btn sm ghost" id="logAll" type="button" hidden style="font-family:var(--sans);letter-spacing:0;text-transform:none;font-size:12.5px">Undo all</button></span></h2><ol class="log" id="log"><li style="border:0;color:var(--dim);font-size:12.5px">Applied changes show here, each with its own undo.</li></ol></section>
     </aside>
   </div>
 
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept · prototype</span><h2>Helping sales reps clean up stalled deals without losing control</h2>
-      <p class="lede">The copilot proposes a change set across many deals. The rep sees every change inside the table, picks what to apply, and can undo any of it.</p>
+      <p class="lede">Concept prototype: the AI suggests cleanup for stalled deals. Changes show right in the table, clashing edits wait for you, and you can undo at every level.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
-      <dt>Problem</dt><dd>Pipelines rot: deals go quiet, owners leave, close dates slip. Fixing it is tedious, and letting an AI edit the CRM in bulk feels risky.</dd>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>Sales deals get stuck: customers go quiet, owners leave, close dates slip. Fixing it is slow, and letting an AI edit the CRM in bulk feels risky.</dd>
       <dt>User</dt><dd>A sales manager cleaning up the team pipeline before a forecast call.</dd>
       <dt>Decisions</dt><dd><ol>
-        <li><b>The diff lives in the cell.</b> Old value crossed out, new value below, with the reason. No separate review screen.</li>
-        <li><b>Bulk by default, risky by exception.</b> Safe changes are pre-selected. Closing a deal is never pre-selected.</li>
-        <li><b>Conflicts are shown, not overwritten.</b> If a teammate edited a deal after the copilot looked, that deal is held until the rep chooses.</li>
-        <li><b>Partial failure is precise.</b> It names the changes that failed and confirms the rest were applied.</li>
-        <li><b>Undo at every level.</b> Undo one change from the log, or undo the whole set.</li></ol></dd>
-      <dt>Outcome</dt><dd>A clickable prototype of the full change-set flow: scan, review, bulk apply, conflict, partial failure and undo, plus empty and loading states. Not yet tested with real users or a real CRM.</dd>
+        <li><b>Changes show right in the table.</b> The old value is crossed out, with the new value and the reason below it. You don't need a separate review screen.</li>
+        <li><b>Safe changes are picked for you. Risky ones are not.</b> Closing a deal is never pre-selected.</li>
+        <li><b>Clashing edits wait for you.</b> If a teammate edited a deal after the copilot looked, that deal is held until the rep chooses.</li>
+        <li><b>If some changes fail, it says which ones.</b> It names the changes that failed and confirms the rest were applied.</li>
+        <li><b>Undo one change or all of them.</b> Undo one change from the log, or undo the whole set.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the full flow: the AI scans, you review, apply many changes at once, handle clashes and failures, and undo, plus empty and loading screens. Not yet tested with real users or a real CRM.</dd>
       <dt>Label</dt><dd>Concept. The company, people and deals are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>
   <div class="foot"><span>Interface Lab · Harbor · concept</span><span>Concept direction: Cesar Navarro</span></div>
 </div>
 </main>
-<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden>Undo all</button></div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" type="button" hidden>Undo</button></div>
 
 <script>
 (function(){
+/* Harbor: the copilot proposes a change set; the rep applies per deal or in bulk, resolves conflicts, and can undo anything.
+   Applied changes persist (localStorage il-harbor-*). Search, stage filter and sort re-render the table. Demo data only. */
 const $=id=>document.getElementById(id);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,30):ms));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const $f=n=>"$"+n.toLocaleString("en-US");
+const KEY="il-harbor-state";
+const store={get(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}},set(v){try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}},del(){try{localStorage.removeItem(KEY)}catch(e){}}};
 const BASE=[
  {id:1,n:"Fleet rollout",co:"Northwind Logistics",amt:84000,stage:"Negotiation",owner:"Maya Ruiz",close:"Oct 31",next:"Legal review",quiet:3},
  {id:2,n:"Clinic network",co:"Lakeside Health",amt:62000,stage:"Proposal",owner:"Jon Tate",close:"Oct 15",next:"Send revised quote",quiet:26},
@@ -243,72 +260,109 @@ const SET=[
  {id:8,ch:[["close","Nov 30","Security review still open"]]},
  {id:12,ch:[["owner","Dev Kapoor","Jon Tate left the team"]]}];
 const LABEL={stage:"Stage",owner:"Owner",close:"Close date",next:"Next step",flag:"Flag"};
+const MON={Oct:10,Nov:11,Dec:12};const closeKey=c=>{const [m,d]=c.split(" ");return (MON[m]||0)*100+(+d||0)};
+const FAILS=[8,12];
 let D="live",run=0;
-const S={mode:"idle",deals:[],sel:new Set(),only:false,log:[],conf:{},applied:[],failed:[]};
-function reset(){run++;S.mode="idle";S.deals=BASE.map(d=>({...d,flag:""}));S.sel=new Set();S.only=false;S.log=[];S.conf={};S.applied=[];S.failed=[];$("only").checked=false}
-const prop=id=>S.mode==="review"||S.mode==="applying"?SET.find(p=>p.id===id):null;
+const S={mode:"idle",deals:[],sel:new Set(),only:false,log:[],conf:{},done:new Set(),failed:[],q:"",stage:"",sort:{k:"amt",dir:-1},msg:""};
+function reset(){run++;S.mode="idle";S.deals=BASE.map(d=>({...d,flag:""}));S.sel=new Set();S.only=false;S.log=[];S.conf={};S.done=new Set();S.failed=[];S.msg="";$("only").checked=false}
+const prop=id=>(S.mode==="review"||S.mode==="applying")&&!S.done.has(id)?SET.find(p=>p.id===id):null;
+function save(){store.set({deals:S.deals,log:S.log})}
 function cell(d,f,p){const c=p&&p.ch.find(x=>x[0]===f);const v=d[f];
   const base=f==="stage"?`<span class="st ${v==="Closed lost"?"lost":""}">${esc(v)}</span>`:esc(v);
   if(!c)return base;return `<div class="diff"><span class="old">${esc(v||"—")}</span><span class="new">${esc(c[1])}</span><span class="why">${esc(c[2])}</span></div>`}
-function table(){const showSel=S.mode==="review";
-  const rows=S.deals.slice().sort((a,b)=>b.amt-a.amt).map(d=>{const p=prop(d.id),conf=p&&p.conflict&&!S.conf[d.id];const cls=[p?"prop":"",p&&p.risky?"risky":"",conf?"conflict":"",S.only&&!p?"hide":"",S.failed.includes(d.id)?"failed":""].join(" ");
-    const box=showSel&&p?(conf?`<div class="conf"><span>${esc(p.conflict.who)} ${esc(p.conflict.what)} ${esc(p.conflict.ago)}, after the copilot looked.</span><span class="row"><button class="btn sm" data-res="apply" data-id="${d.id}">Apply copilot's on top</button><button class="btn sm ghost" data-res="skip" data-id="${d.id}">Skip deal</button></span></div>`:S.conf[d.id]==="skip"?`<span class="chip">Skipped</span>`:`<input type="checkbox" class="cbx" data-id="${d.id}" ${S.sel.has(d.id)?"checked":""} aria-label="Apply changes to ${esc(d.co)}">`):"";
+function rows(){const q=S.q.trim().toLowerCase();let list=S.deals.filter(d=>(!q||[d.n,d.co,d.owner,d.next,d.stage].join(" ").toLowerCase().includes(q))&&(!S.stage||d.stage===S.stage)&&(!S.only||prop(d.id)));
+  const k=S.sort.k,dir=S.sort.dir;list.sort((a,b)=>{const x=k==="close"?closeKey(a.close):a[k],y=k==="close"?closeKey(b.close):b[k];return (typeof x==="string"?x.localeCompare(y):x-y)*dir});return list}
+function th(k,label,cls){const on=S.sort.k===k;return `<th class="${cls||""}" ${on?`aria-sort="${S.sort.dir>0?"ascending":"descending"}"`:""}><button class="sortb" type="button" data-sort="${k}">${label}<span aria-hidden="true">${on?(S.sort.dir>0?" ↑":" ↓"):""}</span></button></th>`}
+function table(){const showSel=S.mode==="review";const list=rows();
+  const body=list.map(d=>{const p=prop(d.id),conf=p&&p.conflict&&!S.conf[d.id];const cls=[p?"prop":"",p&&p.risky?"risky":"",conf?"conflict":"",S.failed.includes(d.id)?"failed":""].join(" ");
+    const box=showSel&&p?(conf?`<div class="conf"><span>${esc(p.conflict.who)} ${esc(p.conflict.what)} ${esc(p.conflict.ago)}, after the copilot looked.</span><span class="row"><button class="btn sm" type="button" data-res="apply" data-id="${d.id}">Apply copilot's on top</button><button class="btn sm ghost" type="button" data-res="skip" data-id="${d.id}">Skip deal</button></span></div>`:
+      S.conf[d.id]==="skip"?`<span class="row" style="gap:6px"><span class="chip">Skipped</span><button class="btn sm ghost" type="button" data-unskip="${d.id}">Undo skip</button></span>`:
+      `<span class="selc"><input type="checkbox" class="cbx" id="cb${d.id}" data-id="${d.id}" ${S.sel.has(d.id)?"checked":""}><label for="cb${d.id}" class="vh">Include ${esc(d.co)} in the bulk apply</label><button class="btn sm" type="button" data-one="${d.id}" aria-label="Apply changes to ${esc(d.co)} now">Apply</button></span>`):"";
     const flagNew=p&&p.ch.find(x=>x[0]==="flag");
-    return `<tr class="${cls}" data-row="${d.id}"><td style="width:${showSel?190:36}px">${box}</td><td><div class="co"><b style="font-weight:500">${esc(d.n)}${d.flag?`<span class="flag">${esc(d.flag)}</span>`:""}${flagNew?`<span class="flag" style="opacity:.75">+ At risk</span>`:""}</b><span>${esc(d.co)}</span></div></td>
+    return `<tr class="${cls}" data-row="${d.id}"><td style="width:${showSel?200:36}px">${box}</td><td><div class="co"><b style="font-weight:500">${esc(d.n)}${d.flag?`<span class="flag">${esc(d.flag)}</span>`:""}${flagNew?`<span class="flag" style="opacity:.8">+ At risk</span>`:""}</b><span>${esc(d.co)}</span></div></td>
       <td class="r m">${$f(d.amt)}</td><td>${cell(d,"stage",p)}</td><td>${cell(d,"owner",p)}</td><td class="m">${cell(d,"close",p)}</td><td>${cell(d,"next",p)}</td><td><span class="quiet ${d.quiet>=21&&d.stage!=="Closed lost"?"hot":""}">${d.quiet}d</span></td></tr>`}).join("");
-  $("tbl").innerHTML=`<thead><tr><th><span class="vh">Select</span></th><th>Deal</th><th class="r">Amount</th><th>Stage</th><th>Owner</th><th>Close</th><th>Next step</th><th>Quiet</th></tr></thead><tbody>${rows}</tbody>`;
-  $("onlyWrap").hidden=!(S.mode==="review"||S.mode==="applying");$("tTitle").textContent=S.mode==="review"?"Proposed change set":"All deals";$("tCount").textContent=S.mode==="review"?`${SET.length} deals · ${SET.reduce((a,p)=>a+p.ch.length,0)} changes`:S.deals.length;bulk()}
-function selCount(){return [...S.sel].reduce((a,id)=>a+SET.find(p=>p.id===id).ch.length,0)}
-function bulk(){const b=$("bulk");if(S.mode!=="review"){b.hidden=true;return}b.hidden=false;const n=S.sel.size,c=selCount(),held=SET.filter(p=>p.conflict&&!S.conf[p.id]).length;
-  b.innerHTML=`<b style="font-weight:500">${n} deal${n===1?"":"s"} · ${c} change${c===1?"":"s"} selected</b>${held?`<span class="chip warn">${held} held: edited by a teammate</span>`:""}<span class="sp" style="flex:1"></span><button class="btn ghost" data-b="none">Clear</button><button class="btn ghost" data-b="safe">Select safe</button><button class="btn pri" data-b="apply" ${c?"":"disabled"}>Apply ${c} change${c===1?"":"s"}</button><button class="btn" data-b="discard">Discard set</button>`}
+  const none=`<tr><td colspan="8" class="nomatch"><b>No matches</b> for ${S.q?`“${esc(S.q)}”`:"these filters"}${S.stage?` in ${esc(S.stage)}`:""}. <button class="btn sm" type="button" data-clearf>Clear filters</button></td></tr>`;
+  $("tbl").innerHTML=`<thead><tr><th><span class="vh">Select</span></th>${th("n","Deal")}${th("amt","Amount","r")}${th("stage","Stage")}${th("owner","Owner")}${th("close","Close")}<th>Next step</th>${th("quiet","Quiet")}</tr></thead><tbody>${body||none}</tbody>`;
+  $("onlyWrap").hidden=!(S.mode==="review"||S.mode==="applying");const left=SET.filter(p=>prop(p.id));
+  $("tTitle").textContent=S.mode==="review"?"Proposed change set":"All deals";
+  $("tCount").textContent=S.mode==="review"?`${left.length} deals · ${left.reduce((a,p)=>a+p.ch.length,0)} changes`:(list.length===S.deals.length?S.deals.length:`${list.length} of ${S.deals.length}`);bulk()}
+function selCount(){return [...S.sel].filter(id=>prop(id)).reduce((a,id)=>a+SET.find(p=>p.id===id).ch.length,0)}
+function bulk(){const b=$("bulk");if(S.mode!=="review"){b.hidden=true;return}b.hidden=false;const ids=[...S.sel].filter(id=>prop(id)),n=ids.length,c=selCount(),held=SET.filter(p=>prop(p.id)&&p.conflict&&!S.conf[p.id]).length;
+  b.innerHTML=`<b style="font-weight:500">${n} deal${n===1?"":"s"} · ${c} change${c===1?"":"s"} selected</b>${held?`<span class="chip warn">${held} held: edited by a teammate</span>`:""}<span class="sp" style="flex:1"></span><button class="btn ghost" type="button" data-b="none">Clear</button><button class="btn ghost" type="button" data-b="safe">Select safe</button><button class="btn pri" type="button" data-b="apply">Apply ${c} change${c===1?"":"s"}</button><button class="btn" type="button" data-b="discard">Discard set</button>${S.msg?`<span class="bmsg" role="alert">${S.msg}</span>`:""}`}
 function cop(html){$("cop").innerHTML=html}
-function idle(){cop(`<p class="sub" style="margin:0">Ask for a cleanup and the copilot proposes a change set. You review it in the table.</p><div class="ask"><button class="btn pri" data-c="scan">Clean up stalled deals</button></div><p class="note">Looks for deals quiet 21+ days, owners who left, and slipped close dates.</p>`)}
+function idle(){const act=S.log.filter(e=>!e.undone);cop(`<p class="sub" style="margin:0">Ask for a cleanup and the copilot proposes a change set. You review it in the table.</p><div class="ask"><button class="btn pri" type="button" data-c="scan">Clean up stalled deals</button></div>${act.length?`<p class="note">${act.reduce((a,e)=>a+e.n,0)} changes from your last session are still applied. Undo them from the change log.</p>`:'<p class="note">Looks for deals quiet 21+ days, owners who left, and slipped close dates.</p>'}`)}
 async function scan(){const my=++run;S.mode="scanning";table();
   cop(`<div class="me">Clean up stalled deals</div><div class="row"><span class="spin lt"></span><span class="sub">Scanning 14 deals…</span></div><div class="prog"><i id="pg"></i></div>`);
   document.querySelectorAll("#tbl tbody tr").forEach((tr,i)=>setTimeout(()=>{if(my===run)tr.classList.add("flash")},i*70));
   for(let i=1;i<=5;i++){await sleep(D==="loading"?1e9:260);if(my!==run)return;$("pg").style.width=i*20+"%"}
-  if(D==="empty"){S.mode="idle";table();cop(`<div class="me">Clean up stalled deals</div><div class="empty"><span class="okmark">✓</span><b>Nothing to clean up</b><div class="sub">No deal has been quiet 21+ days and every owner is active.</div></div><button class="btn" data-c="restart">Done</button>`);return}
-  S.mode="review";S.sel=new Set(SET.filter(p=>!p.risky&&!p.conflict).map(p=>p.id));table();
-  cop(`<div class="me">Clean up stalled deals</div><p class="sum">I found <b>6 stalled deals</b> and proposed <b>9 changes</b>. They're marked in the table.</p>
-   <ul class="sub" style="margin:0;padding-left:18px"><li>Closing Summit Fitness is not selected. Check it yourself if you agree.</li><li>Lakeside Health is held: Jon edited it after I looked.</li></ul><p class="note">Nothing is saved until you apply.</p>`)}
-async function apply(){const my=++run;const ids=[...S.sel];S.mode="applying";table();$("bulk").hidden=false;$("bulk").innerHTML=`<span class="spin lt"></span><b style="font-weight:500">Applying ${selCount()} changes…</b>`;
-  const failSet=D==="partial"?[8,12]:[];S.failed=[];const batch=[];
-  for(const id of ids){await sleep(260);if(my!==run)return;const tr=document.querySelector(`[data-row="${id}"]`);
-    if(failSet.includes(id)){S.failed.push(id);if(tr)tr.classList.add("failed");continue}
-    const d=S.deals.find(x=>x.id===id),p=SET.find(x=>x.id===id);if(S.conf[id]==="apply")d.stage="Negotiation";const before={...d};
-    p.ch.forEach(([f,v])=>{d[f]=v});
-    batch.push({id,before,after:{...d},co:d.co,n:p.ch.length,undone:false});if(tr){tr.classList.remove("prop");tr.classList.add("flash")}}
-  S.log=batch.concat(S.log);S.mode="done";table();log();
-  const n=batch.reduce((a,b)=>a+b.n,0),skipped=SET.filter(p=>p.conflict&&S.conf[p.id]!=="apply"&&!ids.includes(p.id)).length;
-  cop(`<div class="me">Clean up stalled deals</div><p class="sum"><b>${n} change${n===1?"":"s"} applied</b> to ${batch.length} deal${batch.length===1?"":"s"}.${skipped?` ${skipped} held deal skipped.`:""}</p>
-   ${S.failed.length?`<div class="err"><div><b>${S.failed.length} deals didn't save.</b><br>The CRM rejected Fernwood Labs and Tandem Coaching. Everything else was applied.</div><button class="btn sm" data-c="retryFail">Retry those ${S.failed.length}</button></div>`:""}
-   <div class="row"><button class="btn" data-c="undoAll">Undo all</button><button class="btn ghost" data-c="restart">Done</button></div>`);
-  toast(`${n} changes applied`,true)}
+  if(D==="empty"){S.mode="idle";table();cop(`<div class="me">Clean up stalled deals</div><div class="empty"><span class="okmark">✓</span><b>Nothing to clean up</b><div class="sub">No deal has been quiet 21+ days and every owner is active.</div></div><button class="btn" type="button" data-c="restart">Done</button>`);return}
+  const already=new Set(S.log.filter(e=>!e.undone).map(e=>e.id));S.done=already;
+  S.mode="review";S.sel=new Set(SET.filter(p=>!p.risky&&!p.conflict&&!already.has(p.id)).map(p=>p.id));table();reviewCop()}
+function reviewCop(){const left=SET.filter(p=>prop(p.id));
+  cop(`<div class="me">Clean up stalled deals</div><p class="sum">I found <b>${left.length} stalled deal${left.length===1?"":"s"}</b> and proposed <b>${left.reduce((a,p)=>a+p.ch.length,0)} changes</b>. They're marked in the table.</p>
+   <ul class="sub" style="margin:0;padding-left:18px"><li>Apply one deal with its Apply button, or select several and apply them together.</li>${left.some(p=>p.risky)?"<li>Closing Summit Fitness is not selected. Check it yourself if you agree.</li>":""}${left.some(p=>p.conflict&&!S.conf[p.id])?"<li>Lakeside Health is held: Jon edited it after I looked.</li>":""}</ul><p class="note">Nothing is saved until you apply.</p>`)}
+function applyDeal(id){const d=S.deals.find(x=>x.id===id),p=SET.find(x=>x.id===id);if(S.conf[id]==="apply")d.stage="Negotiation";const before={...d};p.ch.forEach(([f,v])=>{d[f]=v});
+  const e={id,before,after:{...d},co:d.co,n:p.ch.length,undone:false,at:new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})};S.log.unshift(e);S.done.add(id);S.sel.delete(id);return e}
+function flash(id,cls){const tr=document.querySelector(`[data-row="${id}"]`);if(tr){tr.classList.remove("flash","revert");void tr.offsetWidth;tr.classList.add(cls||"flash")}}
+function afterEach(){save();log();if(S.mode==="review"&&!SET.some(p=>prop(p.id)&&S.conf[p.id]!=="skip")){S.mode="done";table();doneCop()}else{table();if(S.mode==="review")reviewCop()}}
+function applyOne(id){const d=S.deals.find(x=>x.id===id);
+  if(D==="partial"&&FAILS.includes(id)&&!S.failed.includes(id)){S.failed.push(id);table();toast(`${d.co} didn't save. The CRM rejected it. Nothing changed.`);return}
+  S.failed=S.failed.filter(x=>x!==id);const e=applyDeal(id);afterEach();flash(id);toast(`${e.n} change${e.n===1?"":"s"} applied to ${d.co}`,()=>{undo(e)})}
+async function apply(){const ids=[...S.sel].filter(id=>prop(id));if(!ids.length){S.msg="Select at least one deal, or use a deal's own Apply button.";bulk();toast("Nothing selected to apply");return}
+  S.msg="";const my=++run;S.mode="applying";table();$("bulk").hidden=false;$("bulk").innerHTML=`<span class="spin lt"></span><b style="font-weight:500">Applying ${selCount()} changes…</b>`;
+  const failSet=D==="partial"?FAILS:[];S.failed=[];const batch=[];
+  for(const id of ids){await sleep(260);if(my!==run)return;
+    if(failSet.includes(id)){S.failed.push(id);continue}
+    batch.push(applyDeal(id));flash(id)}
+  S.mode="done";save();table();log();batch.forEach(e=>flash(e.id));doneCop(batch);
+  const n=batch.reduce((a,b)=>a+b.n,0);toast(`${n} change${n===1?"":"s"} applied`,()=>{batch.forEach(e=>undo(e,true));afterUndo(`Undid ${n} changes`)})}
+function doneCop(batch){const act=S.log.filter(e=>!e.undone);const n=(batch||act).reduce((a,b)=>a+b.n,0),deals=(batch||act).length,skipped=SET.filter(p=>p.conflict&&S.conf[p.id]==="skip").length;
+  cop(`<div class="me">Clean up stalled deals</div><p class="sum"><b>${n} change${n===1?"":"s"} applied</b> to ${deals} deal${deals===1?"":"s"}.${skipped?` ${skipped} held deal skipped.`:""}</p>
+   ${S.failed.length?`<div class="err"><div><b>${S.failed.length} deal${S.failed.length===1?"":"s"} didn't save.</b><br>The CRM rejected ${S.failed.map(id=>S.deals.find(d=>d.id===id).co).join(" and ")}. Everything else was applied.</div><button class="btn sm" type="button" data-c="retryFail">Retry ${S.failed.length===1?"it":"those "+S.failed.length}</button></div>`:""}
+   <div class="row"><button class="btn" type="button" data-c="undoAll">Undo all</button><button class="btn ghost" type="button" data-c="restart">Done</button></div>`)}
 async function retryFail(){const ids=S.failed.slice();S.failed=[];D="live";$("demo").value="live";const batch=[];
-  for(const id of ids){await sleep(250);const d=S.deals.find(x=>x.id===id),p=SET.find(x=>x.id===id),before={...d};p.ch.forEach(([f,v])=>{d[f]=v});batch.push({id,before,after:{...d},co:d.co,n:p.ch.length,undone:false});}
-  S.log=batch.concat(S.log);table();ids.forEach(id=>{const tr=document.querySelector(`[data-row="${id}"]`);if(tr)tr.classList.add("flash")});log();
-  cop(`<p class="sum"><b>All changes saved.</b> Retried ${ids.length} deals.</p><div class="row"><button class="btn" data-c="undoAll">Undo all</button><button class="btn ghost" data-c="restart">Done</button></div>`);toast("Retried changes saved")}
-function undo(entry){if(entry.undone)return;const d=S.deals.find(x=>x.id===entry.id);Object.assign(d,entry.before);entry.undone=true;table();log();const tr=document.querySelector(`[data-row="${entry.id}"]`);if(tr)tr.classList.add("revert")}
-function undoAll(){S.log.filter(e=>!e.undone).forEach(e=>{const d=S.deals.find(x=>x.id===e.id);Object.assign(d,e.before);e.undone=true});table();log();
-  document.querySelectorAll("#tbl tbody tr").forEach(tr=>{if(S.log.some(e=>e.id===+tr.dataset.row))tr.classList.add("revert")});cop(`<p class="sum"><b>Everything is back the way it was.</b> No changes remain from this set.</p><div class="row"><button class="btn ghost" data-c="restart">Done</button></div>`);toast("All changes undone")}
-function log(){const L=S.log;$("logN").textContent=L.length?`${L.filter(e=>!e.undone).length} active`:"empty";
-  $("log").innerHTML=L.length?L.map((e,i)=>`<li class="${e.undone?"undone":""}"><span>${esc(e.co)} · ${e.n} change${e.n===1?"":"s"}</span>${e.undone?'<span class="w">undone</span>':`<button class="btn sm ghost" data-u="${i}">Undo</button>`}<span class="w">${Object.keys(e.after).filter(k=>e.after[k]!==e.before[k]).map(k=>LABEL[k]||k).join(", ")}</span></li>`).join(""):'<li style="border:0;color:var(--dim);font-size:12.5px">Applied changes show here, each with its own undo.</li>'}
-let tt;function toast(m,u){$("toastMsg").textContent=m;$("toastUndo").hidden=!u;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),4000)}
+  for(const id of ids){await sleep(250);batch.push(applyDeal(id))}
+  save();table();ids.forEach(id=>flash(id));log();
+  cop(`<p class="sum"><b>All changes saved.</b> Retried ${ids.length} deals.</p><div class="row"><button class="btn" type="button" data-c="undoAll">Undo all</button><button class="btn ghost" type="button" data-c="restart">Done</button></div>`);toast("Retried changes saved")}
+function undo(entry,quiet){if(entry.undone)return;const d=S.deals.find(x=>x.id===entry.id);Object.assign(d,entry.before);entry.undone=true;S.done.delete(entry.id);
+  if(quiet)return;save();table();log();flash(entry.id,"revert");toast(`Undid ${entry.n} change${entry.n===1?"":"s"} to ${entry.co}`)}
+function afterUndo(m){save();table();log();document.querySelectorAll("#tbl tbody tr").forEach(tr=>{if(S.log.some(e=>e.id===+tr.dataset.row))tr.classList.add("revert")});toast(m)}
+function undoAll(){const act=S.log.filter(e=>!e.undone);if(!act.length){toast("Nothing to undo");return}act.forEach(e=>undo(e,true));if(S.mode==="done")S.mode="idle";
+  afterUndo("All changes undone");cop(`<p class="sum"><b>Everything is back the way it was.</b> No changes remain from this set.</p><div class="row"><button class="btn ghost" type="button" data-c="restart">Done</button></div>`)}
+function log(){const L=S.log;$("logN").textContent=L.length?`${L.filter(e=>!e.undone).length} active`:"empty";$("logAll").hidden=!L.some(e=>!e.undone);
+  $("log").innerHTML=L.length?L.map((e,i)=>`<li class="${e.undone?"undone":""}"><span>${esc(e.co)} · ${e.n} change${e.n===1?"":"s"}${e.at?` <span class="w">${e.at}</span>`:""}</span>${e.undone?'<span class="w">undone</span>':`<button class="btn sm ghost" type="button" data-u="${i}" aria-label="Undo changes to ${esc(e.co)}">Undo</button>`}<span class="w">${Object.keys(e.after).filter(k=>e.after[k]!==e.before[k]).map(k=>LABEL[k]||k).join(", ")}</span></li>`).join(""):'<li style="border:0;color:var(--muted);font-size:12.5px">Applied changes show here, each with its own undo.</li>'}
+let tt;function toast(m,u){$("toastMsg").textContent=m;const b=$("toastUndo");b.hidden=!u;b.onclick=u?()=>{$("toast").classList.remove("on");u()}:null;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),u?5000:3000)}
+function csv(){const list=rows();const r=[["deal","company","amount","stage","owner","close","next_step","days_quiet","flag"],...list.map(d=>[d.n,d.co,d.amt,d.stage,d.owner,d.close,d.next,d.quiet,d.flag||""])];
+  const t=r.map(x=>x.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv"}));a.download="harbor-deals.csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast(`Exported ${list.length} deal${list.length===1?"":"s"} as CSV`)}
 
 $("cop").addEventListener("click",e=>{const b=e.target.closest("[data-c]");if(!b)return;const a=b.dataset.c;
-  if(a==="scan")scan();else if(a==="restart"){reset();table();idle()}else if(a==="undoAll")undoAll();else if(a==="retryFail")retryFail()});
-$("bulk").addEventListener("click",e=>{const b=e.target.closest("[data-b]");if(!b||b.disabled)return;const a=b.dataset.b;
-  if(a==="apply")apply();else if(a==="none"){S.sel.clear();table()}else if(a==="safe"){S.sel=new Set(SET.filter(p=>!p.risky&&(!p.conflict||S.conf[p.id]==="apply")).map(p=>p.id));table()}
-  else if(a==="discard"){reset();table();idle();toast("Change set discarded. Nothing was saved.")}});
-$("tbl").addEventListener("change",e=>{if(e.target.classList.contains("cbx")){const id=+e.target.dataset.id;e.target.checked?S.sel.add(id):S.sel.delete(id);bulk()}});
-$("tbl").addEventListener("click",e=>{const b=e.target.closest("[data-res]");if(!b)return;const id=+b.dataset.id;S.conf[id]=b.dataset.res;if(b.dataset.res==="apply")S.sel.add(id);else S.sel.delete(id);
-  if(b.dataset.res==="skip"){const p=SET.find(x=>x.id===id);S.conf[id]="skip"}table()});
+  if(a==="scan")scan();else if(a==="restart"){S.mode="idle";S.sel=new Set();S.conf={};S.failed=[];S.done=new Set();table();idle();toast("Change set closed. Applied changes stay in the log.")}
+  else if(a==="undoAll")undoAll();else if(a==="retryFail")retryFail()});
+$("bulk").addEventListener("click",e=>{const b=e.target.closest("[data-b]");if(!b)return;const a=b.dataset.b;
+  if(a==="apply")apply();
+  else if(a==="none"){const had=S.sel.size;S.sel.clear();S.msg="";table();toast(had?"Selection cleared":"Nothing was selected")}
+  else if(a==="safe"){S.sel=new Set(SET.filter(p=>prop(p.id)&&!p.risky&&(!p.conflict||S.conf[p.id]==="apply")).map(p=>p.id));S.msg="";table();toast(`${S.sel.size} safe deal${S.sel.size===1?"":"s"} selected. Closing a deal is never included.`)}
+  else if(a==="discard"){S.mode="idle";S.sel=new Set();S.conf={};S.done=new Set();table();idle();toast("Change set discarded. Nothing new was saved.")}});
+$("tbl").addEventListener("change",e=>{if(e.target.classList.contains("cbx")){const id=+e.target.dataset.id;e.target.checked?S.sel.add(id):S.sel.delete(id);S.msg="";bulk()}});
+$("tbl").addEventListener("click",e=>{const s=e.target.closest("[data-sort]");if(s){const k=s.dataset.sort;S.sort=S.sort.k===k?{k,dir:-S.sort.dir}:{k,dir:k==="amt"||k==="quiet"?-1:1};table();$("tbl").querySelector(`[data-sort="${k}"]`).focus();return}
+  if(e.target.closest("[data-clearf]")){clearFilters();return}
+  const one=e.target.closest("[data-one]");if(one){applyOne(+one.dataset.one);return}
+  const un=e.target.closest("[data-unskip]");if(un){delete S.conf[+un.dataset.unskip];table();reviewCop();toast("Lakeside Health is held again for your decision");return}
+  const b=e.target.closest("[data-res]");if(!b)return;const id=+b.dataset.id,d=S.deals.find(x=>x.id===id);
+  if(b.dataset.res==="apply"){S.conf[id]="apply";applyOne(id)}
+  else{S.conf[id]="skip";S.sel.delete(id);afterEach();toast(`${d.co} skipped. Jon's edit stays as it is.`,()=>{delete S.conf[id];table();reviewCop()})}});
+function clearFilters(){S.q="";S.stage="";$("q").value="";$("stageF").value="";table();toast("Filters cleared")}
+$("q").addEventListener("input",e=>{S.q=e.target.value;table()});
+$("stageF").addEventListener("change",e=>{S.stage=e.target.value;table();const n=rows().length;toast(n?`${n} deal${n===1?"":"s"} in ${e.target.value||"all stages"}`:"No matches")});
 $("only").addEventListener("change",e=>{S.only=e.target.checked;table()});
+$("exportCsv").addEventListener("click",csv);
 $("log").addEventListener("click",e=>{const b=e.target.closest("[data-u]");if(b)undo(S.log[+b.dataset.u])});
-$("toastUndo").addEventListener("click",()=>{undoAll();$("toast").classList.remove("on")});
-$("demo").addEventListener("change",e=>{D=e.target.value;reset();table();idle();if(D!=="live")scan()});
-reset();table();idle();
+$("logAll").addEventListener("click",undoAll);
+$("resetDemo").addEventListener("click",()=>{store.del();D="live";$("demo").value="live";reset();S.q="";S.stage="";$("q").value="";$("stageF").value="";table();log();idle();toast("Demo reset. All deals are back to the original data.")});
+$("demo").addEventListener("change",e=>{D=e.target.value;const keep=store.get();reset();if(keep){S.deals=keep.deals;S.log=keep.log}table();log();idle();if(D!=="live")scan()});
+reset();const saved=store.get();if(saved&&saved.deals){S.deals=saved.deals;S.log=saved.log||[]}table();log();idle();
 })();
+
 </script>
 </body>
 </html>

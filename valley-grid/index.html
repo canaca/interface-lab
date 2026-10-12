@@ -22,9 +22,16 @@
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/grid-workflow.jpg">
 <meta name="twitter:image:alt" content="Valley Grid: an operator investigates bushing B on a live 3D transformer">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>
+if(matchMedia("(max-width:800px)").matches){
+  document.documentElement.classList.add("vg-narrow");
+}else{
+  const p=document.createElement("link");p.rel="preconnect";p.href="https://fonts.googleapis.com";document.head.appendChild(p);
+  const g=document.createElement("link");g.rel="preconnect";g.href="https://fonts.gstatic.com";g.crossOrigin="";document.head.appendChild(g);
+  const l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap";document.head.appendChild(l);
+}
+</script>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 <style>
 /* Layout: one hero transformer on the gold board, centered. Two frosted panels only: unit status (left) and the alert panel (right) that walks through the whole investigation. Timeline below. Single warm dark look by design. */
 :root{
@@ -37,6 +44,7 @@
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
+svg text{font-family:var(--mono)}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -71,6 +79,7 @@ button,input,select{font:inherit;color:inherit}
 /* HUD */
 .hud{position:absolute;inset:0;pointer-events:none;padding:28px 32px;display:grid;grid-template-columns:360px 1fr 410px;grid-template-rows:auto 1fr auto;gap:18px}
 .reveal{opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
+.head.reveal{opacity:1;transform:none}
 .on .reveal{opacity:1;transform:none}
 .on .reveal.d1{transition-delay:.15s}.on .reveal.d2{transition-delay:.3s}.on .reveal.d3{transition-delay:.45s}
 .head{grid-column:1/3;pointer-events:auto;display:flex;flex-direction:column;gap:6px;text-shadow:0 2px 18px rgba(10,7,5,.9)}
@@ -211,6 +220,29 @@ button,input,select{font:inherit;color:inherit}
   .read{grid-template-columns:1fr 1fr}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* Phone: show the interface immediately, keep type at least 12px, and keep controls easy to tap. */
+html.vg-narrow{--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+html.vg-narrow .reveal{opacity:1;transform:none;transition:none}
+html.vg-narrow .skip,html.vg-narrow .grain,html.vg-narrow .vig,html.vg-narrow .topfade,html.vg-narrow .hs,html.vg-narrow #gl{display:none}
+html.vg-narrow .stage{height:auto;min-height:0;background:var(--bg)}
+html.vg-narrow .hud{position:relative;padding:16px;padding-top:16px}
+html.vg-narrow .panel{min-height:340px}
+html.vg-narrow .status{min-height:460px}
+html.vg-narrow .tag,html.vg-narrow .credit,html.vg-narrow .clock small,html.vg-narrow .note,html.vg-narrow .card h2 i,html.vg-narrow .alert .meta{color:var(--muted)}
+html.vg-narrow .head{position:static}
+html.vg-narrow .tools{position:static;max-width:none;grid-column:1;justify-self:start}
+html.vg-narrow .endcard{position:static;transform:none;margin:8px 16px 24px;left:auto;bottom:auto}
+html.vg-narrow .endcard.on{transform:none}
+.phone-note{display:none}
+html.vg-narrow .phone-note{display:block;margin-top:8px;font-size:15px;line-height:1.4;color:var(--muted);max-width:36ch}
+@media (max-width:800px){
+  .tag,.tbtn,.demo select,.card h2,.eyebrow,.read small,.sec,.chip,.note,.alert .meta,.steps .tm,.steps i,.lg,.clock small,.credit,.endcard span,.pin .chip small{font-size:12px;letter-spacing:.04em}
+  .btn,.tbtn,.opt{min-height:44px}
+  .demo select{min-height:44px;padding:8px 4px}
+  .card,.tbtn,.pin .chip,.endcard,.toast{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .card{background:rgba(28,21,17,.94)}
+  .tbtn{text-decoration:none}
+}
 </style>
 </head>
 <body>
@@ -224,12 +256,13 @@ button,input,select{font:inherit;color:inherit}
     <header class="head reveal">
       <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · fictional data</span></div>
       <h1>Transformer <span>T2</span></h1>
-      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled</p>
+      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled<span class="phone-note">On a phone, follow the steps in the panel. The full 3D model opens on a wider screen.</span></p>
     </header>
     <div class="tools reveal d1">
       <label class="tbtn demo">States <select id="demo" aria-label="Review a state">
         <option value="live">Live alert</option><option value="empty">Empty · no alerts</option><option value="loading">Loading</option>
-        <option value="dataerr">Error · trend unavailable</option><option value="senderr">Error · dispatch fails</option></select></label>
+        <option value="dataerr">Error · trend data unavailable</option><option value="senderr">Error · couldn't send the crew request</option></select></label>
+      <a class="tbtn" href="../">All work</a>
       <button class="tbtn" id="filmBtn">▶ Film mode</button>
     </div>
 
@@ -237,12 +270,12 @@ button,input,select{font:inherit;color:inherit}
     <section class="card panel reveal d2" aria-label="Alerts and investigation" aria-live="polite" id="panel"></section>
 
     <section class="card tl reveal d3" aria-label="24 hour timeline">
-      <div class="clock" id="clock">14:00<small>VALLEY TIME · DRAG TO SCRUB</small></div>
-      <div class="curve" id="curve" role="slider" aria-label="Time of day" aria-valuemin="0" aria-valuemax="24" aria-valuenow="14" aria-valuetext="2:00 PM" tabindex="0"><svg id="curveSvg" preserveAspectRatio="none"></svg></div>
+      <div class="clock" id="clock">14:00<small>VALLEY TIME · DRAG TO MOVE THROUGH THE DAY</small></div>
+      <div class="curve" id="curve" role="slider" aria-label="Time of day" aria-valuemin="0" aria-valuemax="24" aria-valuenow="14" aria-valuetext="2:00 PM" tabindex="0"><svg id="curveSvg" preserveAspectRatio="none" aria-hidden="true"></svg></div>
       <div class="lg"><span><i></i>Load</span><span><i class="t"></i>Oil temp</span><button class="tbtn" id="play" style="padding:5px 10px;margin-top:4px">❚❚ Pause</button></div>
     </section>
   </div>
-  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>Valley Grid Ops · concept by Cesar Navarro</span></div>
+  <div class="endcard" id="endcard"><b>Investigate an equipment alert</b><span>Concept direction: Cesar Navarro · AI-assisted build (Claude, Cursor)</span></div>
   <button class="tbtn skip" id="skip" hidden>Skip intro</button>
   <div class="credit">CONCEPT DIRECTION: CESAR NAVARRO</div>
 </div>
@@ -251,55 +284,67 @@ button,input,select{font:inherit;color:inherit}
 
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
-import * as THREE from "three";
-import {RoundedBoxGeometry} from "three/addons/geometries/RoundedBoxGeometry.js";
-import {RoomEnvironment} from "three/addons/environments/RoomEnvironment.js";
-import {EffectComposer} from "three/addons/postprocessing/EffectComposer.js";
-import {RenderPass} from "three/addons/postprocessing/RenderPass.js";
-import {UnrealBloomPass} from "three/addons/postprocessing/UnrealBloomPass.js";
-import {OutputPass} from "three/addons/postprocessing/OutputPass.js";
-import {GLTFLoader} from "three/addons/loaders/GLTFLoader.js";
-import {GTAOPass} from "three/addons/postprocessing/GTAOPass.js";
-import {BokehPass} from "three/addons/postprocessing/BokehPass.js";
-
 const $=id=>document.getElementById(id);
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const narrow=matchMedia("(max-width: 800px)").matches;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+let THREE=null,RoundedBoxGeometry,RoomEnvironment,EffectComposer,RenderPass,UnrealBloomPass,OutputPass,GLTFLoader,GTAOPass,BokehPass;
+if(!narrow){
+  THREE=await import("three");
+  ({RoundedBoxGeometry}=await import("three/addons/geometries/RoundedBoxGeometry.js"));
+  ({RoomEnvironment}=await import("three/addons/environments/RoomEnvironment.js"));
+  ({EffectComposer}=await import("three/addons/postprocessing/EffectComposer.js"));
+  ({RenderPass}=await import("three/addons/postprocessing/RenderPass.js"));
+  ({UnrealBloomPass}=await import("three/addons/postprocessing/UnrealBloomPass.js"));
+  ({OutputPass}=await import("three/addons/postprocessing/OutputPass.js"));
+  ({GLTFLoader}=await import("three/addons/loaders/GLTFLoader.js"));
+  ({GTAOPass}=await import("three/addons/postprocessing/GTAOPass.js"));
+  ({BokehPass}=await import("three/addons/postprocessing/BokehPass.js"));
+}
 const COL={bronze:0xC08A57,orange:0xE9A46E,brown:0x5A4434,cream:0xF4E7D7,accent:0x6FE3D0,dark:0x2A211B};
 
 /* ---------- fictional unit model ---------- */
 const load=h=>120+85*Math.exp(-Math.pow((h-18)/3.4,2))+30*Math.exp(-Math.pow((h-8.5)/2.3,2));
 const temp=h=>40+40*Math.pow(load(h-1.5)/240,1.8);
-const S={hour:14,playing:!reduce,mode:"intro",t:0,fault:"active"};
+const S={hour:14,playing:!reduce&&!narrow,mode:narrow||reduce?"orbit":"intro",t:0,fault:"active"};
 const pdB=()=>S.fault==="resolved"?96:Math.round(372+70*load(S.hour)/240);
 
-/* ---------- renderer: starts light, upgrades only if the machine is fast ---------- */
+/* Shared with the panel. On a phone these stay empty and the 3D block below does not run. */
 const canvas=$("gl"),stage=$("stage");
-let renderer;
-try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:"high-performance"});}catch(e){stage.insertAdjacentHTML("beforeend",'<div class="fallback">3D is not available here. The panels still work.</div>');}
+let renderer=null,scene=null,cam=null,composer=null,gtao=null,bokeh=null;
+let FLOOR={visible:true},orbit={theta:0,phi:1.1,r:27,look:null},overview=null;
+let focusCam=()=>{},PINS=[],rings=[],M={},ringBMat=null,ringBColor=null;
+let t2Ready=narrow,boardReady=narrow;
+let baseR=()=>27,V=(x,y,z)=>({x,y,z,clone(){return {x,y,z}},lerp(){return this}});
+let frame=()=>{};
+if(!narrow){
+/* ---------- renderer: starts light, upgrades only if the machine is fast ---------- */
+try{renderer=new THREE.WebGLRenderer({canvas,antialias:!narrow,powerPreference:narrow?"low-power":"high-performance"});}catch(e){stage.insertAdjacentHTML("beforeend",'<div class="fallback">3D is not available here. The panels still work.</div>');}
 const scene=new THREE.Scene();
 const cam=new THREE.PerspectiveCamera(32,1,.1,300);
-let composer,gtao,bokeh;
 if(renderer){
-  renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.5));renderer.setClearColor(0x000000,0);
+  renderer.setPixelRatio(narrow?1:Math.min(devicePixelRatio||1,1.5));renderer.setClearColor(0x000000,0);
   renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
-  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-  const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
-  composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,cam));
-  gtao=new GTAOPass(scene,cam,1,1);gtao.output=GTAOPass.OUTPUT.Default;gtao.blendIntensity=1.1;gtao.updateGtaoMaterial({radius:.9,distanceExponent:1.6,thickness:1.2,scale:1.2});gtao.enabled=false;composer.addPass(gtao);
-  bokeh=new BokehPass(scene,cam,{focus:24,aperture:.0016,maxblur:.006});composer.addPass(bokeh);
-  composer.addPass(new UnrealBloomPass(new THREE.Vector2(1,1),.32,.55,.92));composer.addPass(new OutputPass());
+  renderer.shadowMap.enabled=!narrow;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  if(!narrow){
+    const pm=new THREE.PMREMGenerator(renderer);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+    composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,cam));
+    gtao=new GTAOPass(scene,cam,1,1);gtao.output=GTAOPass.OUTPUT.Default;gtao.blendIntensity=1.1;gtao.updateGtaoMaterial({radius:.9,distanceExponent:1.6,thickness:1.2,scale:1.2});gtao.enabled=false;composer.addPass(gtao);
+    bokeh=new BokehPass(scene,cam,{focus:24,aperture:.0016,maxblur:.006});composer.addPass(bokeh);
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(1,1),.32,.55,.92));composer.addPass(new OutputPass());
+  }
 }
 scene.fog=new THREE.Fog(0x120E0B,40,110);
 
 /* ---------- lights: warm key, soft fill, accent rim ---------- */
 scene.add(new THREE.HemisphereLight(0xFFE2C4,0x1A120C,.55));
-const key=new THREE.DirectionalLight(0xFFD2A8,2.6);key.position.set(-9,14,10);key.castShadow=true;
+const key=new THREE.DirectionalLight(0xFFD2A8,2.6);key.position.set(-9,14,10);key.castShadow=!narrow;
 key.shadow.mapSize.set(1536,1536);Object.assign(key.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:50});key.shadow.bias=-.0004;key.shadow.radius=6;scene.add(key);
 const rim=new THREE.DirectionalLight(COL.accent,.9);rim.position.set(10,8,-12);scene.add(rim);
 const warmUp=new THREE.PointLight(0xE9A46E,14,18,2);warmUp.position.set(0,1.2,5);scene.add(warmUp);
 
 /* ---------- materials ---------- */
-const M={
+M={
   paint:new THREE.MeshStandardMaterial({color:0x2F241D,metalness:.5,roughness:.5}),
   bronze:new THREE.MeshStandardMaterial({color:0xB07A48,metalness:.85,roughness:.32}),
   copper:new THREE.MeshStandardMaterial({color:0xC98A5A,metalness:.95,roughness:.22}),
@@ -315,7 +360,7 @@ const T=new THREE.Group();scene.add(T);
 const add=(geo,mat,x,y,z,parent=T)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m};
 
 /* floor + chart rings */
-const FLOOR=new THREE.Group();scene.add(FLOOR);
+FLOOR=new THREE.Group();scene.add(FLOOR);
 {const f=new THREE.Mesh(new THREE.CircleGeometry(60,96),M.floor);f.rotation.x=-Math.PI/2;f.receiveShadow=true;FLOOR.add(f);
  const ringMat=new THREE.LineBasicMaterial({color:COL.bronze,transparent:true,opacity:.22});
  [8,11.5,15].forEach(r=>{const p=[];for(let i=0;i<=160;i++){const a=i/160*Math.PI*2;p.push(new THREE.Vector3(Math.cos(a)*r,.01,Math.sin(a)*r))}FLOOR.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(p),ringMat))});
@@ -352,7 +397,7 @@ for(const s of[-1,1])for(const z of[-.7,.7]){const g=new THREE.Group();g.positio
  /* oil sight glass */
  add(new THREE.CylinderGeometry(.11,.11,.04,20),M.glowA,1.3,6.15,-.53).rotation.x=Math.PI/2;}
 /* HV bushings with stacked sheds and an energy ring */
-const rings=[];
+rings=[];
 const shedG=new THREE.CylinderGeometry(.3,.38,.045,32);
 [-1.7,0,1.7].forEach((x,i)=>{const b=new THREE.Group();b.position.set(x,5.03,.7);T.add(b);
   add(new THREE.CylinderGeometry(.42,.48,.28,28),M.bronze,0,.14,0,b);
@@ -377,9 +422,9 @@ add(new RoundedBoxGeometry(1.3,1.9,.8,2,.05),M.steel,3.7,1.6,2.75);
 add(new THREE.BoxGeometry(.02,1.6,.6),M.bronze,4.36,1.6,2.75);
 let led=add(new THREE.SphereGeometry(.06,12,8),M.glowA,4.38,2.25,2.6);
 
-/* Detailed exported model replaces the coded one when t2.json is published beside the page; the coded model stays as fallback. */
-let glbRings=null,glbFans=null,ringBMat=null,ringBColor=null,t2Ready=false,boardReady=false;
-fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
+/* Detailed model replaces the coded one on wide screens. Phones keep the coded model so the page does not download the large scene files. */
+let glbRings=null,glbFans=null;ringBMat=null;ringBColor=null;t2Ready=false;boardReady=false;
+if(!narrow)fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
   root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material&&o.material.emissiveIntensity>1)o.material.toneMapped=false}});
   scene.remove(T);scene.add(root);
   glbRings=["A","B","C"].map((k,i)=>({o:root.getObjectByName("Ring_"+k),phase:i*.33})).filter(r=>r.o);
@@ -393,7 +438,7 @@ fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=
 
 /* ---------- pins: three only ---------- */
 const BUSH_B=new THREE.Vector3(0,7.2,.7);
-const PINS=[
+PINS=[
   {id:"bush",p:new THREE.Vector3(0,8.6,.7),label:"Bushing B",warn:()=>S.fault!=="resolved",val:()=>pdB()+" pC"},
   {id:"top",p:new THREE.Vector3(-2.2,4.4,1.75),label:"Top-oil",left:true,warn:()=>false,val:()=>temp(S.hour).toFixed(1)+" °C"},
   {id:"fan",p:new THREE.Vector3(5.3,1.2,.7),label:"Cooling",warn:()=>false,val:()=>load(S.hour)>165?"Stage 2 · 4 fans":"Stage 1 · 2 fans"}
@@ -403,7 +448,7 @@ PINS.forEach(p=>{const d=document.createElement("div");d.className="pin"+(p.left
   if(p.id==="bush")d.querySelector(".chip").addEventListener("click",()=>{if(W.alert&&["alert"].includes(W.state))investigate()})});
 
 /* ---------- camera ---------- */
-const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+V=(x,y,z)=>new THREE.Vector3(x,y,z);
 /* one path: the intro plays 0 to 6.5 s; film mode plays all 15 s, including the workflow beat */
 const KEYS=[
   [0,   V(1.6,9.6,4.2),  V(0,8.2,.7)],
@@ -417,13 +462,13 @@ const KEYS=[
 const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
 function filmCam(t){let i=0;while(i<KEYS.length-2&&t>KEYS[i+1][0])i++;const a=KEYS[i],b=KEYS[i+1];const k=ease(THREE.MathUtils.clamp((t-a[0])/(b[0]-a[0]),0,1));
   return{pos:a[1].clone().lerp(b[1],k),look:a[2].clone().lerp(b[2],k)}}
-const orbit={theta:Math.atan2(21.8,19),phi:1.1,r:27,look:V(0,3.9,0)};
-let overview=null;
-const baseR=()=>(canvas.clientWidth<720?30:canvas.clientWidth<1100?20:27)+(FLOOR.visible?0:4);
-function focusCam(on){
+orbit={theta:Math.atan2(21.8,19),phi:1.1,r:27,look:V(0,3.9,0)};
+overview=null;
+baseR=()=>(canvas.clientWidth<720?30:canvas.clientWidth<1100?20:27)+(FLOOR.visible?0:4);
+focusCam=function(on){
   if(on){if(!overview)overview={r:orbit.r,phi:orbit.phi,look:orbit.look.clone()};orbit.look=BUSH_B.clone();orbit.r=canvas.clientWidth<1100?13:11;orbit.phi=1.2}
   else if(overview){orbit.r=overview.r;orbit.phi=overview.phi;orbit.look=overview.look;overview=null}}
-function size(){if(!renderer)return;const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);composer.setSize(w,h);gtao.setSize(w,h);cam.aspect=w/h;
+function size(){if(!renderer)return;const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);if(composer)composer.setSize(w,h);if(gtao)gtao.setSize(w,h);cam.aspect=w/h;
   cam.fov=w<720?44:32;cam.updateProjectionMatrix();if(!overview)orbit.r=baseR()}
 new ResizeObserver(size).observe(canvas);size();
 let drag=null,lastInput=0;
@@ -437,6 +482,64 @@ canvas.addEventListener("pointerup",e=>{canvas.style.cursor="grab";const d=drag;
   const h=ray.intersectObjects(scene.children,true).find(x=>x.object.isMesh);
   if(h&&h.point.distanceTo(BUSH_B)<2.4&&W.alert&&W.state==="alert")investigate()});
 canvas.addEventListener("wheel",e=>{if(S.mode!=="orbit")return;e.preventDefault();orbit.r=THREE.MathUtils.clamp(orbit.r+e.deltaY*.02,8,44)},{passive:false});
+
+/* ---------- loop + adaptive quality ---------- */
+const clock=new THREE.Clock(),v3=new THREE.Vector3();
+function project(p){const w=canvas.clientWidth,h=canvas.clientHeight;v3.copy(p).project(cam);return{x:(v3.x*.5+.5)*w,y:(-v3.y*.5+.5)*h,vis:v3.z<1}}
+/* starts light for integrated graphics; turns on ambient occlusion only on fast machines; steps down if frames run slow */
+const Q={n:0,acc:0,level:0,checks:0,hi:false};
+function adapt(raw){if(!renderer||Q.checks>=4)return;Q.n++;Q.acc+=raw;if(Q.n<120)return;const ms=Q.acc/Q.n*1000;Q.n=0;Q.acc=0;Q.checks++;
+  if(gtao&&ms<12&&!Q.hi&&Q.level===0&&canvas.clientWidth>=1100){Q.hi=true;gtao.enabled=true;return}
+  if(ms>24){if(Q.hi&&gtao){Q.hi=false;gtao.enabled=false;return}Q.level=Math.min(2,Q.level+1);
+    if(Q.level===2){renderer.setPixelRatio(1);size();key.shadow.mapSize.set(1024,1024);if(key.shadow.map){key.shadow.map.dispose();key.shadow.map=null}}}}
+frame=function(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math.min(raw,.05),t=clock.elapsedTime;adapt(raw);
+  if(S.playing&&S.mode!=="film")S.hour=(S.hour+dt*.05)%24;
+  let target;
+  if(S.mode==="intro"){S.t+=dt;if(S.t>6&&!$("hud").classList.contains("on"))reveal(true);if(S.t>=7)endIntro();target=filmCam(Math.min(S.t,6.5))}
+  if(S.mode==="film"){S.t+=dt;while(filmNext<FILM.length&&S.t>=FILM[filmNext][0]){FILM[filmNext][1]();filmNext++}if(S.t>=15)filmReset();target=filmCam(Math.min(S.t,15))}
+  if(S.mode==="orbit"){if(!drag&&!reduce&&!overview&&performance.now()-lastInput>4000)orbit.theta+=dt*.04;
+    target={pos:V(orbit.look.x+orbit.r*Math.sin(orbit.phi)*Math.cos(orbit.theta),orbit.look.y+orbit.r*Math.cos(orbit.phi),orbit.look.z+orbit.r*Math.sin(orbit.phi)*Math.sin(orbit.theta)),look:orbit.look}}
+  if(!camInit){camPos.copy(target.pos);camLook.copy(target.look);camInit=true}
+  const k=S.mode==="orbit"?.07:1;camPos.lerp(target.pos,k);camLook.lerp(target.look,k);
+  if(countFrom!=null){const c=Math.min(1,(performance.now()-countFrom)/1300);renderStatus(1-Math.pow(1-c,3));if(c>=1)countFrom=null}
+  else if(t-lastTick>.3){lastTick=t;liveTick()}
+  if(!renderer)return;
+  cam.position.copy(camPos);cam.lookAt(camLook);
+  if(bokeh){bokeh.enabled=Q.level===0&&S.mode!=="orbit";bokeh.uniforms.focus.value=camPos.distanceTo(camLook);bokeh.uniforms.aperture.value=.0022}
+  const L=load(S.hour);(glbFans||fans).forEach((f,i)=>f.rotation.y+=dt*(L>165||i%2===0?14:0));
+  if(glbRings)glbRings.forEach(r=>{const p=((t*.45+r.phase)%1);r.o.position.y=5.53+p*2.9;r.o.scale.setScalar(1+Math.sin(p*Math.PI)*.15)});
+  if(boardTick)boardTick(t,dt);
+  rings.forEach(r=>{const p=((t*.45+r.phase)%1);r.r.position.y=.5+p*2.9;r.r.scale.setScalar(1+Math.sin(p*Math.PI)*.15);r.r.visible=!reduce});
+  led.visible=Math.sin(t*3)>0;
+  PINS.forEach(p=>{const q=project(p.p);p.el.style.transform=`translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px)`;p.el.classList.toggle("below",q.y<150);if(!q.vis)p.el.style.opacity=0});
+  if(composer)composer.render();else renderer.render(scene,cam)}
+
+/* ---------- gold circuit board: feeders, substation chips, energy pulses ---------- */
+let boardTick=null;
+Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
+  const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));
+  new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene,k=1/P.scale;
+    root.scale.setScalar(k);root.position.y=-.1*k;
+    root.traverse(o=>{if(o.isMesh){o.receiveShadow=true;o.castShadow=/^Sub\d$/.test(o.name);
+      const m=o.material;if(!m)return;
+      if(m.name==="Orange"&&o.name==="FaultTrace"){o.material=m.clone();faultMat=o.material;faultMat.toneMapped=false;faultColor=faultMat.emissive.clone()}
+      else if(m.name==="Orange")m.toneMapped=false;
+      if(m.name==="Teal"){m.toneMapped=false;m.emissiveIntensity=2.2}
+      if(m.name==="Board"||m.name==="Chip"){m.envMapIntensity=.08;m.clearcoat=0;m.roughness=.62;m.color.multiplyScalar(.8)}
+      if(m.name==="Gold"||m.name==="GoldDim"){m.envMapIntensity=.9}}});
+    scene.add(root);FLOOR.visible=false;if(!overview)orbit.r=baseR();if(S.mode==="orbit"&&!overview)orbit.phi=.98;
+    if(S.fault==="resolved")setFaultVisual(true);
+    const pm=new THREE.MeshBasicMaterial({color:0xBFFFF4,toneMapped:false}),pg=new THREE.SphereGeometry(.15,10,6);
+    const lanes=P.live.map((pts,i)=>{const v=pts.map(q=>new THREE.Vector3(q[0]*k,(.12-.1)*k,-q[1]*k));
+      const seg=[];let tot=0;for(let a=0;a<v.length-1;a++){const l=v[a].distanceTo(v[a+1]);seg.push(l);tot+=l}
+      const balls=[0,.5].map(ph=>{const b=new THREE.Mesh(pg,pm);scene.add(b);return{b,ph:ph+i*.13}});
+      return{v,seg,tot,balls,period:3+i*.25}});
+    const at=(L,u)=>{let d=u*L.tot;for(let a=0;a<L.seg.length;a++){if(d<=L.seg[a])return L.v[a].clone().lerp(L.v[a+1],L.seg[a]?d/L.seg[a]:0);d-=L.seg[a]}return L.v[L.v.length-1].clone()};
+    boardTick=t=>{lanes.forEach(L=>L.balls.forEach(B=>B.b.position.copy(at(L,((t/L.period)+B.ph)%1))));
+      if(faultMat&&S.fault!=="resolved")faultMat.emissiveIntensity=(Math.floor(t*4)%4<2)?9:1.5};
+    boardReady=true;checkBoot()},()=>{boardReady=true;checkBoot()});}).catch(()=>{boardReady=true;checkBoot()});
+
+} /* end desktop 3D */
 const camPos=V(0,0,0),camLook=V(0,0,0);let camInit=false;
 
 /* ---------- workflow: investigate an equipment alert ---------- */
@@ -447,7 +550,7 @@ const clockStr=()=>{const h=S.hour,hh=Math.floor(h),mm=Math.floor((h-hh)*60);ret
 const CREWS={c4:{name:"Crew 4",base:"Placerville",eta:18},c2:{name:"Crew 2",base:"Folsom",eta:35}};
 function setState(s){W.state=s;renderPanel();renderPins()}
 function resetWorkflow(){W.run++;Object.assign(W,{alert:null,action:null,crew:"c4",note:"",tries:0,step:0,reply:false,acked:false,ev:{}});S.fault="active";setFaultVisual(false);focusCam(false)}
-function raiseAlert(){if(W.alert)return;W.alert={id:"A-2207"};W.ev={raised:clockStr()};S.fault="active";setFaultVisual(false);setState("alert");toast("New alert · Partial discharge rising on bushing B",true)}
+function raiseAlert(){if(W.alert)return;W.alert={id:"A-2207"};W.ev={raised:clockStr()};S.fault="active";setFaultVisual(false);setState("alert");toast("New alert · Partial discharge is rising on bushing B",true)}
 async function investigate(fast){const run=W.run;if(!W.alert)return;W.ev.opened=clockStr();focusCam(true);setState("loading");
   await sleep(fast?450:1100);if(run!==W.run)return;setState(D==="dataerr"?"detail-err":"detail")}
 async function retryTrend(){const run=W.run;setState("loading");await sleep(800);if(run!==W.run)return;D="live";$("demo").value="live";setState("detail")}
@@ -467,8 +570,9 @@ function resolveAlert(){W.ev.resolved=clockStr();S.fault="resolved";setFaultVisu
 function backToOverview(){focusCam(false);if(W.state==="resolved"){W.alert=null;setState("empty")}else setState("alert")}
 
 /* fault visuals on the model and the board */
-let faultMat=null,faultColor=null,TEAL=new THREE.Color(COL.accent);
+let faultMat=null,faultColor=null,TEAL=THREE?new THREE.Color(COL.accent):null;
 function setFaultVisual(resolved){
+  if(!TEAL)return;
   if(faultMat){if(resolved){faultMat.emissive.copy(TEAL);faultMat.color.copy(TEAL);faultMat.emissiveIntensity=2.2}else{faultMat.emissive.copy(faultColor);faultMat.color.copy(faultColor)}}
   if(ringBMat){ringBMat.emissive.copy(resolved?TEAL:ringBColor);ringBMat.color.copy(resolved?TEAL:ringBColor)}
   if(rings[1])rings[1].r.material=resolved?M.glowA:M.glowO}
@@ -476,17 +580,17 @@ function setFaultVisual(resolved){
 /* ---------- panel templates ---------- */
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const sk=(w,h,mt=0)=>`<div class="sk" style="width:${w};height:${h}px;margin-top:${mt}px"></div>`;
-const CHECK='<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CHECK='<svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function head(chip){return `<div class="hd"><div class="row" style="align-items:center;margin-bottom:10px">${chip}<span class="chip">${W.alert?W.alert.id:""}</span></div>
-  <div class="t">Partial discharge rising on bushing B</div><div class="w">Transformer T2 · Sierra Gate · raised ${W.ev.raised||"—"}</div></div>`}
+  <div class="t">Partial discharge is rising on bushing B</div><div class="w">Transformer T2 · Sierra Gate · raised ${W.ev.raised||"—"}</div></div>`}
 function trendSVG(){const days=["Sep 28","Sep 29","Sep 30","Oct 1","Oct 2","Oct 3","Today"],B=[338,346,352,365,381,402,pdB()],A=[121,118,124,119,122,120,118],C=[139,142,138,141,144,140,141];
   const w=360,h=120,L=8,R=8,y0=12,yb=100,x=i=>L+i*(w-L-R)/6,y=v=>yb-((v-300)/220)*(yb-y0);const line=a=>a.map((v,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1)).join(" ");
   return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Partial discharge on bushing B rose from 338 to ${pdB()} pC over 7 days, under the 500 pC limit">
-   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="9.5" font-family="JetBrains Mono, monospace">limit 500 pC</text>
-   <path d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
-   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="11" font-family="JetBrains Mono, monospace">${B[6]} pC</text>
-   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="9.5" font-family="JetBrains Mono, monospace">${d}</text>`:"").join("")}
-   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
+   <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="12">limit 500 pC</text>
+   <path aria-hidden="true" d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path aria-hidden="true" d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
+   <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="12">${B[6]} pC</text>
+   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="12">${d}</text>`:"").join("")}
+   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="12">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
 function readings(){return `<div class="read"><div><small>Now</small><b class="warn" id="pdNow">${pdB()} pC</b><span>limit 500</span></div><div><small>7 days</small><b>+${Math.round((pdB()/338-1)*100)}%</b><span>was 338</span></div><div><small>Hydrogen</small><b>118 ppm</b><span>watch &gt; 100</span></div></div>`}
 function cause(){return `<div><div class="sec"><span>Likely cause</span><span>from sensor patterns</span></div><div class="cause">
   <div class="c top"><b>Moisture in bushing B insulation</b><ul><li>Discharge climbs on humid nights</li><li>Hydrogen up 15% in 7 days</li><li>Phases A and C stay flat</li></ul></div>
@@ -514,7 +618,7 @@ function renderPanel(){const p=$("panel"),s=W.state,cr=CREWS[W.crew];let h="";
   else if(s==="empty")h=`<h2>Alerts <i>0 open</i></h2><div class="empty"><span class="okmark">${CHECK}</span><b>No open alerts</b><div class="sub" style="margin:0">All 9 substations are within limits.${W.resolvedToday?` ${W.resolvedToday} alert resolved today.`:""}</div></div>`;
   else if(s==="alert")h=`<h2>Alerts <i>1 open</i></h2><div class="alert${W.acked?" acked":""}"><span class="sev"></span><div><div class="row" style="gap:6px;margin-bottom:6px"><span class="chip ${W.acked?"":"warn"}">${W.acked?"Acknowledged":"Warning"}</span></div><div class="t">Partial discharge rising</div><div class="w">Bushing B · Transformer T2 · Sierra Gate</div>
       <div class="meta"><span>Raised ${W.ev.raised}</span><span id="pdRow">${pdB()} pC · limit 500</span></div></div></div>
-      <div class="row" style="margin-top:14px"><button class="btn pri" data-act="investigate">Investigate</button>${W.acked?'<button class="btn" data-act="dispatch">Dispatch crew</button>':""}</div><p class="note" style="margin:10px 0 0">Or click bushing B on the model.</p>`;
+      <div class="row" style="margin-top:14px"><button class="btn pri" data-act="investigate">Investigate</button>${W.acked?'<button class="btn" data-act="dispatch">Dispatch crew</button>':""}</div><p class="note" style="margin:10px 0 0">${narrow?"The reading is on bushing B.":"Or click bushing B on the model."}</p>`;
   else if(s==="loading")h=`<div class="dt">${head('<span class="chip warn">Warning</span>')}<div class="read">${["","",""].map(()=>`<div>${sk("50%",9)}${sk("80%",20,8)}</div>`).join("")}</div>${sk("100%",110)}${sk("40%",10)}${sk("100%",70,4)}</div>`;
   else if(s==="detail"||s==="detail-err")h=`<div class="dt">${head('<span class="chip warn">Warning</span>')}${readings()}
       <div class="trend"><div class="sec"><span>Partial discharge · 7 days</span><span>pC</span></div>${s==="detail"?trendSVG():`<div class="err"><div><b>Couldn't load the 7-day trend.</b><br>The live readings above are still current.</div><button class="btn" data-act="retry">Retry</button></div>`}</div>
@@ -543,7 +647,7 @@ $("panel").addEventListener("change",e=>{if(e.target.name==="crew")W.crew=e.targ
 function renderStatus(k=1){const el=$("status");
   if(W.state==="boot"||D==="loading"){if(el.dataset.mode!=="sk"){el.dataset.mode="sk";el.innerHTML=`<h2>Unit status <i>connecting</i></h2><div class="gauge"><div class="sk" style="width:92px;height:92px;border-radius:50%"></div><div>${sk("120px",40)}${sk("90px",12,10)}</div></div><div class="rule"></div>${sk("60%",12)}${sk("40%",40,8)}${sk("100%",50,8)}`}return}
   if(el.dataset.mode!=="live"){el.dataset.mode="live";el.innerHTML=`<h2>Unit status <i>now</i></h2>
-    <div class="gauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,222,190,.1)" stroke-width="7" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><circle id="gArc" cx="50" cy="50" r="40" fill="none" stroke="var(--bronze)" stroke-width="7" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><text id="gPct" x="50" y="56" text-anchor="middle" fill="var(--cream)" font-family="JetBrains Mono, monospace" font-size="15">0%</text></svg>
+    <div class="gauge"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,222,190,.1)" stroke-width="7" stroke-dasharray="188.5 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><circle id="gArc" cx="50" cy="50" r="40" fill="none" stroke="var(--bronze)" stroke-width="7" stroke-dasharray="0 251.3" transform="rotate(135 50 50)" stroke-linecap="round"/><text id="gPct" x="50" y="56" text-anchor="middle" fill="var(--cream)" font-size="15">0%</text></svg>
     <div><div class="big" id="vLoad">0<small>MW</small></div><div class="sub">load · of 240 MVA rating</div></div></div>
     <div class="rule"></div><div><div class="big" id="vTemp">0<small>°C</small></div><div class="sub" id="vTempS">top-oil temperature</div><svg class="spark" id="spark" preserveAspectRatio="none" aria-hidden="true"></svg></div>
     <div class="rule"></div><div class="row" style="justify-content:space-between;align-items:center"><span class="sub" style="margin:0">Bushing health</span><span id="bh"></span></div>`;countUp()}
@@ -556,19 +660,19 @@ function renderStatus(k=1){const el=$("status");
 let countFrom=null;function countUp(){countFrom=performance.now()}
 function drawSpark(){const s=$("spark");if(!s)return;const w=300,h=56;s.setAttribute("viewBox",`0 0 ${w} ${h}`);const x=t=>t/24*w,y=v=>h-4-(v-40)/(95-40)*(h-10);
   let d="";for(let t=0;t<=24;t+=.5)d+=(t?"L":"M")+x(t).toFixed(1)+" "+y(temp(t)).toFixed(1);
-  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">95 °C alarm</text>
+  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="12">95 °C alarm</text>
    <path d="${d} L${w} ${h} L0 ${h}Z" fill="rgba(111,227,208,.08)"/><path d="${d}" fill="none" stroke="#6FE3D0" stroke-width="1.6"/><circle cx="${x(S.hour)}" cy="${y(temp(S.hour))}" r="3.5" fill="#6FE3D0"/>`}
-function renderPins(){PINS.forEach(p=>{p.el.classList.toggle("warn",p.warn());p.b.textContent=p.val()})}
+function renderPins(){PINS.forEach(p=>{if(!p.el)return;p.el.classList.toggle("warn",p.warn());p.b.textContent=p.val()})}
 function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textContent=pdB()+" pC";const r=$("pdRow");if(r)r.textContent=pdB()+" pC · limit 500";
   $("clock").firstChild.nodeValue=clockStr();drawCurve()}
 function drawCurve(){const svg=$("curveSvg"),w=$("curve").clientWidth||800,h=52;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
   const x=t=>t/24*w,yl=v=>h-4-(v-100)/120*(h-10),yt=v=>h-4-(v-40)/(95-40)*(h-10);let a="",b="";
   for(let t=0;t<=24;t+=.25){a+=(t?"L":"M")+x(t).toFixed(1)+" "+yl(load(t)).toFixed(1);b+=(t?"L":"M")+x(t).toFixed(1)+" "+yt(temp(t)).toFixed(1)}
-  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="9" font-family="JetBrains Mono, monospace">${String(t).padStart(2,"0")}:00</text>`).join("");
+  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="12">${String(t).padStart(2,"0")}:00</text>`).join("");
   svg.innerHTML=`${ticks}<path d="${a} L${w} ${h} L0 ${h}Z" fill="rgba(192,138,87,.12)"/><path d="${a}" fill="none" stroke="#C08A57" stroke-width="1.8"/><path d="${b}" fill="none" stroke="#6FE3D0" stroke-width="1.2" opacity=".8"/>
    <line x1="${x(S.hour)}" x2="${x(S.hour)}" y1="0" y2="${h}" stroke="#F4E7D7" stroke-width="1" opacity=".7"/><circle cx="${x(S.hour)}" cy="${yl(load(S.hour))}" r="4" fill="#F4E7D7"/>`
   {const cv=$("curve"),m=Math.round(S.hour*60)%1440,hh=Math.floor(m/60),mm=m%60,txt=`${(hh%12)||12}:${String(mm).padStart(2,"0")} ${hh<12?"AM":"PM"}`;if(cv.getAttribute("aria-valuetext")!==txt){cv.setAttribute("aria-valuenow",(m/60).toFixed(2));cv.setAttribute("aria-valuetext",txt)}}}
-{const cv=$("curve");let d=false;const set=e=>{const r=cv.getBoundingClientRect();S.hour=THREE.MathUtils.clamp((e.clientX-r.left)/r.width*24,0,23.99);setPlay(false);liveTick()};
+{const cv=$("curve");let d=false;const set=e=>{const r=cv.getBoundingClientRect();S.hour=clamp((e.clientX-r.left)/r.width*24,0,23.99);setPlay(false);liveTick()};
  cv.addEventListener("pointerdown",e=>{d=true;cv.setPointerCapture(e.pointerId);set(e)});cv.addEventListener("pointermove",e=>{if(d)set(e)});cv.addEventListener("pointerup",()=>d=false);
  cv.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){S.hour=(S.hour+(e.key==="ArrowRight"?.25:-.25)+24)%24;setPlay(false);liveTick()}})}
 function setPlay(p){S.playing=p;$("play").textContent=p?"❚❚ Pause":"▶ Play"}
@@ -582,75 +686,32 @@ function maybeAlert(delay=1800){clearTimeout(alertTimer);if(S.mode==="film"||W.a
 $("demo").addEventListener("change",e=>{D=e.target.value;resetWorkflow();clearTimeout(alertTimer);
   if(D==="loading"){W.state="boot";renderPanel();$("status").dataset.mode="";renderStatus();return}
   $("status").dataset.mode="";setState("empty");renderStatus();if(D!=="empty")maybeAlert(D==="live"?900:200)});
-function reveal(on){$("hud").classList.toggle("on",on);PINS.forEach(p=>p.el.style.opacity=on?1:0);if(on){countUp();maybeAlert()}}
+function reveal(on){$("hud").classList.toggle("on",on);PINS.forEach(p=>{if(p.el)p.el.style.opacity=on?1:0});if(on){countUp();maybeAlert()}}
 function endIntro(){S.mode="orbit";$("skip").hidden=true;if(!$("hud").classList.contains("on"))reveal(true);
+  if(narrow||!THREE)return;
   orbit.theta=Math.atan2(21.8,19);orbit.phi=FLOOR.visible?1.1:.98;orbit.r=baseR();orbit.look=V(0,3.9,0);overview=null;if(W.state!=="empty"&&W.state!=="alert"&&W.state!=="boot")focusCam(true)}
 const FILM=[[6,()=>reveal(true)],[7.4,()=>raiseAlert()],[9.2,()=>investigate(true)],[10.6,()=>chooseAction("dispatch")],[11.2,()=>confirmAction(true)],[12.9,()=>$("endcard").classList.add("on")]];
 let filmNext=0;
 function filmReset(){S.t=0;filmNext=0;reveal(false);$("endcard").classList.remove("on");resetWorkflow();D="live";$("demo").value="live";if(t2Ready&&boardReady){W.state="empty";renderPanel()}S.hour=14;renderStatus()}
-function startFilm(){S.mode="film";stage.classList.add("film");$("skip").hidden=true;clearTimeout(alertTimer);filmReset();toast("Film mode: 15 s loop. Press Esc to exit.")}
+function startFilm(){S.mode="film";stage.classList.add("film");$("skip").hidden=true;clearTimeout(alertTimer);filmReset();toast("Film mode plays a 15-second loop. Press Esc to exit.")}
 function exitFilm(){stage.classList.remove("film");$("endcard").classList.remove("on");endIntro()}
 $("filmBtn").addEventListener("click",startFilm);
 $("skip").addEventListener("click",endIntro);
 addEventListener("keydown",e=>{if(e.key==="Escape"&&S.mode==="film")exitFilm()});
 
-/* ---------- loop + adaptive quality ---------- */
-const clock=new THREE.Clock(),v3=new THREE.Vector3();let lastTick=0;
-function project(p){const w=canvas.clientWidth,h=canvas.clientHeight;v3.copy(p).project(cam);return{x:(v3.x*.5+.5)*w,y:(-v3.y*.5+.5)*h,vis:v3.z<1}}
-/* starts light for integrated graphics; turns on ambient occlusion only on fast machines; steps down if frames run slow */
-const Q={n:0,acc:0,level:0,checks:0,hi:false};
-function adapt(raw){if(!renderer||Q.checks>=4)return;Q.n++;Q.acc+=raw;if(Q.n<120)return;const ms=Q.acc/Q.n*1000;Q.n=0;Q.acc=0;Q.checks++;
-  if(ms<12&&!Q.hi&&Q.level===0&&canvas.clientWidth>=1100){Q.hi=true;gtao.enabled=true;return}
-  if(ms>24){if(Q.hi){Q.hi=false;gtao.enabled=false;return}Q.level=Math.min(2,Q.level+1);
-    if(Q.level===2){renderer.setPixelRatio(1);size();key.shadow.mapSize.set(1024,1024);if(key.shadow.map){key.shadow.map.dispose();key.shadow.map=null}}}}
-function frame(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math.min(raw,.05),t=clock.elapsedTime;adapt(raw);
-  if(S.playing&&S.mode!=="film")S.hour=(S.hour+dt*.05)%24;
-  let target;
-  if(S.mode==="intro"){S.t+=dt;if(S.t>6&&!$("hud").classList.contains("on"))reveal(true);if(S.t>=7)endIntro();target=filmCam(Math.min(S.t,6.5))}
-  if(S.mode==="film"){S.t+=dt;while(filmNext<FILM.length&&S.t>=FILM[filmNext][0]){FILM[filmNext][1]();filmNext++}if(S.t>=15)filmReset();target=filmCam(Math.min(S.t,15))}
-  if(S.mode==="orbit"){if(!drag&&!reduce&&!overview&&performance.now()-lastInput>4000)orbit.theta+=dt*.04;
-    target={pos:V(orbit.look.x+orbit.r*Math.sin(orbit.phi)*Math.cos(orbit.theta),orbit.look.y+orbit.r*Math.cos(orbit.phi),orbit.look.z+orbit.r*Math.sin(orbit.phi)*Math.sin(orbit.theta)),look:orbit.look}}
-  if(!camInit){camPos.copy(target.pos);camLook.copy(target.look);camInit=true}
-  const k=S.mode==="orbit"?.07:1;camPos.lerp(target.pos,k);camLook.lerp(target.look,k);
-  if(countFrom!=null){const c=Math.min(1,(performance.now()-countFrom)/1300);renderStatus(1-Math.pow(1-c,3));if(c>=1)countFrom=null}
-  else if(t-lastTick>.3){lastTick=t;liveTick()}
-  if(!renderer)return;
-  cam.position.copy(camPos);cam.lookAt(camLook);
-  bokeh.enabled=Q.level===0&&S.mode!=="orbit";bokeh.uniforms.focus.value=camPos.distanceTo(camLook);bokeh.uniforms.aperture.value=.0022;
-  const L=load(S.hour);(glbFans||fans).forEach((f,i)=>f.rotation.y+=dt*(L>165||i%2===0?14:0));
-  if(glbRings)glbRings.forEach(r=>{const p=((t*.45+r.phase)%1);r.o.position.y=5.53+p*2.9;r.o.scale.setScalar(1+Math.sin(p*Math.PI)*.15)});
-  if(boardTick)boardTick(t,dt);
-  rings.forEach(r=>{const p=((t*.45+r.phase)%1);r.r.position.y=.5+p*2.9;r.r.scale.setScalar(1+Math.sin(p*Math.PI)*.15);r.r.visible=!reduce});
-  led.visible=Math.sin(t*3)>0;
-  PINS.forEach(p=>{const q=project(p.p);p.el.style.transform=`translate(${q.x.toFixed(1)}px,${q.y.toFixed(1)}px)`;p.el.classList.toggle("below",q.y<150);if(!q.vis)p.el.style.opacity=0});
-  composer.render()}
-
-/* ---------- gold circuit board scene: feeders, substation chips, energy pulses ---------- */
-let boardTick=null;
-Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
-  const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));
-  new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene,k=1/P.scale;
-    root.scale.setScalar(k);root.position.y=-.1*k;
-    root.traverse(o=>{if(o.isMesh){o.receiveShadow=true;o.castShadow=/^Sub\d$/.test(o.name);
-      const m=o.material;if(!m)return;
-      if(m.name==="Orange"&&o.name==="FaultTrace"){o.material=m.clone();faultMat=o.material;faultMat.toneMapped=false;faultColor=faultMat.emissive.clone()}
-      else if(m.name==="Orange")m.toneMapped=false;
-      if(m.name==="Teal"){m.toneMapped=false;m.emissiveIntensity=2.2}
-      if(m.name==="Board"||m.name==="Chip"){m.envMapIntensity=.08;m.clearcoat=0;m.roughness=.62;m.color.multiplyScalar(.8)}
-      if(m.name==="Gold"||m.name==="GoldDim"){m.envMapIntensity=.9}}});
-    scene.add(root);FLOOR.visible=false;if(!overview)orbit.r=baseR();if(S.mode==="orbit"&&!overview)orbit.phi=.98;
-    if(S.fault==="resolved")setFaultVisual(true);
-    const pm=new THREE.MeshBasicMaterial({color:0xBFFFF4,toneMapped:false}),pg=new THREE.SphereGeometry(.15,10,6);
-    const lanes=P.live.map((pts,i)=>{const v=pts.map(q=>new THREE.Vector3(q[0]*k,(.12-.1)*k,-q[1]*k));
-      const seg=[];let tot=0;for(let a=0;a<v.length-1;a++){const l=v[a].distanceTo(v[a+1]);seg.push(l);tot+=l}
-      const balls=[0,.5].map(ph=>{const b=new THREE.Mesh(pg,pm);scene.add(b);return{b,ph:ph+i*.13}});
-      return{v,seg,tot,balls,period:3+i*.25}});
-    const at=(L,u)=>{let d=u*L.tot;for(let a=0;a<L.seg.length;a++){if(d<=L.seg[a])return L.v[a].clone().lerp(L.v[a+1],L.seg[a]?d/L.seg[a]:0);d-=L.seg[a]}return L.v[L.v.length-1].clone()};
-    boardTick=t=>{lanes.forEach(L=>L.balls.forEach(B=>B.b.position.copy(at(L,((t/L.period)+B.ph)%1))));
-      if(faultMat&&S.fault!=="resolved")faultMat.emissiveIntensity=(Math.floor(t*4)%4<2)?9:1.5};
-    boardReady=true;checkBoot()},()=>{boardReady=true;checkBoot()});}).catch(()=>{boardReady=true;checkBoot()});
-
-if(reduce){S.mode="orbit";reveal(true)}else{$("skip").hidden=false}
+let lastTick=0;
+if(reduce||narrow){S.mode="orbit";$("skip").hidden=true;if(t2Ready&&boardReady)checkBoot();reveal(true)}else{$("skip").hidden=false}
+if(narrow){
+  let prev=performance.now();
+  frame=function(){
+    requestAnimationFrame(frame);
+    const now=performance.now(),dt=Math.min((now-prev)/1000,.05);prev=now;
+    if(S.playing&&S.mode!=="film")S.hour=(S.hour+dt*.05)%24;
+    if(S.mode==="film"){S.t+=dt;while(filmNext<FILM.length&&S.t>=FILM[filmNext][0]){FILM[filmNext][1]();filmNext++}if(S.t>=15)filmReset()}
+    if(countFrom!=null){const c=Math.min(1,(now-countFrom)/1300);renderStatus(1-Math.pow(1-c,3));if(c>=1)countFrom=null}
+    else if(now/1000-lastTick>.3){lastTick=now/1000;liveTick()}
+  };
+}
 renderPanel();renderStatus();renderPins();frame();
 </script>
 </body>

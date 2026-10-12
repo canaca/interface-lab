@@ -1,5 +1,7 @@
 # Valley Grid Ops: investigate an equipment alert
 
+October 2026 concept. **Role:** Concept direction. **Tools:** AI-assisted build (Claude, Cursor). The 3D scene was generated with those tools under Cesar Navarro's direction. He did not model it by hand. Not tested with real operators or live data. The substation, crews, and readings are fictional.
+
 ## Problem
 Grid operators get alarms with numbers but no context. Deciding whether a reading needs a crew means jumping between monitoring screens, trend tools and phone calls.
 
@@ -7,16 +9,16 @@ Grid operators get alarms with numbers but no context. Deciding whether a readin
 A control-room operator on shift, responsible for nine substations, who needs to understand and act on an alert in a few minutes.
 
 ## Key decisions
-1. **The equipment is the interface.** The alert lives on the 3D transformer. Clicking the faulty bushing opens the investigation, and the camera moves to it.
-2. **One panel, one path.** Alert, evidence, likely cause, action, confirmation and resolution all happen in the same panel, so the operator never loses context.
-3. **Evidence before advice.** Readings and the 7-day trend come first. The likely cause is labeled as a suggestion, not a diagnosis.
-4. **Every action confirms.** Dispatch, acknowledge and escalate each show what will happen before anything is sent. A failed dispatch says nothing was sent and keeps the operator's choices.
-5. **Every state is designed.** Empty, loading, data error and dispatch error each have their own screen. Use the States menu to review them.
+1. **You work right on the 3D equipment.** The alert lives on the 3D transformer. Clicking the faulty bushing opens the investigation, and the camera moves to it.
+2. **One panel holds every step.** Alert, evidence, likely cause, action, confirmation and resolution all happen in the same panel, so the operator never loses context.
+3. **You see the evidence before any advice.** Readings and the 7-day trend come first. The likely cause is labeled as a suggestion, not a diagnosis.
+4. **Every action asks you to confirm before it sends.** Dispatch, acknowledge and escalate each show what will happen before anything is sent. A failed dispatch says nothing was sent and keeps the operator's choices.
+5. **Empty, loading, and error screens are all designed.** Empty, loading, data error and dispatch error each have their own screen. Use the States menu to review them.
 6. **A quiet palette, one accent,** so warnings read instantly.
 
 ## Concept vs real
 **Concept:** all data, people, crews and the substation are fictional.
-**Real:** the working interface, the live 3D scene (built with AI-assisted tooling: Claude, Cursor) running in Three.js, the full state flow, and graphics quality that adapts to laptop hardware.
+**Real:** the interface and its state flow run in the browser. On a wide screen the 3D scene is the detailed model. On a phone the same workflow runs in the panel, and the 3D scene is not downloaded, so the page can load. AI-assisted build (Claude, Cursor).
 **Not built:** live sensor data, sign-in, and a real crew dispatch integration.
 
 ---

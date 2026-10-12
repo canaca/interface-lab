@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Keel · Seeing account health before renewal</title>
+<meta name="description" content="October 2026 concept: a customer-success book of fictional accounts, scored from visible signals, with filters, a save plan, and a sample export.">
+<meta name="theme-color" content="#0F0C0A">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Keel · Seeing account health before renewal">
+<meta property="og:description" content="October 2026 concept: a customer-success book of fictional accounts, scored from visible signals, with filters, a save plan, and a sample export.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/keel/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/keel.jpg">
+<meta property="og:image:alt" content="Keel: a sample account book with health, renewal, and a save plan waiting for a person">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keel · Seeing account health before renewal">
+<meta name="twitter:description" content="October 2026 concept. Fictional accounts. A working health board for a success or account manager.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/keel.jpg">
+<meta name="twitter:image:alt" content="Keel: a sample account book with health, renewal, and a save plan waiting for a person">
+<style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 60%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+.m{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1560px;margin:0 auto;padding-inline:20px;padding-block:18px 40px}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.brand{display:flex;align-items:baseline;gap:10px}
+h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;letter-spacing:inherit}
+.brand b{font-weight:600;font-size:18px;letter-spacing:-.01em}
+.brand span{color:var(--muted)}
+a.home{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);text-decoration:none}
+a.home:hover{color:var(--cream)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
+.sp{flex:1}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.tbtn:hover{border-color:var(--edge-2)}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
+.card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2 i{font-style:normal;color:var(--dim)}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
+.btn:hover{border-color:var(--cream)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
+.btn.ghost:hover{color:var(--cream)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.5)}
+.sub{color:var(--muted);font-size:13px;line-height:1.5}
+.note{font-size:11.5px;color:var(--dim);line-height:1.45;margin:0}
+.sec{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-bottom:8px;display:flex;justify-content:space-between;gap:8px}
+.err{padding:12px 14px;border-radius:12px;border:1px dashed rgba(226,114,91,.55);color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.err b{color:var(--cream);font-weight:500}
+.sheet{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:14px;background:rgba(18,13,10,.55);border:1px solid var(--edge-2);animation:arrive .35s ease-out}
+.sheet .q{font-size:16px;font-weight:500}
+.sheet textarea,.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13px}
+.sheet textarea{min-height:60px;resize:vertical}
+@keyframes arrive{from{opacity:0;transform:translateY(-6px)}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:#1B140F;animation:sp .8s linear infinite;display:inline-block}
+.spin.lt{border-color:rgba(255,222,190,.2);border-top-color:var(--cream)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.sk{border-radius:8px;background:linear-gradient(90deg,rgba(255,222,190,.05) 20%,rgba(255,222,190,.12) 50%,rgba(255,222,190,.05) 80%);background-size:200% 100%;animation:sh 1.2s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.okmark{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(111,227,208,.4);color:var(--accent);background:rgba(111,227,208,.08);flex:none}
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:8px 0}
+.empty b{font-size:18px;font-weight:500}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer;color:var(--cream)}
+.cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
+.cs h2{margin:10px 0 0;font-family:var(--sans);font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance;text-transform:none;color:var(--cream)}
+.cs .lede{color:var(--muted);font-size:15px;margin-top:12px;max-width:52ch}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:14px 20px;margin:0}
+.cs dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding-top:3px}
+.cs dd{margin:0;font-size:14.5px;line-height:1.55;max-width:64ch}
+.cs ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.cs ol b{font-weight:600}
+.contact{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.contact code{color:var(--cream);user-select:all}
+.foot{margin-top:28px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;border:1px dashed var(--edge-2);color:var(--muted);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{text-align:left;cursor:pointer;color:inherit;font:inherit}
+.kpi b{display:block;font-weight:400;font-size:28px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi.on{border-color:var(--accent)}
+.lay{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.85fr);gap:14px;align-items:start}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters input,.filters select{background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;min-width:0}
+.filters input{flex:1;min-width:140px}
+.scroll{overflow:auto;max-height:640px}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;position:sticky;top:0;background:#1A1410}
+td{padding:10px 8px;border-top:1px solid var(--edge);vertical-align:middle}
+tr.acct{cursor:pointer}
+tr.acct:hover td{background:rgba(255,222,190,.04)}
+tr.acct.on td{background:rgba(111,227,208,.07)}
+.nm{font-weight:500}
+.nm small{display:block;color:var(--dim);font-weight:400;font-size:12px}
+.meter{width:72px;height:6px;border-radius:99px;background:rgba(255,222,190,.1);overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}
+.meter i{display:block;height:100%;background:var(--accent)}
+.meter.watch i{background:var(--orange)}
+.meter.risk i{background:var(--red)}
+.parts{display:flex;flex-direction:column;gap:8px;margin:8px 0 14px}
+.part{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:13px}
+.part .track{grid-column:1/-1;height:4px;border-radius:99px;background:rgba(255,222,190,.1);overflow:hidden}
+.part .track i{display:block;height:100%;background:var(--accent)}
+.act{list-style:none;margin:0;padding:0}
+.act li{padding:8px 0;border-top:1px solid var(--edge);font-size:13px}
+.act li:first-child{border-top:0}
+.act .w{display:block;font-family:var(--mono);font-size:10.5px;color:var(--dim)}
+.task{display:grid;grid-template-columns:1fr auto;gap:4px 8px;padding:10px 0;border-top:1px solid var(--edge);align-items:center}
+.task:first-child{border-top:0}
+.task.done{opacity:.5}
+.task.done b{text-decoration:line-through}
+@media (max-width:1100px){.lay,.kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.kpis{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.lay,.kpis{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){.cs{grid-template-columns:minmax(0,1fr)}.cs dl{grid-template-columns:1fr}.cs dt{padding-top:0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<div class="wrap">
+  <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
+    <h1 class="brand"><b>Keel</b><span>Account health</span></h1>
+    <span class="crumbs" id="crumbs">FIELDNOTE · SAMPLE BOOK</span>
+    <span class="sp"></span>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state">
+      <option value="live">Live book</option>
+      <option value="empty">Empty · no accounts</option>
+      <option value="loading">Loading</option>
+      <option value="saveerr">Error · save fails</option>
+    </select></label>
+    <span class="tag">Concept · October 2026</span>
+  </header>
+  <p class="banner">Sample data for a fictional product, Fieldnote. The health score adds up five signals you can see. It is not a prediction or a finance report. Nothing here changes a real customer list.</p>
+  <div class="kpis" id="kpis"></div>
+  <div class="lay">
+    <section class="card" aria-label="Account book">
+      <h2>Book <i id="bookNote">10 sample accounts</i></h2>
+      <div class="filters" id="filters"></div>
+      <div class="scroll" tabindex="0"><table id="tbl" aria-label="Accounts"></table></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn sm" id="exportBtn" type="button">Export CSV</button>
+        <button class="btn sm" id="copyBtn" type="button">Copy summary</button>
+        <button class="btn sm ghost" id="resetBtn" type="button">Reset sample book</button>
+        <span class="sp"></span>
+        <button class="btn sm" id="undoBtn" type="button" disabled>Undo</button>
+      </div>
+    </section>
+    <aside style="display:flex;flex-direction:column;gap:14px">
+      <section class="card" aria-label="Account detail" aria-live="polite"><h2>Account <i id="detNote">select one</i></h2><div id="detail"></div></section>
+      <section class="card" aria-label="Open tasks"><h2>Tasks <i id="taskNote">open</i></h2><div id="tasks"></div></section>
+    </aside>
+  </div>
+
+  <section class="cs" aria-label="Case study">
+    <div><span class="tag">Concept · October 2026</span><h2>Seeing which accounts need someone to reach out this week</h2>
+      <p class="lede">A success or account manager opens one book, sees why an account is at risk, and logs the next step. The score is the sum of the signals on the card.</p>
+      <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>Renewal week arrives and the account list is a spreadsheet of names. The account owner can't see in one place who went quiet, whose main contact left, and whose onboarding never finished.</dd>
+      <dt>User</dt><dd>A customer success or account manager working a book of business-to-business accounts.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>You can see what makes up each score.</b> Five signals, each with points. No hidden model and no revenue forecast.</li>
+        <li><b>Filters narrow the list.</b> Health, owner, plan, and a focus (needs a touch, renewal soon, onboarding stalled) all narrow the same list. The numbers at the top match your filters.</li>
+        <li><b>You confirm each next step.</b> Check-in, save plan, and onboarding follow-up ask for a note before anything is logged. You can snooze an account, but only on purpose.</li>
+        <li><b>A failed save keeps the note.</b> The error says nothing was logged. Try again uses the same words.</li>
+        <li><b>Export saves only what your filters show.</b> The file says the data is fictional.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the book, the account, the task list, undo, and export, with empty, loading, and save-error states. Not tested with a real success team. It makes no claim about how many customers stay or leave.</dd>
+      <dt>Date</dt><dd>October 2026 concept, directed by Cesar Navarro with AI tools (Claude, Cursor). Not a client engagement, and not a finance tool.</dd>
+      <dt>Label</dt><dd>Concept. Fieldnote, the accounts, and the people are fictional.</dd>
+    </dl>
+  </section>
+  <div class="foot"><span>Interface Lab · Keel · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></div>
+</div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button id="toastUndo" hidden type="button">Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,reduce?Math.min(ms,40):ms));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const BAND={healthy:"Healthy",watch:"Watch",risk:"At risk"};
+const OWNERS=["Priya Shah","Marcus Hale","Elena Voss"];
+function seedAccounts(){return [
+  {id:"a1",n:"Summit Heating",plan:"Growth",seats:40,active:12,renewal:21,owner:"Priya Shah",touch:33,tickets:4,onboard:"stalled",champion:"left",qbr:"overdue",snooze:0,note:"Champion left in September. Training never finished.",log:[["Sep 12","Champion replied that she was leaving."],["Aug 2","Kickoff call."]]},
+  {id:"a2",n:"Lakeside Dental",plan:"Scale",seats:80,active:71,renewal:120,owner:"Marcus Hale",touch:4,tickets:0,onboard:"complete",champion:"known",qbr:"scheduled",snooze:0,note:"Steady. QBR is already on the calendar.",log:[["Oct 6","QBR held. No open asks."]]},
+  {id:"a3",n:"Brightline Plumbing",plan:"Growth",seats:24,active:11,renewal:18,owner:"Elena Voss",touch:12,tickets:1,onboard:"partial",champion:"unknown",qbr:"none",snooze:0,note:"Usage dropped after the second location opened.",log:[["Sep 28","Asked who the day-to-day owner is. No answer yet."]]},
+  {id:"a4",n:"Granite Legal",plan:"Starter",seats:8,active:7,renewal:200,owner:"Priya Shah",touch:2,tickets:0,onboard:"complete",champion:"known",qbr:"scheduled",snooze:0,note:"Small book. Last touch was a check-in.",log:[["Oct 8","Check-in. Happy with scheduling."]]},
+  {id:"a5",n:"Copperleaf Spa",plan:"Growth",seats:30,active:9,renewal:9,owner:"Marcus Hale",touch:27,tickets:3,onboard:"partial",champion:"left",qbr:"overdue",snooze:0,note:"Renewal is inside 10 days and the champion is gone.",log:[["Sep 13","Ticket: staff cannot see the shared calendar."]]},
+  {id:"a6",n:"Fernwood Labs",plan:"Scale",seats:55,active:40,renewal:45,owner:"Elena Voss",touch:8,tickets:1,onboard:"complete",champion:"known",qbr:"scheduled",snooze:0,note:"One open ticket about a report export.",log:[["Oct 2","Replied on the export ticket."]]},
+  {id:"a7",n:"Atlas Movers",plan:"Growth",seats:22,active:6,renewal:14,owner:"Priya Shah",touch:41,tickets:1,onboard:"stalled",champion:"unknown",qbr:"none",snooze:0,note:"Onboarding stopped after the admin invite.",log:[["Aug 30","Admin invite sent. Never accepted."]]},
+  {id:"a8",n:"Keystone Rehab",plan:"Starter",seats:12,active:10,renewal:60,owner:"Elena Voss",touch:6,tickets:0,onboard:"complete",champion:"known",qbr:"scheduled",snooze:0,note:"Healthy. No open work.",log:[["Oct 4","Short check-in."]]},
+  {id:"a9",n:"Harbor Dental",plan:"Growth",seats:36,active:20,renewal:28,owner:"Marcus Hale",touch:19,tickets:2,onboard:"complete",champion:"known",qbr:"none",snooze:0,note:"Renewal this month. Two tickets about reminders.",log:[["Sep 21","Walked through reminder settings."]]},
+  {id:"a10",n:"Quarry Studios",plan:"Starter",seats:6,active:5,renewal:70,owner:"Elena Voss",touch:12,tickets:0,onboard:"partial",champion:"known",qbr:"none",snooze:0,note:"Onboarding is one lesson short of done.",log:[["Sep 28","Finished lesson two of three."]]}
+];}
+function seedTasks(){return [
+  {id:"t1",aid:"a1",title:"Save plan call",owner:"Priya Shah",due:"Oct 12",status:"open",note:"Talk through the champion gap."},
+  {id:"t2",aid:"a5",title:"Find the new champion",owner:"Marcus Hale",due:"Oct 11",status:"open",note:"Renewal is inside 10 days."},
+  {id:"t3",aid:"a7",title:"Restart onboarding",owner:"Priya Shah",due:"Oct 14",status:"open",note:"Admin invite was never accepted."}
+];}
+let D="live",run=0,seq=4;
+const S={accounts:[],tasks:[],sel:null,q:"",health:"all",owner:"all",plan:"all",focus:"all",sort:"risk",taskOwner:"all",taskOpen:true,pending:null,draft:"",errUsed:false,undo:[]};
+function reset(){run++;S.accounts=seedAccounts();S.tasks=seedTasks();S.sel=null;S.q="";S.health="all";S.owner="all";S.plan="all";S.focus="all";S.sort="risk";S.taskOwner="all";S.taskOpen=true;S.pending=null;S.draft="";S.errUsed=false;S.undo=[];}
+function score(a){
+  const touch=a.touch<=7?25:a.touch<=14?16:a.touch<=29?8:0;
+  const tickets=a.tickets===0?20:a.tickets<=2?10:0;
+  const onb=a.onboard==="complete"?20:a.onboard==="partial"?10:0;
+  const ratio=a.seats?a.active/a.seats:0;
+  const usage=ratio>=.7?20:ratio>=.4?10:0;
+  const champ=a.champion==="known"?15:a.champion==="unknown"?6:0;
+  const total=touch+tickets+onb+usage+champ;
+  const band=total>=80?"healthy":total>=50?"watch":"risk";
+  return {total,band,parts:[
+    ["Last touch",touch,25,a.touch===0?"Touched today":a.touch+" days ago"],
+    ["Open tickets",tickets,20,a.tickets+" open"],
+    ["Onboarding",onb,20,a.onboard],
+    ["Active seats",usage,20,a.active+" of "+a.seats],
+    ["Champion",champ,15,a.champion]
+  ]};
+}
+function needsTouch(a){return a.touch>=14&&!a.snooze}
+function match(a){
+  if(S.q&&!a.n.toLowerCase().includes(S.q.toLowerCase()))return false;
+  const sc=score(a);
+  if(S.health!=="all"&&sc.band!==S.health)return false;
+  if(S.owner!=="all"&&a.owner!==S.owner)return false;
+  if(S.plan!=="all"&&a.plan!==S.plan)return false;
+  if(S.focus==="touch"&&!needsTouch(a))return false;
+  if(S.focus==="renewal"&&a.renewal>30)return false;
+  if(S.focus==="stalled"&&a.onboard!=="stalled")return false;
+  return true;
+}
+function view(){
+  const rows=S.accounts.filter(match);
+  const key={risk:a=>score(a).total,renewal:a=>a.renewal,touch:a=>-a.touch,name:a=>a.n.toLowerCase()};
+  rows.sort((a,b)=>S.sort==="name"?key.name(a).localeCompare(key.name(b)):key[S.sort](a)-key[S.sort](b));
+  return rows;
+}
+function snap(){S.undo.push(JSON.stringify({accounts:S.accounts,tasks:S.tasks,sel:S.sel}));if(S.undo.length>20)S.undo.shift();}
+function undo(){const raw=S.undo.pop();if(!raw)return;const p=JSON.parse(raw);S.accounts=p.accounts;S.tasks=p.tasks;S.sel=p.sel;S.pending=null;render();toast("Undone. The sample book is back one step.");}
+function acct(id){return S.accounts.find(a=>a.id===id)}
+let tt;function toast(m,u){$("toastMsg").textContent=m;$("toastUndo").hidden=!u;$("toast").classList.add("on");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("on"),3200)}
+
+function kpis(){
+  const all=S.accounts.map(a=>({a,s:score(a)}));
+  const items=[
+    ["risk",all.filter(x=>x.s.band==="risk").length,"At risk","health"],
+    ["watch",all.filter(x=>x.s.band==="watch").length,"Watch","health"],
+    ["renewal",all.filter(x=>x.a.renewal<=30).length,"Renew in 30 days","focus"],
+    ["touch",all.filter(x=>needsTouch(x.a)).length,"Need a touch","focus"]
+  ];
+  $("kpis").innerHTML=items.map(([k,n,l,kind])=>{
+    const on=kind==="health"?S.health===k:S.focus===k;
+    return `<button type="button" class="card kpi${on?" on":""}" data-kpi="${k}" aria-pressed="${on}"><b class="m">${D==="loading"?"—":n}</b><span class="sub">${l}</span></button>`;
+  }).join("");
+}
+function filters(){
+  const opt=(v,l,cur)=>`<option value="${v}"${cur===v?" selected":""}>${l}</option>`;
+  $("filters").innerHTML=`
+    <input id="q" type="search" placeholder="Search accounts" value="${esc(S.q)}" aria-label="Search accounts">
+    <select id="fHealth" aria-label="Health">${opt("all","All health",S.health)}${opt("risk","At risk",S.health)}${opt("watch","Watch",S.health)}${opt("healthy","Healthy",S.health)}</select>
+    <select id="fOwner" aria-label="Owner">${opt("all","All owners",S.owner)}${OWNERS.map(o=>opt(o,o,S.owner)).join("")}</select>
+    <select id="fPlan" aria-label="Plan">${opt("all","All plans",S.plan)}${opt("Starter","Starter",S.plan)}${opt("Growth","Growth",S.plan)}${opt("Scale","Scale",S.plan)}</select>
+    <select id="fFocus" aria-label="Focus">${opt("all","All focuses",S.focus)}${opt("touch","Needs a touch",S.focus)}${opt("renewal","Renewal in 30 days",S.focus)}${opt("stalled","Onboarding stalled",S.focus)}</select>
+    <select id="fSort" aria-label="Sort">${opt("risk","Sort by health",S.sort)}${opt("renewal","Sort by renewal",S.sort)}${opt("touch","Sort by last touch",S.sort)}${opt("name","Sort by name",S.sort)}</select>
+    <button class="btn sm ghost" id="clearF" type="button">Clear filters</button>`;
+}
+function table(){
+  if(D==="loading"){$("tbl").innerHTML=`<tbody>${[1,2,3,4].map(()=>`<tr><td colspan="6"><div class="sk" style="height:28px"></div></td></tr>`).join("")}</tbody>`;$("bookNote").textContent="loading";return}
+  if(D==="empty"){$("tbl").innerHTML=`<tbody><tr><td><div class="empty"><span class="okmark">✓</span><b>No accounts in this book</b><div class="sub">The empty state is a review screen. Load the sample book to work the demo.</div><button class="btn" type="button" data-load>Load the sample book</button></div></td></tr></tbody>`;$("bookNote").textContent="empty";return}
+  const rows=view();
+  $("bookNote").textContent=`${rows.length} of ${S.accounts.length} shown`;
+  $("crumbs").textContent=`FIELDNOTE · ${rows.length} SHOWN · SAMPLE`;
+  if(!rows.length){$("tbl").innerHTML=`<tbody><tr><td><div class="empty"><b>No accounts match</b><div class="sub">Clear a filter or search to see the sample book again.</div><button class="btn sm" type="button" data-clear>Clear filters</button></div></td></tr></tbody>`;return}
+  $("tbl").innerHTML=`<thead><tr><th>Account</th><th>Health</th><th>Renewal</th><th>Touch</th><th>Tickets</th><th>Owner</th></tr></thead><tbody>`+
+    rows.map(a=>{const s=score(a);return `<tr class="acct${S.sel===a.id?" on":""}" data-id="${a.id}" tabindex="0" role="button" aria-pressed="${S.sel===a.id}"><td><div class="nm">${esc(a.n)} <small>${esc(a.plan)} · ${a.active}/${a.seats} active${a.qbr==="overdue"?" · QBR overdue":""}${a.snooze?" · snoozed "+a.snooze+"d":""} </small></div></td><td><span class="meter ${s.band}"><i style="width:${s.total}%"></i></span><span class="m">${s.total}</span> <span class="chip ${s.band==="risk"?"bad":s.band==="watch"?"warn":"ok"}">${BAND[s.band]} </span></td><td class="m">${a.renewal}d </td><td class="m">${a.touch}d </td><td class="m">${a.tickets} </td><td>${esc(a.owner.split(" ")[0])}</td></tr>`}).join("")+`</tbody>`;
+}
+function detail(){
+  const el=$("detail");
+  if(D==="loading"){el.innerHTML='<div class="sk" style="height:18px;width:50%"></div><div class="sk" style="height:80px;margin-top:10px"></div>';$("detNote").textContent="loading";return}
+  if(D==="empty"){el.innerHTML='<p class="note">Nothing to open.</p>';$("detNote").textContent="empty";return}
+  const a=acct(S.sel);
+  if(!a){el.innerHTML='<div class="empty"><b>Select an account</b><div class="sub">Open a row to see the five signals and log a next step.</div></div>';$("detNote").textContent="select one";return}
+  const s=score(a);
+  $("detNote").textContent=BAND[s.band]+" · "+s.total;
+  if(S.pending){el.innerHTML=sheet(a,s);return}
+  el.innerHTML=`<p style="font-size:22px;margin:0">${esc(a.n)}</p><p class="sub" style="margin:4px 0 10px">${esc(a.plan)} plan · renewal in ${a.renewal} days · ${esc(a.owner)}</p>
+    <div class="row" style="margin-bottom:8px"><span class="chip ${s.band==="risk"?"bad":s.band==="watch"?"warn":"ok"}">${BAND[s.band]} · ${s.total}</span>${a.qbr==="overdue"?'<span class="chip warn">QBR overdue</span>':""}${a.onboard==="stalled"?'<span class="chip bad">Onboarding stalled</span>':""}</div>
+    <p class="sub" style="margin-top:0">${esc(a.note)}</p>
+    <div class="sec"><span>Why this score</span><span>out of 100</span></div>
+    <div class="parts">${s.parts.map(p=>`<div class="part"><span>${esc(p[0])}</span><span class="m">${p[1]}/${p[2]}</span><span class="sub">${esc(p[3])}</span><div class="track"><i style="width:${p[2]?Math.round(p[1]/p[2]*100):0}%"></i></div></div>`).join("")}</div>
+    <div class="sec"><span>Next step</span><span>a person confirms</span></div>
+    <div class="row">
+      <button class="btn sm pri" type="button" data-act="checkin">Log a check-in</button>
+      <button class="btn sm warn" type="button" data-act="save">Start a save plan</button>
+      <button class="btn sm" type="button" data-act="onboard">Onboarding follow-up</button>
+      <button class="btn sm ghost" type="button" data-act="snooze">${a.snooze?"Clear snooze":"Snooze 7 days"}</button>
+    </div>
+    <div class="sec" style="margin-top:16px"><span>Recent</span></div>
+    <ul class="act">${a.log.map(l=>`<li><span class="w">${esc(l[0])}</span>${esc(l[1])}</li>`).join("")}</ul>`;
+}
+function sheet(a){
+  const labels={checkin:"Log a check-in",save:"Start a save plan",onboard:"Log an onboarding follow-up",snooze:a.snooze?"Clear the snooze":"Snooze for 7 days"};
+  const sending=S.pending==="sending",failed=S.pending==="failed",kind=S.pendingKind;
+  return `<div class="sheet"><div class="q">${labels[kind]||"Confirm"} · ${esc(a.n)}</div>
+    <p class="sub" style="margin:0">${kind==="checkin"?"Last touch becomes today, and the score updates.":kind==="save"?"Adds an open save-plan task for "+esc(a.owner)+".":kind==="onboard"?"If onboarding is stalled, it moves to partial and adds a task.":a.snooze?"The account returns to the needs-a-touch list if it still qualifies.":"Hides this account from Needs a touch for 7 days. The score does not change."}</p>
+    <label class="note" for="note">Note ${kind==="snooze"?"(optional)":"(required)"}</label>
+    <textarea id="note" ${sending?"disabled":""}>${esc(S.draft)}</textarea>
+    <p class="note" id="noteErr" hidden style="color:var(--red)">Add a short note, at least 3 characters. Nothing was logged.</p>
+    ${failed?`<div class="err"><div><b>Nothing was logged.</b><br>The sample save failed. Your note is still here.</div></div>`:""}
+    <div class="row">${sending?'<button class="btn pri" disabled type="button"><span class="spin"></span>Saving…</button>':`<button class="btn pri" type="button" data-go>${failed?"Try again":"Confirm"}</button><button class="btn ghost" type="button" data-cancel>Cancel</button>`}</div>
+    <p class="note">Sample only. This does not update a live account.</p></div>`;
+}
+function tasks(){
+  const el=$("tasks");
+  if(D==="loading"){el.innerHTML='<div class="sk" style="height:48px"></div>';$("taskNote").textContent="loading";return}
+  if(D==="empty"){el.innerHTML='<p class="note">No tasks.</p>';$("taskNote").textContent="empty";return}
+  const list=S.tasks.filter(t=>(!S.taskOpen||t.status==="open")&&(S.taskOwner==="all"||t.owner===S.taskOwner));
+  const open=S.tasks.filter(t=>t.status==="open").length;
+  $("taskNote").textContent=`${open} open`;
+  el.innerHTML=`<div class="filters" style="margin:0 0 8px">
+      <select id="tOwner" aria-label="Task owner"><option value="all"${S.taskOwner==="all"?" selected":""}>All owners</option>${OWNERS.map(o=>`<option ${S.taskOwner===o?"selected":""}>${esc(o)}</option>`).join("")}</select>
+      <label class="chip"><input id="tOpen" type="checkbox" ${S.taskOpen?"checked":""}> Open only</label>
+    </div>`+(list.length?list.map(t=>{const a=acct(t.aid);return `<div class="task ${t.status}"><div><b>${esc(t.title)}</b><span class="sub" style="display:block">${a?esc(a.n):""} · ${esc(t.owner)} · due ${esc(t.due)}</span><span class="note">${esc(t.note)}</span></div><div class="row">${t.status==="open"?`<button class="btn sm" type="button" data-done="${t.id}">Mark done</button>`:`<span class="chip ok">Done</span>`}<button class="btn sm ghost" type="button" data-jump="${t.aid}">Open</button></div></div>`}).join(""):'<p class="note">No tasks match this filter.</p>');
+}
+function render(){kpis();filters();table();detail();tasks();$("undoBtn").disabled=!S.undo.length;$("exportBtn").disabled=D!=="live"&&D!=="saveerr";$("copyBtn").disabled=D!=="live"&&D!=="saveerr"}
+function summary(){
+  const rows=view();
+  const lines=rows.map(a=>{const s=score(a);return `- ${a.n} · ${BAND[s.band]} · ${s.total} · renewal ${a.renewal}d · touch ${a.touch}d · ${a.owner}`});
+  return [`Keel account health · sample data · October 2026 concept`,`Fictional Fieldnote book. Not a live customer book.`,`Showing ${rows.length} of ${S.accounts.length}. Filters: health=${S.health}, owner=${S.owner}, plan=${S.plan}, focus=${S.focus}, search=${S.q||"—"}, sort=${S.sort}.`,...lines].join("\n");
+}
+function apply(kind,note){
+  const a=acct(S.sel);if(!a)return;
+  snap();
+  const today="Oct 10";
+  if(kind==="checkin"){a.touch=0;a.log.unshift([today,"Check-in logged. "+note]);}
+  else if(kind==="save"){S.tasks.unshift({id:"t"+(seq++),aid:a.id,title:"Save plan",owner:a.owner,due:"Oct 17",status:"open",note});a.log.unshift([today,"Save plan started. "+note]);}
+  else if(kind==="onboard"){if(a.onboard==="stalled")a.onboard="partial";S.tasks.unshift({id:"t"+(seq++),aid:a.id,title:"Onboarding follow-up",owner:a.owner,due:"Oct 16",status:"open",note});a.log.unshift([today,"Onboarding follow-up logged. "+note]);}
+  else if(kind==="snooze"){a.snooze=a.snooze?0:7;a.log.unshift([today,a.snooze?"Snoozed for 7 days. "+(note||"No note."):"Snooze cleared. "+(note||"")]);}
+  S.pending=null;S.draft="";render();toast("Logged on the sample book. Nothing left this page.",true);
+}
+async function confirm(){
+  const kind=S.pendingKind,box=$("note");
+  S.draft=box?box.value:S.draft;
+  const note=S.draft.trim();
+  if(kind!=="snooze"&&note.length<3){$("noteErr").hidden=false;return}
+  const my=++run;S.pending="sending";detail();
+  await sleep(700);if(my!==run)return;
+  if(D==="saveerr"&&!S.errUsed){S.errUsed=true;S.pending="failed";detail();toast("Save failed. Nothing was logged.");return}
+  apply(kind,note);
+}
+function select(id){S.sel=id;S.pending=null;detail();table();}
+
+$("kpis").addEventListener("click",e=>{const b=e.target.closest("[data-kpi]");if(!b||D==="empty"||D==="loading")return;const k=b.dataset.kpi;if(k==="risk"||k==="watch"){S.health=S.health===k?"all":k;if(S.health!=="all")S.focus="all"}else{S.focus=S.focus===k?"all":k;if(S.focus!=="all")S.health="all"}render()});
+$("filters").addEventListener("input",e=>{if(e.target.id==="q"){S.q=e.target.value;table();kpis()}});
+$("filters").addEventListener("change",e=>{const id=e.target.id,v=e.target.value;if(id==="fHealth")S.health=v;else if(id==="fOwner")S.owner=v;else if(id==="fPlan")S.plan=v;else if(id==="fFocus")S.focus=v;else if(id==="fSort")S.sort=v;else return;table();kpis()});
+document.body.addEventListener("click",e=>{
+  if(e.target.closest("#clearF")||e.target.closest("[data-clear]")){S.q="";S.health=S.owner=S.plan=S.focus="all";S.sort="risk";render();toast("Filters cleared.");return}
+  if(e.target.closest("[data-load]")){D="live";$("demo").value="live";reset();render();toast("Sample book loaded.");return}
+  const row=e.target.closest("tr.acct");if(row){select(row.dataset.id);return}
+  const act=e.target.closest("[data-act]");if(act){S.pendingKind=act.dataset.act;S.pending="confirm";S.draft="";detail();return}
+  if(e.target.closest("[data-cancel]")){S.pending=null;S.draft="";detail();return}
+  if(e.target.closest("[data-go]")){confirm();return}
+  const done=e.target.closest("[data-done]");if(done){const t=S.tasks.find(x=>x.id===done.dataset.done);if(!t)return;snap();t.status="done";render();toast("Task marked done on the sample book.",true);return}
+  const jump=e.target.closest("[data-jump]");if(jump){select(jump.dataset.jump);return}
+});
+$("tbl").addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const row=e.target.closest("tr.acct");if(!row)return;e.preventDefault();select(row.dataset.id)});
+$("tasks").addEventListener("change",e=>{if(e.target.id==="tOwner")S.taskOwner=e.target.value;if(e.target.id==="tOpen")S.taskOpen=e.target.checked;tasks()});
+$("exportBtn").addEventListener("click",()=>{
+  const rows=view();
+  const head=["sample","account","plan","owner","health","score","renewal_days","touch_days","open_tickets","onboarding","champion","seats","active","qbr"];
+  const body=rows.map(a=>{const s=score(a);return ["yes",a.n,a.plan,a.owner,BAND[s.band],s.total,a.renewal,a.touch,a.tickets,a.onboard,a.champion,a.seats,a.active,a.qbr].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")});
+  const csv=['"October 2026 concept. Fictional Fieldnote accounts. Not a live book."',head.join(","),...body].join("\n");
+  const blob=new Blob([csv],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="keel-account-health-sample.csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500);
+  toast(rows.length?`Exported ${rows.length} sample account${rows.length===1?"":"s"}.`:"Nothing to export. The list is empty.");
+});
+$("copyBtn").addEventListener("click",async()=>{const text=summary();try{await navigator.clipboard.writeText(text);toast("Summary copied. Sample data only.")}catch(_){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Summary copied. Sample data only.")}});
+$("resetBtn").addEventListener("click",()=>{D="live";$("demo").value="live";reset();render();toast("Sample book reset.")});
+$("undoBtn").addEventListener("click",undo);
+$("toastUndo").addEventListener("click",()=>{undo();$("toast").classList.remove("on")});
+$("demo").addEventListener("change",e=>{D=e.target.value;reset();if(D==="empty"){S.accounts=[];S.tasks=[];}render();if(D==="loading")toast("This shows the loading screen. Switch back to Live book to see the data.");if(D==="saveerr")toast("This test makes the next save fail. Your note stays safe.")});
+reset();render();
+})();
+</script>
+</body>
+</html>

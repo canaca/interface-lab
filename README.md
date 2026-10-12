@@ -1,34 +1,48 @@
 # Interface Lab
 
-Live, working interface concepts for AI and data products, directed by Cesar Navarro.
+Concept prototypes directed by Cesar Navarro. October 2026 concept work. He set the problem, the user, and the flow. AI-assisted build (Claude, Cursor).
 
-Every piece here runs in the browser. Click, drag, approve, undo, and see what happens.
+Every piece here runs in the browser. Click, drag, approve, undo, and see what happens. All demo data is fictional.
 
 ![Valley Grid Operations](img/grid.jpg)
 
 | Piece | Label | What it shows |
 | --- | --- | --- |
-| [Valley Grid Operations](valley-grid/) | Concept | Investigate an equipment alert on a live 3D transformer, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)) |
-| [Kestrel Agent Console](kestrel/) | Concept | An AI agent handles a refund ticket. A person approves the money and the reply. |
-| [Decision OS](decision-os/) | Working build | Import a sample ChatGPT export and see where everything stands. Demo uses fictional data. |
-| [Harbor CRM Copilot](harbor-copilot/) | Concept | Bulk deal cleanup from AI, shown as diffs in the table, with conflicts and undo |
-| [Tidewell Revenue Pulse](tidewell/) | Concept | Why June revenue fell, down to the four accounts and a win-back task |
+| [Valley Grid Operations](valley-grid/) | Concept · October 2026 | Investigate an equipment alert, from alert to crew sent ([case study](valley-grid/CASE-STUDY.md)). Concept direction. AI-assisted build (Claude, Cursor). The 3D scene runs in the browser |
+| [Relay](relay/) | Concept · October 2026 | Speed-to-lead builder: a test lead moves through a flow that texts, qualifies, books, and alerts the owner, in English and Spanish. Fictional business and leads |
+| [Keel Account Health](keel/) | Concept · October 2026 | A customer-success book: health from five visible signals, filters, a confirmed next step, tasks, undo, and a sample CSV. Fictional accounts |
+| [Berth Onboarding](berth/) | Concept · October 2026 | A new-account checklist: blocked steps, who needs to act next, and a reminder that stays on the page. Nothing is emailed |
+| [Linden Client Book](linden/) | Concept · October 2026 | A daily client list for a fictional boutique: who needs a follow-up and why, what they like, and a draft that never sends |
+| [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money and the reply. Fictional customer and charges |
+| [Harbor CRM Copilot](harbor-copilot/) | Concept · October 2026 | Bulk deal cleanup shown as diffs in the table, with conflicts and undo. Fictional deals |
+| [Decision OS](decision-os/) | Concept · October 2026 | Import a fictional sample export and see where everything stands. Not connected to an account. Not a shipped product |
+| [Tidewell Revenue Pulse](tidewell/) | Concept · October 2026 | Why a fictional month of revenue changed, down to four accounts and a win-back task. Not a finance claim |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 
-## Built with
-
-Plain HTML, CSS, and JavaScript. Three.js for 3D, used only on Valley Grid, where the 3D model is the interface. No build step. Each piece is one file.
-
 ## How these were made
 
-These are concepts directed by Cesar Navarro and built with AI tools (Claude, Cursor) under his direction: he set the problem, user, flow and design decisions, and reviewed every state. The code and 3D assets were generated with those tools.
+**Role:** Concept direction.
 
-The `blender/` folder holds the AI-generated Python scripts used to produce Valley Grid's 3D scene (`build_t2.py` for Transformer T2, `board2.py` for the circuit-board scene, `heroes.py` for hero objects). They run with Blender's Python package (`pip install bpy`, then `python3 blender/build_t2.py --still out.png`).
+**Tools:** AI-assisted build (Claude, Cursor).
+
+Cesar Navarro set the problem, user, flow, and design decisions, and reviewed every state. The code and the Valley Grid 3D scene were generated with those tools under his direction. He did not model the scene by hand. Three.js runs only on Valley Grid, where the model is the interface. No build step. Each piece is one file.
+
+## Everything works
+
+Every button, filter, and form on every piece does something with demo data:
+
+- Approvals, applied changes, tasks, imports, and flow edits are saved in the browser (localStorage keys start with `il-`). Each piece has a **Reset demo** or **Start over** control to clear them.
+- Undo is offered after every change that matters.
+- Export buttons download CSV files. Copy buttons write to the clipboard.
+- Search, filters, and sort re-render right away and show a "No matches" message when nothing fits.
+- Forms check their fields and show the error next to the field.
 
 ## Site address
 
-Link previews (Open Graph and Twitter) use the full web address of the site, `https://canaca.github.io/interface-lab/`. If the repo or GitHub username changes, update `canaca` and `/interface-lab/` in the meta tags of each page. The preview image is `og-image.png` (1200×630) and the icon is `favicon.svg`.
+Link previews (Open Graph and Twitter) use `https://canaca.github.io/interface-lab/`. If the repo or GitHub username changes, update `canaca` and `/interface-lab/` in the meta tags of each page. The preview image is `og-image.png` (1200×630) and the icon is `favicon.svg`.
+
+This repository is a draft candidate. Publishing to GitHub Pages is Cesar's decision.
 
 ## Contact form setup
 
@@ -42,7 +56,7 @@ If `FORM_ENDPOINT` is empty or the post fails, the form opens the visitor's emai
 
 ## Run it
 
-Open `index.html`, or turn on GitHub Pages (Settings > Pages > Deploy from branch > main).
+Open `index.html`, or turn on GitHub Pages (Settings > Pages > Deploy from branch > main) only after Cesar approves a publish.
 
 All data in these demos is fictional.
 
