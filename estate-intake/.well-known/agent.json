@@ -1,0 +1,34 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "Estate Jewelry Intake Assistant",
+  "description": "This is NOT an appraisal. Concept / early access, not a live service. Would let a customer upload photos of estate jewelry so an AI can draft a pre-appraisal intake sheet (item type as it appears, metal stamps that can be read, stone count and type as guesses, condition notes, and questions for the customer) for a credentialed jeweler to review. This card is static. The url does not accept A2A JSON-RPC, and no draft is issued.",
+  "url": "https://canaca.github.io/interface-lab/estate-intake/",
+  "provider": {
+    "organization": "Cesar Navarro",
+    "url": "https://canaca.github.io/interface-lab/"
+  },
+  "version": "0.0.0-concept",
+  "documentationUrl": "https://canaca.github.io/interface-lab/estate-intake/",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "intake-draft",
+      "name": "Intake draft",
+      "description": "Hypothetical skill. Would turn photos of a piece of estate jewelry into a draft intake sheet for a credentialed jeweler to review. The draft is not an appraisal, a value, or a gem identification. Not executable on this host.",
+      "tags": ["jewelry", "intake", "concept"],
+      "examples": [
+        "Draft an intake sheet from an illustrative description of a yellow-metal ring. This example is not a real piece and not an appraisal."
+      ],
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"]
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": false,
+  "x-status": "concept"
+}

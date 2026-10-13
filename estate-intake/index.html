@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estate Jewelry Intake Assistant · Not an appraisal</title>
+<meta name="description" content="This is NOT an appraisal. Concept / early access, not a live service. An idea for independent jewelers: photos in, a draft intake sheet out, reviewed by a credentialed jeweler.">
+<meta name="theme-color" content="#120E0B">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://canaca.github.io/interface-lab/estate-intake/">
+<link rel="alternate" type="text/plain" href="llms.txt" title="llms.txt">
+<link rel="describedby" type="application/json" href="openapi.json" title="OpenAPI">
+<link rel="describedby" type="application/json" href=".well-known/agent.json" title="A2A agent card">
+<link rel="describedby" type="application/json" href="status.json" title="Status">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Estate Jewelry Intake Assistant · Not an appraisal">
+<meta property="og:description" content="This is NOT an appraisal. Concept / early access, not a live service.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/estate-intake/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<meta property="og:image:alt" content="Cesar Navarro, Interface Lab">
+<style>
+:root{
+  --bg:#120E0B; --cream:#F4E7D7; --muted:#B9A08A;
+  --orange:#E9A46E; --accent:#6FE3D0; --edge:rgba(255,222,190,.18);
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#120E0B;color:var(--cream)}
+body{font-family:var(--sans);font-size:17px;line-height:1.55;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 55%) fixed}
+a{color:var(--accent);text-underline-offset:.18em}
+a:hover{color:var(--cream)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:42rem;margin:0 auto;padding:28px 20px 64px}
+.back{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--cream)}
+h1{font-weight:500;font-size:clamp(32px,5vw,48px);letter-spacing:-.03em;line-height:1.05;margin:18px 0 12px}
+h2{font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px}
+p,li{color:var(--cream)}
+.lede{font-size:18px;margin:0 0 16px}
+.warn{margin:0 0 18px;padding:14px 16px;border-radius:14px;background:var(--orange);color:#1B140F;font-size:18px;font-weight:700;line-height:1.35}
+ol,ul{margin:0;padding-left:1.2em}
+li+li{margin-top:8px}
+.files{list-style:none;padding:0}
+.files li{padding:10px 0;border-top:1px solid var(--edge)}
+.files a{font-family:var(--mono);font-size:14px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border-radius:11px;background:var(--cream);color:#1B140F;text-decoration:none;font-weight:600}
+.btn:hover{color:#1B140F;background:#fff}
+.note{color:var(--muted);font-size:15px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--edge);font-family:var(--mono);font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">Interface Lab</a>
+  <main>
+    <h1>Estate Jewelry Intake Assistant</h1>
+    <p class="warn">This is NOT an appraisal. Concept / early access, not a live service.</p>
+    <p class="lede">An idea for independent jewelers. A customer would upload photos of jewelry they already own. An AI would draft an intake sheet. A credentialed jeweler would review that draft.</p>
+    <p>The sheet would list what the piece appears to be, which metal stamps can be read, a guess at how many stones there are and what they might be, notes on condition, and questions to ask the customer. Those are notes for the jeweler, not a value and not a grade.</p>
+
+    <h2>How it would work</h2>
+    <ol>
+      <li>A customer shares photos of a piece of estate jewelry.</li>
+      <li>The draft names the item type only as it appears, the stamps that can actually be read, stone count and type as guesses, and what looks worn or damaged.</li>
+      <li>It also lists questions the jeweler still needs the customer to answer.</li>
+      <li>A credentialed jeweler reviews the draft before anyone relies on it.</li>
+    </ol>
+    <p class="note">Those steps are the idea. None of them run here. This page does not look at photos.</p>
+
+    <h2>What this page is</h2>
+    <p>A static description, so a person or an agent can find the idea and read it. GitHub Pages only serves files. It does not accept photos, identify a stone, or say what a piece is worth.</p>
+    <p>There are no customers and no results to report, because the service is not running. The only next step is the waitlist.</p>
+
+    <h2>Waitlist</h2>
+    <p><a class="btn" href="mailto:cnavarro.business@gmail.com?subject=Estate%20Jewelry%20Intake%20waitlist&amp;body=Please%20add%20me%20to%20the%20Estate%20Jewelry%20Intake%20Assistant%20concept%20waitlist.%0A%0A">Join the waitlist</a></p>
+    <p class="note">This opens your email app, addressed to <a href="mailto:cnavarro.business@gmail.com">cnavarro.business@gmail.com</a>. Nothing is sent until you press send. No account is created.</p>
+
+    <h2>Files an agent can read</h2>
+    <ul class="files">
+      <li><a href="llms.txt">llms.txt</a> — the same idea, written for an agent</li>
+      <li><a href="openapi.json">openapi.json</a> — a hypothetical <span class="note">POST /intake-draft</span>, marked concept</li>
+      <li><a href=".well-known/agent.json">.well-known/agent.json</a> — an A2A-style agent card, marked concept</li>
+      <li><a href="status.json">status.json</a> — <span class="note">status concept, accepting waitlist</span></li>
+    </ul>
+    <p class="note">POST /intake-draft is described only. This host does not run it. The status you can fetch today is <a href="status.json">status.json</a>.</p>
+  </main>
+  <footer>Cesar Navarro · Interface Lab · Not an appraisal · Concept, not a product</footer>
+</div>
+</body>
+</html>

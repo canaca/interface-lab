@@ -1,0 +1,148 @@
+{
+  "openapi": "3.1.0",
+  "x-status": "concept",
+  "info": {
+    "title": "Estate Jewelry Intake Assistant",
+    "version": "0.0.0-concept",
+    "summary": "This is NOT an appraisal. Concept / early access, not a live service.",
+    "description": "This is NOT an appraisal. Concept / early access, not a live service.\n\nDescribes a hypothetical intake draft for independent jewelers. A customer would upload photos of estate jewelry. A draft sheet would list item type as it appears, metal stamps that can be read, stone count and type as guesses, condition notes, and questions for the customer. A credentialed jeweler would review the draft.\n\nThe draft would not be a value, a grade, or a determination of what the piece is. This document is hosted on static GitHub Pages. POST /intake-draft is not implemented. Calling it does not look at a photo. The status document that is actually published is status.json, with status concept and accepting waitlist.\n\nThere are no customers and no live results. Do not send photos.",
+    "contact": {
+      "name": "Cesar Navarro",
+      "email": "cnavarro.business@gmail.com",
+      "url": "https://canaca.github.io/interface-lab/estate-intake/"
+    },
+    "x-status": "concept"
+  },
+  "externalDocs": {
+    "description": "Human page. This is NOT an appraisal. Concept / early access, not a live service.",
+    "url": "https://canaca.github.io/interface-lab/estate-intake/"
+  },
+  "servers": [
+    {
+      "url": "https://canaca.github.io/interface-lab/estate-intake",
+      "description": "Static host. Requests are not executed."
+    }
+  ],
+  "paths": {
+    "/intake-draft": {
+      "post": {
+        "operationId": "createIntakeDraft",
+        "summary": "Hypothetical: draft a pre-appraisal intake sheet from photos",
+        "description": "Not implemented. A live service would accept photos and return a draft for a credentialed jeweler to review. This static host does not store photos and does not return a draft. This is NOT an appraisal.",
+        "x-status": "concept",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IntakeDraftRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Illustrative only. This host does not return 201, and the body would not be an appraisal.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntakeDraft"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "This operation is a concept and is not implemented on the static host."
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Hypothetical service status",
+        "description": "Not implemented at this path. The same document is published as the static file status.json.",
+        "x-status": "concept",
+        "responses": {
+          "200": {
+            "description": "Illustrative status. Fetch status.json for the document this host actually serves.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                },
+                "example": {
+                  "status": "concept",
+                  "accepting": "waitlist"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Status": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "accepting"],
+        "properties": {
+          "status": {"type": "string", "const": "concept"},
+          "accepting": {"type": "string", "const": "waitlist"}
+        }
+      },
+      "IntakeDraftRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Illustrative request. This host does not accept or store photos.",
+        "required": ["photos"],
+        "properties": {
+          "photos": {
+            "type": "array",
+            "minItems": 1,
+            "description": "A live service would accept images. Send nothing to this static host.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["caption"],
+              "properties": {
+                "caption": {
+                  "type": "string",
+                  "description": "Plain words for what the photo shows. Not an identification."
+                }
+              }
+            }
+          },
+          "customer_note": {
+            "type": "string",
+            "description": "Anything the customer already said about the piece. Optional."
+          }
+        },
+        "example": {
+          "photos": [
+            {"caption": "Illustrative only, not a real piece and not a photo: a yellow-metal ring with one pale stone."}
+          ],
+          "customer_note": "Illustrative only. The customer has not said where it came from."
+        }
+      },
+      "IntakeDraft": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Illustrative draft for a credentialed jeweler to review. Not an appraisal, and not returned by this host.",
+        "required": ["status", "not_an_appraisal", "item_type", "metal_and_stamps_visible", "stone_count_guess", "stone_type_guess", "condition_notes", "questions_for_customer"],
+        "properties": {
+          "status": {"type": "string", "const": "concept"},
+          "not_an_appraisal": {"type": "boolean", "const": true},
+          "item_type": {"type": "string", "description": "What the piece appears to be. Not a determination."},
+          "metal_and_stamps_visible": {"type": "string", "description": "Stamps and metal color that can be read in the photos. Not an assay."},
+          "stone_count_guess": {"type": ["integer", "null"], "minimum": 0, "description": "A guess. Null when the photos do not show a count."},
+          "stone_type_guess": {"type": ["string", "null"], "description": "A guess at type. Not a gemological identification."},
+          "condition_notes": {"type": "string"},
+          "questions_for_customer": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

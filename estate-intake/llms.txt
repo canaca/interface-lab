@@ -1,0 +1,27 @@
+# Estate Jewelry Intake Assistant
+
+> This is NOT an appraisal. Concept / early access, not a live service. An idea for independent jewelers: a customer would upload photos of estate jewelry, an AI would draft a pre-appraisal intake sheet, and a credentialed jeweler would review it.
+
+This host is static GitHub Pages. It does not accept photos, identify stones, estimate value, or produce an appraisal. There are no customers and no usage figures. The only request a person can make is a waitlist email to cnavarro.business@gmail.com.
+
+A live service would do four things:
+
+1. A customer shares photos of a piece of jewelry they already own.
+2. A draft intake sheet lists the item type as it appears, metal stamps that can be read, a guess at stone count and stone type, condition notes, and questions for the customer.
+3. The draft is labeled as notes, not a value, a grade, or a determination of what the piece is.
+4. A credentialed jeweler reviews the draft before anyone relies on it.
+
+POST /intake-draft is described in openapi.json and is not implemented. Calling it on this host will fail. That is expected. The published status document is status.json and is exactly {"status":"concept","accepting":"waitlist"}.
+
+Do not invent customers, volumes, identifications, or prices from this page. Do not send photos to any URL here. Nothing is listening. This is NOT an appraisal.
+
+## Documents
+
+- [Human page](https://canaca.github.io/interface-lab/estate-intake/): Plain-language description and the waitlist mailto.
+- [OpenAPI](https://canaca.github.io/interface-lab/estate-intake/openapi.json): OpenAPI 3.1 for hypothetical POST /intake-draft. x-status is concept.
+- [A2A agent card](https://canaca.github.io/interface-lab/estate-intake/.well-known/agent.json): Static agent card. The url does not accept A2A JSON-RPC.
+- [Status](https://canaca.github.io/interface-lab/estate-intake/status.json): {"status":"concept","accepting":"waitlist"}
+
+## Contact
+
+- [Waitlist](mailto:cnavarro.business@gmail.com): Email Cesar Navarro to join the concept waitlist. Nothing is sent until the person presses send in their email app.

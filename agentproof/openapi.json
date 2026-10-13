@@ -8,7 +8,7 @@
     "description": "Concept / early access, not a live service.\n\nDescribes a hypothetical way for an AI agent to record that a person authorized an agent-initiated purchase, and for a merchant to receive a dispute evidence packet meant for Shopify or Stripe.\n\nThis document is hosted on static GitHub Pages. POST /authorization-proof and GET /status are not implemented. Calling them does not create a proof. The status document that is actually published is status.json, with status concept and accepting waitlist.\n\nThere are no customers and no live results. Do not send card numbers, passwords, or other secrets.",
     "contact": {
       "name": "Cesar Navarro",
-      "email": "cnavarro.business@gmail.com",
+      "email": "agentproof@mail.grokbot.com",
       "url": "https://canaca.github.io/interface-lab/agentproof/"
     },
     "x-status": "concept"

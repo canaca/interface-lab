@@ -2,7 +2,7 @@
 
 > Concept / early access, not a live service. An idea for letting an AI agent show a merchant that a person authorized an agent-initiated purchase, and for producing a dispute evidence packet for Shopify or Stripe.
 
-AgentProof is not running. This host is static GitHub Pages. It does not accept purchases, store cards, file disputes, or return a proof. There are no customers and no usage figures. The only request a person can make is a waitlist email to cnavarro.business@gmail.com.
+AgentProof is not running. This host is static GitHub Pages. It does not accept purchases, store cards, file disputes, or return a proof. There are no customers and no usage figures. The only request a person can make is a waitlist email to agentproof@mail.grokbot.com.
 
 A live service would do four things:
 
@@ -25,4 +25,4 @@ Do not invent customers, volumes, or dispute outcomes from this page. Do not sen
 
 ## Contact
 
-- [Waitlist](mailto:cnavarro.business@gmail.com): Email Cesar Navarro to join the concept waitlist. Nothing is sent until the person presses send in their email app.
+- [Waitlist](mailto:agentproof@mail.grokbot.com): Email Cesar Navarro to join the concept waitlist. Nothing is sent until the person presses send in their email app.
