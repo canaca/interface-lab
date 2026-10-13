@@ -1,0 +1,231 @@
+{
+  "openapi": "3.1.0",
+  "x-status": "concept",
+  "info": {
+    "title": "AgentProof",
+    "version": "0.0.0-concept",
+    "summary": "Concept / early access, not a live service.",
+    "description": "Concept / early access, not a live service.\n\nDescribes a hypothetical way for an AI agent to record that a person authorized an agent-initiated purchase, and for a merchant to receive a dispute evidence packet meant for Shopify or Stripe.\n\nThis document is hosted on static GitHub Pages. POST /authorization-proof and GET /status are not implemented. Calling them does not create a proof. The status document that is actually published is status.json, with status concept and accepting waitlist.\n\nThere are no customers and no live results. Do not send card numbers, passwords, or other secrets.",
+    "contact": {
+      "name": "Cesar Navarro",
+      "email": "cnavarro.business@gmail.com",
+      "url": "https://canaca.github.io/interface-lab/agentproof/"
+    },
+    "x-status": "concept"
+  },
+  "externalDocs": {
+    "description": "Human page. Concept / early access, not a live service.",
+    "url": "https://canaca.github.io/interface-lab/agentproof/"
+  },
+  "servers": [
+    {
+      "url": "https://canaca.github.io/interface-lab/agentproof",
+      "description": "Static host. Requests are not executed."
+    }
+  ],
+  "paths": {
+    "/authorization-proof": {
+      "post": {
+        "operationId": "createAuthorizationProof",
+        "summary": "Hypothetical: record that a person authorized an agent purchase",
+        "description": "Not implemented. A live service would accept the purchase and the person's confirmation and return a reference for a later dispute packet. This static host does not store the body and does not return a proof.",
+        "x-status": "concept",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorizationProofRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Illustrative only. This host does not return 201.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationProof"
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "This operation is a concept and is not implemented on the static host."
+          }
+        }
+      }
+    },
+    "/status": {
+      "get": {
+        "operationId": "getStatus",
+        "summary": "Hypothetical service status",
+        "description": "Not implemented at this path. The same document is published as the static file status.json.",
+        "x-status": "concept",
+        "responses": {
+          "200": {
+            "description": "Illustrative status. Fetch status.json for the document this host actually serves.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                },
+                "example": {
+                  "status": "concept",
+                  "accepting": "waitlist"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Status": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "accepting"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "concept"
+          },
+          "accepting": {
+            "type": "string",
+            "const": "waitlist"
+          }
+        }
+      },
+      "Money": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["amount", "currency"],
+        "properties": {
+          "amount": {
+            "type": "string",
+            "description": "Decimal amount as a string, for example 42.00.",
+            "pattern": "^[0-9]+(\\.[0-9]{1,2})?$"
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO 4217 alphabetic code."
+          }
+        }
+      },
+      "AuthorizationProofRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Illustrative request body. Not accepted by this host.",
+        "required": ["merchant_platform", "purchase", "human_authorization"],
+        "properties": {
+          "merchant_platform": {
+            "type": "string",
+            "enum": ["shopify", "stripe"],
+            "description": "Where a dispute packet would be aimed. Not a live connection."
+          },
+          "merchant_reference": {
+            "type": "string",
+            "description": "The merchant's own reference for the store or account. Not a secret."
+          },
+          "purchase": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["money", "summary"],
+            "properties": {
+              "money": {
+                "$ref": "#/components/schemas/Money"
+              },
+              "summary": {
+                "type": "string",
+                "description": "What the person was asked to confirm, in plain language."
+              },
+              "order_reference": {
+                "type": "string"
+              }
+            }
+          },
+          "human_authorization": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["confirmed_at", "what_was_shown"],
+            "properties": {
+              "confirmed_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "what_was_shown": {
+                "type": "string",
+                "description": "The confirmation the person saw before the agent paid."
+              },
+              "confirmation_reference": {
+                "type": "string",
+                "description": "An opaque reference the agent already holds. Not a card number and not a password."
+              }
+            }
+          },
+          "agent": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "reference": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "example": {
+          "merchant_platform": "shopify",
+          "purchase": {
+            "money": {
+              "amount": "42.00",
+              "currency": "USD"
+            },
+            "summary": "Illustrative example only, not a real order: one wool blanket."
+          },
+          "human_authorization": {
+            "confirmed_at": "2026-10-13T15:00:00Z",
+            "what_was_shown": "Illustrative example only: buy one wool blanket for 42.00 USD?"
+          }
+        }
+      },
+      "AuthorizationProof": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Illustrative response. This host never returns it.",
+        "required": ["proof_id", "status"],
+        "properties": {
+          "proof_id": {
+            "type": "string",
+            "description": "A reference a live service would mint. Not minted here."
+          },
+          "status": {
+            "type": "string",
+            "const": "concept"
+          },
+          "dispute_packet": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Illustrative shape of a packet a merchant might attach to a Shopify or Stripe dispute. Not generated here, and not a prediction of the dispute outcome.",
+            "properties": {
+              "platform": {
+                "type": "string",
+                "enum": ["shopify", "stripe"]
+              },
+              "summary": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

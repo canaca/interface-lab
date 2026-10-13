@@ -1,0 +1,39 @@
+{
+  "x-status": "concept",
+  "status": "concept",
+  "name": "io.github.canaca/agentproof",
+  "title": "AgentProof",
+  "version": "0.0.0-concept",
+  "description": "Concept / early access, not a live service. Static MCP-style descriptor for AgentProof. A live server would let an AI agent record that a person authorized an agent-initiated purchase, for a Shopify or Stripe dispute evidence packet. No MCP transport is listening. Do not connect, and do not send secrets.",
+  "websiteUrl": "https://canaca.github.io/interface-lab/agentproof/",
+  "remotes": [],
+  "x-concept": {
+    "accepting": "waitlist",
+    "live": false,
+    "hypotheticalTools": [
+      {
+        "name": "create_authorization_proof",
+        "description": "Hypothetical. Would record that a person authorized a specific agent-initiated purchase and return a reference for a later dispute packet. Not callable on this static host.",
+        "inputSchema": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["merchant_platform", "purchase", "human_authorization"],
+          "properties": {
+            "merchant_platform": {
+              "type": "string",
+              "enum": ["shopify", "stripe"]
+            },
+            "purchase": {
+              "type": "object",
+              "description": "Amount, currency, and the plain-language summary the person confirmed."
+            },
+            "human_authorization": {
+              "type": "object",
+              "description": "When the person confirmed, and the words they were shown. Not a card number."
+            }
+          }
+        }
+      }
+    ]
+  }
+}
