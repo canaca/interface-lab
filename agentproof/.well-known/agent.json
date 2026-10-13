@@ -1,0 +1,34 @@
+{
+  "protocolVersion": "0.3.0",
+  "name": "AgentProof",
+  "description": "Concept / early access, not a live service. Would let an AI agent show a merchant that a person authorized an agent-initiated purchase, and produce a dispute evidence packet for Shopify or Stripe. This card is static. The url does not accept A2A JSON-RPC, and no proof is issued.",
+  "url": "https://canaca.github.io/interface-lab/agentproof/",
+  "provider": {
+    "organization": "Cesar Navarro",
+    "url": "https://canaca.github.io/interface-lab/"
+  },
+  "version": "0.0.0-concept",
+  "documentationUrl": "https://canaca.github.io/interface-lab/agentproof/",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "authorization-proof",
+      "name": "Authorization proof",
+      "description": "Hypothetical skill. Would accept a record that a person confirmed an agent-initiated purchase and return a reference a merchant could later put in a Shopify or Stripe dispute packet. Not executable on this host.",
+      "tags": ["payments", "authorization", "concept"],
+      "examples": [
+        "Record that the person confirmed an illustrative 42.00 USD purchase at a Shopify store before the agent paid. This example is not a real order."
+      ],
+      "inputModes": ["application/json"],
+      "outputModes": ["application/json"]
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": false,
+  "x-status": "concept"
+}
