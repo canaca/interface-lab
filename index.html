@@ -147,7 +147,7 @@ a.btn{text-decoration:none}a.btn:not(.pri){color:var(--cream)}
 .meta dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
 .meta dd{margin:3px 0 0;font-size:13.5px;line-height:1.4}
 details.csd{border:1px solid var(--edge);border-radius:12px;padding:12px 14px;background:rgba(255,222,190,.03)}
-details.csd summary{cursor:pointer;font-weight:500}
+details.csd summary{cursor:pointer;font-weight:500;min-height:44px;display:flex;align-items:center}
 details.csd dl{display:grid;grid-template-columns:96px 1fr;gap:10px 14px;margin:12px 0 0;font-size:13.5px;line-height:1.5}
 details.csd dt{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding-top:3px}
 details.csd dd{margin:0;color:var(--muted)}
@@ -170,7 +170,7 @@ details.csd dd{margin:0;color:var(--muted)}
 .contact h2{margin:0;font-family:var(--sans);font-weight:300;font-size:clamp(30px,3.4vw,46px);letter-spacing:-.02em;line-height:1.08}
 .cside{display:flex;flex-direction:column;gap:16px}
 .cside p{margin:0;font-size:15px;color:var(--muted);line-height:1.55}
-.cside .direct{font-family:var(--mono);font-size:12px;color:var(--dim)}.cside .direct a{color:var(--cream)}
+.cside .direct{font-family:var(--mono);font-size:12px;color:var(--dim)}.cside .direct a{color:var(--cream);display:inline-flex;align-items:center;min-height:44px}
 .privacy{font-size:12.5px!important;color:var(--dim)!important;border-left:2px solid var(--edge-2);padding-left:12px}
 /* Qualifying form: one question per screen inside a glass console */
 .qf{font-family:var(--sans);position:relative;border:1px solid var(--edge-2);border-radius:18px;overflow:hidden;min-width:0;
@@ -294,13 +294,19 @@ details.csd dd{margin:0;color:var(--muted)}
       <article class="proj">
         <a class="shot" href="tidewell/" aria-label="Open prototype: Tidewell, revenue analytics"><img src="img/tidewell.jpg" alt="Tidewell: a fictional month broken into a waterfall" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">SaaS analytics</span></div>
-          <h3>Explaining why a month of revenue moved</h3><p class="value">Trace a drop to the four fictional accounts behind it, then create a task to win them back. These are not real financial results.</p>
+          <h3>Explaining why monthly revenue changed</h3><p class="value">Trace a drop to the four fictional accounts behind it, then create a task to win them back. These are not real financial results.</p>
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
       <article class="proj wide">
         <a class="shot" href="relay/" aria-label="Open prototype: Relay, speed-to-lead builder"><img src="img/relay.jpg" alt="Relay: a test lead moving through the speed-to-lead flow while the text thread fills in" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Automation builder</span></div>
           <h3>Reaching new Meta leads while they're still interested</h3><p class="value">Texts new leads in under a minute, qualifies them with AI, books the consult and alerts the owner, in English and Spanish.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj wide">
+        <a class="shot" href="signed/" aria-label="Open prototype: Signed to Live, client onboarding"><img src="img/signed.jpg" alt="Signed to Live: a phone with five steps from a signed contract to the first ad. Fictional shop. English and Spanish." loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Client onboarding · English and Spanish</span></div>
+          <h3>Getting from a signed contract to the first ad</h3><p class="value">Five steps on the owner's phone, in English or Spanish. The agency sees which step is stuck. A reminder stays on the page.</p>
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
     </div>

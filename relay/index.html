@@ -54,7 +54,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
 .tbtn:hover{border-color:var(--edge-2)}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
@@ -127,6 +127,8 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .tabs [role=tab]:hover:not([aria-selected=true]){color:var(--cream)}
 .lay{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
 /* canvas */
+#comp{min-height:112px}
+#pane{min-height:640px}
 .cvwrap{position:relative;overflow:auto;border-radius:12px;border:1px solid var(--edge);height:min(78vh,860px);min-height:420px;
   background:radial-gradient(circle at 1px 1px,rgba(255,222,190,.10) 1px,transparent 0) 0 0/22px 22px,rgba(8,6,5,.35)}
 .cvwrap:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -269,7 +271,7 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 .banner b{color:var(--cream);font-weight:500}
 @media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}.cvwrap{height:min(70vh,700px)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.simgrid,.ctrl{grid-template-columns:minmax(0,1fr)}.kpi .v{font-size:32px}.tabs{width:100%}.tabs [role=tab]{flex:1;padding-inline:8px}.cvwrap{height:62vh;min-height:380px}.wrap{padding-inline:14px}}
-@media (max-width:420px){.kpis{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.kpis{grid-template-columns:minmax(0,1fr)}.tbtn{max-width:100%}.tbtn select{width:100%;max-width:calc(100vw - 56px)}}
 </style>
 </head>
 <body>

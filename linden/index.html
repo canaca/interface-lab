@@ -55,7 +55,7 @@ a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer;min-height:32px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
@@ -111,7 +111,8 @@ textarea{min-height:72px;resize:vertical}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
 .filters input,.filters select{background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:10px;padding:8px 10px;min-width:0;min-height:44px}
 .filters input{flex:1;min-width:160px}
-.scroll{overflow:auto;max-height:720px}
+.scroll{overflow:auto;max-height:720px;min-height:560px}
+#detail{min-height:560px}
 ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .person{width:100%;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:12px;border:1px solid transparent;background:transparent;color:inherit;min-height:44px}
 .person.on{border-color:var(--accent);background:rgba(111,227,208,.06)}
@@ -497,7 +498,7 @@ function saveDraft(){
   snap();c.draft=text;S.buffer[c.id]=text;render();toast("Draft saved on this card. Nothing was sent.",true);
 }
 $("kpis").addEventListener("click",e=>{
-  const b=e.target.closest("[data-queue]");if(!b||D==="empty"||D==="loading")return;
+  const b=e.target.closest("[data-queue]");if(!b)return;if(D==="loading"||D==="empty"){const label=(b.querySelector(".sub")||b).textContent.replace(/\s+/g," ").trim();toast(D==="loading"?label+" is a filter. This is the loading screen. Switch back to Live book to use it.":label+" is a filter. The book is empty. Load the sample book to use it.");return}
   const q=b.dataset.queue;S.queue=S.queue===q?"all":q;$("fQueue").value=S.queue;paintKpis();paintList();paintDetail();
 });
 $("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()});

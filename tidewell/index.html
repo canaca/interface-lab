@@ -55,7 +55,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
 .tbtn:hover{border-color:var(--edge-2)}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
@@ -148,6 +148,7 @@ textarea.inp{min-height:56px;resize:vertical}
 .tasks .tempty{display:block;color:var(--muted);font-size:13px}
 .tchk input{accent-color:#6FE3D0;width:16px;height:16px}
 @media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:420px){.chart{padding-left:8px;padding-right:8px}.chart svg{width:calc(100% + 40px);max-width:none;margin-left:-20px}}
 </style>
 </head>
 <body>
