@@ -54,7 +54,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
 .tbtn:hover{border-color:var(--edge-2)}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
@@ -135,7 +135,7 @@ body{background:var(--bg)}
 .lane h3 .n{font-size:16px;letter-spacing:0;color:var(--cream)}
 .lane.hand h3{color:var(--hand)}.lane.wait h3{color:var(--wait)}.lane.decided h3{color:var(--decided)}.lane.unrec h3{color:var(--unrec)}
 .items{display:flex;flex-direction:column;gap:8px}
-.lanebtn{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-radius:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+.lanebtn{all:unset;box-sizing:border-box;width:100%;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-radius:6px;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;min-height:44px;padding:10px 4px}
 .lanebtn:focus-visible,.it:focus-visible{outline:2px solid var(--cream);outline-offset:2px}
 .lanebtn:hover span:first-child{text-decoration:underline;text-underline-offset:3px}
 .lane.on{border-color:var(--edge-2)}
