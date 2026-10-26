@@ -37,7 +37,7 @@ if(matchMedia("(max-width:800px)").matches){
 :root{
   --bg:#120E0B;
   --glass:rgba(44,33,25,.42); --glass-hi:rgba(255,226,196,.07); --edge:rgba(255,222,190,.15); --edge-2:rgba(255,222,190,.28);
-  --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
   --bronze:#C08A57; --orange:#E9A46E; --brown:#5A4434;
   --accent:#6FE3D0;
   --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -49,11 +49,13 @@ svg text{font-family:var(--mono)}
 html,body{height:100%}
 body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-size:14px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .m{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
 .stage{position:relative;height:100vh;min-height:720px;overflow:hidden;background:radial-gradient(90% 70% at 50% 46%,#2A1F17 0%,#17110D 55%,#0E0B09 100%)}
 #gl{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.poster{position:absolute;inset:0;z-index:1;pointer-events:auto}
+.poster img{width:100%;height:100%;object-fit:cover;display:block}
 .grain{position:absolute;inset:0;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(110% 85% at 50% 45%,transparent 50%,rgba(8,6,4,.78) 100%)}
 .topfade{position:absolute;left:0;right:0;top:0;height:230px;pointer-events:none;background:linear-gradient(180deg,rgba(14,10,8,.88) 0%,rgba(14,10,8,.55) 45%,transparent 100%)}
@@ -223,7 +225,7 @@ button,input,select{font:inherit;color:inherit}
 /* Phone: show the interface immediately, keep type at least 12px, and keep controls easy to tap. */
 html.vg-narrow{--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
 html.vg-narrow .reveal{opacity:1;transform:none;transition:none}
-html.vg-narrow .skip,html.vg-narrow .grain,html.vg-narrow .vig,html.vg-narrow .topfade,html.vg-narrow .hs,html.vg-narrow #gl{display:none}
+html.vg-narrow .skip,html.vg-narrow .grain,html.vg-narrow .vig,html.vg-narrow .topfade,html.vg-narrow .hs,html.vg-narrow #gl,html.vg-narrow .poster,html.vg-narrow #load3d{display:none}
 html.vg-narrow .stage{height:auto;min-height:0;background:var(--bg)}
 html.vg-narrow .hud{position:relative;padding:16px;padding-top:16px}
 html.vg-narrow .panel{min-height:340px}
@@ -249,6 +251,7 @@ html.vg-narrow .phone-note{display:block;margin-top:8px;font-size:15px;line-heig
 <main>
 <div class="stage" id="stage">
   <canvas id="gl" aria-label="3D model of power transformer T2 on a map of its feeders. Click bushing B to investigate the open alert."></canvas>
+  <div class="poster" id="poster" role="button" tabindex="0" aria-label="Load 3D model"><img src="../img/grid-workflow.jpg" alt="" width="1200" height="750"></div>
   <div class="vig"></div><div class="grain"></div><div class="topfade"></div>
   <div class="hs" id="hs"></div>
 
@@ -256,14 +259,15 @@ html.vg-narrow .phone-note{display:block;margin-top:8px;font-size:15px;line-heig
     <header class="head reveal">
       <div class="eyebrow"><span class="live">Live</span><span>Sierra Gate Substation · Valley Grid</span><span class="tag">Concept · fictional data</span></div>
       <h1>Transformer <span>T2</span></h1>
-      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled<span class="phone-note">On a phone, follow the steps in the panel. The full 3D model opens on a wider screen.</span></p>
+      <p>230 / 115 kV · 240 MVA · oil-immersed, fan cooled<span class="phone-note">On a phone, follow the steps in the panel. On a wider screen, Load 3D model opens the transformer.</span></p>
     </header>
     <div class="tools reveal d1">
       <label class="tbtn demo">States <select id="demo" aria-label="Review a state">
         <option value="live">Live alert</option><option value="empty">Empty · no alerts</option><option value="loading">Loading</option>
         <option value="dataerr">Error · trend data unavailable</option><option value="senderr">Error · couldn't send the crew request</option></select></label>
       <a class="tbtn" href="../">All work</a>
-      <button class="tbtn" id="filmBtn">▶ Film mode</button>
+      <button class="tbtn" id="load3d" type="button">Load 3D model</button>
+      <button class="tbtn" id="filmBtn" type="button">▶ Film mode</button>
     </div>
 
     <section class="card status reveal d1" aria-label="Unit status" id="status"></section>
@@ -289,7 +293,8 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const narrow=matchMedia("(max-width: 800px)").matches;
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 let THREE=null,RoundedBoxGeometry,RoomEnvironment,EffectComposer,RenderPass,UnrealBloomPass,OutputPass,GLTFLoader,GTAOPass,BokehPass;
-if(!narrow){
+let bootP=null;
+async function loadThree(){
   THREE=await import("three");
   ({RoundedBoxGeometry}=await import("three/addons/geometries/RoundedBoxGeometry.js"));
   ({RoomEnvironment}=await import("three/addons/environments/RoomEnvironment.js"));
@@ -314,10 +319,17 @@ const canvas=$("gl"),stage=$("stage");
 let renderer=null,scene=null,cam=null,composer=null,gtao=null,bokeh=null;
 let FLOOR={visible:true},orbit={theta:0,phi:1.1,r:27,look:null},overview=null;
 let focusCam=()=>{},PINS=[],rings=[],M={},ringBMat=null,ringBColor=null;
-let t2Ready=narrow,boardReady=narrow;
+let t2Ready=true,boardReady=true;
 let baseR=()=>27,V=(x,y,z)=>({x,y,z,clone(){return {x,y,z}},lerp(){return this}});
 let frame=()=>{};
-if(!narrow){
+async function boot3d(){
+if(narrow)return;
+if(bootP){toast("The 3D model is already loading, or it is already on screen.");return bootP}
+const loadBtn=$("load3d");
+if(loadBtn){loadBtn.disabled=true;loadBtn.textContent="Loading 3D model…"}
+bootP=(async()=>{
+await loadThree();
+{
 /* ---------- renderer: starts light, upgrades only if the machine is fast ---------- */
 try{renderer=new THREE.WebGLRenderer({canvas,antialias:!narrow,powerPreference:narrow?"low-power":"high-performance"});}catch(e){stage.insertAdjacentHTML("beforeend",'<div class="fallback">3D is not available here. The panels still work.</div>');}
 const scene=new THREE.Scene();
@@ -423,8 +435,8 @@ add(new THREE.BoxGeometry(.02,1.6,.6),M.bronze,4.36,1.6,2.75);
 let led=add(new THREE.SphereGeometry(.06,12,8),M.glowA,4.38,2.25,2.6);
 
 /* Detailed model replaces the coded one on wide screens. Phones keep the coded model so the page does not download the large scene files. */
-let glbRings=null,glbFans=null;ringBMat=null;ringBColor=null;t2Ready=false;boardReady=false;
-if(!narrow)fetch("t2.json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene;
+let glbRings=null,glbFans=null;ringBMat=null;ringBColor=null;
+fetch("t2.glb").then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(buf=>{new GLTFLoader().parse(buf,"",g=>{const root=g.scene;
   root.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material&&o.material.emissiveIntensity>1)o.material.toneMapped=false}});
   scene.remove(T);scene.add(root);
   glbRings=["A","B","C"].map((k,i)=>({o:root.getObjectByName("Ring_"+k),phase:i*.33})).filter(r=>r.o);
@@ -449,6 +461,7 @@ PINS.forEach(p=>{const d=document.createElement("div");d.className="pin"+(p.left
 
 /* ---------- camera ---------- */
 V=(x,y,z)=>new THREE.Vector3(x,y,z);
+camPos=new THREE.Vector3();camLook=new THREE.Vector3();camInit=false;
 /* one path: the intro plays 0 to 6.5 s; film mode plays all 15 s, including the workflow beat */
 const KEYS=[
   [0,   V(1.6,9.6,4.2),  V(0,8.2,.7)],
@@ -516,9 +529,8 @@ frame=function(){requestAnimationFrame(frame);const raw=clock.getDelta(),dt=Math
 
 /* ---------- gold circuit board: feeders, substation chips, energy pulses ---------- */
 let boardTick=null;
-Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fetch("board_paths.json").then(r=>r.json())]).then(([j,P])=>{
-  const bin=Uint8Array.from(atob(j.glb),c=>c.charCodeAt(0));
-  new GLTFLoader().parse(bin.buffer,"",g=>{const root=g.scene,k=1/P.scale;
+Promise.all([fetch("board.glb").then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}),fetch("board_paths.json").then(r=>r.json())]).then(([buf,P])=>{
+  new GLTFLoader().parse(buf,"",g=>{const root=g.scene,k=1/P.scale;
     root.scale.setScalar(k);root.position.y=-.1*k;
     root.traverse(o=>{if(o.isMesh){o.receiveShadow=true;o.castShadow=/^Sub\d$/.test(o.name);
       const m=o.material;if(!m)return;
@@ -539,8 +551,16 @@ Promise.all([fetch("board.json").then(r=>{if(!r.ok)throw 0;return r.json()}),fet
       if(faultMat&&S.fault!=="resolved")faultMat.emissiveIntensity=(Math.floor(t*4)%4<2)?9:1.5};
     boardReady=true;checkBoot()},()=>{boardReady=true;checkBoot()});}).catch(()=>{boardReady=true;checkBoot()});
 
-} /* end desktop 3D */
-const camPos=V(0,0,0),camLook=V(0,0,0);let camInit=false;
+} /* end desktop scene */
+  TEAL=new THREE.Color(COL.accent);
+  if(S.fault==="resolved")setFaultVisual(true);
+  const poster=$("poster"); if(poster)poster.hidden=true;
+  if(loadBtn)loadBtn.hidden=true;
+  toast("3D model loaded. Drag to look around. The alert panel was already live.");
+})().catch(err=>{bootP=null;if(loadBtn){loadBtn.disabled=false;loadBtn.textContent="Load 3D model"}toast("The 3D model didn't load. The alert panel still works.");console.error(err)});
+return bootP;
+}
+let camPos=V(0,0,0),camLook=V(0,0,0);let camInit=false;
 
 /* ---------- workflow: investigate an equipment alert ---------- */
 const W={state:"boot",alert:null,action:null,crew:"c4",note:"",tries:0,step:0,reply:false,acked:false,resolvedToday:0,ev:{},run:0};
@@ -589,8 +609,8 @@ function trendSVG(){const days=["Sep 28","Sep 29","Sep 30","Oct 1","Oct 2","Oct 
    <line x1="${L}" x2="${w-R}" y1="${y(500)}" y2="${y(500)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".7"/><text x="${w-R}" y="${y(500)-4}" text-anchor="end" fill="#B9A08A" font-size="12">limit 500 pC</text>
    <path aria-hidden="true" d="${line(B)} L${x(6)} ${yb} L${x(0)} ${yb}Z" fill="rgba(233,164,110,.10)"/><path aria-hidden="true" d="${line(B)}" fill="none" stroke="#E9A46E" stroke-width="2"/>
    <circle cx="${x(6)}" cy="${y(B[6])}" r="4" fill="#E9A46E"/><text x="${x(6)-6}" y="${y(B[6])-9}" text-anchor="end" fill="#F4E7D7" font-size="12">${B[6]} pC</text>
-   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#7F6B5B" font-size="12">${d}</text>`:"").join("")}
-   <text x="${x(0)}" y="${y(B[0])+16}" fill="#7F6B5B" font-size="12">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
+   ${days.map((d,i)=>i%2===0||i===6?`<text x="${x(i)}" y="${h-4}" text-anchor="${i===0?"start":i===6?"end":"middle"}" fill="#A38B78" font-size="12">${d}</text>`:"").join("")}
+   <text x="${x(0)}" y="${y(B[0])+16}" fill="#A38B78" font-size="12">${B[0]} pC</text></svg><p class="note" style="margin:4px 0 0">Phases A and C hold steady near 120 to 145 pC.</p>`}
 function readings(){return `<div class="read"><div><small>Now</small><b class="warn" id="pdNow">${pdB()} pC</b><span>limit 500</span></div><div><small>7 days</small><b>+${Math.round((pdB()/338-1)*100)}%</b><span>was 338</span></div><div><small>Hydrogen</small><b>118 ppm</b><span>watch &gt; 100</span></div></div>`}
 function cause(){return `<div><div class="sec"><span>Likely cause</span><span>from sensor patterns</span></div><div class="cause">
   <div class="c top"><b>Moisture in bushing B insulation</b><ul><li>Discharge climbs on humid nights</li><li>Hydrogen up 15% in 7 days</li><li>Phases A and C stay flat</li></ul></div>
@@ -660,7 +680,7 @@ function renderStatus(k=1){const el=$("status");
 let countFrom=null;function countUp(){countFrom=performance.now()}
 function drawSpark(){const s=$("spark");if(!s)return;const w=300,h=56;s.setAttribute("viewBox",`0 0 ${w} ${h}`);const x=t=>t/24*w,y=v=>h-4-(v-40)/(95-40)*(h-10);
   let d="";for(let t=0;t<=24;t+=.5)d+=(t?"L":"M")+x(t).toFixed(1)+" "+y(temp(t)).toFixed(1);
-  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#7F6B5B" font-size="12">95 °C alarm</text>
+  s.innerHTML=`<line x1="0" x2="${w}" y1="${y(95)}" y2="${y(95)}" stroke="#E9A46E" stroke-dasharray="3 4" opacity=".6"/><text x="${w-2}" y="${y(95)+11}" text-anchor="end" fill="#A38B78" font-size="12">95 °C alarm</text>
    <path d="${d} L${w} ${h} L0 ${h}Z" fill="rgba(111,227,208,.08)"/><path d="${d}" fill="none" stroke="#6FE3D0" stroke-width="1.6"/><circle cx="${x(S.hour)}" cy="${y(temp(S.hour))}" r="3.5" fill="#6FE3D0"/>`}
 function renderPins(){PINS.forEach(p=>{if(!p.el)return;p.el.classList.toggle("warn",p.warn());p.b.textContent=p.val()})}
 function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textContent=pdB()+" pC";const r=$("pdRow");if(r)r.textContent=pdB()+" pC · limit 500";
@@ -668,7 +688,7 @@ function liveTick(){renderStatus();renderPins();const n=$("pdNow");if(n)n.textCo
 function drawCurve(){const svg=$("curveSvg"),w=$("curve").clientWidth||800,h=52;svg.setAttribute("viewBox",`0 0 ${w} ${h}`);
   const x=t=>t/24*w,yl=v=>h-4-(v-100)/120*(h-10),yt=v=>h-4-(v-40)/(95-40)*(h-10);let a="",b="";
   for(let t=0;t<=24;t+=.25){a+=(t?"L":"M")+x(t).toFixed(1)+" "+yl(load(t)).toFixed(1);b+=(t?"L":"M")+x(t).toFixed(1)+" "+yt(temp(t)).toFixed(1)}
-  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#7F6B5B" font-size="12">${String(t).padStart(2,"0")}:00</text>`).join("");
+  const ticks=[0,6,12,18,24].map(t=>`<text x="${Math.min(w-16,x(t)+3)}" y="10" fill="#A38B78" font-size="12">${String(t).padStart(2,"0")}:00</text>`).join("");
   svg.innerHTML=`${ticks}<path d="${a} L${w} ${h} L0 ${h}Z" fill="rgba(192,138,87,.12)"/><path d="${a}" fill="none" stroke="#C08A57" stroke-width="1.8"/><path d="${b}" fill="none" stroke="#6FE3D0" stroke-width="1.2" opacity=".8"/>
    <line x1="${x(S.hour)}" x2="${x(S.hour)}" y1="0" y2="${h}" stroke="#F4E7D7" stroke-width="1" opacity=".7"/><circle cx="${x(S.hour)}" cy="${yl(load(S.hour))}" r="4" fill="#F4E7D7"/>`
   {const cv=$("curve"),m=Math.round(S.hour*60)%1440,hh=Math.floor(m/60),mm=m%60,txt=`${(hh%12)||12}:${String(mm).padStart(2,"0")} ${hh<12?"AM":"PM"}`;if(cv.getAttribute("aria-valuetext")!==txt){cv.setAttribute("aria-valuenow",(m/60).toFixed(2));cv.setAttribute("aria-valuetext",txt)}}}
@@ -676,6 +696,7 @@ function drawCurve(){const svg=$("curveSvg"),w=$("curve").clientWidth||800,h=52;
  cv.addEventListener("pointerdown",e=>{d=true;cv.setPointerCapture(e.pointerId);set(e)});cv.addEventListener("pointermove",e=>{if(d)set(e)});cv.addEventListener("pointerup",()=>d=false);
  cv.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){S.hour=(S.hour+(e.key==="ArrowRight"?.25:-.25)+24)%24;setPlay(false);liveTick()}})}
 function setPlay(p){S.playing=p;$("play").textContent=p?"❚❚ Pause":"▶ Play"}
+setPlay(S.playing);
 $("play").addEventListener("click",()=>setPlay(!S.playing));
 let tt;function toast(m,warn){const t=$("toast");t.textContent=m;t.classList.toggle("warn",!!warn);t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),3000)}
 
@@ -692,16 +713,19 @@ function endIntro(){S.mode="orbit";$("skip").hidden=true;if(!$("hud").classList.
   orbit.theta=Math.atan2(21.8,19);orbit.phi=FLOOR.visible?1.1:.98;orbit.r=baseR();orbit.look=V(0,3.9,0);overview=null;if(W.state!=="empty"&&W.state!=="alert"&&W.state!=="boot")focusCam(true)}
 const FILM=[[6,()=>reveal(true)],[7.4,()=>raiseAlert()],[9.2,()=>investigate(true)],[10.6,()=>chooseAction("dispatch")],[11.2,()=>confirmAction(true)],[12.9,()=>$("endcard").classList.add("on")]];
 let filmNext=0;
-function filmReset(){S.t=0;filmNext=0;reveal(false);$("endcard").classList.remove("on");resetWorkflow();D="live";$("demo").value="live";if(t2Ready&&boardReady){W.state="empty";renderPanel()}S.hour=14;renderStatus()}
+function filmReset(){S.t=0;filmNext=0;reveal(false);$("endcard").classList.remove("on");resetWorkflow();D="live";$("demo").value="live";W.state="empty";renderPanel();S.hour=14;renderStatus()}
 function startFilm(){S.mode="film";stage.classList.add("film");$("skip").hidden=true;clearTimeout(alertTimer);filmReset();toast("Film mode plays a 15-second loop. Press Esc to exit.")}
 function exitFilm(){stage.classList.remove("film");$("endcard").classList.remove("on");endIntro()}
-$("filmBtn").addEventListener("click",startFilm);
+$("filmBtn").addEventListener("click",async()=>{if(!narrow)await boot3d();startFilm()});
+$("load3d").addEventListener("click",()=>boot3d());
+$("poster").addEventListener("click",()=>boot3d());
+$("poster").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();boot3d()}});
 $("skip").addEventListener("click",endIntro);
 addEventListener("keydown",e=>{if(e.key==="Escape"&&S.mode==="film")exitFilm()});
 
 let lastTick=0;
-if(reduce||narrow){S.mode="orbit";$("skip").hidden=true;if(t2Ready&&boardReady)checkBoot();reveal(true)}else{$("skip").hidden=false}
-if(narrow){
+S.mode="orbit";$("skip").hidden=true;checkBoot();reveal(true);
+{
   let prev=performance.now();
   frame=function(){
     requestAnimationFrame(frame);

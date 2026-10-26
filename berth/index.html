@@ -121,7 +121,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .track i{display:block;height:100%;background:var(--accent);border-radius:99px}
 .step{padding:12px 0;border-top:1px solid var(--edge)}
 .task{padding:10px 0;border-top:1px solid var(--edge);display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:860px){
   .lay,.kpis,.cs{grid-template-columns:1fr}
   .cs dl{grid-template-columns:1fr}

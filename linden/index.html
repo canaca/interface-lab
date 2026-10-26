@@ -126,7 +126,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .log li{display:grid;grid-template-columns:72px 1fr;gap:8px}
 .log .w{font-family:var(--mono);font-size:11px;color:var(--dim)}
-@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:860px){
   .lay,.kpis,.cs{grid-template-columns:1fr}
   .cs dl{grid-template-columns:1fr}
