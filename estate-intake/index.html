@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Estate Jewelry Intake Assistant · Not an appraisal</title>
-<meta name="description" content="This is NOT an appraisal. Concept / early access, not a live service. An idea for independent jewelers: photos in, a draft intake sheet out, reviewed by a credentialed jeweler.">
+<meta name="description" content="This is NOT an appraisal. Concept / early access, not a live service. An idea for independent jewelers: photos in, a draft intake sheet out, reviewed by a credentialed jeweler. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta name="theme-color" content="#120E0B">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://canaca.github.io/interface-lab/estate-intake/">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
 <meta property="og:title" content="Estate Jewelry Intake Assistant · Not an appraisal">
-<meta property="og:description" content="This is NOT an appraisal. Concept / early access, not a live service.">
+<meta property="og:description" content="This is NOT an appraisal. Concept / early access, not a live service. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/estate-intake/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
 <meta property="og:image:alt" content="Cesar Navarro, Interface Lab">
@@ -34,7 +34,8 @@ a{color:var(--accent);text-underline-offset:.18em}
 a:hover{color:var(--cream)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:42rem;margin:0 auto;padding:28px 20px 64px}
-.back{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.back{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.note a{display:inline-flex;align-items:center;min-height:44px}
 .back:hover{color:var(--cream)}
 h1{font-weight:500;font-size:clamp(32px,5vw,48px);letter-spacing:-.03em;line-height:1.05;margin:18px 0 12px}
 h2{font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px}
@@ -45,7 +46,10 @@ ol,ul{margin:0;padding-left:1.2em}
 li+li{margin-top:8px}
 .files{list-style:none;padding:0}
 .files li{padding:10px 0;border-top:1px solid var(--edge)}
-.files a{font-family:var(--mono);font-size:14px}
+.files a{font-family:var(--mono);font-size:14px;display:inline-flex;align-items:center;min-height:44px}
+.credits{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:28px 0 0}
+.credits dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.credits dd{margin:0}
 .btn{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border-radius:11px;background:var(--cream);color:#1B140F;text-decoration:none;font-weight:600}
 .btn:hover{color:#1B140F;background:#fff}
 .note{color:var(--muted);font-size:15px}
@@ -54,8 +58,8 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--edge);font-fa
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="../">Interface Lab</a>
   <main>
+    <a class="back" href="../">Interface Lab</a>
     <h1>Estate Jewelry Intake Assistant</h1>
     <p class="warn">This is NOT an appraisal. Concept / early access, not a live service.</p>
     <p class="lede">An idea for independent jewelers. A customer would upload photos of jewelry they already own. An AI would draft an intake sheet. A credentialed jeweler would review that draft.</p>
@@ -86,8 +90,13 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--edge);font-fa
       <li><a href="status.json">status.json</a> — <span class="note">status concept, accepting waitlist</span></li>
     </ul>
     <p class="note">POST /intake-draft is described only. This host does not run it. The status you can fetch today is <a href="status.json">status.json</a>.</p>
+    <dl class="credits">
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+    </dl>
+    <p class="note">Fictional concept. No live data. This page does not appraise jewelry.</p>
   </main>
-  <footer>Cesar Navarro · Interface Lab · Not an appraisal · Concept, not a product</footer>
+  <footer>Cesar Navarro · Interface Lab · Not an appraisal · Concept, not a product · cnavarro.business@gmail.com</footer>
 </div>
 </body>
 </html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab UI · The shared system behind Interface Lab</title>
+<meta name="description" content="October 2026 concept: one design system for Interface Lab. Tokens, components taken from the live pieces, and an accessibility audit. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
+<meta name="theme-color" content="#120E0B">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Lab UI · The shared system behind Interface Lab">
+<meta property="og:description" content="October 2026 concept. Tokens, shared components, and an accessibility audit. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo data.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/lab-ui/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/lab-ui.jpg">
+<meta property="og:image:alt" content="Lab UI: tokens and shared components for Interface Lab. Fictional demo.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lab UI · The shared system behind Interface Lab">
+<meta name="twitter:description" content="October 2026 concept. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo data.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/lab-ui.jpg">
+<meta name="twitter:image:alt" content="Lab UI: tokens and shared components for Interface Lab. Fictional demo.">
+<style>[hidden]{display:none!important}body{margin:0;background:#120E0B}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1C1511; --panel:#2A211B;
+  --glass:rgba(44,33,25,.55); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.16); --edge-2:rgba(255,222,190,.32);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0; --ink:#1B140F;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --r-pill:999px;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px;
+  --fast:120ms; --base:200ms; --slow:360ms;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 58%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:var(--accent)}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 20px 64px}
+.skip{position:absolute;left:12px;top:-40px;background:var(--cream);color:var(--ink);padding:8px 12px;border-radius:8px;z-index:30}
+.skip:focus{top:12px}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.home{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.home:hover{color:var(--cream)}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(233,164,110,.45);border-radius:var(--r-pill);padding:4px 10px}
+h1{font-weight:400;font-size:clamp(36px,6vw,56px);letter-spacing:-.03em;line-height:1.05;margin:8px 0 12px}
+.lede{font-size:18px;color:var(--muted);max-width:62ch;margin:0 0 8px}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:640px;margin:18px 0}
+.meta dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.meta dd{margin:2px 0 0}
+.banner{margin:8px 0 0;padding:10px 12px;border-radius:var(--r-md);border:1px dashed var(--edge-2);color:var(--muted);font-size:14px}
+h2{font-weight:500;font-size:clamp(26px,3vw,34px);letter-spacing:-.02em;margin:40px 0 8px}
+h3{font-weight:500;font-size:20px;margin:0}
+.sub{color:var(--muted);font-size:15px;margin:0 0 12px;max-width:70ch}
+.use{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.use div{border:1px solid var(--edge);border-radius:var(--r-md);padding:12px 14px;background:rgba(255,222,190,.03)}
+.use b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:4px}
+.use p{margin:0;font-size:14.5px}
+.where{font-size:14px;color:var(--muted);margin:0 0 8px}
+.keys{font-family:var(--mono);font-size:12.5px;color:var(--dim);margin:0 0 12px}
+.comp{border:1px solid var(--edge);border-radius:var(--r-lg);padding:16px;margin:0 0 28px;background:linear-gradient(180deg,rgba(255,222,190,.04),transparent 40%),var(--bg-2);min-width:0}
+.comp.force-hover .demo .btn:not(:disabled){border-color:var(--cream)}
+.comp.force-hover .demo .chip{border-color:var(--cream)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stat{font-family:var(--mono);font-size:12px;color:var(--accent);min-height:1.4em;margin:8px 0}
+.states{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.states button,.btn{min-height:44px;padding:8px 12px;border-radius:var(--r-md);border:1px solid var(--edge-2);background:rgba(255,222,190,.06);color:var(--cream);cursor:pointer}
+.btn.pri{background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.warn{border-color:rgba(226,114,91,.6);color:#ffd0c6}
+.btn:hover:not(:disabled),.states button:hover{border-color:var(--cream)}
+.btn:disabled,.states button[aria-pressed="true"]{cursor:default}
+.states button[aria-pressed="true"]{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.btn:disabled{opacity:.55}
+.demo{border:1px solid var(--edge);border-radius:var(--r-md);padding:14px;background:var(--panel);min-width:0}
+.chip{display:inline-flex;align-items:center;min-height:44px;padding:6px 12px;border-radius:var(--r-pill);border:1px solid var(--edge-2);background:transparent;font-size:14px;cursor:pointer}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.5)}
+.chip.bad{color:#ffb2a4;border-color:rgba(226,114,91,.55)}
+.chip[aria-pressed="true"]{background:rgba(255,222,190,.1)}
+.card{border:1px solid var(--edge);border-radius:var(--r-md);padding:14px;background:rgba(0,0,0,.18)}
+.card h3{margin-bottom:6px}
+.old{text-decoration:line-through;color:var(--dim);display:block}
+.new{color:var(--accent);font-weight:600}
+.err{border:1px solid rgba(226,114,91,.55);background:rgba(226,114,91,.1);border-radius:var(--r-md);padding:12px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.err b{display:block}
+.field{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.field input,.field textarea,select.inp{min-height:44px;border-radius:var(--r-sm);border:1px solid var(--edge-2);background:#120E0B;padding:8px 10px;width:100%;max-width:420px}
+.field input[aria-invalid="true"]{border-color:var(--red)}
+.msg{color:#ffb2a4;font-size:14px;min-height:1.2em}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,rgba(255,222,190,.06),rgba(255,222,190,.16),rgba(255,222,190,.06));background-size:200% 100%;animation:sh var(--slow) linear infinite;margin:8px 0}
+@keyframes sh{to{background-position:-200% 0}}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(27,20,15,.25);border-top-color:var(--ink);display:inline-block;animation:sp .8s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--edge);vertical-align:top}
+th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:4px;padding:4px}
+.scroll{overflow-x:auto;max-width:100%}
+.steps{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+.steps button{min-height:44px;border-radius:var(--r-pill);border:1px solid var(--edge-2);background:transparent;padding:8px 12px;cursor:pointer}
+.steps button[aria-current="step"]{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+.steps button.done{color:var(--accent);border-color:rgba(111,227,208,.4)}
+.steps button.stuck{color:#ffb2a4;border-color:rgba(226,114,91,.55)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.sw{border:1px solid var(--edge);border-radius:var(--r-md);overflow:hidden}
+.sw i{display:block;height:56px}
+.sw span{display:block;padding:8px 10px;font-family:var(--mono);font-size:12px}
+.scale p{margin:0 0 6px}
+.motion-box{width:48px;height:48px;border-radius:var(--r-md);background:var(--accent);animation:bob var(--slow) var(--ease) infinite alternate}
+@keyframes bob{from{transform:translateX(0)}to{transform:translateX(28px)}}
+.toast{position:fixed;left:16px;right:16px;bottom:16px;max-width:520px;margin:0 auto;background:#2A211B;border:1px solid var(--edge-2);border-radius:14px;padding:12px 14px;display:none;gap:10px;align-items:center;z-index:20}
+.toast.on{display:flex}
+.toast button{min-height:44px}
+.kpis{display:flex;gap:8px;flex-wrap:wrap}
+.kpi{min-height:44px;min-width:44px;border-radius:var(--r-md);border:1px solid var(--edge-2);background:transparent;padding:8px 12px;cursor:pointer;text-align:left}
+.kpi b{display:block;font-size:20px;font-weight:500}
+.kpi[aria-pressed="true"]{background:var(--cream);color:var(--ink)}
+.lang button[aria-checked="true"]{background:var(--cream);color:var(--ink)}
+.cs{margin-top:28px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px;border-top:1px solid var(--edge);padding-top:24px}
+.cs dl{display:grid;grid-template-columns:110px 1fr;gap:10px 14px;margin:0}
+.cs dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.cs dd{margin:0}
+.foot{margin-top:28px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--dim)}
+.audit{width:100%;font-size:14px}
+.audit th,.audit td{border-bottom:1px solid var(--edge);padding:8px 6px}
+@media (max-width:720px){.use,.cs,.meta{grid-template-columns:1fr}.cs dl{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  :root{--fast:0ms;--base:0ms;--slow:0ms}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="wrap">
+<main id="content">
+  <header class="bar">
+    <a class="home" href="../">Interface Lab</a>
+    <span class="tag">Concept · fictional data</span>
+    <label class="btn" style="padding:0 12px">States
+      <select id="demo" aria-label="Review a state" style="background:transparent;border:0;min-height:44px">
+        <option value="live">Live samples</option>
+        <option value="empty">Empty · no rows</option>
+        <option value="loading">Loading</option>
+        <option value="error">Error · save failed</option>
+      </select>
+    </label>
+    <button class="btn ghost" id="resetBtn" type="button">Reset demo</button>
+  </header>
+  <p class="eyebrow" style="font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-size:12px">Concept direction · AI-assisted build (Claude, Cursor)</p>
+  <h1>Lab UI</h1>
+  <p class="lede">Concepts were built fast with AI and didn't match. This page is the system pulled out of them: the same tokens, the same components, and the accessibility gaps closed.</p>
+  <p class="banner">Demo only. The shops, people, and amounts on this page are fictional. Nothing is sent, charged, or published. A Figma mirror of these tokens is planned. It is not built.</p>
+  <dl class="meta">
+    <div><dt>Role</dt><dd>Concept direction</dd></div>
+    <div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div>
+  </dl>
+
+  <h2 id="tokens">Tokens</h2>
+  <p class="sub">Checked against WCAG 2.2 AA for text under 18px (4.5:1) and for large text or UI marks (3:1). The dim color is the one Linden already used. It replaces #7F6B5B, which was 3.80:1 on the page background and failed for small text.</p>
+  <div class="swatches" id="swatches"></div>
+  <h3 style="margin-top:18px">Type</h3>
+  <div class="scale">
+    <p style="font-size:12px">12px · labels and meta. Hanken Grotesk.</p>
+    <p style="font-size:14px">14px · secondary text inside a piece.</p>
+    <p style="font-size:16px">16px · body. This page uses 16px so it stays readable on a phone.</p>
+    <p style="font-size:20px">20px · section titles inside a demo.</p>
+    <p style="font-size:28px">28px · page sections.</p>
+    <p style="font-size:40px;letter-spacing:-.03em">40px · the piece title.</p>
+    <p style="font-family:var(--mono);font-size:12px">JetBrains Mono · times, ids, and the role line.</p>
+  </div>
+  <h3>Space, radius, motion</h3>
+  <p class="sub">Space steps are 4, 8, 12, 16, 24, 32, and 48. Radius is 8 for fields, 12 for controls, 18 for panels, and a pill for chips. Motion is 120ms, 200ms, and 360ms. When the system asks for less motion, those durations are 0 and the block below does not travel.</p>
+  <div class="row" aria-hidden="true"><div class="motion-box" id="motionBox"></div><span class="sub" style="margin:0">Motion sample</span></div>
+  <p id="motionNote" class="sub"></p>
+
+  <h2>Components</h2>
+  <p class="sub">Fourteen parts taken from the pieces that are already on the hub. Each control in a demo does something. State buttons switch the real demo, and choosing the state you are already on says so.</p>
+
+  <article class="comp" id="c-chip" data-state="default">
+    <h3>Status chip</h3>
+    <div class="use"><div><b>Use</b><p>A short status a person can scan: health, a step, an alert.</p></div><div><b>Don't use</b><p>For a sentence. If the reason matters, put the reason next to the chip, as Signed and Berth do.</p></div></div>
+    <p class="where">Used in Keel, Berth, Linden, Signed → Live, Valley Grid, and Harbor.</p>
+    <p class="keys">Keyboard: Tab to a chip. Arrow keys move inside the group. Space or Enter selects. The pressed chip filters the sample list.</p>
+    <div class="states" role="group" aria-label="Status chip states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus empty error">
+        <div class="row" role="radiogroup" aria-label="Filter the sample by status" id="chipGroup">
+          <button class="chip bad" type="button" role="radio" aria-checked="false" data-chip="risk">At risk</button>
+          <button class="chip warn" type="button" role="radio" aria-checked="false" data-chip="watch">Watch</button>
+          <button class="chip ok" type="button" role="radio" aria-checked="true" data-chip="ok">Healthy</button>
+        </div>
+        <ul id="chipList"></ul>
+        <p id="chipEmpty" hidden><b>No sample rows for that chip.</b> Pick another status.</p>
+      </div>
+      <div data-when="disabled"><button class="chip" type="button" disabled>At risk</button><p class="sub">Disabled. The book is not ready for a filter.</p></div>
+      <div data-when="loading"><div class="skel" style="width:40%"></div><div class="skel"></div><p class="sub">Loading the sample book.</p></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-approve" data-state="default">
+    <h3>Approval card</h3>
+    <div class="use"><div><b>Use</b><p>When a person must agree before money, a message, or a publish step.</p></div><div><b>Don't use</b><p>For a change that can be undone and does not leave the page. Use the change preview instead.</p></div></div>
+    <p class="where">Used in Kestrel (refund and reply) and Signed → Live (confirm a step).</p>
+    <p class="keys">Keyboard: Tab through the actions. Enter activates. Escape cancels an amount edit. The amount field announces its error.</p>
+    <div class="states" role="group" aria-label="Approval card states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo" id="approveDemo">
+      <div data-when="default hover focus">
+        <div class="card" id="approveCard">
+          <h3>Approve the sample refund</h3>
+          <p class="sub" style="margin:0">Fictional ticket. Acme Dental. Duplicate charge. A person decides. Nothing is refunded from this page.</p>
+          <p id="approveAmt">Amount <b>$249.00</b> · demo</p>
+          <div class="field" id="amtEdit" hidden>
+            <label for="amtIn">Refund amount in dollars</label>
+            <input id="amtIn" type="number" min="1" max="249" step="0.01" value="249" aria-describedby="amtMsg">
+            <p class="msg" id="amtMsg" role="alert"></p>
+            <div class="row"><button class="btn pri" type="button" id="amtSave">Use this amount</button><button class="btn ghost" type="button" id="amtCancel">Cancel</button></div>
+          </div>
+          <div class="row" id="approveActs"><button class="btn pri" type="button" id="approveBtn">Approve</button><button class="btn" type="button" id="declineBtn">Decline</button><button class="btn ghost" type="button" id="editAmt">Change amount</button></div>
+          <p id="approveOut" class="sub"></p>
+        </div>
+      </div>
+      <div data-when="disabled"><button class="btn pri" type="button" disabled>Approve</button><p class="sub">Disabled while the sample run is still working.</p></div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Saving the sample decision…</p></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The sample decision didn't save.</b> Nothing was approved. Your choice is still here.</div><button class="btn" type="button" data-retry="approve">Try again</button></div></div>
+      <div data-when="empty"><p><b>No decision is waiting.</b> Load the sample ticket to practice the gate.</p><button class="btn" type="button" data-load="approve">Load the sample ticket</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-diff" data-state="default">
+    <h3>Change preview</h3>
+    <div class="use"><div><b>Use</b><p>Before a record changes, show the old value and the new value in the same place.</p></div><div><b>Don't use</b><p>When the change is only a draft that never writes. Say "not sent" instead of a diff.</p></div></div>
+    <p class="where">Used in Harbor. The old value is struck through. The new value is the accent color. A conflict waits for a person.</p>
+    <p class="keys">Keyboard: Tab to Apply, Skip, or Undo. Enter runs it. The status line updates.</p>
+    <div class="states" role="group" aria-label="Change preview states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="card" id="diffCard">
+          <h3>Northwind Heating · fictional deal</h3>
+          <p><span class="old" id="diffOld">Next step: Follow up by Oct 9</span><span class="new" id="diffNew">Next step: Close on Nov 14</span></p>
+          <p class="sub" id="diffWhy">Sample suggestion. No CRM is connected.</p>
+          <div class="row"><button class="btn pri" type="button" id="diffApply">Apply</button><button class="btn ghost" type="button" id="diffSkip">Skip</button><button class="btn" type="button" id="diffUndo" disabled>Undo</button></div>
+        </div>
+      </div>
+      <div data-when="error">
+        <div class="err" role="alert"><div><b>This sample change conflicts.</b> Someone else moved the stage after the suggestion. Nothing was written.</div></div>
+        <div class="row" style="margin-top:8px"><button class="btn" type="button" id="diffTop">Apply the suggestion on top</button><button class="btn ghost" type="button" id="diffLeave">Leave theirs</button></div>
+        <p id="diffConf" class="sub"></p>
+      </div>
+      <div data-when="disabled"><button class="btn pri" type="button" disabled>Apply</button></div>
+      <div data-when="loading"><div class="skel"></div><div class="skel" style="width:55%"></div></div>
+      <div data-when="empty"><p><b>No suggested changes.</b> The sample pipeline is clean.</p><button class="btn" type="button" data-load="diff">Load a sample change</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-toast" data-state="default">
+    <h3>Undo toast</h3>
+    <div class="use"><div><b>Use</b><p>After a change that is saved on the page, with Undo on the toast and again in the toolbar.</p></div><div><b>Don't use</b><p>As the only place a destructive action can be stopped. Ask first when it cannot be undone.</p></div></div>
+    <p class="where">Used in Keel, Kestrel, Linden, Berth, Harbor, Decision OS, Tidewell, Relay, and Signed → Live.</p>
+    <p class="keys">Keyboard: after the toast opens, Tab reaches Undo. Enter undoes. The toast does not trap focus.</p>
+    <div class="states" role="group" aria-label="Undo toast states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <p id="toastSubject">Sample note: not logged.</p>
+        <button class="btn pri" type="button" id="logNote">Log a sample note</button>
+      </div>
+      <div data-when="disabled"><button class="btn pri" type="button" disabled>Log a sample note</button></div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Writing the sample note…</p></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The sample note didn't save.</b> It is still in the box.</div><button class="btn" type="button" data-retry="toast">Try again</button></div></div>
+      <div data-when="empty"><p><b>Nothing to undo.</b> Log a sample note first.</p></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-table" data-state="default">
+    <h3>Sortable data table</h3>
+    <div class="use"><div><b>Use</b><p>When someone compares rows and needs sort, search, an empty state, and a sample export.</p></div><div><b>Don't use</b><p>For a single record. Use the approval card or the step tracker.</p></div></div>
+    <p class="where">Used in Keel, Harbor, and Tidewell. Linden and Berth use the same empty-search sentence.</p>
+    <p class="keys">Keyboard: Tab to a column button. Enter or Space sorts. Arrow keys move across the column buttons. Search is a normal field. The table scroller is a region you can tab into.</p>
+    <div class="states" role="group" aria-label="Table states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="kpis" role="group" aria-label="Filter rows by health">
+          <button class="kpi" type="button" data-kpi="all" aria-pressed="true">All<b id="kAll">4</b></button>
+          <button class="kpi" type="button" data-kpi="risk" aria-pressed="false">At risk<b id="kRisk">1</b></button>
+          <button class="kpi" type="button" data-kpi="watch" aria-pressed="false">Watch<b id="kWatch">2</b></button>
+        </div>
+        <div class="row" style="margin:8px 0">
+          <label class="vh" for="q">Search the sample book</label>
+          <input id="q" type="search" placeholder="Search the sample book" aria-label="Search the sample book" style="min-height:44px;flex:1;min-width:160px;border-radius:8px;border:1px solid var(--edge-2);background:#120E0B;padding:8px 10px">
+          <button class="btn" type="button" id="exportBtn">Export CSV</button>
+        </div>
+        <div class="scroll" tabindex="0" role="region" aria-label="Sample book, scrolls sideways if needed">
+          <table id="book">
+            <thead><tr>
+              <th aria-sort="none"><button type="button" data-sort="name">Shop</button></th>
+              <th aria-sort="none"><button type="button" data-sort="status">Status</button></th>
+              <th aria-sort="ascending"><button type="button" data-sort="days">Days</button></th>
+            </tr></thead>
+            <tbody id="bookBody"></tbody>
+          </table>
+        </div>
+        <p id="noRows" hidden><b>No matches.</b> Clear the search or pick another filter.</p>
+      </div>
+      <div data-when="empty"><p><b>No rows in this sample.</b> Switch back to Default, or load the rows.</p><button class="btn" type="button" data-load="table">Load the sample rows</button></div>
+      <div data-when="loading"><div class="skel"></div><div class="skel"></div><div class="skel" style="width:70%"></div></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The sample book didn't load.</b> Nothing was changed.</div><button class="btn" type="button" data-retry="table">Try again</button></div></div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>Export CSV</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-steps" data-state="default">
+    <h3>Step tracker</h3>
+    <div class="use"><div><b>Use</b><p>A fixed sequence with one current step, done steps, and a stuck step that has a reason.</p></div><div><b>Don't use</b><p>For a free diagram. Relay's canvas is a flow, not this tracker.</p></div></div>
+    <p class="where">Used in Signed → Live, Berth, and Valley Grid. Relay uses a different map for the lead flow.</p>
+    <p class="keys">Keyboard: the steps are a tab list. Arrow keys move. Home and End jump. Enter on "I'm stuck" asks for a reason. A reason under 3 characters is rejected.</p>
+    <div class="states" role="group" aria-label="Step tracker states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="steps" id="stepList" role="tablist" aria-label="Sample onboarding steps"></div>
+        <div id="stepPanel" role="tabpanel" style="margin-top:10px"></div>
+      </div>
+      <div data-when="loading"><div class="skel" style="width:80%"></div><div class="skel"></div></div>
+      <div data-when="empty"><p><b>No steps yet.</b> This is the empty book.</p><button class="btn" type="button" data-load="steps">Load the sample steps</button></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The reason didn't save.</b> It is still in the box. Nothing was marked stuck.</div><button class="btn" type="button" data-retry="steps">Try again</button></div></div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>I'm stuck</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-badge" data-state="default">
+    <h3>AI confidence badge</h3>
+    <div class="use"><div><b>Use</b><p>A few words for how the suggestion should be treated. Not a percent.</p></div><div><b>Don't use</b><p>A made-up score. None of the pieces have a real confidence number, so the badge does not invent one.</p></div></div>
+    <p class="where">Kestrel says a person is required over $200. Harbor flags a conflict instead of a score. Linden marks a draft that is not sent.</p>
+    <p class="keys">Keyboard: arrow keys move between the three badges. The sentence under them changes to the rule for that badge.</p>
+    <div class="states" role="group" aria-label="Confidence badge states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="row" role="radiogroup" aria-label="How sure the sample suggestion is" id="badgeGroup">
+          <button class="chip warn" type="button" role="radio" data-badge="person" aria-checked="true">Needs a person</button>
+          <button class="chip" type="button" role="radio" data-badge="source" aria-checked="false">Check the source</button>
+          <button class="chip ok" type="button" role="radio" data-badge="ready" aria-checked="false">Ready to review</button>
+        </div>
+        <p id="badgeText" class="sub"></p>
+      </div>
+      <div data-when="disabled"><button class="chip" type="button" disabled>Needs a person</button></div>
+      <div data-when="loading"><div class="skel" style="width:50%"></div></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The suggestion has no source.</b> Do not show a badge. Ask for the citation first.</div></div></div>
+      <div data-when="empty"><p><b>No suggestion.</b> The badge stays off until there is one.</p></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-error" data-state="default">
+    <h3>Error banner</h3>
+    <div class="use"><div><b>Use</b><p>Plain language, what did not happen, and a fix on the banner.</p></div><div><b>Don't use</b><p>A code, a stack trace, or "something went wrong" with no next step.</p></div></div>
+    <p class="where">Used in Kestrel, Valley Grid, Decision OS, Harbor, Tidewell, and Signed → Live.</p>
+    <p class="keys">Keyboard: Tab to the fix button. The banner is an alert. The first try fails on purpose. The second try clears it.</p>
+    <div class="states" role="group" aria-label="Error banner states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus error">
+        <div class="err" id="errBox" role="alert"><div><b id="errTitle">The sample save didn't go through.</b><span id="errBody">Nothing was stored. Your note is still here.</span></div><button class="btn" type="button" id="errFix">Try again</button></div>
+      </div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Trying the sample save again…</p></div>
+      <div data-when="empty"><p><b>No error.</b> The sample save is fine.</p></div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>Try again</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-lang" data-state="default">
+    <h3>English / Spanish toggle</h3>
+    <div class="use"><div><b>Use</b><p>When the whole working surface switches language, including buttons.</p></div><div><b>Don't use</b><p>To translate the role or the tools line. Those stay "Concept direction" and "AI-assisted build (Claude, Cursor)".</p></div></div>
+    <p class="where">Used in Relay and Signed → Live.</p>
+    <p class="keys">Keyboard: arrow keys switch language. Choosing the current language says it is already on.</p>
+    <div class="states" role="group" aria-label="Language toggle states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="row lang" role="radiogroup" aria-label="Language" id="langGroup">
+          <button class="btn" type="button" role="radio" data-lang="en" aria-checked="true">English</button>
+          <button class="btn" type="button" role="radio" data-lang="es" aria-checked="false">Español</button>
+        </div>
+        <p id="langBody" class="sub"></p>
+        <p class="where" id="langCredit"></p>
+      </div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>English</button></div>
+      <div data-when="loading"><div class="skel"></div></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>This sample has no Spanish string.</b> Leave the English sentence. Do not invent a translation.</div></div></div>
+      <div data-when="empty"><p><b>No copy yet.</b> The toggle waits for a sentence.</p></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-skel" data-state="default">
+    <h3>Loading skeleton</h3>
+    <div class="use"><div><b>Use</b><p>While a sample list is on its way, in the shape of the list.</p></div><div><b>Don't use</b><p>For an action that failed. Use the error banner. For an action in progress on a button, use the spinner.</p></div></div>
+    <p class="where">Used on every piece that has a loading state in the States menu.</p>
+    <p class="keys">Keyboard: "Show the sample" is a button. The skeleton is not a control. Reduced motion turns the shimmer off.</p>
+    <div class="states" role="group" aria-label="Skeleton states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo" id="skelDemo">
+      <div data-when="loading"><div class="skel" style="width:46%"></div><div class="skel"></div><div class="skel" style="width:72%"></div><button class="btn" type="button" id="skelDone">Show the sample</button></div>
+      <div data-when="default hover focus"><p id="skelReady"><b>Sample ready.</b> Northwind Heating · fictional · 6 days stuck.</p><button class="btn" type="button" id="skelLoad">Show loading</button></div>
+      <div data-when="empty"><p><b>Nothing to load.</b></p></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>Loading failed.</b> The skeleton is the wrong screen now.</div><button class="btn" type="button" data-retry="skel">Try again</button></div></div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>Show loading</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-field" data-state="default">
+    <h3>Field with a plain error</h3>
+    <div class="use"><div><b>Use</b><p>The error sits under the field, says what to fix, and the field is marked invalid.</p></div><div><b>Don't use</b><p>An alert that only says "invalid" with no fix.</p></div></div>
+    <p class="where">Used on the hub contact form, Kestrel's amount, and Signed → Live's business name and send-back note.</p>
+    <p class="keys">Keyboard: Tab into the field. Enter in the field submits. The error is a live alert tied to the field.</p>
+    <div class="states" role="group" aria-label="Field states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus error empty">
+        <form id="nameForm">
+          <div class="field">
+            <label for="biz">Business name · fictional</label>
+            <input id="biz" name="biz" type="text" autocomplete="off" aria-describedby="bizMsg" required>
+            <p class="msg" id="bizMsg" role="alert"></p>
+          </div>
+          <button class="btn pri" type="submit" id="bizSave">Save sample name</button>
+        </form>
+        <p id="bizOut" class="sub"></p>
+      </div>
+      <div data-when="disabled"><input type="text" disabled value="" aria-label="Business name disabled" style="min-height:44px;width:100%;max-width:420px"></div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Saving the sample name…</p></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-lens" data-state="default">
+    <h3>Segmented control</h3>
+    <div class="use"><div><b>Use</b><p>One choice that changes which part of the same list is bright. The choice stays visible.</p></div><div><b>Don't use</b><p>For a filter that can be turned off. Use a chip or a KPI for that.</p></div></div>
+    <p class="where">Used in Decision OS (lenses) and Relay (English / Spanish on a step).</p>
+    <p class="keys">Keyboard: the group is a radiogroup. Arrow keys move. Home and End jump. Choosing the current segment says it is already on.</p>
+    <div class="states" role="group" aria-label="Segmented control states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="row" role="radiogroup" aria-label="Sample lens" id="lensGroup">
+          <button class="btn" type="button" role="radio" data-lens="hand" aria-checked="true">In your hands</button>
+          <button class="btn" type="button" role="radio" data-lens="wait" aria-checked="false">Waiting</button>
+          <button class="btn" type="button" role="radio" data-lens="done" aria-checked="false">Decided</button>
+        </div>
+        <p id="lensOut" class="sub"></p>
+      </div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>In your hands</button></div>
+      <div data-when="loading"><div class="skel" style="width:60%"></div></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The sample lens didn't save.</b> The list is unchanged.</div><button class="btn" type="button" data-retry="lens">Try again</button></div></div>
+      <div data-when="empty"><p><b>No items to lens.</b> Import a sample first.</p><button class="btn" type="button" data-load="lens">Load the sample lens</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-flag" data-state="default">
+    <h3>Conflict flag</h3>
+    <div class="use"><div><b>Use</b><p>Two edits clash. Stop and ask a person which one to keep.</p></div><div><b>Don't use</b><p>For ordinary health. Use a status chip. Do not invent a confidence percent.</p></div></div>
+    <p class="where">Used in Harbor when a deal changed after the suggestion.</p>
+    <p class="keys">Keyboard: Tab to Keep mine or Keep theirs. Enter chooses. The status line says what was kept. Nothing is written to a CRM.</p>
+    <div class="states" role="group" aria-label="Conflict flag states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <div class="card">
+          <p class="row"><span class="chip bad">Conflict</span> <span>Northwind Heating · fictional stage</span></p>
+          <p class="sub" id="flagLine">Yours: Proposal. Theirs: Closed won. A person has to choose.</p>
+          <div class="row"><button class="btn pri" type="button" id="flagMine">Keep mine</button><button class="btn" type="button" id="flagTheirs">Keep theirs</button></div>
+        </div>
+      </div>
+      <div data-when="disabled"><button class="btn" type="button" disabled>Keep mine</button></div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Checking the sample conflict…</p></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>Couldn't read the other edit.</b> Nothing was kept. Try again when the sample record is back.</div><button class="btn" type="button" data-retry="flag">Try again</button></div></div>
+      <div data-when="empty"><p><b>No conflict.</b> The sample row matches.</p><button class="btn" type="button" data-load="flag">Load a sample conflict</button></div>
+    </div>
+  </article>
+
+  <article class="comp" id="c-note" data-state="default">
+    <h3>Reminder that stays on the page</h3>
+    <div class="use"><div><b>Use</b><p>A short note the next person will see on this page. It is not sent.</p></div><div><b>Don't use</b><p>When the job is to text or email someone. Say that nothing was sent.</p></div></div>
+    <p class="where">Used in Berth and Signed → Live. The agency sees the reason. No message leaves the page.</p>
+    <p class="keys">Keyboard: Tab to the field, then Save reminder. Enter in the field submits. Under 3 characters is rejected. Undo removes the note.</p>
+    <div class="states" role="group" aria-label="Reminder states"></div>
+    <p class="stat" data-stat></p>
+    <div class="demo">
+      <div data-when="default hover focus">
+        <form id="noteForm">
+          <div class="field">
+            <label for="rem">Reminder · fictional</label>
+            <input id="rem" type="text" autocomplete="off" aria-describedby="remMsg">
+            <p class="msg" id="remMsg" role="alert"></p>
+          </div>
+          <button class="btn pri" type="submit">Save reminder</button>
+        </form>
+        <p id="remOut" class="sub">No reminder yet. Nothing will be texted or emailed.</p>
+      </div>
+      <div data-when="disabled"><button class="btn pri" type="button" disabled>Save reminder</button></div>
+      <div data-when="loading"><p class="row"><span class="spin"></span> Saving the reminder on this page…</p></div>
+      <div data-when="error"><div class="err" role="alert"><div><b>The reminder didn't save.</b> It is still in the box. Nothing was sent.</div><button class="btn" type="button" data-retry="note">Try again</button></div></div>
+      <div data-when="empty"><p><b>No reminder.</b> The sample account has no note.</p><button class="btn" type="button" data-load="note">Load a sample reminder</button></div>
+    </div>
+  </article>
+
+  <h2 id="audit">Accessibility audit</h2>
+  <p class="sub">Checked on 26 October 2026 across the hub and every piece, desktop and 360px. Numbers are contrast ratios for text under 18px. The "after" column is this branch.</p>
+  <div class="scroll" tabindex="0" role="region" aria-label="Accessibility audit">
+    <table class="audit">
+      <thead><tr><th>Check</th><th>Before</th><th>After</th></tr></thead>
+      <tbody>
+        <tr><td>Dim text #7F6B5B on #120E0B</td><td>3.80:1 fail</td><td>#A38B78 is 5.96:1 on the page and 4.90:1 on #2A211B</td></tr>
+        <tr><td>Decision OS unrecognized lane #6B7383 on #090C11</td><td>4.11:1 fail for small text</td><td>#8E97A6 is 6.65:1 on the page and 6.32:1 on the row</td></tr>
+        <tr><td>Muted text #B9A08A on #120E0B</td><td>7.74:1 pass</td><td>Unchanged</td></tr>
+        <tr><td>Cream #F4E7D7 on #120E0B</td><td>15.78:1 pass</td><td>Unchanged</td></tr>
+        <tr><td>Accent #6FE3D0 on #120E0B</td><td>12.42:1 pass</td><td>Unchanged</td></tr>
+        <tr><td>Ink #1B140F on cream buttons</td><td>14.96:1 pass</td><td>Unchanged</td></tr>
+        <tr><td>Visible focus</td><td>1px ring on the hub, Keel, Kestrel, Relay, Tidewell, Harbor, Decision OS, Valley Grid</td><td>2px accent ring on every page</td></tr>
+        <tr><td>Reduced motion</td><td>Linden and Berth only stopped the skeleton, the spinner, and the toast</td><td>Those two now stop all animation and transitions, same as the other pieces</td></tr>
+        <tr><td>Keyboard</td><td>Pieces already used buttons, labels, and arrow keys in the contact form and Relay tabs</td><td>Lab UI demos use radiogroup, tablist, and named buttons. Focus is not trapped.</td></tr>
+        <tr><td>axe-core</td><td>Recorded in the 26 October weekly report</td><td>Recorded in the same report after the fixes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="sub">Valley Grid chart labels that were hard-coded as #7F6B5B use the passing dim color too. Tap targets on this page are at least 44px. The page does not scroll sideways at 360px. The sample table scrolls inside its region.</p>
+
+  <section class="cs" aria-label="Case study">
+    <div>
+      <span class="tag">Concept · October 2026</span>
+      <h2>One system after the fast builds</h2>
+      <p class="lede">Concepts were built fast with AI and didn't match. I extracted one system, fixed the accessibility gaps, and aligned the pieces on it.</p>
+      <p class="where">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p>
+    </div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>Each piece had grown its own chips, toasts, errors, and type color. Small text in the dim brown failed contrast. Two pieces did not honor reduced motion. Focus rings did not match.</dd>
+      <dt>Decisions</dt><dd>Tokens live on this page with the contrast ratio next to each color. Components are the ones the pieces already use, including empty, loading, error, and disabled. Confidence is words, not a percent. A Figma mirror is planned and is not claimed as done. No 3D.</dd>
+      <dt>Outcome</dt><dd>A working system page, and the live pieces moved onto the passing dim color, a 2px focus ring, and full reduced-motion styles. Not a shipped design-system product. Not tested with a team.</dd>
+      <dt>Label</dt><dd>Concept. Fictional demo data. No prices. No client work.</dd>
+    </dl>
+  </section>
+</main>
+<footer class="foot"><span>Interface Lab · Lab UI · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
+<script>
+const $=id=>document.getElementById(id);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let toastTimer, undoFn=null;
+function toast(m,undo){const t=$("toast");$("toastMsg").textContent=m;const b=$("toastUndo");b.hidden=!undo;undoFn=undo||null;t.classList.add("on");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("on"),undo?5200:2800)}
+$("toastUndo").addEventListener("click",()=>{if(undoFn)undoFn();$("toast").classList.remove("on")});
+
+const COLORS=[
+  ["Page","#120E0B","#120E0B","background"],
+  ["Panel","#2A211B","#2A211B","raised surface"],
+  ["Cream","#F4E7D7","#F4E7D7","15.78:1 on page"],
+  ["Muted","#B9A08A","#B9A08A","7.74:1 on page"],
+  ["Dim","#A38B78","#A38B78","5.96:1 on page · 4.90:1 on panel"],
+  ["Bronze","#C08A57","#C08A57","6.42:1 on page"],
+  ["Orange","#E9A46E","#E9A46E","9.15:1 on page"],
+  ["Accent","#6FE3D0","#6FE3D0","12.42:1 on page"],
+  ["Danger","#E2725B","#E2725B","6.21:1 on page"],
+  ["Ink on cream","#1B140F","#F4E7D7","14.96:1"]
+];
+$("swatches").innerHTML=COLORS.map(([n,c,show,note])=>`<div class="sw"><i style="background:${show}"></i><span>${esc(n)}<br>${esc(c)}<br>${esc(note)}</span></div>`).join("");
+$("motionNote").textContent=reduce?"Reduced motion is on. Durations are 0 and the block stays put.":"Motion is on. The block eases 28px over 360ms. It stops if you ask the system for less motion.";
+
+const STATES=["default","hover","focus","disabled","loading","error","empty"];
+const STATE_LABEL={default:"Default",hover:"Hover",focus:"Focus",disabled:"Disabled",loading:"Loading",error:"Error",empty:"Empty"};
+document.querySelectorAll(".comp").forEach(root=>{
+  const box=root.querySelector(".states");
+  box.innerHTML=STATES.map(s=>`<button type="button" data-set="${s}" aria-pressed="${s==="default"}">${STATE_LABEL[s]}</button>`).join("");
+  const demo=root.querySelector(".demo");
+  if(demo&&box) root.insertBefore(demo, box);
+  apply(root);
+});
+function apply(root){
+  const st=root.dataset.state||"default";
+  root.classList.toggle("force-hover",st==="hover");
+  root.querySelectorAll("[data-when]").forEach(el=>{el.hidden=!el.dataset.when.split(/\s+/).includes(st)});
+  root.querySelectorAll(".states button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.set===st?"true":"false"));
+  const stat=root.querySelector("[data-stat]");
+  if(stat)stat.textContent="Showing "+STATE_LABEL[st]+".";
+  if(st==="focus"){const f=root.querySelector(".demo button:not(:disabled), .demo input:not(:disabled), .demo [role='radio']");if(f)f.focus()}
+}
+
+const CHIP_ROWS=[{id:"n",name:"Northwind Heating",chip:"watch"},{id:"b",name:"Blue Finch Roofing",chip:"risk"},{id:"c",name:"Cactus & Clay",chip:"ok"},{id:"k",name:"Kiln Electric",chip:"watch"}];
+let chip="ok";
+function paintChips(){
+  const rows=CHIP_ROWS.filter(r=>r.chip===chip);
+  $("chipList").innerHTML=rows.map(r=>`<li>${esc(r.name)} · fictional</li>`).join("");
+  $("chipEmpty").hidden=rows.length>0;
+  $("chipList").hidden=rows.length===0;
+  document.querySelectorAll("#chipGroup .chip").forEach(b=>b.setAttribute("aria-checked",b.dataset.chip===chip?"true":"false"));
+}
+paintChips();
+
+let amount=249, decision="";
+function money(n){return "$"+n.toFixed(2)}
+function paintApprove(){$("approveAmt").innerHTML="Amount <b>"+money(amount)+"</b> · demo";$("approveOut").textContent=decision}
+let diffApplied=false, diffUndo=null;
+function paintDiff(){
+  $("diffApply").disabled=diffApplied;
+  $("diffUndo").disabled=!diffApplied;
+  $("diffWhy").textContent=diffApplied?"Applied on this page only. Sample. No CRM.":"Sample suggestion. No CRM is connected.";
+}
+
+const BOOK=[
+  {name:"Blue Finch Roofing",status:"At risk",days:6,k:"risk"},
+  {name:"Cactus & Clay",status:"Healthy",days:0,k:"ok"},
+  {name:"Kiln Electric",status:"Watch",days:4,k:"watch"},
+  {name:"Northwind Heating",status:"Watch",days:2,k:"watch"}
+];
+let sort={k:"days",dir:1}, q="", kpi="all";
+function paintBook(){
+  const all=BOOK.slice();
+  $("kAll").textContent=all.length;
+  $("kRisk").textContent=all.filter(r=>r.k==="risk").length;
+  $("kWatch").textContent=all.filter(r=>r.k==="watch").length;
+  let rows=all.filter(r=>(kpi==="all"||r.k===kpi)&&(!q||(r.name+" "+r.status).toLowerCase().includes(q.toLowerCase())));
+  rows.sort((a,b)=>sort.k==="name"?a.name.localeCompare(b.name)*(sort.dir):sort.k==="status"?a.status.localeCompare(b.status)*(sort.dir):(a.days-b.days)*sort.dir);
+  $("bookBody").innerHTML=rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${esc(r.status)}</td><td>${r.days}</td></tr>`).join("");
+  $("noRows").hidden=rows.length>0;
+  document.querySelectorAll("#book th").forEach(th=>{
+    const key=th.querySelector("button").dataset.sort;
+    th.setAttribute("aria-sort",sort.k===key?(sort.dir>0?"ascending":"descending"):"none");
+  });
+  document.querySelectorAll("[data-kpi]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.kpi===kpi?"true":"false"));
+  const empty=$("c-table").dataset.state==="empty"||$("demo").value==="empty";
+  if(empty){$("bookBody").innerHTML="";$("noRows").hidden=false;$("noRows").innerHTML="<b>No rows in this sample.</b> Switch the States menu back to Live samples.";return}
+  $("noRows").innerHTML="<b>No matches.</b> Clear the search or pick another filter.";
+}
+paintBook();
+
+const STEP_DEFS=[["access","Access"],["calendar","Calendar"],["sms","Texting"],["photos","Photos"],["ad","Approval"]];
+let step="access", stuck="", reason="";
+const COPY={
+  en:{access:"Connect the page and the ad account.",calendar:"Pick who owns the calendar.",sms:"Register the business phone for texts. This page does not text anyone.",photos:"Add photos of the work. Samples only.",ad:"Read the ad. Nothing is published.",stuck:"I'm stuck",save:"Save the reason",need:"Write at least 3 characters. Nothing was marked stuck.",marked:"Marked stuck. The reason stays on this page."},
+  es:{access:"Conecte la página y la cuenta de anuncios.",calendar:"Elija quién tiene el calendario.",sms:"Registre el teléfono del negocio para textos. Esta página no envía textos.",photos:"Agregue fotos del trabajo. Solo muestras.",ad:"Lea el anuncio. No se publica nada.",stuck:"No puedo seguir",save:"Guardar el motivo",need:"Escriba al menos 3 caracteres. No se marcó como trabado.",marked:"Marcado como trabado. El motivo se queda en esta página."}
+};
+let lang="en";
+let lens="hand";
+const LENS_COPY={
+  hand:"In your hands. Decision OS brightens the items waiting on you.",
+  wait:"Waiting. The sample list shows what someone else owes.",
+  done:"Decided. Those items stay on the page so you can see the call."
+};
+function paintLens(){
+  const g=document.querySelector("#lensGroup"); if(!g)return;
+  g.querySelectorAll("[data-lens]").forEach(b=>b.setAttribute("aria-checked",b.dataset.lens===lens?"true":"false"));
+  const out=$("lensOut"); if(out)out.textContent=LENS_COPY[lens];
+}
+paintLens();
+function paintSteps(){
+  const box=$("stepList"); if(!box)return;
+  const t=COPY[lang];
+  box.innerHTML=STEP_DEFS.map(([k,label])=>{
+    const cls=stuck===k?"stuck":STEP_DEFS.findIndex(s=>s[0]===k)<STEP_DEFS.findIndex(s=>s[0]===step)?"done":"";
+    return `<button type="button" role="tab" id="tab-${k}" aria-selected="${k===step}" aria-controls="stepPanel" tabindex="${k===step?"0":"-1"}" class="${cls}" data-step="${k}">${esc(lang==="es"?({access:"Acceso",calendar:"Calendario",sms:"Textos",photos:"Fotos",ad:"Aprobación"}[k]):label)}</button>`;
+  }).join("");
+  const tdef=COPY[lang];
+  $("stepPanel").innerHTML=`<p>${esc(tdef[step])}</p><p class="sub">Fictional shop. Mesa Local sample.</p>`+(stuck===step?`<p><b>${esc(reason)}</b></p>`:`<button class="btn" type="button" id="stuckBtn">${esc(tdef.stuck)}</button>`);
+}
+function paintLang(){
+  const line=lang==="es"?"Recordatorio de muestra para Blue Finch: el paso sigue en esta página. No se envía ningún texto.":"Sample reminder for Blue Finch: the step stays on this page. Nothing is texted.";
+  $("langBody").textContent=line;
+  $("langCredit").textContent="Role: Concept direction. Tools: AI-assisted build (Claude, Cursor).";
+  document.querySelectorAll("#langGroup button").forEach(b=>b.setAttribute("aria-checked",b.dataset.lang===lang?"true":"false"));
+  paintSteps();
+}
+paintLang();
+const BADGE={
+  person:"Needs a person. Kestrel uses this when a refund is over $200. The badge is the pause, not a percent.",
+  source:"Check the source. Harbor shows the old value and the new value. If there is no citation, do not badge it.",
+  ready:"Ready to review. The person still confirms. Linden's draft is never sent by the badge."
+};
+function paintBadge(){
+  const on=document.querySelector("#badgeGroup [aria-checked='true']");
+  const key=on?on.dataset.badge:"person";
+  $("badgeText").textContent=BADGE[key];
+}
+paintBadge();
+let errTries=0;
+function paintErr(){
+  if(errTries>1){$("errTitle").textContent="Saved on the second try.";$("errBody").textContent="The first try failed on purpose. The note stayed. This is still a sample.";$("errFix").hidden=true}
+  else {$("errTitle").textContent="The sample save didn't go through.";$("errBody").textContent="Nothing was stored. Your note is still here.";$("errFix").hidden=false}
+}
+
+function setComp(root,st){
+  if(root.dataset.state===st){toast("Already showing "+STATE_LABEL[st]+".");return}
+  root.dataset.state=st;apply(root);
+  if(root.id==="c-chip")paintChips();
+  if(root.id==="c-table")paintBook();
+  if(root.id==="c-steps")paintSteps();
+  if(root.id==="c-lang")paintLang();
+  if(root.id==="c-badge")paintBadge();
+  if(root.id==="c-lens")paintLens();
+  toast("Showing "+STATE_LABEL[st]+".");
+}
+
+document.body.addEventListener("click",e=>{
+  const set=e.target.closest("[data-set]");
+  if(set){setComp(set.closest(".comp"),set.dataset.set);return}
+  const chipBtn=e.target.closest("[data-chip]");
+  if(chipBtn){if(chip===chipBtn.dataset.chip){toast("Already filtering by "+chipBtn.textContent+".");return}chip=chipBtn.dataset.chip;paintChips();toast("Showing "+chipBtn.textContent+" samples.");return}
+  if(e.target.id==="approveBtn"){decision="Approved "+money(amount)+" on this page. Nothing was refunded.";paintApprove();toast("Sample refund approved.",()=>{decision="Undone. No refund.";paintApprove()});return}
+  if(e.target.id==="declineBtn"){decision="Declined. No refund in the sample.";paintApprove();toast("Sample refund declined.",()=>{decision="Undone.";paintApprove()});return}
+  if(e.target.id==="editAmt"){$("amtEdit").hidden=false;$("amtIn").focus();toast("Edit the sample amount, then use it or cancel.");return}
+  if(e.target.id==="amtCancel"){$("amtEdit").hidden=true;$("amtMsg").textContent="";toast("Amount unchanged.");return}
+  if(e.target.id==="amtSave"){const v=parseFloat($("amtIn").value);if(!(v>=1&&v<=249)){$("amtIn").setAttribute("aria-invalid","true");$("amtMsg").textContent="Enter an amount from $1 to $249. Nothing was changed.";$("amtIn").focus();return}$("amtIn").removeAttribute("aria-invalid");$("amtMsg").textContent="";amount=Math.round(v*100)/100;$("amtEdit").hidden=true;paintApprove();toast("Sample amount set to "+money(amount)+".");return}
+  if(e.target.id==="diffApply"){diffApplied=true;paintDiff();toast("Sample change applied on this page.",()=>{diffApplied=false;paintDiff()});$("diffUndo").disabled=false;return}
+  if(e.target.id==="diffUndo"){if(!diffApplied){toast("Nothing to undo.");return}diffApplied=false;paintDiff();toast("Undone. The suggestion is back.");return}
+  if(e.target.id==="diffSkip"){toast("Skipped. The fictional deal stays as it was.");return}
+  if(e.target.id==="diffTop"){$("diffConf").textContent="Suggestion applied on top. Sample only. Their edit is noted, not deleted from a CRM.";toast("Applied on top of the sample conflict.");return}
+  if(e.target.id==="diffLeave"){$("diffConf").textContent="Left their edit. The suggestion was not applied.";toast("Left the other edit in place.");return}
+  if(e.target.id==="logNote"){const prev=$("toastSubject").textContent;$("toastSubject").textContent="Sample note logged. It stays on this page.";toast("Sample note logged.",()=>{$("toastSubject").textContent=prev});return}
+  const kbtn=e.target.closest("[data-kpi]");
+  if(kbtn){if(kpi===kbtn.dataset.kpi){toast("Already showing "+kbtn.dataset.kpi+".");return}kpi=kbtn.dataset.kpi;paintBook();toast(kpi==="all"?"Showing all sample rows.":"Filtered to "+kpi+".");return}
+  const sb=e.target.closest("[data-sort]");
+  if(sb){const k=sb.dataset.sort;sort=sort.k===k?{k,dir:-sort.dir}:{k,dir:k==="name"?1:-1};paintBook();toast("Sorted by "+k+".");sb.focus();return}
+  if(e.target.id==="exportBtn"){const rows=[["fictional","shop","status","days"],...BOOK.map(r=>["yes",r.name,r.status,r.days])];const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(",")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="lab-ui-sample.csv";document.body.appendChild(a);a.click();a.remove();toast("Exported the fictional sample as CSV.");return}
+  const st=e.target.closest("[data-step]");
+  if(st){step=st.dataset.step;paintSteps();toast("Step: "+st.textContent+".");return}
+  if(e.target.id==="stuckBtn"){
+    $("stepPanel").insertAdjacentHTML("beforeend",`<div class="field" id="whyBox"><label for="why">Reason</label><input id="why" type="text" aria-describedby="whyMsg"><p class="msg" id="whyMsg" role="alert"></p><button class="btn pri" type="button" id="whySave">${esc(COPY[lang].save)}</button></div>`);
+    $("why").focus();return}
+  if(e.target.id==="whySave"){const v=$("why").value.trim();if(v.length<3){$("why").setAttribute("aria-invalid","true");$("whyMsg").textContent=COPY[lang].need;return}reason=v;stuck=step;paintSteps();toast(COPY[lang].marked,()=>{stuck="";reason="";paintSteps()});return}
+  const badge=e.target.closest("[data-badge]");
+  if(badge){if(badge.getAttribute("aria-checked")==="true"){toast("Already on "+badge.textContent+".");return}document.querySelectorAll("#badgeGroup [data-badge]").forEach(b=>b.setAttribute("aria-checked",b===badge?"true":"false"));paintBadge();toast(badge.textContent+".");return}
+  const lg=e.target.closest("[data-lang]");
+  if(lg){if(lang===lg.dataset.lang){toast(lang==="es"?"Ya está en español.":"Already in English.");return}lang=lg.dataset.lang;paintLang();toast(lang==="es"?"Página de muestra en español. El rol y las herramientas siguen en inglés.":"Sample set to English.");return}
+  const lensBtn=e.target.closest("[data-lens]");
+  if(lensBtn){if(lens===lensBtn.dataset.lens){toast("Already on "+lensBtn.textContent+".");return}lens=lensBtn.dataset.lens;paintLens();toast(lensBtn.textContent+".");return}
+  if(e.target.id==="flagMine"||e.target.id==="flagTheirs"){const mine=e.target.id==="flagMine";$("flagLine").textContent=mine?"Kept yours: Proposal. Their edit is noted. Nothing was written to a CRM.":"Kept theirs: Closed won. Your suggestion was not applied.";toast(mine?"Kept your sample edit.":"Kept their sample edit.",()=>{$("flagLine").textContent="Yours: Proposal. Theirs: Closed won. A person has to choose.";});return}
+  if(e.target.id==="errFix"){errTries++;if(errTries===1){toast("Tried again. The sample save failed once, on purpose. Your note is still here.");$("errBody").textContent="First retry failed. Nothing was stored. Press Try again once more.";}else{paintErr();toast("Sample save cleared on the second try.")}return}
+  if(e.target.id==="skelLoad"){setComp($("c-skel"),"loading");return}
+  if(e.target.id==="skelDone"){setComp($("c-skel"),"default");toast("Sample row is visible.");return}
+  const load=e.target.closest("[data-load]");
+  if(load){const map={approve:"c-approve",diff:"c-diff",steps:"c-steps",table:"c-table",lens:"c-lens",flag:"c-flag",note:"c-note"};setComp($(map[load.dataset.load]),"default");if(load.dataset.load==="table"){$("demo").value="live";paintBook()}if(load.dataset.load==="note"){$("remOut").textContent="Sample reminder loaded: call the owner about the photo step. It stays on this page. Nothing was sent."}toast("Sample loaded.");return}
+  const retry=e.target.closest("[data-retry]");
+  if(retry){toast("Tried again. The sample error is cleared.");setComp(retry.closest(".comp"),"default");return}
+});
+
+document.body.addEventListener("keydown",e=>{
+  const g=e.target.closest("[role='radiogroup'],[role='tablist']");
+  if(!g)return;
+  const k={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
+  if(e.key!=="Home"&&e.key!=="End"&&!k)return;
+  const items=[...g.querySelectorAll("[role='radio'],[role='tab']")].filter(el=>!el.disabled);
+  if(!items.length)return;
+  e.preventDefault();
+  let i=items.indexOf(document.activeElement);
+  if(e.key==="Home")i=0;else if(e.key==="End")i=items.length-1;else i=(i+k+items.length)%items.length;
+  items[i].focus();items[i].click();
+});
+$("q").addEventListener("input",e=>{q=e.target.value;paintBook()});
+$("nameForm").addEventListener("submit",e=>{e.preventDefault();const v=$("biz").value.trim();if(v.length<2){$("biz").setAttribute("aria-invalid","true");$("bizMsg").textContent="Enter the business name, at least 2 characters. Nothing was saved.";$("biz").focus();return}$("biz").removeAttribute("aria-invalid");$("bizMsg").textContent="";$("bizOut").textContent="Saved on this page: "+v+". Fictional. Nothing was sent.";toast("Sample name saved.")});
+$("noteForm").addEventListener("submit",e=>{e.preventDefault();const v=$("rem").value.trim();if(v.length<3){$("rem").setAttribute("aria-invalid","true");$("remMsg").textContent="Write at least 3 characters. Nothing was saved and nothing was sent.";$("rem").focus();return}$("rem").removeAttribute("aria-invalid");$("remMsg").textContent="";const prev=$("remOut").textContent;$("remOut").textContent="Reminder on this page: "+v+". Nothing was texted or emailed.";toast("Reminder saved on this page.",()=>{$("remOut").textContent=prev});});
+$("demo").addEventListener("change",e=>{
+  const v=e.target.value;
+  const map={live:"default",empty:"empty",loading:"loading",error:"error"};
+  document.querySelectorAll(".comp").forEach(root=>{root.dataset.state=map[v];apply(root)});
+  paintChips();paintBook();paintSteps();paintLang();paintBadge();paintLens();
+  toast(v==="live"?"Live samples.":v==="empty"?"Empty preview. The lists have no rows.":v==="loading"?"Loading preview. Actions wait.": "Error preview. The next sample save fails until you try again.");
+});
+$("resetBtn").addEventListener("click",()=>{
+  chip="ok";amount=249;decision="";diffApplied=false;sort={k:"days",dir:1};q="";kpi="all";$("q").value="";step="access";stuck="";reason="";lang="en";lens="hand";errTries=0;paintErr();
+  $("demo").value="live";$("biz").value="";$("bizMsg").textContent="";$("bizOut").textContent="";$("amtEdit").hidden=true;
+  if($("rem")){$("rem").value="";$("remMsg").textContent="";$("remOut").textContent="No reminder yet. Nothing will be texted or emailed."}
+  $("flagLine").textContent="Yours: Proposal. Theirs: Closed won. A person has to choose.";
+  document.querySelectorAll(".comp").forEach(root=>{root.dataset.state="default";apply(root)});
+  paintChips();paintApprove();paintDiff();paintBook();paintLang();paintBadge();paintLens();
+  $("toastSubject").textContent="Sample note: not logged.";
+  toast("Demo reset. Fictional samples only.");
+});
+$("book").addEventListener("keydown",e=>{
+  if(e.key!=="ArrowRight"&&e.key!=="ArrowLeft")return;
+  const btns=[...$("book").querySelectorAll("th button")];
+  const i=btns.indexOf(document.activeElement);if(i<0)return;
+  e.preventDefault();
+  btns[(i+(e.key==="ArrowRight"?1:-1)+btns.length)%btns.length].focus();
+});
+</script>
+</body>
+</html>
