@@ -213,7 +213,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-approve" data-state="default">
     <h3>Approval card</h3>
     <div class="use"><div><b>Use</b><p>When a person must agree before money, a message, or a publish step.</p></div><div><b>Don't use</b><p>For a change that can be undone and does not leave the page. Use the change preview instead.</p></div></div>
-    <p class="where">Used in Kestrel (refund and reply) and Signed → Live (confirm a step).</p>
+    <p class="where">Used in Kestrel (refund and reply), Signed → Live (confirm a step), and Flare (pause, budget ask, and the owner's approval).</p>
     <p class="keys">Keyboard: Tab through the actions. Enter activates. Escape cancels an amount edit. The amount field announces its error.</p>
     <div class="states" role="group" aria-label="Approval card states"></div>
     <p class="stat" data-stat></p>
@@ -243,7 +243,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-diff" data-state="default">
     <h3>Change preview</h3>
     <div class="use"><div><b>Use</b><p>Before a record changes, show the old value and the new value in the same place.</p></div><div><b>Don't use</b><p>When the change is only a draft that never writes. Say "not sent" instead of a diff.</p></div></div>
-    <p class="where">Used in Harbor. The old value is struck through. The new value is the accent color. A conflict waits for a person.</p>
+    <p class="where">Used in Harbor and Flare. The old value is struck through. The new value is the accent color. A conflict, or a budget move, waits for a person.</p>
     <p class="keys">Keyboard: Tab to Apply, Skip, or Undo. Enter runs it. The status line updates.</p>
     <div class="states" role="group" aria-label="Change preview states"></div>
     <p class="stat" data-stat></p>
@@ -270,7 +270,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-toast" data-state="default">
     <h3>Undo toast</h3>
     <div class="use"><div><b>Use</b><p>After a change that is saved on the page, with Undo on the toast and again in the toolbar.</p></div><div><b>Don't use</b><p>As the only place a destructive action can be stopped. Ask first when it cannot be undone.</p></div></div>
-    <p class="where">Used in Keel, Kestrel, Linden, Berth, Harbor, Decision OS, Tidewell, Relay, and Signed → Live.</p>
+    <p class="where">Used in Keel, Kestrel, Linden, Berth, Harbor, Decision OS, Tidewell, Relay, Flare, and Signed → Live.</p>
     <p class="keys">Keyboard: after the toast opens, Tab reaches Undo. Enter undoes. The toast does not trap focus.</p>
     <div class="states" role="group" aria-label="Undo toast states"></div>
     <p class="stat" data-stat></p>
@@ -346,7 +346,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-badge" data-state="default">
     <h3>AI confidence badge</h3>
     <div class="use"><div><b>Use</b><p>A few words for how the suggestion should be treated. Not a percent.</p></div><div><b>Don't use</b><p>A made-up score. None of the pieces have a real confidence number, so the badge does not invent one.</p></div></div>
-    <p class="where">Kestrel says a person is required over $200. Harbor flags a conflict instead of a score. Linden marks a draft that is not sent.</p>
+    <p class="where">Kestrel says a person is required over $200. Harbor flags a conflict instead of a score. Flare says High, Medium, or Low, and lists what it could not check. Linden marks a draft that is not sent.</p>
     <p class="keys">Keyboard: arrow keys move between the three badges. The sentence under them changes to the rule for that badge.</p>
     <div class="states" role="group" aria-label="Confidence badge states"></div>
     <p class="stat" data-stat></p>
@@ -369,7 +369,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-error" data-state="default">
     <h3>Error banner</h3>
     <div class="use"><div><b>Use</b><p>Plain language, what did not happen, and a fix on the banner.</p></div><div><b>Don't use</b><p>A code, a stack trace, or "something went wrong" with no next step.</p></div></div>
-    <p class="where">Used in Kestrel, Valley Grid, Decision OS, Harbor, Tidewell, and Signed → Live.</p>
+    <p class="where">Used in Kestrel, Valley Grid, Decision OS, Harbor, Tidewell, Flare, and Signed → Live.</p>
     <p class="keys">Keyboard: Tab to the fix button. The banner is an alert. The first try fails on purpose. The second try clears it.</p>
     <div class="states" role="group" aria-label="Error banner states"></div>
     <p class="stat" data-stat></p>
@@ -386,7 +386,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-lang" data-state="default">
     <h3>English / Spanish toggle</h3>
     <div class="use"><div><b>Use</b><p>When the whole working surface switches language, including buttons.</p></div><div><b>Don't use</b><p>To translate the role or the tools line. Those stay "Concept direction" and "AI-assisted build (Claude, Cursor)".</p></div></div>
-    <p class="where">Used in Relay and Signed → Live.</p>
+    <p class="where">Used in Relay and Signed → Live for the whole working surface. Flare uses it for the owner view and the note to the owner. The diagnosis stays in English. Role and tools stay in English.</p>
     <p class="keys">Keyboard: arrow keys switch language. Choosing the current language says it is already on.</p>
     <div class="states" role="group" aria-label="Language toggle states"></div>
     <p class="stat" data-stat></p>
@@ -431,10 +431,10 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
     <p class="stat" data-stat></p>
     <div class="demo">
       <div data-when="default hover focus error empty">
-        <form id="nameForm">
+        <form id="nameForm" novalidate>
           <div class="field">
             <label for="biz">Business name · fictional</label>
-            <input id="biz" name="biz" type="text" autocomplete="off" aria-describedby="bizMsg" required>
+            <input id="biz" name="biz" type="text" autocomplete="off" aria-describedby="bizMsg">
             <p class="msg" id="bizMsg" role="alert"></p>
           </div>
           <button class="btn pri" type="submit" id="bizSave">Save sample name</button>
@@ -518,7 +518,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   </article>
 
   <h2 id="audit">Accessibility audit</h2>
-  <p class="sub">Checked on 26 October 2026 across the hub and every piece, desktop and 360px. Numbers are contrast ratios for text under 18px. The "after" column is this branch.</p>
+  <p class="sub">Checked on 26 October 2026 across the hub and every piece, desktop and 360px. Numbers are contrast ratios for text under 18px. The "after" column is that week's pass. On 2 November the sample name field was corrected: an empty save was blocked by the browser before the message under the field could show. The form now shows that message.</p>
   <div class="scroll" tabindex="0" role="region" aria-label="Accessibility audit">
     <table class="audit">
       <thead><tr><th>Check</th><th>Before</th><th>After</th></tr></thead>

@@ -18,7 +18,8 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money and the reply. Fictional customer and charges |
 | [Harbor CRM Copilot](harbor-copilot/) | Concept · October 2026 | Bulk deal cleanup shown as diffs in the table, with conflicts and undo. Fictional deals |
 | [Decision OS](decision-os/) | Concept · October 2026 | Import a fictional sample export and see where everything stands. Not connected to an account. Not a shipped product |
-| [Tidewell Revenue Pulse](tidewell/) | Concept · October 2026 | Why a fictional month of revenue changed, down to four accounts and a win-back task. Not a finance claim |
+| [Flare](flare/) | Concept · October 2026 | Ad account copilot for a fictional agency and shop: when cost per lead spikes, the page shows the evidence, separates diagnosis from action, and does not move budget without approval. Made-up numbers. No 3D |
+| [Tidewell Revenue Pulse](tidewell/) | Concept · October 2026 | Still in the repo at `tidewell/`. Not on the hub. Why a fictional month of revenue changed, down to four accounts and a win-back task. Not a finance claim |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 

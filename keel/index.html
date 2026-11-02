@@ -385,7 +385,7 @@ async function confirm(){
   if(D==="saveerr"&&!S.errUsed){S.errUsed=true;S.pending="failed";detail();toast("Save failed. Nothing was logged.");return}
   apply(kind,note);
 }
-function select(id){S.sel=id;S.pending=null;detail();table();}
+function select(id){if(S.sel===id){const a=S.accounts.find(x=>x.id===id);toast((a?a.n:"This account")+" is already open.");return}S.sel=id;S.pending=null;detail();table();}
 
 $("kpis").addEventListener("click",e=>{const b=e.target.closest("[data-kpi]");if(!b)return;if(D==="loading"||D==="empty"){const label=(b.querySelector(".sub")||b).textContent.replace(/\s+/g," ").trim();toast(D==="loading"?label+" is a filter. This is the loading screen. Switch back to Live book to use it.":label+" is a filter. The book is empty. Load the sample book to use it.");return}const k=b.dataset.kpi;if(k==="risk"||k==="watch"){S.health=S.health===k?"all":k;if(S.health!=="all")S.focus="all"}else{S.focus=S.focus===k?"all":k;if(S.focus!=="all")S.health="all"}render()});
 $("filters").addEventListener("input",e=>{if(e.target.id==="q"){S.q=e.target.value;table();kpis()}});
