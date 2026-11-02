@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signed → Live · Concept</title>
+<meta name="description" content="October 2026 concept: a phone flow that takes a fictional business from a signed contract to a first ad, in English or Spanish, plus an agency desk. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
+<meta name="theme-color" content="#120E0B">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Signed → Live · Concept">
+<meta property="og:description" content="October 2026 concept: a phone flow from a signed contract to a first ad, in English or Spanish. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/signed/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<meta property="og:image:alt" content="Cesar Navarro, Interface Lab">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Signed → Live · Concept">
+<meta name="twitter:description" content="October 2026 concept: a phone flow from a signed contract to a first ad, in English or Spanish. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<style>
+:root{
+  --bg:#120E0B;--cream:#F4E7D7;--muted:#C4B09A;--dim:#A89280;
+  --orange:#E9A46E;--accent:#6FE3D0;--red:#F0A8A0;
+  --edge:rgba(255,222,190,.18);--edge-2:rgba(255,222,190,.32);
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--cream)}
+body{font-family:var(--sans);font-size:17px;line-height:1.5}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 16px 72px}
+.bar{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center;margin-bottom:14px}
+.home{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+h1{font-weight:500;font-size:clamp(28px,5vw,40px);letter-spacing:-.03em;margin:0;line-height:1.05}
+h1 span{display:block;font-weight:400;color:var(--muted);font-size:.55em;letter-spacing:0}
+.sp{flex:1}
+.tag,.crumbs{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tbtn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;border-radius:999px;border:1px solid var(--edge);background:transparent;color:var(--cream);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.tbtn select{min-height:32px;background:transparent;color:var(--cream);border:0;font:inherit}
+.banner{margin:0 0 16px;padding:12px 14px;border-radius:14px;background:rgba(255,222,190,.06);border:1px solid var(--edge);color:var(--muted);font-size:15px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button,.btn{min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--edge-2);background:rgba(255,222,190,.06);color:var(--cream);font:inherit;font-size:15px;cursor:pointer}
+.seg button[aria-pressed="true"],.btn.pri{background:var(--cream);color:#1B140F;border-color:transparent;font-weight:600}
+.btn.ghost{background:transparent}
+.btn.warn{border-color:rgba(233,164,110,.7)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.sm{min-height:44px;padding:8px 12px;font-size:14px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.lay{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media(min-width:900px){.lay.desk{grid-template-columns:minmax(0,1.1fr) minmax(280px,.8fr)}}
+.card{border:1px solid var(--edge);border-radius:16px;padding:14px;background:rgba(255,222,190,.03);min-width:0}
+.phone{max-width:420px}
+@media(min-width:900px){.owner-wrap{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:16px;align-items:start}}
+h2{font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.stepper{display:flex;flex-direction:column;gap:6px;margin:0 0 12px;padding:0;list-style:none}
+.stepper button{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;min-height:44px;padding:8px;border-radius:12px;border:1px solid transparent;background:transparent;color:inherit;font:inherit;cursor:pointer}
+.stepper button[aria-current="step"]{border-color:var(--edge-2);background:rgba(255,222,190,.05)}
+.n{flex:0 0 28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;border:1px solid var(--edge-2)}
+.n.done{background:var(--accent);color:#10221E;border-color:transparent}
+.n.wait,.n.stuck{background:var(--orange);color:#1B140F;border-color:transparent}
+.sub{color:var(--muted);font-size:14px;margin:4px 0 0}
+.q{font-size:20px;font-weight:500;margin:0 0 8px;line-height:1.25}
+label.opt,label.file{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--edge);border-radius:12px;margin:8px 0;min-height:44px;cursor:pointer}
+input,textarea,select.inp{font:inherit;color:inherit;background:#1B140F;border:1px solid var(--edge-2);border-radius:10px;padding:10px 12px;min-height:44px;width:100%}
+textarea{min-height:88px;resize:vertical}
+.help{padding:10px 12px;border-radius:12px;background:rgba(233,164,110,.12);margin:8px 0}
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:10px 0}
+.ph{border:1px solid var(--edge);border-radius:12px;overflow:hidden;background:#1B140F}
+.ph img{display:block;width:100%;height:84px;object-fit:cover}
+.ph button{width:100%;border:0;border-radius:0;min-height:36px}
+.ad{padding:12px;border-radius:14px;background:#1B140F;border:1px solid var(--edge)}
+.ad b{display:block;font-size:18px;font-weight:500}
+.guide details{border-top:1px solid var(--edge);padding-top:8px;margin-top:8px}
+.guide summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+.chip{display:inline-flex;align-items:center;min-height:36px;padding:6px 10px;border-radius:999px;border:1px solid var(--edge);font-size:13px}
+.answer{padding:10px 0;color:var(--cream)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.filters .inp,.filters input,.filters select{width:auto;flex:1 1 140px;min-width:0}
+.client{display:block;width:100%;text-align:left;margin:0 0 8px}
+.client small{display:block;color:var(--muted);font-size:13px}
+.note{color:var(--muted);font-size:14px}
+.err{padding:10px 12px;border-radius:12px;background:rgba(240,168,160,.12);color:var(--red)}
+.fielderr{color:var(--red);font-size:14px;margin:4px 0}
+.sk{height:18px;border-radius:8px;background:rgba(255,222,190,.08);margin:8px 0}
+.empty{padding:12px 0}
+.toast{position:fixed;left:16px;right:16px;bottom:16px;max-width:520px;margin:0 auto;padding:12px 14px;border-radius:14px;background:#2A211B;border:1px solid var(--edge-2);display:none;gap:10px;align-items:center;z-index:5}
+.toast.on{display:flex}
+.cs{margin-top:28px;display:grid;gap:16px}
+@media(min-width:800px){.cs{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+.cs dl{margin:0;display:grid;gap:12px}
+.cs dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.cs dd{margin:4px 0 0}
+.cs ol{margin:6px 0 0;padding-left:1.1em}
+.foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--edge);display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+label.file{position:relative;overflow:hidden}
+label.file input{position:absolute;inset:0;width:100%;height:100%;opacity:.02;cursor:pointer;font-size:16px}
+.q,.btn,.stepper b,.client,.banner,p{overflow-wrap:anywhere}
+.filters select,.tbtn select{min-height:44px;min-width:44px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main>
+  <a class="home" href="../">Interface Lab</a>
+  <header class="bar">
+    <h1>Signed → Live<span id="brandSub">From the contract to the first ad</span></h1>
+    <span class="sp"></span>
+    <div class="seg" role="group" id="langSeg" aria-label="Language"></div>
+    <div class="seg" role="group" id="viewSeg" aria-label="Who is using this page"></div>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state">
+      <option value="live">Live</option>
+      <option value="empty">Empty · no clients</option>
+      <option value="loading">Loading</option>
+      <option value="saveerr">Error · save fails</option>
+    </select></label>
+    <button class="btn ghost sm" type="button" id="resetBtn">Reset demo</button>
+  </header>
+  <p class="banner" id="banner"></p>
+  <div id="stage"></div>
+  <section class="cs" aria-label="Case study">
+    <div>
+      <span class="tag">Concept · October 2026</span>
+      <h2 id="csTitle">Getting from a signed contract to the first ad</h2>
+      <p id="csLede"></p>
+      <p class="contact">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p>
+    </div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd id="csProblem"></dd>
+      <dt>User</dt><dd id="csUser"></dd>
+      <dt>Decisions</dt><dd id="csDecisions"></dd>
+      <dt>Outcome</dt><dd id="csOutcome"></dd>
+      <dt>Label</dt><dd id="csLabel"></dd>
+    </dl>
+  </section>
+  </main>
+  <footer class="foot"><span>Interface Lab · Signed → Live · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const KEY="il-signed";
+const STEPS=["access","calendar","sms","photos","ad"];
+const T={
+en:{
+  sub:"From the contract to the first ad",
+  banner:"A sample for Mesa Local, a fictional agency, and fictional shops. You are Elena V. at Rio Tile. Nothing here texts, emails, or changes a real ad account.",
+  owner:"Owner's phone", desk:"Agency desk",
+  langName:"English",
+  progress:"Step {n} of 5",
+  why:"What is this, and why do you need it?",
+  ask:"Ask in your own words",
+  askPh:"Example: why the calendar?",
+  noAnswer:"This demo only answers questions about these five steps. Try one of the questions above.",
+  stuckBtn:"I'm stuck",
+  stuckTitle:"What is in the way?",
+  reasons:[["login","I don't have the login"],["other","Someone else owns the password"],["screen","I don't see this screen"]],
+  stuckSet:"Marked stuck. The agency can see the reason. Nothing was sent.",
+  accessH:"Give Mesa Local access to the Facebook Page and the ad account",
+  accessP:"The agency cannot draft an ad until both are shared. This page does not connect to Facebook.",
+  pageBox:"I shared the Facebook Page",
+  adBox:"I shared the ad account",
+  accessGo:"Save access",
+  accessNeed:"Check both boxes, or choose I'm stuck.",
+  calH:"Connect the booking calendar",
+  calP:"The first ad should send people to a time they can book. Pick which calendar the agency may read.",
+  calJobs:"Job calendar", calOwner:"Owner's calendar",
+  calGo:"Connect this calendar",
+  smsH:"Register the business phone for texts",
+  smsP:"In real life the phone carrier review usually takes days. The shop would get a text when it is done. This page does not text anyone.",
+  smsName:"Business name on the registration",
+  smsGo:"Submit the registration",
+  smsWait:"Waiting on the carrier. This usually takes days. Nothing was texted.",
+  smsPreview:"Preview the approved screen",
+  smsDone:"Texting is approved in this demo. Still, nothing was texted.",
+  photoH:"Add the logo and 5 photos of jobs",
+  photoP:"The first ad needs pictures the shop actually took. These samples are drawings, not real jobs.",
+  photoAdd:"Add a photo from this device",
+  photoSample:"Use 5 sample photos",
+  photoRemove:"Remove",
+  photoNeed:"Add 5 photos to finish this step. You have {n}.",
+  photoFull:"Five photos are already attached.",
+  adH:"Approve the first ad",
+  adP:"Read it before it can go anywhere. No price is shown. Nothing is published from this page.",
+  adHeadline:"Tile work, on your schedule.",
+  adBody:"Rio Tile, a fictional shop, invites neighbors to book a visit. The agency will not run this until you approve it here.",
+  adGo:"Approve this ad",
+  adBack:"Send it back",
+  adNote:"What should change?",
+  adNoteErr:"Add a short note, at least 3 characters. The ad was not sent back.",
+  confirm:"Confirm", cancel:"Cancel", tryAgain:"Try again",
+  confirmAccess:"Save that both accesses were shared?",
+  confirmCal:"Connect the {name} calendar? The agency can see open times in this demo only.",
+  confirmSms:"Submit the texting registration? Nothing is sent to a carrier.",
+  confirmAd:"Approve this ad for the demo? It is not published.",
+  locked:"This step opens after the one above is done.",
+  lockedToast:"Finish the earlier step first. Nothing was skipped.",
+  done:"Done", waiting:"Waiting", stuck:"Stuck", started:"In progress", todo:"Not started",
+  stepNames:{access:"Page and ad account",calendar:"Booking calendar",sms:"Texting registration",photos:"Logo and job photos",ad:"First ad"},
+  saved:"Saved on this page.",
+  fail:"The save did not go through. Your note is still here. Nothing was sent.",
+  loading:"Loading the sample…",
+  emptyT:"No clients in this book",
+  emptyP:"The empty screen is for review. Load the sample to walk the steps.",
+  load:"Load the sample",
+  deskH:"Who is stuck",
+  search:"Search shops",
+  filter:"Show", sort:"Sort",
+  fAll:"All clients", fStuck:"Stuck", fWait:"Waiting", fDone:"Finished",
+  lAll:"All languages", lEn:"English", lEs:"Spanish",
+  sDays:"Days stuck", sName:"Name A to Z",
+  days:"{n} days on this step",
+  you:"This is you, on the phone",
+  open:"Open",
+  remind:"Leave a reminder in their language",
+  remindQ:"Leave this reminder on their page? Nothing is texted or emailed.",
+  remindBody:{en:"Mesa Local is ready when you are. The next step is still open on this page.",es:"Mesa Local está listo cuando usted lo esté. El siguiente paso sigue abierto en esta página."},
+  reminderOnPage:"Reminder on this page",
+  fromAgency:"Mesa Local left a reminder here. Nothing was texted or emailed.",
+  markDone:"Mark the reminder done",
+  export:"Export CSV",
+  copy:"Copy a summary",
+  undo:"Undo",
+  noMatch:"No matches. Clear a filter to see the sample again.",
+  clear:"Clear filters",
+  nothingExport:"Nothing to export yet.",
+  exported:"Exported the filtered sample. The file says it is fictional.",
+  copied:"Summary copied. Sample data only.",
+  reset:"Demo reset. The sample book is back.",
+  undone:"Undone. The sample is back one step.",
+  loadToast:"Sample loaded.",
+  already:"That choice is already selected.",
+  csLede:"The owner finishes five steps on a phone. The agency sees which step is stuck, and why, in the owner's language.",
+  csProblem:"After a small business signs with a marketing agency, the first ad waits on access, a calendar, texting registration, photos, and an approval. The owner often does this on a phone. The agency cannot tell which step is stuck.",
+  csUser:"A shop owner who just signed, and the person at the agency who checks who is waiting.",
+  csDecisions:"<ol><li><b>The owner's phone comes first.</b> Five steps, in the order they actually happen, with a plain reason to be stuck.</li><li><b>The whole page switches between English and Spanish.</b> Buttons can grow. Nothing is cut off on purpose.</li><li><b>The guide only explains these steps.</b> It does not invent an answer it does not have.</li><li><b>A reminder stays on the page.</b> It is written in the client's language. Nothing is texted or emailed.</li><li><b>This is not Berth.</b> Berth is a checklist for a software company's new accounts. This is the shop owner's phone, for an agency.</li></ol>",
+  csOutcome:"A working prototype of the phone steps, the guide, the agency desk, undo, and export, with empty, loading, and save-error screens. Not tested with real owners. It makes no claim about how fast an ad goes live.",
+  csLabel:"Concept. Mesa Local, the shops, and the people are fictional. No prices are shown."
+},
+es:{
+  sub:"Del contrato al primer anuncio",
+  banner:"Una muestra de Mesa Local, una agencia ficticia, y negocios ficticios. Usted es Elena V. de Rio Tile. Aquí no se envían textos, ni correos, ni se cambia una cuenta de anuncios real.",
+  owner:"Teléfono del dueño", desk:"Mesa de la agencia",
+  langName:"Español",
+  progress:"Paso {n} de 5",
+  why:"¿Qué es esto y por qué lo necesitan?",
+  ask:"Pregunte con sus palabras",
+  askPh:"Ejemplo: ¿por qué el calendario?",
+  noAnswer:"Esta muestra solo responde sobre estos cinco pasos. Pruebe una de las preguntas de arriba.",
+  stuckBtn:"No puedo seguir",
+  stuckTitle:"¿Qué lo detiene?",
+  reasons:[["login","No tengo la contraseña"],["other","Otra persona tiene la contraseña"],["screen","No veo esa pantalla"]],
+  stuckSet:"Quedó marcado como detenido. La agencia ve el motivo. No se envió nada.",
+  accessH:"Dé a Mesa Local acceso a la página de Facebook y a la cuenta de anuncios",
+  accessP:"La agencia no puede preparar un anuncio hasta que se compartan las dos cosas. Esta página no se conecta a Facebook.",
+  pageBox:"Compartí la página de Facebook",
+  adBox:"Compartí la cuenta de anuncios",
+  accessGo:"Guardar el acceso",
+  accessNeed:"Marque las dos casillas, o elija No puedo seguir.",
+  calH:"Conecte el calendario de citas",
+  calP:"El primer anuncio debe llevar a un horario que se pueda reservar. Elija qué calendario puede ver la agencia.",
+  calJobs:"Calendario de trabajos", calOwner:"Calendario del dueño",
+  calGo:"Conectar este calendario",
+  smsH:"Registre el teléfono del negocio para mensajes de texto",
+  smsP:"En la vida real, la revisión de la compañía telefónica suele tardar días. El negocio recibiría un mensaje al terminar. Esta página no envía ningún texto.",
+  smsName:"Nombre del negocio en el registro",
+  smsGo:"Enviar el registro",
+  smsWait:"En espera de la compañía telefónica. Suele tardar días. No se envió ningún texto.",
+  smsPreview:"Ver la pantalla de aprobado",
+  smsDone:"En esta muestra, los textos quedaron aprobados. Aun así, no se envió ningún texto.",
+  photoH:"Agregue el logo y 5 fotos de trabajos",
+  photoP:"El primer anuncio necesita fotos que el negocio sí tomó. Estas muestras son dibujos, no trabajos reales.",
+  photoAdd:"Agregar una foto de este aparato",
+  photoSample:"Usar 5 fotos de muestra",
+  photoRemove:"Quitar",
+  photoNeed:"Agregue 5 fotos para cerrar este paso. Lleva {n}.",
+  photoFull:"Ya hay cinco fotos.",
+  adH:"Apruebe el primer anuncio",
+  adP:"Léalo antes de que pueda ir a cualquier lugar. No se muestra ningún precio. Desde aquí no se publica nada.",
+  adHeadline:"Trabajo de loseta, en su horario.",
+  adBody:"Rio Tile, un negocio ficticio, invita a los vecinos a reservar una visita. La agencia no lo publicará hasta que usted lo apruebe aquí.",
+  adGo:"Aprobar este anuncio",
+  adBack:"Devolverlo",
+  adNote:"¿Qué hay que cambiar?",
+  adNoteErr:"Escriba una nota corta, de al menos 3 caracteres. El anuncio no se devolvió.",
+  confirm:"Confirmar", cancel:"Cancelar", tryAgain:"Intentar de nuevo",
+  confirmAccess:"¿Guardar que se compartieron los dos accesos?",
+  confirmCal:"¿Conectar el calendario {name}? La agencia solo ve horarios en esta muestra.",
+  confirmSms:"¿Enviar el registro de textos? No se manda nada a una compañía telefónica.",
+  confirmAd:"¿Aprobar este anuncio en la muestra? No se publica.",
+  locked:"Este paso se abre cuando el de arriba esté listo.",
+  lockedToast:"Termine primero el paso anterior. No se saltó nada.",
+  done:"Listo", waiting:"En espera", stuck:"Detenido", started:"En curso", todo:"Sin empezar",
+  stepNames:{access:"Página y cuenta de anuncios",calendar:"Calendario de citas",sms:"Registro de textos",photos:"Logo y fotos de trabajos",ad:"Primer anuncio"},
+  saved:"Guardado en esta página.",
+  fail:"No se pudo guardar. Su nota sigue aquí. No se envió nada.",
+  loading:"Cargando la muestra…",
+  emptyT:"No hay clientes en esta lista",
+  emptyP:"La pantalla vacía es para revisión. Cargue la muestra para recorrer los pasos.",
+  load:"Cargar la muestra",
+  deskH:"Quién está detenido",
+  search:"Buscar negocios",
+  filter:"Ver", sort:"Orden",
+  fAll:"Todos", fStuck:"Detenidos", fWait:"En espera", fDone:"Terminados",
+  lAll:"Todos los idiomas", lEn:"Inglés", lEs:"Español",
+  sDays:"Días detenido", sName:"Nombre A a Z",
+  days:"{n} días en este paso",
+  you:"Es usted, en el teléfono",
+  open:"Abrir",
+  remind:"Dejar un recordatorio en su idioma",
+  remindQ:"¿Dejar este recordatorio en su página? No se envía texto ni correo.",
+  remindBody:{en:"Mesa Local is ready when you are. The next step is still open on this page.",es:"Mesa Local está listo cuando usted lo esté. El siguiente paso sigue abierto en esta página."},
+  reminderOnPage:"Recordatorio en esta página",
+  fromAgency:"Mesa Local dejó un recordatorio aquí. No se envió texto ni correo.",
+  markDone:"Marcar el recordatorio como hecho",
+  export:"Exportar CSV",
+  copy:"Copiar un resumen",
+  undo:"Deshacer",
+  noMatch:"No hay coincidencias. Quite un filtro para ver la muestra.",
+  clear:"Quitar filtros",
+  nothingExport:"Todavía no hay nada para exportar.",
+  exported:"Se exportó la muestra filtrada. El archivo dice que es ficticia.",
+  copied:"Resumen copiado. Solo datos de muestra.",
+  reset:"Muestra reiniciada.",
+  undone:"Deshecho. La muestra volvió un paso.",
+  loadToast:"Muestra cargada.",
+  already:"Esa opción ya está elegida.",
+  csLede:"El dueño completa cinco pasos en el teléfono. La agencia ve qué paso está detenido, y por qué, en el idioma del dueño.",
+  csProblem:"Después de que un negocio pequeño firma con una agencia, el primer anuncio espera por el acceso, un calendario, el registro de textos, las fotos y una aprobación. El dueño suele hacerlo en el teléfono. La agencia no sabe qué paso está detenido.",
+  csUser:"El dueño de un negocio que acaba de firmar, y la persona de la agencia que revisa quién está esperando.",
+  csDecisions:"<ol><li><b>El teléfono del dueño va primero.</b> Cinco pasos, en el orden real, con un motivo claro si se detiene.</li><li><b>Toda la página cambia entre inglés y español.</b> Los botones pueden crecer. Nada se corta a propósito.</li><li><b>La guía solo explica estos pasos.</b> No inventa una respuesta que no tiene.</li><li><b>El recordatorio se queda en la página.</b> Va en el idioma del cliente. No se envía texto ni correo.</li><li><b>Esto no es Berth.</b> Berth es una lista para las cuentas nuevas de una empresa de software. Esto es el teléfono del dueño, para una agencia.</li></ol>",
+  csOutcome:"Un prototipo funcional de los pasos en el teléfono, la guía, la mesa de la agencia, deshacer y exportar, con pantallas vacía, de carga y de error al guardar. No se probó con dueños reales. No afirma nada sobre qué tan rápido sale un anuncio.",
+  csLabel:"Concepto. Mesa Local, los negocios y las personas son ficticios. No se muestran precios."
+}
+};
+const GUIDE={
+en:[
+  ["access","Why the Facebook Page?","The agency has to draft and pause ads as the page. Without access, they can only guess."],
+  ["calendar","Why the calendar?","The ad asks people to book a visit. If no calendar is connected, the click has nowhere to land."],
+  ["sms","Why texting registration?","A lead form that texts the shop has to be registered with the phone carrier. The review usually takes days, so the page shows the wait instead of pretending it is instant."],
+  ["photos","Why five photos?","The first ad needs real pictures of the work. Five is the set for this demo, including the logo."],
+  ["ad","Why do I approve the ad?","The owner should read the words before anything can run. Approving here does not publish it."]
+],
+es:[
+  ["access","¿Por qué la página de Facebook?","La agencia tiene que preparar y pausar anuncios como la página. Sin acceso, solo puede adivinar."],
+  ["calendar","¿Por qué el calendario?","El anuncio pide a la gente reservar una visita. Si no hay calendario, el clic no llega a ningún lado."],
+  ["sms","¿Por qué el registro de textos?","Un formulario que envía textos al negocio tiene que registrarse con la compañía telefónica. La revisión suele tardar días, así que la página muestra la espera en lugar de fingir que es inmediata."],
+  ["photos","¿Por qué cinco fotos?","El primer anuncio necesita fotos reales del trabajo. Cinco es el conjunto de esta muestra, con el logo."],
+  ["ad","¿Por qué apruebo el anuncio?","El dueño debe leer las palabras antes de que algo pueda publicarse. Aprobar aquí no lo publica."]
+]
+};
+function seed(){return [
+  {id:"elena",name:"Elena V.",biz:"Rio Tile",lang:"es",days:0,you:true,cal:"",smsName:"Rio Tile",smsWait:false,access:{page:false,ad:false},photos:[],adNote:"",adBack:false,stuck:null,
+    st:{access:"todo",calendar:"todo",sms:"todo",photos:"todo",ad:"todo"}},
+  {id:"andre",name:"Andre P.",biz:"Blue Finch Roofing",lang:"en",days:6,you:false,cal:"",smsName:"Blue Finch Roofing",smsWait:false,access:{page:false,ad:false},photos:[],adNote:"",adBack:false,stuck:"access",
+    st:{access:"stuck",calendar:"todo",sms:"todo",photos:"todo",ad:"todo"},reason:"The page login is with his brother."},
+  {id:"noor",name:"Noor S.",biz:"Cactus & Clay",lang:"en",days:3,you:false,cal:"jobs",smsName:"Cactus & Clay",smsWait:false,access:{page:true,ad:true},photos:["a","b"],adNote:"",adBack:false,stuck:"photos",
+    st:{access:"done",calendar:"done",sms:"done",photos:"stuck",ad:"todo"},reason:"Two photos are in. Five are needed."},
+  {id:"luis",name:"Luis M.",biz:"Kiln Electric",lang:"es",days:5,you:false,cal:"jobs",smsName:"Kiln Electric",smsWait:true,access:{page:true,ad:true},photos:[],adNote:"",adBack:false,stuck:null,
+    st:{access:"done",calendar:"done",sms:"waiting",photos:"todo",ad:"todo"},reason:"Carrier review is still open."},
+  {id:"sam",name:"Sam T.",biz:"Northwind Heating",lang:"en",days:0,you:false,cal:"owner",smsName:"Northwind Heating",smsWait:false,access:{page:true,ad:true},photos:["a","b","c","d","e"],adNote:"",adBack:false,stuck:null,
+    st:{access:"done",calendar:"done",sms:"done",photos:"done",ad:"done"}}
+];}
+let D="live",lang="en",view="owner",openStep="access",deskId="elena",q="",filt="all",slang="all",sort="days",sheet=null,draft="",errUsed=false,undo=[],reminders=[],guideOpen=false,guidePick="",guideText="";
+const L=()=>T[lang];
+function you(){return S.clients.find(c=>c.you)}
+function cur(c){return STEPS.find(k=>c.st[k]!=="done")||"ad"}
+function statusWord(st){const t=L();return st==="done"?t.done:st==="waiting"?t.waiting:st==="stuck"?t.stuck:st==="started"?t.started:t.todo}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+let S={clients:seed()};
+function snap(){undo.push(JSON.stringify({clients:S.clients,reminders,openStep,deskId}));if(undo.length>20)undo.shift();paintUndo()}
+function toast(m,onUndo){const b=$("toastUndo");$("toastMsg").textContent=m;b.hidden=!onUndo;b.onclick=onUndo?()=>{$("toast").classList.remove("on");onUndo()}:null;$("toast").classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>$("toast").classList.remove("on"),3200)}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({D,lang,view,openStep,deskId,q,filt,slang,sort,sheet,draft,errUsed,clients:S.clients,reminders,guideOpen,guidePick,guideText}))}catch(e){}}
+function load(){try{const r=JSON.parse(localStorage.getItem(KEY)||"null");if(!r||!r.clients)return;({D,lang,view,openStep,deskId,q,filt,slang,sort,sheet,draft,errUsed,reminders,guideOpen,guidePick,guideText}=Object.assign({D,lang,view,openStep,deskId,q,filt,slang,sort,sheet,draft,errUsed,reminders,guideOpen,guidePick,guideText},r));S.clients=r.clients}catch(e){}}
+function failSave(){errUsed=true;sheet=Object.assign({},sheet,{failed:true});render();toast(L().fail);return true}
+function guard(){if(D==="loading"||D==="empty"){toast(D==="loading"?L().loading:L().emptyP);return false}if(D==="saveerr"&&!errUsed&&sheet){failSave();return false}return true}
+function paintChrome(){
+  document.documentElement.lang=lang==="es"?"es":"en";
+  $("brandSub").textContent=L().sub;$("banner").textContent=L().banner;$("demo").value=D;
+  $("langSeg").setAttribute("aria-label",lang==="es"?"Idioma":"Language");
+  $("langSeg").innerHTML=[["en","English"],["es","Español"]].map(([v,t])=>`<button type="button" data-act="lang" data-v="${v}" aria-pressed="${lang===v}">${t}</button>`).join("");
+  $("viewSeg").setAttribute("aria-label",lang==="es"?"Quién usa esta página":"Who is using this page");
+  $("viewSeg").innerHTML=[["owner",L().owner],["desk",L().desk]].map(([v,t])=>`<button type="button" data-act="view" data-v="${v}" aria-pressed="${view===v}">${t}</button>`).join("");
+  $("resetBtn").textContent=lang==="es"?"Reiniciar muestra":"Reset demo";
+  $("csLede").textContent=L().csLede;$("csProblem").textContent=L().csProblem;$("csUser").textContent=L().csUser;
+  $("csDecisions").innerHTML=L().csDecisions;$("csOutcome").textContent=L().csOutcome;$("csLabel").textContent=L().csLabel;
+  $("csTitle").textContent=lang==="es"?"Del contrato firmado al primer anuncio":"Getting from a signed contract to the first ad";
+}
+function paintUndo(){const b=$("undoBtn");if(b)b.disabled=!undo.length}
+function swatch(i){const c=document.createElement("canvas");c.width=160;c.height=120;const g=c.getContext("2d");const cols=["#C08A57","#6FE3D0","#E9A46E","#8E6B52","#F4E7D7"];g.fillStyle=cols[i%5];g.fillRect(0,0,160,120);g.fillStyle="#1B140F";g.font="16px sans-serif";g.fillText("Sample "+(i+1),16,64);return c.toDataURL()}
+function reminderFor(c){return reminders.filter(r=>r.clientId===c.id&&!r.done)}
+function ownerHTML(){
+  const t=L();if(D==="loading")return `<div class="card"><h2>${esc(t.loading)}</h2><div class="sk"></div><div class="sk" style="height:80px"></div><div class="sk"></div></div>`;
+  if(D==="empty")return `<div class="card empty"><b>${esc(t.emptyT)}</b><p class="sub">${esc(t.emptyP)}</p><button class="btn pri" type="button" data-act="load">${esc(t.load)}</button></div>`;
+  const c=you();const step=openStep&&STEPS.includes(openStep)?openStep:cur(c);openStep=step;const n=STEPS.indexOf(step)+1;
+  const rems=reminderFor(c);
+  return `<div class="owner-wrap"><div class="card phone"><h2>${esc(t.progress.replace("{n}",n))}</h2>
+    ${rems.length?`<div class="help"><b>${esc(t.reminderOnPage)}</b><p class="sub">${esc(t.fromAgency)}</p><p>${esc(rems[0].text)}</p><button class="btn sm" type="button" data-act="remdone" data-id="${esc(rems[0].id)}">${esc(t.markDone)}</button></div>`:""}
+    <ol class="stepper">${STEPS.map((k,i)=>{const st=c.st[k];return `<li><button type="button" data-act="openstep" data-k="${k}" aria-current="${k===step?"step":"false"}"><span class="n ${st}">${st==="done"?"✓":i+1}</span><span><b>${esc(t.stepNames[k])}</b><span class="sub">${esc(statusWord(st))}${c.stuck===k&&c.reason?" · "+esc(c.reason):""}</span></span></button></li>`}).join("")}</ol>
+    ${stepBody(c,step)}</div>
+    <aside class="card guide"><h2>${esc(t.why)}</h2>${guideHTML(step)}</aside></div>`;
+}
+function blocked(c,step){const i=STEPS.indexOf(step);return STEPS.slice(0,i).some(k=>c.st[k]!=="done")}
+function stepBody(c,step){
+  const t=L();
+  if(blocked(c,step))return `<p class="q">${esc(t.stepNames[step])}</p><p>${esc(t.locked)}</p><button class="btn" type="button" data-act="openstep" data-k="${cur(c)}">${esc(t.lockedToast)}</button>`;
+  if(sheet&&sheet.step===step)return sheetHTML();
+  if(step==="access")return `<p class="q">${esc(t.accessH)}</p><p>${esc(t.accessP)}</p>
+    <label class="opt"><input type="checkbox" data-box="page" ${c.access.page?"checked":""}> ${esc(t.pageBox)}</label>
+    <label class="opt"><input type="checkbox" data-box="ad" ${c.access.ad?"checked":""}> ${esc(t.adBox)}</label>
+    <p class="fielderr" id="accErr" hidden>${esc(t.accessNeed)}</p>
+    <div class="row"><button class="btn pri" type="button" data-act="access-go">${esc(t.accessGo)}</button><button class="btn ghost" type="button" data-act="stuck">${esc(t.stuckBtn)}</button></div>
+    ${stuckBox(c,"access")}`;
+  if(step==="calendar")return `<p class="q">${esc(t.calH)}</p><p>${esc(t.calP)}</p>
+    <label class="opt"><input type="radio" name="cal" value="jobs" ${c.cal==="jobs"?"checked":""}> ${esc(t.calJobs)}</label>
+    <label class="opt"><input type="radio" name="cal" value="owner" ${c.cal==="owner"?"checked":""}> ${esc(t.calOwner)}</label>
+    <p class="fielderr" id="calErr" hidden>${esc(lang==="es"?"Elija un calendario.":"Pick a calendar.")}</p>
+    <div class="row"><button class="btn pri" type="button" data-act="cal-go">${esc(t.calGo)}</button><button class="btn ghost" type="button" data-act="stuck">${esc(t.stuckBtn)}</button></div>
+    ${c.st.calendar==="done"?`<p class="note">${esc(t.saved)}</p>`:""}${stuckBox(c,"calendar")}`;
+  if(step==="sms")return `<p class="q">${esc(t.smsH)}</p><p>${esc(t.smsP)}</p>
+    ${c.smsWait?`<div class="help"><b>${esc(t.waiting)}</b><p class="sub">${esc(t.smsWait)}</p><button class="btn" type="button" data-act="sms-preview">${esc(t.smsPreview)}</button></div>`:
+    `<label for="smsName">${esc(t.smsName)}</label><input id="smsName" value="${esc(c.smsName)}"><p class="fielderr" id="smsErr" hidden>${esc(lang==="es"?"Escriba el nombre del negocio.":"Enter the business name.")}</p>
+    <div class="row"><button class="btn pri" type="button" data-act="sms-go">${esc(t.smsGo)}</button><button class="btn ghost" type="button" data-act="stuck">${esc(t.stuckBtn)}</button></div>`}
+    ${stuckBox(c,"sms")}`;
+  if(step==="photos")return `<p class="q">${esc(t.photoH)}</p><p>${esc(t.photoP)}</p>
+    <div class="photos">${c.photos.map((src,i)=>`<div class="ph"><img alt="${esc(t.photoH)} ${i+1}" src="${src}"><button class="btn sm ghost" type="button" data-act="photo-x" data-i="${i}">${esc(t.photoRemove)}</button></div>`).join("")}</div>
+    <p class="note">${esc(t.photoNeed.replace("{n}",c.photos.length))}</p>
+    <div class="row"><label class="btn file">${esc(t.photoAdd)}<input id="photoFile" type="file" accept="image/*" aria-label="${esc(t.photoAdd)}"></label><button class="btn" type="button" data-act="photo-sample">${esc(t.photoSample)}</button><button class="btn ghost" type="button" data-act="stuck">${esc(t.stuckBtn)}</button></div>
+    ${stuckBox(c,"photos")}`;
+  return `<p class="q">${esc(t.adH)}</p><p>${esc(t.adP)}</p>
+    <div class="ad"><span class="tag">Mesa Local · Rio Tile</span><b>${esc(t.adHeadline)}</b><p class="sub">${esc(t.adBody)}</p></div>
+    ${c.adBack?`<p class="note">${esc(c.adNote)}</p>`:""}
+    <div class="row" style="margin-top:10px"><button class="btn pri" type="button" data-act="ad-go">${esc(t.adGo)}</button><button class="btn ghost" type="button" data-act="ad-back">${esc(t.adBack)}</button><button class="btn ghost" type="button" data-act="stuck">${esc(t.stuckBtn)}</button></div>
+    ${stuckBox(c,"ad")}`;
+}
+function stuckBox(c,step){const t=L();if(c.stuck!==step||c._ask!==step)return c.stuck===step&&c.reason?`<p class="note">${esc(c.reason)}</p>`:"";
+  return `<div class="help"><b>${esc(t.stuckTitle)}</b>${t.reasons.map(([k,lab])=>`<button class="btn sm" type="button" data-act="reason" data-k="${k}" style="margin-top:8px">${esc(lab)}</button>`).join("")}</div>`;
+}
+function sheetHTML(){const t=L();const failed=sheet.failed;return `<div class="help"><p class="q">${esc(sheet.q)}</p>
+  ${sheet.note?`<label for="sheetNote">${esc(t.adNote)}</label><textarea id="sheetNote">${esc(draft)}</textarea><p class="fielderr" id="sheetErr" ${failed?"":"hidden"}>${esc(t.adNoteErr)}</p>`:""}
+  <div class="row"><button class="btn pri" type="button" data-act="confirm">${esc(failed?t.tryAgain:t.confirm)}</button><button class="btn ghost" type="button" data-act="cancel">${esc(t.cancel)}</button></div></div>`;
+}
+function guideAnswer(step){const t=L();const q=guideText.trim().toLowerCase();const items=GUIDE[lang].filter(g=>!q||(g[1]+" "+g[2]).toLowerCase().includes(q));
+  const shown=guidePick&&GUIDE[lang].find(g=>g[0]===guidePick);
+  const fallback=!q&&GUIDE[lang].find(g=>g[0]===step);
+  const hit=shown||(q?items[0]:fallback);
+  return hit?`<p class="answer" id="gAns"><b>${esc(hit[1])}</b><br>${esc(hit[2])}</p>`:`<p class="answer" id="gAns">${esc(t.noAnswer)}</p>`;
+}
+function guideHTML(step){const t=L();
+  return `<div class="row">${GUIDE[lang].map(g=>`<button class="btn sm ${g[0]===step?"pri":"ghost"}" type="button" data-act="guide" data-k="${g[0]}">${esc(g[1])}</button>`).join("")}</div>
+    <label for="gAsk">${esc(t.ask)}</label><input id="gAsk" type="search" value="${esc(guideText)}" placeholder="${esc(t.askPh)}">
+    ${guideAnswer(step)}`;
+}
+function list(){const t=L();return S.clients.filter(c=>{
+  const blob=(c.name+" "+c.biz).toLowerCase();if(q&&!blob.includes(q.trim().toLowerCase()))return false;
+  if(slang!=="all"&&c.lang!==slang)return false;
+  const waiting=Object.values(c.st).includes("waiting"),stuck=Object.values(c.st).includes("stuck"),done=STEPS.every(k=>c.st[k]==="done");
+  if(filt==="stuck"&&!stuck)return false;if(filt==="wait"&&!waiting)return false;if(filt==="done"&&!done)return false;return true;
+}).sort((a,b)=>sort==="name"?a.biz.localeCompare(b.biz):b.days-a.days)}
+function deskHTML(){
+  const t=L();if(D==="loading")return `<div class="card"><h2>${esc(t.loading)}</h2><div class="sk"></div><div class="sk" style="height:64px"></div></div>`;
+  if(D==="empty")return `<div class="card empty"><b>${esc(t.emptyT)}</b><p class="sub">${esc(t.emptyP)}</p><button class="btn pri" type="button" data-act="load">${esc(t.load)}</button></div>`;
+  const rows=list();const c=S.clients.find(x=>x.id===deskId)||rows[0];
+  return `<div class="lay desk"><section class="card"><h2>${esc(t.deskH)}</h2>
+    <div class="filters"><label class="sr" for="dq">${esc(t.search)}</label><input id="dq" type="search" value="${esc(q)}" placeholder="${esc(t.search)}">
+      <label class="sr" for="df">${esc(t.filter)}</label><select id="df" class="inp"><option value="all">${esc(t.fAll)}</option><option value="stuck" ${filt==="stuck"?"selected":""}>${esc(t.fStuck)}</option><option value="wait" ${filt==="wait"?"selected":""}>${esc(t.fWait)}</option><option value="done" ${filt==="done"?"selected":""}>${esc(t.fDone)}</option></select>
+      <label class="sr" for="dl">${esc(t.lAll)}</label><select id="dl" class="inp"><option value="all">${esc(t.lAll)}</option><option value="en" ${slang==="en"?"selected":""}>${esc(t.lEn)}</option><option value="es" ${slang==="es"?"selected":""}>${esc(t.lEs)}</option></select>
+      <label class="sr" for="ds">${esc(t.sort)}</label><select id="ds" class="inp"><option value="days">${esc(t.sDays)}</option><option value="name" ${sort==="name"?"selected":""}>${esc(t.sName)}</option></select></div>
+    <div id="dlist">${rows.length?rows.map(a=>`<button class="btn client ${c&&a.id===c.id?"pri":""}" type="button" data-act="pick" data-id="${a.id}"><b>${esc(a.biz)}</b><small>${esc(a.name)} · ${esc(t.stepNames[cur(a)])} · ${esc(statusWord(a.st[cur(a)]))} · ${esc(t.days.replace("{n}",a.days))}${a.you?" · "+esc(t.you):""}</small></button>`).join(""):`<p><b>${esc(t.noMatch)}</b> <button class="btn sm" type="button" data-act="clear">${esc(t.clear)}</button></p>`}</div>
+    <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="exportBtn">${esc(t.export)}</button><button class="btn sm" type="button" id="copyBtn">${esc(t.copy)}</button><button class="btn sm ghost" type="button" id="undoBtn" ${undo.length?"":"disabled"}>${esc(t.undo)}</button></div>
+    </section>${c?deskDetail(c):""}</div>`;
+}
+function deskDetail(c){const t=L();const k=cur(c);const rems=reminders.filter(r=>r.clientId===c.id);
+  return `<section class="card"><h2>${esc(c.biz)}</h2><p>${esc(c.name)} · ${c.lang==="es"?esc(t.lEs):esc(t.lEn)}</p>
+    <p><b>${esc(t.stepNames[k])}</b> · ${esc(statusWord(c.st[k]))}</p>
+    <p class="note">${esc(c.reason|| (lang==="es"?"No hay un motivo escrito.":"No reason is written down."))}</p>
+    ${sheet&&sheet.kind==="remind"&&sheet.id===c.id?sheetHTML():`<button class="btn pri" type="button" data-act="remind" data-id="${c.id}">${esc(t.remind)}</button>`}
+    ${rems.length?`<div class="help"><b>${esc(t.reminderOnPage)}</b>${rems.map(r=>`<p>${esc(r.text)} ${r.done?"· "+esc(t.done):""}</p>${r.done?"":`<button class="btn sm" type="button" data-act="remdone" data-id="${esc(r.id)}">${esc(t.markDone)}</button>`}`).join("")}</div>`:""}
+    </section>`;
+}
+function render(){paintChrome();$("stage").innerHTML=view==="desk"?deskHTML():ownerHTML();const u=$("undoBtn");if(u)u.disabled=!undo.length;save()}
+function openSheet(kind,step,q,note){sheet={kind,step,q,note:!!note,failed:false};draft=note?draft:"";render()}
+function apply(){
+  const c=you();const k=sheet.kind;
+  if(k==="access"){c.st.access="done";c.stuck=null;openStep="calendar"}
+  else if(k==="cal"){c.st.calendar="done";c.stuck=null;openStep="sms"}
+  else if(k==="sms"){c.smsWait=true;c.st.sms="waiting";c.stuck=null}
+  else if(k==="ad"){c.st.ad="done";c.stuck=null}
+  else if(k==="adback"){c.adBack=true;c.adNote=draft.trim();c.st.ad="stuck";c.reason=c.adNote}
+  else if(k==="remind"){const who=S.clients.find(x=>x.id===sheet.id);reminders.unshift({id:"r"+Date.now(),clientId:who.id,text:T[who.lang].remindBody[who.lang]||T.en.remindBody[who.lang],done:false})}
+  sheet=null;draft="";render();toast(L().saved,doUndo);
+}
+function doUndo(){const raw=undo.pop();if(!raw)return;const p=JSON.parse(raw);S.clients=p.clients;reminders=p.reminders;openStep=p.openStep;deskId=p.deskId;sheet=null;render();toast(L().undone)}
+document.body.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;const t=L();
+  if(a==="lang"){if(lang===b.dataset.v){toast(t.already);return}lang=b.dataset.v;render();toast(lang==="es"?"Página en español.":"Page in English.");return}
+  if(a==="view"){if(view===b.dataset.v){toast(t.already);return}view=b.dataset.v;render();return}
+  if(a==="load"){D="live";$("demo").value="live";S.clients=seed();reminders=[];sheet=null;render();toast(t.loadToast);return}
+  if(D==="loading"||D==="empty"){toast(D==="loading"?t.loading:t.emptyP);return}
+  if(a==="openstep"){const k=b.dataset.k;if(k===openStep&&view==="owner"){toast(t.stepNames[k]+" · "+statusWord(you().st[k]));return}openStep=k;view="owner";render();return}
+  if(a==="stuck"){const c=you();c._ask=openStep;c.stuck=openStep;render();return}
+  if(a==="reason"){if(D==="saveerr"&&!errUsed){errUsed=true;toast(t.fail);return}snap();const c=you();const lab=t.reasons.find(r=>r[0]===b.dataset.k);c.stuck=openStep;c.reason=lab?lab[1]:"";c.st[openStep]="stuck";c._ask=null;render();toast(t.stuckSet,doUndo);return}
+  if(a==="access-go"){const c=you();if(!(c.access.page&&c.access.ad)){$("accErr").hidden=false;return}openSheet("access","access",t.confirmAccess);return}
+  if(a==="cal-go"){const c=you();if(!c.cal){$("calErr").hidden=false;return}const name=c.cal==="jobs"?t.calJobs:t.calOwner;openSheet("cal","calendar",t.confirmCal.replace("{name}",name));return}
+  if(a==="sms-go"){const v=($("smsName").value||"").trim();if(v.length<2){$("smsErr").hidden=false;return}you().smsName=v;openSheet("sms","sms",t.confirmSms);return}
+  if(a==="sms-preview"){if(D==="saveerr"&&!errUsed){errUsed=true;toast(t.fail);return}snap();const c=you();c.smsWait=false;c.st.sms="done";c.stuck=null;openStep="photos";render();toast(t.smsDone,doUndo);return}
+  if(a==="photo-sample"){if(D==="saveerr"&&!errUsed){errUsed=true;toast(t.fail);return}snap();const c=you();c.photos=Array.from({length:5},(_,i)=>swatch(i));c.st.photos="done";c.stuck=null;openStep="ad";render();toast(t.saved,doUndo);return}
+  if(a==="photo-x"){if(D==="saveerr"&&!errUsed){errUsed=true;toast(t.fail);return}snap();const c=you();c.photos.splice(+b.dataset.i,1);c.st.photos=c.photos.length>=5?"done":c.photos.length?"started":"todo";if(c.st.photos!=="done")openStep="photos";render();toast(t.saved,doUndo);return}
+  if(a==="ad-go"){openSheet("ad","ad",t.confirmAd);return}
+  if(a==="ad-back"){openSheet("adback","ad",t.adBack,true);return}
+  if(a==="confirm"){if(sheet&&sheet.note){draft=($("sheetNote")&&$("sheetNote").value)||draft;if(draft.trim().length<3){$("sheetErr").hidden=false;return}}if(D==="saveerr"&&!errUsed){failSave();return}snap();apply();return}
+  if(a==="cancel"){sheet=null;render();toast(lang==="es"?"Cancelado. No se guardó nada.":"Canceled. Nothing was saved.");return}
+  if(a==="guide"){guidePick=b.dataset.k;guideOpen=true;render();const ans=GUIDE[lang].find(g=>g[0]===guidePick);toast(ans?ans[1]:t.why);return}
+  if(a==="pick"){deskId=b.dataset.id;render();return}
+  if(a==="remind"){const who=S.clients.find(x=>x.id===b.dataset.id);sheet={kind:"remind",step:"desk",id:who.id,q:t.remindQ,note:false,failed:false};view="desk";render();return}
+  if(a==="remdone"){snap();const r=reminders.find(x=>x.id===b.dataset.id);if(r)r.done=true;render();toast(t.saved,doUndo);return}
+  if(a==="clear"){q="";filt="all";slang="all";render();toast(lang==="es"?"Filtros quitados.":"Filters cleared.");return}
+});
+document.body.addEventListener("change",e=>{
+  const c=you();const t=e.target;
+  if(t.dataset&&t.dataset.box){if(D!=="live"&&D!=="saveerr"){toast(L().loading);t.checked=!t.checked;return}c.access[t.dataset.box]=t.checked;save();toast(t.checked?L().saved: (lang==="es"?"Casilla quitada.":"Box cleared."));return}
+  if(t.name==="cal"){if(c.cal===t.value){toast(L().already);return}c.cal=t.value;save();toast(t.value==="jobs"?L().calJobs:L().calOwner);return}
+  if(t.id==="photoFile"&&t.files&&t.files[0]){const f=t.files[0];if(D==="saveerr"&&!errUsed){errUsed=true;toast(L().fail);return}if(c.photos.length>=5){toast(L().photoFull);return}const rd=new FileReader();rd.onload=()=>{snap();c.photos.push(rd.result);if(c.photos.length>=5){c.st.photos="done";c.stuck=null;openStep="ad"}else c.st.photos="doing";render();toast(L().saved,doUndo)};rd.readAsDataURL(f);return}
+  if(t.id==="df"){filt=t.value;render();toast(t.options[t.selectedIndex].text);return}
+  if(t.id==="dl"){slang=t.value;render();toast(t.options[t.selectedIndex].text);return}
+  if(t.id==="ds"){sort=t.value;render();toast(t.options[t.selectedIndex].text);return}
+});
+document.body.addEventListener("input",e=>{
+  if(e.target.id==="gAsk"){guideText=e.target.value;guidePick="";const ans=$("gAns");if(ans)ans.outerHTML=guideAnswer(openStep);save();return}
+  if(e.target.id==="dq"){q=e.target.value;const box=$("dlist");if(!box)return;const t=L();const rows=list();const curId=(S.clients.find(x=>x.id===deskId)||rows[0]||{}).id;box.innerHTML=rows.length?rows.map(a=>`<button class="btn client ${a.id===curId?"pri":""}" type="button" data-act="pick" data-id="${a.id}"><b>${esc(a.biz)}</b><small>${esc(a.name)} · ${esc(t.stepNames[cur(a)])} · ${esc(statusWord(a.st[cur(a)]))} · ${esc(t.days.replace("{n}",a.days))}${a.you?" · "+esc(t.you):""}</small></button>`).join(""):`<p><b>${esc(t.noMatch)}</b> <button class="btn sm" type="button" data-act="clear">${esc(t.clear)}</button></p>`;save();return}
+  if(e.target.id==="smsName"){you().smsName=e.target.value;save()}
+  if(e.target.id==="sheetNote"){draft=e.target.value;save()}
+});
+$("demo").addEventListener("change",e=>{D=e.target.value;sheet=null;errUsed=false;if(D==="empty"){/* keep data, hide it */}render();
+  toast(D==="loading"?L().loading:D==="empty"?L().emptyP:D==="saveerr"?(lang==="es"?"La próxima vez que guarde, va a fallar. La nota se queda.":"The next save will fail. Your note stays."): (lang==="es"?"Muestra en vivo.":"Live sample."));});
+$("resetBtn").addEventListener("click",()=>{localStorage.removeItem(KEY);D="live";lang="en";view="owner";openStep="access";deskId="elena";q="";filt="all";slang="all";sort="days";sheet=null;draft="";errUsed=false;undo=[];reminders=[];guidePick="";guideText="";S.clients=seed();render();toast(L().reset)});
+$("stage").addEventListener("click",e=>{
+  if(e.target.id==="exportBtn"||e.target.closest&&e.target.closest("#exportBtn")){const rows=list();if(!rows.length){toast(L().nothingExport);return}
+    const head=["fictional","business","person","language","step","status","days_stuck","reason"];
+    const body=rows.map(c=>{const k=cur(c);return ["yes",c.biz,c.name,c.lang,k,c.st[k],c.days,c.reason||""]});
+    const csv=["October 2026 concept. Fictional shops. Not a live client list.",head.join(","),...body.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(","))].join("\r\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="signed-live-sample.csv";document.body.appendChild(a);a.click();a.remove();toast(L().exported);return}
+  if(e.target.id==="copyBtn"){const rows=list();const text=["Signed → Live sample. Fictional.",...rows.map(c=>`${c.biz}: ${L().stepNames[cur(c)]} (${statusWord(c.st[cur(c)])})`)].join("\n");
+    (navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(()=>toast(L().copied),()=>{toast(L().copied)});return}
+  if(e.target.id==="undoBtn"){if(!undo.length){toast(lang==="es"?"Nada que deshacer.":"Nothing to undo.");return}doUndo()}
+});
+load();render();
+})();
+</script>
+</body>
+</html>

@@ -54,7 +54,7 @@ a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);display:inline-flex;align-items:center;gap:8px;min-height:44px}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer;min-height:32px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
@@ -121,7 +121,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .track i{display:block;height:100%;background:var(--accent);border-radius:99px}
 .step{padding:12px 0;border-top:1px solid var(--edge)}
 .task{padding:10px 0;border-top:1px solid var(--edge);display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:860px){
   .lay,.kpis,.cs{grid-template-columns:1fr}
   .cs dl{grid-template-columns:1fr}
@@ -372,6 +372,7 @@ function stepCard(a,s,i){
     <p class="note">Owner: ${esc(s.owner)}${waiting?" · waiting on the client":""}</p>
     ${s.blocker?`<p class="sub">Blocker: ${esc(s.blocker)}</p>`:""}
     ${s.note?`<p class="sub">${esc(s.note)}</p>`:""}
+    ${s.waitMsg?`<p class="sub">${esc(s.waitMsg)}</p>`:""}
     ${acts}</article>`;
 }
 function paintDetail(){
@@ -456,7 +457,7 @@ function select(id){
   const h=$("acctName");if(h)h.focus();
 }
 $("kpis").addEventListener("click",e=>{
-  const b=e.target.closest("[data-status]");if(!b||D==="empty"||D==="loading")return;
+  const b=e.target.closest("[data-status]");if(!b)return;if(D==="loading"||D==="empty"){const label=(b.querySelector(".sub")||b).textContent.replace(/\s+/g," ").trim();toast(D==="loading"?label+" is a filter. This is the loading screen. Switch back to Live book to use it.":label+" is a filter. The book is empty. Load the sample book to use it.");return}
   const st=b.dataset.status;S.status=S.status===st?"all":st;$("fStatus").value=S.status;paintKpis();paintList();paintDetail();
 });
 $("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()});
@@ -480,8 +481,8 @@ $("detail").addEventListener("click",e=>{
   if(kind==="own"){snap();step.owner=step.owner==="Client"?a.owner:"Client";render();toast(step.owner==="Client"?"This step now waits on the client.":"This step is back with "+a.owner+".",true);return}
   if(kind==="start"){
     const earlier=earlierOpen(a,i);
-    if(earlier){toast(earlier.name+" is still open. Finish it first, or use Mark done and choose Mark anyway.");return}
-    snap();step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
+    if(earlier){step.waitMsg="Can't start yet. "+earlier.name+" is still open. Finish it first, or mark it done.";render();toast(step.waitMsg);return}
+    snap();step.waitMsg="";step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
   if(kind==="done"){
     const earlier=earlierOpen(a,i);
     openSheet(earlier?"anyway":"done",i);return}
