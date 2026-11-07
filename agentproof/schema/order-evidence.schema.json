@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canaca.github.io/interface-lab/agentproof/schema/order-evidence.schema.json",
+  "title": "AgentProof order evidence record",
+  "description": "Beta local record of a merchant decision on an authorization proof. Unsigned in version 0.1.0. Not filed with a card network, processor, Shopify, or Stripe, and not a prediction of a dispute outcome.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_format",
+    "evidence_format_version",
+    "record_id",
+    "recorded_at",
+    "service_status",
+    "format_status",
+    "demo",
+    "decision",
+    "refusal_note",
+    "undo",
+    "verification",
+    "proof_id",
+    "proof_digest",
+    "proof",
+    "exhibit"
+  ],
+  "properties": {
+    "evidence_format": { "const": "agentproof.order_evidence" },
+    "evidence_format_version": { "const": "0.1.0" },
+    "record_id": { "type": "string", "pattern": "^ev_[a-z0-9]{16,64}$" },
+    "recorded_at": { "type": "string", "format": "date-time" },
+    "service_status": { "const": "concept" },
+    "format_status": { "const": "beta" },
+    "demo": { "type": "boolean" },
+    "decision": { "type": "string", "enum": ["accepted", "rejected", "undone"] },
+    "refusal_note": {
+      "anyOf": [
+        { "type": "null" },
+        { "type": "string", "minLength": 1, "maxLength": 280 }
+      ]
+    },
+    "undo": {
+      "anyOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/undo" }
+      ]
+    },
+    "verification": { "$ref": "#/$defs/verification" },
+    "proof_id": { "type": "string", "pattern": "^ap_[a-z0-9]{16,64}$" },
+    "proof_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "proof": {
+      "description": "The authorization proof this decision refers to. Structural checks for that proof live in authorization-proof.schema.json.",
+      "type": "object"
+    },
+    "exhibit": { "$ref": "#/$defs/exhibit" }
+  },
+  "$defs": {
+    "undo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["undone_at", "reason", "note"],
+      "properties": {
+        "undone_at": { "type": "string", "format": "date-time" },
+        "reason": {
+          "type": "string",
+          "enum": ["customer_requested", "not_as_authorized", "not_fulfilled", "merchant_declined"]
+        },
+        "note": { "type": "string", "minLength": 1, "maxLength": 280 }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "ok", "required", "detail"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z_]{1,40}$" },
+        "ok": { "type": "boolean" },
+        "required": { "type": "boolean" },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 400 }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checked_at", "result", "pinned_public_key", "pinned_key_matched", "embedded_key_matched", "checks", "reasons"],
+      "properties": {
+        "checked_at": { "type": "string", "format": "date-time" },
+        "result": { "type": "string", "enum": ["valid", "invalid"] },
+        "pinned_public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "description": "The public key the merchant says they pinned when they checked the proof. Public. Version 0.1.0 does not sign the evidence record itself."
+        },
+        "pinned_key_matched": { "type": "boolean" },
+        "embedded_key_matched": { "type": "boolean" },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/check" }
+        },
+        "reasons": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "type": "string", "minLength": 1, "maxLength": 400 }
+        }
+      }
+    },
+    "exhibit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "filed", "predicts_outcome", "statement"],
+      "properties": {
+        "title": { "const": "Draft dispute exhibit" },
+        "filed": { "const": false },
+        "predicts_outcome": { "const": false },
+        "statement": { "type": "string", "minLength": 1, "maxLength": 4000 }
+      }
+    }
+  }
+}

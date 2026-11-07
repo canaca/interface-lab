@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentProof · Authorization demo</title>
+<meta name="description" content="Beta format, fictional data. A browser demo of a signed agent-purchase authorization, a merchant check against a pinned key, and a local undo. The AgentProof service is still a concept.">
+<meta name="theme-color" content="#120E0B">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://canaca.github.io/interface-lab/agentproof/demo/">
+<style>
+:root{
+  --bg:#120E0B; --cream:#F4E7D7; --muted:#B9A08A; --dim:#7F6B5B;
+  --orange:#E9A46E; --accent:#6FE3D0; --red:#E2725B; --edge:rgba(255,222,190,.18);
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#120E0B;color:var(--cream)}
+body{font-family:var(--sans);font-size:17px;line-height:1.55;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 55%) fixed}
+a{color:var(--accent);text-underline-offset:.18em}
+a:hover{color:var(--cream)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:52rem;margin:0 auto;padding:28px 20px 72px}
+.back{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+h1{font-weight:500;font-size:clamp(34px,6vw,48px);letter-spacing:-.03em;line-height:1.05;margin:18px 0 12px}
+h2{font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.lede{font-size:18px;margin:0 0 16px}
+.banner{display:inline-block;margin:0 0 14px;padding:8px 12px;border-radius:999px;background:var(--orange);color:#1B140F;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.note{color:var(--muted);font-size:15px}
+.card{margin-top:22px;padding:18px 16px;border:1px solid var(--edge);border-radius:16px;background:rgba(255,222,190,.03)}
+.purchase{display:grid;grid-template-columns:8.5rem 1fr;gap:8px 14px;margin:0 0 16px}
+.purchase dt{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0}
+.purchase dd{margin:0}
+label{display:block;margin:12px 0}
+label span{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+input,select,textarea{width:100%;max-width:28rem;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.25);color:var(--cream);font:inherit;padding:10px 12px}
+textarea{min-height:72px;max-width:none}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn,.ghost{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border-radius:11px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
+.btn{background:var(--cream);color:#1B140F;border:0}
+.btn:hover{background:#fff}
+.ghost{background:transparent;color:var(--cream);border:1px solid var(--edge)}
+.ghost:hover{border-color:var(--cream)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.err{color:#F0B2A6;font-size:15px;margin:8px 0 0}
+.checks{list-style:none;padding:0;margin:12px 0}
+.checks li{display:grid;grid-template-columns:4.5rem 11rem 1fr;gap:8px;align-items:start;padding:8px 0;border-top:1px solid var(--edge)}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;border:1px solid var(--edge);color:var(--muted)}
+.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.bad{color:var(--red);border-color:rgba(226,114,91,.55)}
+.id{font-family:var(--mono);font-size:12px;color:var(--muted)}
+pre{margin:12px 0 0;padding:12px;overflow:auto;border-radius:12px;background:rgba(0,0,0,.28);border:1px solid var(--edge);font-family:var(--mono);font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.key{font-family:var(--mono);font-size:13px;word-break:break-all}
+.summary{font-size:18px;margin:0 0 8px}
+footer{margin-top:28px;padding-top:16px;border-top:1px solid var(--edge);font-family:var(--mono);font-size:12px;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#241912;border:1px solid var(--edge);color:var(--cream);border-radius:999px;padding:8px 14px;font-size:14px}
+@media(max-width:700px){
+  .purchase,.checks li{grid-template-columns:1fr}
+  .btn,.ghost{width:100%}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">AgentProof</a>
+  <main>
+    <h1>Authorization demo</h1>
+    <p class="banner">Beta format · fictional · concept service</p>
+    <p class="lede">A person confirms one fictional purchase. This page signs that confirmation in the browser. A merchant check then accepts it, or undoes it, against a pinned public key.</p>
+    <p class="note">Northwind Goods, Harbor Shopping Agent, and Alex Rivera are fictional. No payment is collected. No order is sent to a store. No dispute is filed. The AgentProof service is still a concept. Version 0.1.0 of this file says so inside the signature.</p>
+    <p id="boot-error" class="err" hidden>This demo could not start. Open it from a static file server in a current browser that supports Ed25519 in Web Crypto.</p>
+
+    <section class="card" id="confirm" aria-labelledby="confirm-title">
+      <h2 id="confirm-title">1 · Person confirms</h2>
+      <dl class="purchase">
+        <dt>Store</dt><dd>Northwind Goods</dd>
+        <dt>Agent</dt><dd>Harbor Shopping Agent</dd>
+        <dt>Item</dt><dd>Wool blanket · quantity 1</dd>
+        <dt>Total</dt><dd>42.00 USD</dd>
+        <dt>Words shown</dt><dd id="words">Buy 1 wool blanket for 42.00 USD from Northwind Goods?</dd>
+        <dt>Name</dt><dd id="name-preview">Alex Rivera</dd>
+      </dl>
+      <form id="confirm-form">
+        <label>
+          <span>Name on the confirmation</span>
+          <input id="display-name" name="display-name" autocomplete="name" maxlength="80" value="Alex Rivera" required>
+        </label>
+        <p id="name-error" class="err" hidden></p>
+        <div class="row">
+          <button class="btn" id="authorize" type="submit">Authorize this purchase</button>
+          <button class="ghost" id="decline" type="button">Decline</button>
+          <button class="ghost" id="reset" type="button">Reset demo</button>
+        </div>
+      </form>
+      <p id="declined-note" class="note" hidden>No proof was signed.</p>
+      <p id="signed-note" class="note" hidden>Signed in this tab. The private key stays in memory and is discarded on reset or when the tab closes. It is not saved.</p>
+    </section>
+
+    <section class="card" id="check" aria-labelledby="check-title">
+      <h2 id="check-title">2 · Merchant checks the signature</h2>
+      <p class="note">The pinned key is the public key from the confirmation in this tab. A real merchant would pin that key out of band and refuse a different one. The key written inside the file is only a hint. After a decision is stored, reset the demo before trying a bad signature.</p>
+      <p class="key" id="pinned-key">No key pinned yet.</p>
+      <div class="row" style="margin-top:12px">
+        <button class="btn" id="verify" type="button">Verify proof</button>
+        <button class="ghost" id="tamper-amount" type="button">Change the total to 420.00</button>
+        <button class="ghost" id="tamper-key" type="button">Re-sign with a different key</button>
+        <button class="ghost" id="tamper-used" type="button">Mark this proof already used</button>
+        <button class="ghost" id="restore" type="button">Restore the signed proof</button>
+      </div>
+      <p id="verdict" class="summary" aria-live="polite">Authorize a purchase to create a proof.</p>
+      <ul class="checks" id="checks"></ul>
+      <details>
+        <summary>Proof file</summary>
+        <pre id="proof-json">No proof yet.</pre>
+      </details>
+      <details>
+        <summary>Exact bytes that were signed</summary>
+        <pre id="signed-bytes">No proof yet.</pre>
+      </details>
+    </section>
+
+    <section class="card" id="decide" aria-labelledby="decide-title">
+      <h2 id="decide-title">3 · Merchant accepts or undoes</h2>
+      <p class="note">Accept and refuse are stored only in this browser. Undo keeps the same record and marks the decision undone. Nothing is sent to Shopify, Stripe, or a card network.</p>
+      <div class="row">
+        <button class="btn" id="accept" type="button">Accept order</button>
+      </div>
+      <label>
+        <span>Refusal note</span>
+        <textarea id="refuse-note" maxlength="280">The shop will not fulfill this fictional order.</textarea>
+      </label>
+      <div class="row">
+        <button class="ghost" id="refuse" type="button">Refuse order</button>
+      </div>
+      <label>
+        <span>Undo reason</span>
+        <select id="undo-reason">
+          <option value="customer_requested">The person asked to cancel before fulfillment</option>
+          <option value="not_as_authorized">The order did not match the confirmation</option>
+          <option value="not_fulfilled">The shop will not fulfill it</option>
+          <option value="merchant_declined">The shop declined after accepting</option>
+        </select>
+      </label>
+      <label>
+        <span>Undo note</span>
+        <textarea id="undo-note" maxlength="280">Alex asked to cancel before fulfillment.</textarea>
+      </label>
+      <div class="row">
+        <button class="ghost" id="undo" type="button">Undo acceptance</button>
+      </div>
+      <p id="decide-error" class="err" hidden></p>
+    </section>
+
+    <section class="card" id="exhibit" aria-labelledby="exhibit-title">
+      <h2 id="exhibit-title">4 · Draft exhibit</h2>
+      <p class="note">A draft a merchant could keep with the order. It has not been filed. It does not predict a dispute outcome.</p>
+      <p id="exhibit-empty" class="note">No decision yet.</p>
+      <pre id="exhibit-text" hidden></pre>
+      <div class="row" style="margin-top:12px">
+        <button class="ghost" id="copy-exhibit" type="button">Copy exhibit</button>
+        <button class="ghost" id="download-proof" type="button">Download proof JSON</button>
+        <button class="ghost" id="download-evidence" type="button">Download evidence JSON</button>
+      </div>
+      <details>
+        <summary>Evidence record</summary>
+        <pre id="evidence-json">No evidence record yet.</pre>
+      </details>
+    </section>
+  </main>
+  <footer>Cesar Navarro · Interface Lab · Concept service, beta format · <a href="../SPEC.md">Spec</a> · <a href="../verifier/agentproof.js">Checker</a></footer>
+</div>
+<div id="toast" role="status" hidden></div>
+<script type="module">
+import {
+  buildPayload,
+  canonicalize,
+  createEvidence,
+  exportPublicKey,
+  formatTime,
+  generateKeyPair,
+  randomId,
+  signProof,
+  undoEvidence,
+  verifyProof,
+} from "../verifier/agentproof.js";
+
+const STORE = "il-agentproof-demo";
+const MERCHANT = "shop_demo_northwind";
+const WORDS = "Buy 1 wool blanket for 42.00 USD from Northwind Goods?";
+const $ = (id) => document.getElementById(id);
+
+const state = {
+  keyPair: null,
+  pinnedPublicKey: null,
+  proof: null,
+  view: null,
+  verification: null,
+  evidence: null,
+  consumed: [],
+  declined: false,
+  forceUsed: false,
+  busy: false,
+};
+
+function purchase(displayName, now) {
+  const issued = formatTime(now);
+  const expires = formatTime(new Date(now.getTime() + 15 * 60 * 1000));
+  return buildPayload({
+    proofId: randomId("ap_"),
+    issuedAt: issued,
+    expiresAt: expires,
+    confirmedAt: issued,
+    demo: true,
+    agentName: "Harbor Shopping Agent",
+    agentReference: "agent_demo_harbor",
+    displayName,
+    whatWasShown: WORDS,
+    merchantName: "Northwind Goods",
+    merchantReference: MERCHANT,
+    platform: "unspecified",
+    orderReference: "ord_demo_blanket",
+    summary: "One wool blanket",
+    amount: "42.00",
+    currency: "USD",
+    items: [{ sku: "BLANKET-WOOL", name: "Wool blanket", quantity: "1", amount: "42.00" }],
+  });
+}
+
+function persist() {
+  try {
+    localStorage.setItem(STORE, JSON.stringify({
+      v: 1,
+      pinnedPublicKey: state.pinnedPublicKey,
+      proof: state.proof,
+      evidence: state.evidence,
+      consumed: state.consumed,
+      declined: state.declined,
+    }));
+  } catch {
+    /* The demo still runs in memory if storage is blocked. */
+  }
+}
+
+function load() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE) || "null");
+    if (!saved || saved.v !== 1) return;
+    state.pinnedPublicKey = typeof saved.pinnedPublicKey === "string" ? saved.pinnedPublicKey : null;
+    state.proof = saved.proof ?? null;
+    state.view = saved.proof ?? null;
+    state.evidence = saved.evidence ?? null;
+    state.consumed = Array.isArray(saved.consumed) ? saved.consumed.filter((id) => typeof id === "string") : [];
+    state.declined = saved.declined === true && !state.proof;
+  } catch {
+    /* Ignore a damaged local save. */
+  }
+}
+
+function toast(message) {
+  const node = $("toast");
+  node.textContent = message;
+  node.hidden = false;
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => { node.hidden = true; }, 2400);
+}
+
+function download(filename, value) {
+  const blob = new Blob([JSON.stringify(value, null, 2) + "\n"], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+async function copyText(value) {
+  try {
+    await navigator.clipboard.writeText(value);
+    toast("Copied.");
+  } catch {
+    toast("Copy failed in this browser.");
+  }
+}
+
+function setBusy(busy) {
+  state.busy = busy;
+  render();
+}
+
+function render() {
+  const decided = state.evidence?.decision === "accepted" || state.evidence?.decision === "undone" || state.evidence?.decision === "rejected";
+  $("display-name").disabled = Boolean(state.proof) || state.declined || state.busy;
+  $("authorize").disabled = Boolean(state.proof) || state.declined || state.busy;
+  $("decline").disabled = Boolean(state.proof) || state.declined || state.busy;
+  $("authorize").textContent = state.busy ? "Signing…" : "Authorize this purchase";
+  $("declined-note").hidden = !state.declined;
+  $("signed-note").hidden = !state.proof;
+  $("pinned-key").textContent = state.pinnedPublicKey ? `Pinned public key: ${state.pinnedPublicKey}` : "No key pinned yet.";
+  $("verify").disabled = !state.view || state.busy;
+  $("verify").textContent = state.busy ? "Checking…" : "Verify proof";
+  for (const id of ["tamper-amount", "tamper-key", "tamper-used", "restore"]) $(id).disabled = !state.proof || decided || state.busy;
+  $("proof-json").textContent = state.view ? JSON.stringify(state.view, null, 2) : "No proof yet.";
+  try {
+    $("signed-bytes").textContent = state.view ? canonicalize(state.view.payload) : "No proof yet.";
+  } catch {
+    $("signed-bytes").textContent = "These bytes could not be canonicalized.";
+  }
+  renderVerdict();
+  const acceptable = Boolean(state.verification?.ok) && !decided && !state.busy;
+  $("accept").disabled = !acceptable;
+  $("refuse").disabled = !acceptable;
+  $("undo").disabled = state.evidence?.decision !== "accepted" || state.busy;
+  $("exhibit-empty").hidden = Boolean(state.evidence);
+  $("exhibit-text").hidden = !state.evidence;
+  $("exhibit-text").textContent = state.evidence?.exhibit?.statement || "";
+  $("evidence-json").textContent = state.evidence ? JSON.stringify(state.evidence, null, 2) : "No evidence record yet.";
+  $("copy-exhibit").disabled = !state.evidence;
+  $("download-proof").disabled = !state.view;
+  $("download-evidence").disabled = !state.evidence;
+}
+
+function renderVerdict() {
+  const verdict = $("verdict");
+  const list = $("checks");
+  list.replaceChildren();
+  if (!state.verification) {
+    verdict.textContent = state.proof ? "Ready to verify." : "Authorize a purchase to create a proof.";
+    return;
+  }
+  const result = state.verification;
+  const failed = result.checks.filter((item) => item.required && !item.ok);
+  const onlyUsed = failed.length === 1 && failed[0].id === "single_use" && state.evidence;
+  if (onlyUsed) verdict.textContent = "A decision for this proof is already stored in this browser. The checker will not accept it again.";
+  else if (state.evidence?.decision === "undone") verdict.textContent = "Undone in this browser. The draft exhibit records the cancellation.";
+  else if (state.evidence?.decision === "rejected") verdict.textContent = "Refused in this browser. The draft exhibit records the refusal.";
+  else if (state.evidence?.decision === "accepted") verdict.textContent = "Accepted in this browser. The pinned key signed this purchase.";
+  else if (result.ok) verdict.textContent = "Authorized for this checker. The pinned key signed this purchase, and the limits hold.";
+  else if (result.integrity_only) verdict.textContent = "The file matches the key inside it. That key is not the pinned key, so this is not an authorization.";
+  else verdict.textContent = "Not authorized.";
+  for (const item of result.checks) {
+    const row = document.createElement("li");
+    const chip = document.createElement("span");
+    chip.className = `chip ${item.ok ? "ok" : "bad"}`;
+    chip.textContent = item.required ? (item.ok ? "Pass" : "Fail") : "Hint";
+    const id = document.createElement("span");
+    id.className = "id";
+    id.textContent = item.id;
+    const detail = document.createElement("span");
+    detail.textContent = item.detail;
+    row.append(chip, id, detail);
+    list.append(row);
+  }
+}
+
+async function checkCurrent() {
+  if (!state.view || !state.pinnedPublicKey) return;
+  setBusy(true);
+  const used = state.consumed.slice();
+  if (state.forceUsed && state.proof?.payload?.proof_id) used.push(state.proof.payload.proof_id);
+  try {
+    state.verification = await verifyProof(state.view, {
+      now: new Date(),
+      pinnedPublicKey: state.pinnedPublicKey,
+      merchantReference: MERCHANT,
+      consumedProofIds: used,
+    });
+  } catch (error) {
+    state.verification = null;
+    $("decide-error").hidden = false;
+    $("decide-error").textContent = error.message;
+  }
+  setBusy(false);
+}
+
+$("display-name").addEventListener("input", () => {
+  $("name-preview").textContent = $("display-name").value.trim() || "—";
+  $("name-error").hidden = true;
+});
+
+$("confirm-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const displayName = $("display-name").value.trim();
+  if (!displayName || displayName.length > 80) {
+    $("name-error").hidden = false;
+    $("name-error").textContent = "Enter a name of 1 to 80 characters.";
+    $("display-name").focus();
+    return;
+  }
+  $("name-error").hidden = true;
+  setBusy(true);
+  try {
+    state.keyPair = await generateKeyPair();
+    const now = new Date();
+    const payload = purchase(displayName, now);
+    state.proof = await signProof(payload, state.keyPair);
+    state.view = state.proof;
+    state.pinnedPublicKey = await exportPublicKey(state.keyPair.publicKey);
+    state.verification = null;
+    state.evidence = null;
+    state.forceUsed = false;
+    state.declined = false;
+    persist();
+    setBusy(false);
+    await checkCurrent();
+    $("check").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) {
+    setBusy(false);
+    $("name-error").hidden = false;
+    $("name-error").textContent = error.message;
+  }
+});
+
+$("decline").addEventListener("click", () => {
+  state.declined = true;
+  state.proof = null;
+  state.view = null;
+  state.verification = null;
+  persist();
+  render();
+});
+
+$("reset").addEventListener("click", () => {
+  state.keyPair = null;
+  state.pinnedPublicKey = null;
+  state.proof = null;
+  state.view = null;
+  state.verification = null;
+  state.evidence = null;
+  state.consumed = [];
+  state.declined = false;
+  state.forceUsed = false;
+  try { localStorage.removeItem(STORE); } catch { /* already empty */ }
+  $("display-name").value = "Alex Rivera";
+  $("name-preview").textContent = "Alex Rivera";
+  $("name-error").hidden = true;
+  $("decide-error").hidden = true;
+  render();
+});
+
+$("verify").addEventListener("click", () => checkCurrent());
+
+$("tamper-amount").addEventListener("click", async () => {
+  const next = structuredClone(state.proof);
+  next.payload.purchase.money.amount = "420.00";
+  next.payload.purchase.items[0].money.amount = "420.00";
+  next.payload.principal.confirmation.what_was_shown = "Buy 1 wool blanket for 420.00 USD from Northwind Goods?";
+  state.view = next;
+  state.forceUsed = false;
+  await checkCurrent();
+});
+
+$("tamper-key").addEventListener("click", async () => {
+  setBusy(true);
+  try {
+    const attacker = await generateKeyPair();
+    state.view = await signProof(state.proof.payload, attacker);
+    state.forceUsed = false;
+    setBusy(false);
+    await checkCurrent();
+  } catch (error) {
+    setBusy(false);
+    $("decide-error").hidden = false;
+    $("decide-error").textContent = error.message;
+  }
+});
+
+$("tamper-used").addEventListener("click", async () => {
+  state.view = state.proof;
+  state.forceUsed = true;
+  await checkCurrent();
+});
+
+$("restore").addEventListener("click", async () => {
+  state.view = state.proof;
+  state.forceUsed = false;
+  await checkCurrent();
+});
+
+$("accept").addEventListener("click", async () => {
+  await decide("accepted", null);
+});
+
+$("refuse").addEventListener("click", async () => {
+  await decide("rejected", $("refuse-note").value.trim());
+});
+
+$("undo").addEventListener("click", async () => {
+  $("decide-error").hidden = true;
+  setBusy(true);
+  try {
+    state.evidence = await undoEvidence(state.evidence, {
+      reason: $("undo-reason").value,
+      note: $("undo-note").value.trim(),
+      now: new Date(),
+      pinnedPublicKey: state.pinnedPublicKey,
+    });
+    persist();
+    setBusy(false);
+    $("exhibit").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) {
+    setBusy(false);
+    $("decide-error").hidden = false;
+    $("decide-error").textContent = error.message;
+  }
+});
+
+async function decide(decision, note) {
+  $("decide-error").hidden = true;
+  setBusy(true);
+  try {
+    state.evidence = await createEvidence({
+      proof: state.view,
+      verification: state.verification,
+      decision,
+      note,
+      pinnedPublicKey: state.pinnedPublicKey,
+      now: new Date(),
+    });
+    const id = state.view.payload.proof_id;
+    if (!state.consumed.includes(id)) state.consumed.push(id);
+    state.forceUsed = false;
+    persist();
+    setBusy(false);
+    $("exhibit").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (error) {
+    setBusy(false);
+    $("decide-error").hidden = false;
+    $("decide-error").textContent = error.message;
+  }
+}
+
+$("copy-exhibit").addEventListener("click", () => copyText(state.evidence?.exhibit?.statement || ""));
+$("download-proof").addEventListener("click", () => download("agentproof-authorization-proof.json", state.view));
+$("download-evidence").addEventListener("click", () => download("agentproof-order-evidence.json", state.evidence));
+
+load();
+try {
+  await generateKeyPair();
+  window.__agentproofReady = true;
+  $("boot-error").hidden = true;
+  if (state.view && state.pinnedPublicKey) await checkCurrent();
+  else render();
+} catch {
+  $("boot-error").hidden = false;
+}
+</script>
+<script>
+setTimeout(() => {
+  if (!window.__agentproofReady) document.getElementById("boot-error").hidden = false;
+}, 2500);
+</script>
+</body>
+</html>

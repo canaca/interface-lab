@@ -1,0 +1,158 @@
+{
+  "evidence_format": "agentproof.order_evidence",
+  "evidence_format_version": "0.1.0",
+  "record_id": "ev_fictionalwoolblanket000001",
+  "recorded_at": "2026-11-07T20:01:00.000Z",
+  "service_status": "concept",
+  "format_status": "beta",
+  "demo": true,
+  "decision": "accepted",
+  "refusal_note": null,
+  "undo": null,
+  "verification": {
+    "checked_at": "2026-11-07T20:01:00.000Z",
+    "result": "valid",
+    "pinned_public_key": "Wt1yuEMJm6JBw5BdHf3Ad5lD__7j0DIgRxwCjCPM3MQ",
+    "pinned_key_matched": true,
+    "embedded_key_matched": true,
+    "checks": [
+      {
+        "id": "shape",
+        "ok": true,
+        "required": true,
+        "detail": "The document matches authorization proof 0.1.0."
+      },
+      {
+        "id": "times",
+        "ok": true,
+        "required": true,
+        "detail": "Issued, confirmed, and expiry times are inside the window."
+      },
+      {
+        "id": "confirmation_words",
+        "ok": true,
+        "required": true,
+        "detail": "The words that were shown include the purchase total and currency."
+      },
+      {
+        "id": "amount_cap",
+        "ok": true,
+        "required": true,
+        "detail": "The purchase total is within the signed cap."
+      },
+      {
+        "id": "line_items",
+        "ok": true,
+        "required": true,
+        "detail": "Line totals add up to the purchase total."
+      },
+      {
+        "id": "merchant",
+        "ok": true,
+        "required": true,
+        "detail": "The merchant reference matches the signed constraint."
+      },
+      {
+        "id": "currency",
+        "ok": true,
+        "required": true,
+        "detail": "Every amount uses the same currency."
+      },
+      {
+        "id": "single_use",
+        "ok": true,
+        "required": true,
+        "detail": "This proof id is absent from the used list passed to the checker."
+      },
+      {
+        "id": "demo_policy",
+        "ok": true,
+        "required": true,
+        "detail": "The proof is marked demo."
+      },
+      {
+        "id": "signature_pinned",
+        "ok": true,
+        "required": true,
+        "detail": "The signature matches the pinned public key."
+      },
+      {
+        "id": "signature_embedded",
+        "ok": true,
+        "required": false,
+        "detail": "The signature matches the key published inside the document."
+      }
+    ],
+    "reasons": []
+  },
+  "proof_id": "ap_fictionalwoolblanket000001",
+  "proof_digest": "sha256:8f24aac814459e5270e0a39de2281ce360f223bf077c48aeba230868d5b89b8c",
+  "proof": {
+    "proof_format": "agentproof.authorization_proof",
+    "proof_format_version": "0.1.0",
+    "signature_profile": "agentproof-ed25519-jcs-0.1",
+    "payload": {
+      "proof_id": "ap_fictionalwoolblanket000001",
+      "issued_at": "2026-11-07T20:00:00.000Z",
+      "expires_at": "2026-11-07T20:15:00.000Z",
+      "service_status": "concept",
+      "format_status": "beta",
+      "demo": true,
+      "agent": {
+        "name": "Harbor Shopping Agent",
+        "reference": "agent_demo_harbor"
+      },
+      "principal": {
+        "display_name": "Alex Rivera",
+        "confirmation": {
+          "confirmed_at": "2026-11-07T20:00:00.000Z",
+          "what_was_shown": "Buy 1 wool blanket for 42.00 USD from Northwind Goods?",
+          "method": "explicit_confirmation"
+        }
+      },
+      "merchant": {
+        "name": "Northwind Goods",
+        "reference": "shop_demo_northwind",
+        "platform": "unspecified"
+      },
+      "purchase": {
+        "order_reference": "ord_demo_blanket",
+        "summary": "One wool blanket",
+        "money": {
+          "amount": "42.00",
+          "currency": "USD"
+        },
+        "items": [
+          {
+            "sku": "BLANKET-WOOL",
+            "name": "Wool blanket",
+            "quantity": "1",
+            "money": {
+              "amount": "42.00",
+              "currency": "USD"
+            }
+          }
+        ]
+      },
+      "constraints": {
+        "max_amount": {
+          "amount": "42.00",
+          "currency": "USD"
+        },
+        "merchant_reference": "shop_demo_northwind",
+        "single_use": true
+      }
+    },
+    "signature": {
+      "algorithm": "ed25519",
+      "public_key": "Wt1yuEMJm6JBw5BdHf3Ad5lD__7j0DIgRxwCjCPM3MQ",
+      "value": "nGtD1fnWu9G80HNbNYwPdsX1wCTlVj1q7VgVKMtiUXprLNUcWGHkdm4xhKHX0myDMx3sleAWMnPsoevPD5rEAA"
+    }
+  },
+  "exhibit": {
+    "title": "Draft dispute exhibit",
+    "filed": false,
+    "predicts_outcome": false,
+    "statement": "Draft dispute exhibit. This file was produced locally. It has not been sent to a card network, a processor, Shopify, or Stripe. It does not predict a dispute outcome.\nService status: concept. Format status: beta. Demo data: yes.\nProof id: ap_fictionalwoolblanket000001.\nPerson: Alex Rivera.\nConfirmed at 2026-11-07T20:00:00.000Z. Words shown: \"Buy 1 wool blanket for 42.00 USD from Northwind Goods?\"\nPurchase: One wool blanket. Total: 42.00 USD. Order reference: ord_demo_blanket.\nItems: Wool blanket × 1, line total 42.00 USD (BLANKET-WOOL).\nMerchant: Northwind Goods (shop_demo_northwind). Platform label: unspecified.\nAgent: Harbor Shopping Agent (agent_demo_harbor).\nPinned key matched at check time: yes.\nMerchant decision: accepted at 2026-11-07T20:01:00.000Z."
+  }
+}
