@@ -20,6 +20,10 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 
+## AgentProof
+
+[AgentProof](agentproof/) is a concept for a trust record when an AI agent buys from a store. The hosted service is not running. A beta file format, a browser checker, and a fictional authorize / verify / undo demo live under `agentproof/`. See [agentproof/SPEC.md](agentproof/SPEC.md). No payment is collected.
+
 ## How these were made
 
 **Role:** Concept direction.

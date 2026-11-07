@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://canaca.github.io/interface-lab/agentproof/schema/authorization-proof.schema.json",
+  "title": "AgentProof authorization proof",
+  "description": "Beta file format. The AgentProof service is a concept and does not issue this document. A valid signature against a key the merchant has pinned shows that the payload was signed by the holder of that key. It is not a payment, not a network token, and not a dispute decision.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["proof_format", "proof_format_version", "signature_profile", "payload", "signature"],
+  "properties": {
+    "proof_format": { "const": "agentproof.authorization_proof" },
+    "proof_format_version": { "const": "0.1.0" },
+    "signature_profile": { "const": "agentproof-ed25519-jcs-0.1" },
+    "payload": { "$ref": "#/$defs/payload" },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "$defs": {
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proof_id",
+        "issued_at",
+        "expires_at",
+        "service_status",
+        "format_status",
+        "demo",
+        "agent",
+        "principal",
+        "merchant",
+        "purchase",
+        "constraints"
+      ],
+      "properties": {
+        "proof_id": {
+          "type": "string",
+          "pattern": "^ap_[a-z0-9]{16,64}$",
+          "description": "Local identifier. Uniqueness is the merchant's responsibility."
+        },
+        "issued_at": { "type": "string", "format": "date-time" },
+        "expires_at": { "type": "string", "format": "date-time" },
+        "service_status": {
+          "const": "concept",
+          "description": "Version 0.1.0 always says concept. This file is not a receipt from a live service."
+        },
+        "format_status": { "const": "beta" },
+        "demo": { "type": "boolean" },
+        "agent": { "$ref": "#/$defs/agent" },
+        "principal": { "$ref": "#/$defs/principal" },
+        "merchant": { "$ref": "#/$defs/merchant" },
+        "purchase": { "$ref": "#/$defs/purchase" },
+        "constraints": { "$ref": "#/$defs/constraints" }
+      }
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "reference"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "reference": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{1,80}$" }
+      }
+    },
+    "principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["display_name", "confirmation"],
+      "properties": {
+        "display_name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "confirmation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["confirmed_at", "what_was_shown", "method"],
+          "properties": {
+            "confirmed_at": { "type": "string", "format": "date-time" },
+            "what_was_shown": { "type": "string", "minLength": 1, "maxLength": 400 },
+            "method": { "const": "explicit_confirmation" }
+          }
+        }
+      }
+    },
+    "merchant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "reference", "platform"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "reference": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{1,80}$" },
+        "platform": {
+          "type": "string",
+          "enum": ["unspecified", "shopify", "stripe"],
+          "description": "A label for a later exhibit. Not a connection to that platform."
+        }
+      }
+    },
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "currency"],
+      "properties": {
+        "amount": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,12})\\.[0-9]{2}$",
+          "description": "Decimal amount with two fraction digits. Never a JSON number."
+        },
+        "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sku", "name", "quantity", "money"],
+      "properties": {
+        "sku": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{1,40}$" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "quantity": { "type": "string", "pattern": "^[1-9][0-9]{0,5}$" },
+        "money": {
+          "$ref": "#/$defs/money",
+          "description": "Line total, not a unit price."
+        }
+      }
+    },
+    "purchase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["order_reference", "summary", "money", "items"],
+      "properties": {
+        "order_reference": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{1,80}$" },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "money": { "$ref": "#/$defs/money" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/item" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_amount", "merchant_reference", "single_use"],
+      "properties": {
+        "max_amount": { "$ref": "#/$defs/money" },
+        "merchant_reference": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{1,80}$" },
+        "single_use": { "const": true }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "public_key", "value"],
+      "properties": {
+        "algorithm": { "const": "ed25519" },
+        "public_key": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$",
+          "description": "Raw 32-byte Ed25519 public key, base64url, no padding. A hint. Authorization uses the merchant's pinned key."
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$",
+          "description": "Raw 64-byte Ed25519 signature, base64url, no padding, over the canonical payload."
+        }
+      }
+    }
+  }
+}

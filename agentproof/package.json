@@ -1,0 +1,10 @@
+{
+  "name": "agentproof",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Beta authorization-proof format and browser checker. The AgentProof service remains a concept.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test verifier/*.test.js"
+  }
+}

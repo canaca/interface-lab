@@ -4,7 +4,7 @@
   "name": "io.github.canaca/agentproof",
   "title": "AgentProof",
   "version": "0.0.0-concept",
-  "description": "Concept / early access, not a live service. Static MCP-style descriptor for AgentProof. A live server would let an AI agent record that a person authorized an agent-initiated purchase, for a Shopify or Stripe dispute evidence packet. No MCP transport is listening. Do not connect, and do not send secrets.",
+  "description": "Concept / early access, not a live service. Static MCP-style descriptor for AgentProof. A live server would let an AI agent record that a person authorized an agent-initiated purchase, for a Shopify or Stripe dispute evidence packet. No MCP transport is listening. Do not connect, and do not send secrets. A beta checker file is published at verifier/agentproof.js. It is not an MCP tool.",
   "websiteUrl": "https://canaca.github.io/interface-lab/agentproof/",
   "remotes": [],
   "x-concept": {

@@ -69,11 +69,21 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--edge);font-fa
       <li>The agent would send AgentProof that confirmation, the amount, and whether the store uses Shopify or Stripe.</li>
       <li>AgentProof would keep a record and, if the charge is disputed, hand the store a short evidence packet.</li>
     </ol>
-    <p class="note">Those steps are the idea. None of them run here.</p>
+    <p class="note">Those steps are the idea for a hosted service. This host does not run that service.</p>
 
     <h2>What this page is</h2>
     <p>A static description, so a person or an agent can find the idea and read it. GitHub Pages only serves files. It does not accept the proof request, store a card, or open a dispute.</p>
-    <p>There are no customers and no results to report, because the service is not running. The only next step is the waitlist.</p>
+    <p>There are no customers and no results to report, because the service is not running. You can try the fictional demo, or join the waitlist.</p>
+
+    <h2>Working beta pieces</h2>
+    <p>The format and the checker below run in the browser on fictional data. They are a beta of a file format. They are not the hosted service. They do not take payment, store a card, or file a dispute. Every signed file in this version says the service status is concept.</p>
+    <ul class="files">
+      <li><a href="demo/">demo/</a> — a fictional person authorizes a 42.00 USD purchase, the checker verifies it against a pinned key, and the merchant accepts or undoes it</li>
+      <li><a href="SPEC.md">SPEC.md</a> — authorization proof 0.1.0 and the order evidence record</li>
+      <li><a href="schema/authorization-proof.schema.json">schema/authorization-proof.schema.json</a></li>
+      <li><a href="schema/order-evidence.schema.json">schema/order-evidence.schema.json</a></li>
+      <li><a href="verifier/agentproof.js">verifier/agentproof.js</a> — the checker, with no install</li>
+    </ul>
 
     <h2>Waitlist</h2>
     <p><a class="btn" href="mailto:agentproof@mail.grokbot.com?subject=AgentProof%20waitlist&amp;body=Please%20add%20me%20to%20the%20AgentProof%20concept%20waitlist.%0A%0A">Join the waitlist</a></p>

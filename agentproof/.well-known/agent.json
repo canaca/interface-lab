@@ -1,7 +1,7 @@
 {
   "protocolVersion": "0.3.0",
   "name": "AgentProof",
-  "description": "Concept / early access, not a live service. Would let an AI agent show a merchant that a person authorized an agent-initiated purchase, and produce a dispute evidence packet for Shopify or Stripe. This card is static. The url does not accept A2A JSON-RPC, and no proof is issued.",
+  "description": "Concept / early access, not a live service. Would let an AI agent show a merchant that a person authorized an agent-initiated purchase, and produce a dispute evidence packet for Shopify or Stripe. This card is static. The url does not accept A2A JSON-RPC, and no proof is issued. A beta file format and a browser checker are published beside this card at SPEC.md and verifier/agentproof.js. They are not skills on this card, and they do not make this service live.",
   "url": "https://canaca.github.io/interface-lab/agentproof/",
   "provider": {
     "organization": "Cesar Navarro",
@@ -27,6 +27,17 @@
       ],
       "inputModes": ["application/json"],
       "outputModes": ["application/json"]
+    },
+    {
+      "id": "verify-authorization-proof",
+      "name": "Verify an authorization proof",
+      "description": "Not an executable A2A skill. A static checker at verifier/agentproof.js verifies a signed proof against a pinned public key. A fictional browser demo is at demo/. Neither is invoked through this card, and neither issues a live proof.",
+      "tags": ["verification", "concept"],
+      "examples": [
+        "Check a fictional signed proof for a 42.00 USD wool blanket against the pinned public key in the browser demo."
+      ],
+      "inputModes": ["application/json"],
+      "outputModes": ["text/plain"]
     }
   ],
   "supportsAuthenticatedExtendedCard": false,

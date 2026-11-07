@@ -1,0 +1,62 @@
+{
+  "proof_format": "agentproof.authorization_proof",
+  "proof_format_version": "0.1.0",
+  "signature_profile": "agentproof-ed25519-jcs-0.1",
+  "payload": {
+    "proof_id": "ap_fictionalwoolblanket000001",
+    "issued_at": "2026-11-07T20:00:00.000Z",
+    "expires_at": "2026-11-07T20:15:00.000Z",
+    "service_status": "concept",
+    "format_status": "beta",
+    "demo": true,
+    "agent": {
+      "name": "Harbor Shopping Agent",
+      "reference": "agent_demo_harbor"
+    },
+    "principal": {
+      "display_name": "Alex Rivera",
+      "confirmation": {
+        "confirmed_at": "2026-11-07T20:00:00.000Z",
+        "what_was_shown": "Buy 1 wool blanket for 42.00 USD from Northwind Goods?",
+        "method": "explicit_confirmation"
+      }
+    },
+    "merchant": {
+      "name": "Northwind Goods",
+      "reference": "shop_demo_northwind",
+      "platform": "unspecified"
+    },
+    "purchase": {
+      "order_reference": "ord_demo_blanket",
+      "summary": "One wool blanket",
+      "money": {
+        "amount": "42.00",
+        "currency": "USD"
+      },
+      "items": [
+        {
+          "sku": "BLANKET-WOOL",
+          "name": "Wool blanket",
+          "quantity": "1",
+          "money": {
+            "amount": "42.00",
+            "currency": "USD"
+          }
+        }
+      ]
+    },
+    "constraints": {
+      "max_amount": {
+        "amount": "42.00",
+        "currency": "USD"
+      },
+      "merchant_reference": "shop_demo_northwind",
+      "single_use": true
+    }
+  },
+  "signature": {
+    "algorithm": "ed25519",
+    "public_key": "Wt1yuEMJm6JBw5BdHf3Ad5lD__7j0DIgRxwCjCPM3MQ",
+    "value": "nGtD1fnWu9G80HNbNYwPdsX1wCTlVj1q7VgVKMtiUXprLNUcWGHkdm4xhKHX0myDMx3sleAWMnPsoevPD5rEAA"
+  }
+}
