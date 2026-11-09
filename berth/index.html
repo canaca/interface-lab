@@ -481,7 +481,7 @@ $("detail").addEventListener("click",e=>{
   if(kind==="own"){snap();step.owner=step.owner==="Client"?a.owner:"Client";render();toast(step.owner==="Client"?"This step now waits on the client.":"This step is back with "+a.owner+".",true);return}
   if(kind==="start"){
     const earlier=earlierOpen(a,i);
-    if(earlier){step.waitMsg="Can't start yet. "+earlier.name+" is still open. Finish it first, or mark it done.";render();toast(step.waitMsg);return}
+    if(earlier){const msg="Can't start yet. "+earlier.name+" is still open. Finish it first, or mark it done.";if(step.waitMsg===msg){toast("Still blocked. "+earlier.name+" is open, so this step was not started.");return}step.waitMsg=msg;render();toast(msg);return}
     snap();step.waitMsg="";step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
   if(kind==="done"){
     const earlier=earlierOpen(a,i);

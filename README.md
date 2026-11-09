@@ -20,6 +20,7 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | [Decision OS](decision-os/) | Concept · October 2026 | Import a fictional sample export and see where everything stands. Not connected to an account. Not a shipped product |
 | [Flare](flare/) | Concept · October 2026 | Ad account copilot for a fictional agency and shop: when cost per lead spikes, the page shows the evidence, separates diagnosis from action, and does not move budget without approval. Made-up numbers. No 3D |
 | [Tidewell Revenue Pulse](tidewell/) | Concept · October 2026 | Still in the repo at `tidewell/`. Not on the hub. Why a fictional month of revenue changed, down to four accounts and a win-back task. Not a finance claim |
+| [Estate jewelry intake](estate-intake/) | Concept · November 2026 | A jeweler reviews a scripted draft for a fictional ring. The page does not look at a photo. Not an appraisal, a grade, or a value. Linked from the hub as a concept outside the featured set |
 
 Each page has its own case study at the bottom, and a States menu to see empty, loading, and error states.
 

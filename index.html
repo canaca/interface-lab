@@ -133,6 +133,8 @@ a.btn{text-decoration:none}a.btn:not(.pri){color:var(--cream)}
 .sechead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--edge);padding-bottom:14px;margin-bottom:28px}
 .sechead h2{margin:0;font-family:var(--sans);font-weight:300;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.02em}
 .sechead span{font-family:var(--mono);font-size:11px;color:var(--dim);max-width:52ch}
+.more{margin:8px 0 0;color:var(--muted);font-size:15px;max-width:70ch}
+.more a{display:inline-flex;align-items:center;min-height:44px;color:var(--accent)}
 .shot{position:relative;display:block;border-radius:16px;overflow:hidden;border:1px solid var(--edge);background:#0B0907;aspect-ratio:16/10;max-width:100%}
 .shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
 .shot:hover img{transform:scale(1.02)}
@@ -223,7 +225,7 @@ details.csd dd{margin:0;color:var(--muted)}
 .sending{display:flex;align-items:center;gap:12px;color:var(--muted);font-family:var(--mono);font-size:12px}
 @media (prefers-reduced-motion:reduce){.step.in{animation:none}.qf-bar i{transition:none}}
 @media (max-width:900px){.feature,.contact{grid-template-columns:minmax(0,1fr)}.grid,.offers{grid-template-columns:minmax(0,1fr)}.proj.wide{display:flex;flex-direction:column}.shot{width:100%}.how{grid-template-columns:1fr 1fr}.how div:nth-child(3){padding-left:0;border-left:0}.hub{gap:64px}}
-@media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}}
+@media (max-width:480px){.opts,.fields{grid-template-columns:1fr}.opts.three{grid-template-columns:1fr 1fr}.opts.three .opt{padding:12px}.qf-stage{padding:22px 16px 18px}.qf-nav .keyhint{display:none}.how{grid-template-columns:1fr}.how div{padding-left:0!important;border-left:0!important;border-bottom:1px solid var(--edge);padding-bottom:14px}.meta{grid-template-columns:1fr}details.csd dl{grid-template-columns:1fr}.more{font-size:15px}}
 </style>
 </head>
 <body>
@@ -317,6 +319,7 @@ details.csd dd{margin:0;color:var(--muted)}
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
     </div>
+    <p class="more">Also in the lab, outside this set: <a href="estate-intake/">Estate jewelry intake</a>. A jeweler reviews a scripted draft for a fictional ring. Not an appraisal.</p>
   </section>
 
   <section id="how">
