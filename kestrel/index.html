@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kestrel · Trusting an AI agent with refunds</title>
-<meta name="description" content="Concept prototype: an AI support agent works a refund ticket, and a person approves the money and the reply.">
+<meta name="description" content="Concept prototype: an AI support agent works a refund ticket. A person approves the money, the email, and a WhatsApp or Messenger reply in English or Spanish.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
 <meta property="og:title" content="Kestrel · Trusting an AI agent with refunds">
-<meta property="og:description" content="Concept prototype: an AI support agent works a refund ticket, and a person approves the money and the reply.">
+<meta property="og:description" content="Concept prototype: a person approves the refund, the email, and a WhatsApp or Messenger reply in English or Spanish. Fictional demo.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/kestrel/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/kestrel.jpg">
 <meta property="og:image:alt" content="Kestrel: an agent run paused at the refund approval step">
@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kestrel · Trusting an AI agent with refunds">
-<meta name="twitter:description" content="Concept prototype: an AI support agent works a refund ticket, and a person approves the money and the reply.">
+<meta name="twitter:description" content="Concept prototype: a person approves the refund, the email, and a chat reply in English or Spanish. Fictional demo.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/kestrel.jpg">
 <meta name="twitter:image:alt" content="Kestrel: an agent run paused at the refund approval step">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
@@ -191,7 +191,22 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .amt input{width:120px}
 #amtErr{color:var(--red)}
 @media (max-width:1180px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.grid .insp{grid-column:1/-1}}
-@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}.flow{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}.wire,.packet{display:none}}
+.handoff{margin-top:14px}
+.handoff .btn{min-height:44px}
+.handoff .banner{margin:0 0 12px;color:var(--muted);font-size:13.5px;max-width:78ch}
+.ibox{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);gap:14px;align-items:start}
+.ifilters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 10px}
+.ifilters button,.ithread{min-height:44px}
+.ithread{width:100%;text-align:left;align-items:flex-start;flex-direction:column;gap:2px}
+.ithread small{color:var(--muted);font-weight:400;font-size:12px}
+.ithread[aria-pressed=true]{border-color:var(--accent)}
+.mbub{padding:11px 13px;border-radius:13px;border:1px solid var(--edge);background:rgba(255,222,190,.08);white-space:pre-wrap;overflow-wrap:anywhere}
+#inboxQ,#inboxDraft,#inboxNote{width:100%;min-height:44px;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid var(--edge);padding:9px 10px;color:var(--cream)}
+#inboxDraft{min-height:140px;resize:vertical}
+.langseg{display:flex;gap:8px;flex-wrap:wrap}
+.langseg button{min-height:44px}
+.langseg button[aria-pressed=true]{border-color:var(--accent);color:var(--cream)}
+@media (max-width:760px){.grid,.ibox{grid-template-columns:minmax(0,1fr)}.flow{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}.wire,.packet{display:none}}
 </style>
 </head>
 <body>
@@ -202,6 +217,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
     <span class="crumbs">LEDGERLY · SUPPORT · TICKET #4182</span>
     <span class="sp"></span>
     <span class="chip" id="runPill">Idle</span>
+    <a class="btn sm" href="#handoff">Message handoff</a>
     <button class="btn sm ghost" id="resetDemo" type="button">Reset demo</button>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live run</option><option value="empty">Empty · queue clear</option><option value="loading">Loading</option><option value="toolerr">Error · billing system is down</option><option value="senderr">Error · send fails</option></select></label>
     <span class="tag">Concept · demo data</span>
@@ -224,9 +240,32 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
     </aside>
   </div>
 
+  <section class="card handoff" id="handoff" aria-labelledby="handoffTitle">
+    <h2 id="handoffTitle">Message handoff <i id="inboxCount">2 waiting</i></h2>
+    <p class="banner">Fictional inbox. Ledgerly, these people, and the messages are made up. A reply is not marked sent until you approve it. Undo puts the thread back. Nothing leaves this browser.</p>
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn sm ghost" type="button" id="inboxUndo" data-act="ibox-undo">Undo</button>
+      <label class="tbtn">Inbox <select id="inboxDemo" aria-label="Review a state"><option value="live">Live inbox</option><option value="empty">Empty inbox</option><option value="loading">Loading</option><option value="sendfail">Send fails once</option></select></label>
+    </div>
+    <div class="ibox">
+      <div>
+        <label class="vh" for="inboxQ">Search messages</label>
+        <input id="inboxQ" type="search" placeholder="Search messages" autocomplete="off">
+        <div class="ifilters" role="group" aria-label="Filter messages">
+          <button type="button" class="btn sm" data-act="ibox-filter" data-k="channel" data-v="all" aria-pressed="true">All</button>
+          <button type="button" class="btn sm" data-act="ibox-filter" data-k="channel" data-v="WhatsApp">WhatsApp</button>
+          <button type="button" class="btn sm" data-act="ibox-filter" data-k="channel" data-v="Messenger">Messenger</button>
+          <button type="button" class="btn sm" data-act="ibox-filter" data-k="waiting" data-v="1">Waiting</button>
+        </div>
+        <div id="inboxList"></div>
+      </div>
+      <div id="inboxDetail"></div>
+    </div>
+  </section>
+
   <section class="cs" aria-label="Case study">
     <div><span class="tag">Concept · prototype</span><h2>Helping support teams trust an AI agent with refunds</h2>
-      <p class="lede">The AI finds a double charge, shows the policy it used, and stops for a person before it moves money or emails a customer.</p>
+      <p class="lede">The AI finds a double charge, shows the policy it used, and stops for a person before it moves money, emails a customer, or marks a chat reply sent.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
@@ -238,8 +277,9 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
         <li><b>Approve the exact action, not a summary.</b> The approval shows the tool, the charge and the amount, and the amount can be changed.</li>
         <li><b>Every claim shows its source.</b> The billing record and the policy line sit next to the decision.</li>
         <li><b>Nothing leaves without a person.</b> The refund and the customer reply each have their own gate. Drafts say "not sent."</li>
-        <li><b>If something fails, it says what did not happen.</b> "Nothing was changed" and "Not sent. Draft saved."</li></ol></dd>
-      <dt>Outcome</dt><dd>A clickable prototype of the full run: ticket, tool calls, approval, refund, reply and send, with screens for an empty queue, loading, a system error, and a failed send. Not yet tested with real users or a real billing system.</dd>
+        <li><b>If something fails, it says what did not happen.</b> "Nothing was changed" and "Not sent. Draft saved."</li>
+        <li><b>A chat reply is its own gate.</b> WhatsApp and Messenger drafts stay in the customer's language, English or Spanish. A person approves before the demo marks one sent. The console stays in English. Rejected: sending from the model, hiding the other language, and a separate inbox product.</li></ol></dd>
+      <dt>Outcome</dt><dd>A clickable prototype of the refund run, plus a message handoff a person can approve, undo, copy, and export. Screens for an empty queue, an empty inbox, loading, a system error, and a failed send. Not tested with real users, a real billing system, or a real chat channel.</dd>
       <dt>Label</dt><dd>Concept. The company, customer and data are fictional. The interface and its state flow are real and run in the browser.</dd>
     </dl>
   </section>
@@ -390,7 +430,7 @@ function gateSend(failed,sending){W.state="gate2";node("gate2","wait");pill("Wai
 function send(){const t=$("draftText");if(t&&!t.value.trim()){$("draftErr").hidden=false;t.setAttribute("aria-invalid","true");t.focus();toast("The reply is empty. Nothing was sent.");return}
   if(t){W.draft=t.value;t.disabled=true}const run=W.run;W.state="undo2";let s=5;
   const tick=()=>need(`<div class="big" style="font-size:20px">Sending to Dana in <span id="undo2s">${s}</span> s</div><p class="sub" style="margin:6px 0 12px">Changed your mind? Undo keeps it as an editable draft.</p><div class="row"><button class="btn" data-act="undo2">Undo send</button><button class="btn ghost" data-act="now2">Send now</button></div>`,true);
-  tick();pill("Sending","ok");$("draftState").textContent="Sending in 5 s";toast("Reply sending in 5 s.",()=>undo2());
+  tick();pill("Sending","ok");$("draftState").textContent="Sending in 5 s";toast("Reply sending in 5 s.",()=>undo2());if(W.open)renderStep();
   clearTimeout(W.undoT);const loop=()=>{if(run!==W.run||W.state!=="undo2")return;s--;if(s<=0){reallySend();return}const n=$("undo2s");if(n)n.textContent=s;W.undoT=setTimeout(loop,1000)};W.undoT=setTimeout(loop,1000)}
 function undo2(){if(W.state!=="undo2")return;clearTimeout(W.undoT);const t=$("draftText");if(t)t.disabled=false;$("draftState").textContent="Saved · not sent";
   const u=step("You undid the send",null,"The reply is still a draft. Nothing reached Dana.","decision");finish(u,"done",null,null,null,"↶",clock());gateSend();toast("Send undone. The draft is still yours to edit.")}
@@ -426,11 +466,12 @@ $("stepClose").addEventListener("click",closeStep);
 
 /* one handler for every action button on the page */
 document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b||b.disabled)return;const a=b.dataset.act;
+  if(a.indexOf("ibox-")===0){inboxAct(a,b);return}
   if(a==="run"){if(W.state==="ready"||W.state==="paused")runTo(6)}
   else if(a==="stepnext")runTo(W.next);
   else if(a==="runto"){const t=IDX[b.dataset.k];if(W.state==="ready"||W.state==="paused")runTo(t);toast(`Running to ${NODES[t][1]}`)}
   else if(a==="retry"){D="live";$("demo").value="live";showReady();runTo(6)}
-  else if(a==="handoff"){toast("Handed to the support queue. Demo only.");showEmpty()}
+  else if(a==="handoff"){openHandoff("wa-marisol",true)}
   else if(a==="approve"){if(W.state==="gate1")decide(true)}
   else if(a==="decline"){if(W.state==="gate1")decide(false)}
   else if(a==="edit"){renderGate1(true);if(W.open==="gate1")$("stepBody").querySelector(".row").outerHTML='<p class="note">Change the amount in the Needs you panel.</p>';setTimeout(()=>$("amtIn")&&$("amtIn").focus(),0)}
@@ -440,13 +481,114 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(
   else if(a==="undo1")undo1();else if(a==="now1")cont1();
   else if(a==="send"){if(W.state==="gate2")send()}
   else if(a==="undo2")undo2();else if(a==="now2")reallySend();
-  else if(a==="keep"){if(W.state!=="gate2")return;node("gate2","");const k=step("Kept as draft",null,"You chose not to send. The draft stays in the help desk.","decision");finish(k,"done",null,null,null,"✓",clock());done(false);
+  else if(a==="keep"){if(W.state==="undo2"){undo2();return}if(W.state!=="gate2"){toast("The reply is not waiting to be sent.");return}node("gate2","");const k=step("Kept as draft",null,"You chose not to send. The draft stays in the help desk.","decision");finish(k,"done",null,null,null,"✓",clock());done(false);
     toast("Draft kept. Nothing was sent.",()=>{W.log=W.log.filter(i=>i!==k);renderTrace();store.del(KEY);gateSend()})}
   else if(a==="copy"){const t=$("draftText").value;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast("Reply copied to the clipboard"),()=>{$("draftText").select();toast("Text selected. Press Ctrl+C to copy.")})}
   else if(a==="next"){store.del(KEY);showEmpty();toast("Ticket closed. The queue is clear.")}
   else if(a==="load"||a==="reset"){store.del(KEY);store.del(DKEY);D="live";$("demo").value="live";showReady();toast(a==="reset"?"Ticket reset. Run it again.":"Sample ticket loaded.")}});
 $("demo").addEventListener("change",e=>{D=e.target.value;store.del(KEY);if(D==="empty")showEmpty();else if(D==="loading")showLoading();else{showReady();if(D!=="live")runTo(6)}});
-$("resetDemo").addEventListener("click",()=>{store.del(KEY);store.del(DKEY);D="live";$("demo").value="live";showReady();closeStep();toast("Demo reset. Nothing saved.")});
+$("resetDemo").addEventListener("click",()=>{store.del(KEY);store.del(DKEY);D="live";$("demo").value="live";showReady();closeStep();resetInbox();toast("Demo reset. Nothing saved.")});
+
+/* Message handoff: fictional WhatsApp and Messenger threads. A person approves before a reply is marked sent. */
+const IKEY="il-kestrel-inbox";
+const INBOX={
+  "wa-marisol":{channel:"WhatsApp",who:"Marisol Vega",org:"Acme Dental",customerLang:"es",
+    why:"She asked if the extra September charge was already refunded. The draft does not say the money moved.",
+    messages:[{who:"Marisol Vega",lang:"es",text:"Hola, nos cobraron dos veces en septiembre. ¿Ya devolvieron el cargo extra?"}],
+    drafts:{
+      es:"Hola Marisol,\n\nVi tu mensaje sobre el cargo de septiembre. Una persona del equipo lo está revisando. Por este chat no confirmamos reembolsos. Te escribimos aquí cuando haya una respuesta.\n\nLedgerly",
+      en:"Hi Marisol,\n\nI saw your note about the September charge. A person on the team is reviewing it. We don't confirm refunds in this chat. We'll reply here when there is an answer.\n\nLedgerly"}},
+  "ms-jonah":{channel:"Messenger",who:"Jonah Hale",org:"Bright Smile Studio",customerLang:"en",
+    why:"The message sounds upset. The draft does not promise a time.",
+    messages:[{who:"Jonah Hale",lang:"en",text:"This is ridiculous. I have been waiting two days for anyone to answer about our invoice."}],
+    drafts:{
+      en:"Hi Jonah,\n\nI'm sorry you waited. A person on the team will take this conversation from here. This chat can't promise a time.\n\nLedgerly",
+      es:"Hola Jonah,\n\nSiento que hayas tenido que esperar. Una persona del equipo sigue esta conversación desde aquí. Por este chat no puedo prometer una hora.\n\nLedgerly"}},
+  "wa-elena":{channel:"WhatsApp",who:"Elena Ruiz",org:"Acme Dental",customerLang:"es",
+    why:"She asked about Saturday hours. The answer still waits, because nothing is marked sent without a person.",
+    messages:[{who:"Elena Ruiz",lang:"es",text:"¿A qué hora abre la oficina los sábados?"}],
+    drafts:{
+      es:"Hola Elena,\n\nEn este demo, la oficina de ejemplo abre los sábados de 9 a 1. Ese horario es inventado.\n\nLedgerly",
+      en:"Hi Elena,\n\nIn this demo, the sample office is open Saturdays from 9 to 1. That schedule is made up.\n\nLedgerly"}}
+};
+const STATUS={waiting:"Waiting",sent:"Sent in the demo",held:"Held as a draft",assigned:"With Noah Patel"};
+function seedThreads(){return Object.keys(INBOX).map(id=>{const s=INBOX[id];return {id,status:"waiting",lang:s.customerLang,text:s.drafts[s.customerLang],edited:false,failUsed:false}})}
+let box={threads:seedThreads(),active:"wa-marisol",q:"",channel:"all",waiting:false,mode:"live",pending:null,askLang:null,fromRun:false,sendNote:""};
+let inboxUndo=null;
+function saveInbox(){store.set(IKEY,{threads:box.threads,active:box.active,q:box.q,channel:box.channel,waiting:box.waiting,mode:box.mode,fromRun:box.fromRun})}
+function loadInbox(){const s=store.get(IKEY);if(!s||!Array.isArray(s.threads))return;const threads=s.threads.filter(t=>INBOX[t.id]);if(threads.length!==Object.keys(INBOX).length)return;box=Object.assign(box,s,{threads});if(!INBOX[box.active])box.active="wa-marisol"}
+function resetInbox(){inboxUndo=null;box={threads:seedThreads(),active:"wa-marisol",q:"",channel:"all",waiting:false,mode:"live",pending:null,askLang:null,fromRun:false};store.del(IKEY);const d=$("inboxDemo");if(d)d.value="live";const q=$("inboxQ");if(q)q.value="";paintInbox()}
+function rememberInbox(){inboxUndo=JSON.stringify({threads:box.threads,active:box.active,fromRun:box.fromRun})}
+function threadState(id){return box.threads.find(t=>t.id===id)}
+function visibleThreads(){const q=box.q.trim().toLowerCase();return box.threads.filter(t=>{const s=INBOX[t.id];
+  if(box.channel!=="all"&&s.channel!==box.channel)return false;
+  if(box.waiting&&t.status!=="waiting")return false;
+  if(!q)return true;
+  const blob=[s.who,s.org,s.channel,s.why,...s.messages.map(m=>m.text),t.text].join(" ").toLowerCase();
+  return blob.includes(q)})}
+function paintInbox(){const waiting=box.threads.filter(t=>t.status==="waiting").length;
+  $("inboxCount").textContent=box.mode==="empty"?"empty":box.mode==="loading"?"loading":waiting+(waiting===1?" waiting":" waiting");
+  document.querySelectorAll("[data-act=ibox-filter]").forEach(b=>{
+    const on=b.dataset.k==="waiting"?box.waiting&&b.dataset.v==="1":b.dataset.k==="channel"&&b.dataset.v===box.channel&&!box.waiting;
+    b.setAttribute("aria-pressed",on?"true":"false")});
+  const q=$("inboxQ");if(q&&q.value!==box.q)q.value=box.q;
+  if(box.mode==="loading"){$("inboxList").innerHTML='<div class="sk" style="height:44px"></div><div class="sk" style="height:44px;margin-top:8px"></div>';$("inboxDetail").innerHTML='<p class="note">Loading the sample inbox…</p>';return}
+  if(box.mode==="empty"){$("inboxList").innerHTML='<div class="empty"><b>No messages waiting</b><p class="sub">The sample inbox is cleared. Nothing is waiting on you.</p><button class="btn" type="button" data-act="ibox-load">Load the sample inbox</button></div>';$("inboxDetail").innerHTML='<p class="note">Load the sample to review a draft.</p>';return}
+  const rows=visibleThreads();
+  $("inboxList").innerHTML=rows.length?rows.map(t=>{const s=INBOX[t.id];return `<button type="button" class="btn ithread" data-act="ibox-open" data-id="${t.id}" aria-pressed="${t.id===box.active}"><b>${esc(s.who)}</b><small>${esc(s.channel)} · ${esc(s.org)} · ${esc(STATUS[t.status])}</small></button>`}).join(""):'<p><b>No messages match.</b></p>';
+  paintDetail()}
+function paintDetail(){const t=threadState(box.active),s=t&&INBOX[t.id],host=$("inboxDetail");if(!t||!s){host.innerHTML='<p class="note">Pick a message.</p>';return}
+  const langName=t.lang==="es"?"Spanish":"English";
+  const ask=box.pending?`<div class="sheet" role="group" aria-label="Confirm"><p><b>${box.pending==="send"?`Send this ${esc(s.channel)} reply to ${esc(s.who)}?`:box.pending==="hold"?"Keep this as a draft?":`Hand this thread to Noah Patel?`}</b></p><p class="sub">${box.pending==="send"?"It is only marked sent in the demo. You can undo.":box.pending==="hold"?"Nothing is sent. You can undo.":"The draft is not sent. You can undo."}</p>${box.pending==="assign"?'<label for="inboxNote">Note for Noah (optional)</label><textarea id="inboxNote"></textarea>':""}<div class="row"><button class="btn warn" type="button" data-act="ibox-confirm">${box.mode==="sendfail"&&box.pending==="send"&&!t.failUsed?"Try send":"Confirm"}</button><button class="btn ghost" type="button" data-act="ibox-cancel">Cancel</button></div></div>`:"";
+  const replace=box.askLang?`<div class="sheet"><p><b>You edited the draft.</b> Replace it with the ${box.askLang==="es"?"Spanish":"English"} wording?</p><div class="row"><button class="btn pri" type="button" data-act="ibox-replace">Replace with the draft</button><button class="btn ghost" type="button" data-act="ibox-keep-edit">Keep my edits</button></div></div>`:"";
+  const failed=box.mode==="sendfail"&&t.failUsed&&t.status==="waiting"&&box.pending===null?"":"";
+  host.innerHTML=`<p class="sec"><span>${esc(s.channel)} · fictional</span><span>${esc(STATUS[t.status])}</span></p>
+    <h3 style="margin:0 0 6px;font-size:18px;font-weight:500">${esc(s.who)} <span class="sub">· ${esc(s.org)}</span></h3>
+    <p class="sub" style="margin:0 0 10px">${esc(s.why)}${box.fromRun&&t.id==="wa-marisol"?" Opened from the stopped refund run.":""}</p>
+    ${s.messages.map(m=>`<p class="note" style="margin:0 0 4px">${esc(m.who)}</p><div class="mbub" lang="${m.lang}">${esc(m.text)}</div>`).join("")}
+    <div class="row" style="margin-top:12px;justify-content:space-between"><span class="sec" style="margin:0">Draft · not sent until you approve</span><div class="langseg" role="group" aria-label="Draft language"><button type="button" class="btn sm" data-act="ibox-lang" data-lang="en" aria-pressed="${t.lang==="en"}">English</button><button type="button" class="btn sm" data-act="ibox-lang" data-lang="es" aria-pressed="${t.lang==="es"}">Español</button></div></div>
+    <label class="vh" for="inboxDraft">Reply draft in ${langName}</label>
+    <textarea id="inboxDraft" lang="${t.lang}">${esc(t.text)}</textarea>
+    <p class="note" id="draftMeta">${t.edited?"Edited. Still not sent.":"Prepared demo wording, not a live translation. Still not sent."}</p>
+    ${box.sendNote?`<p class="note" role="alert" style="color:var(--red)">${esc(box.sendNote)}</p>`:""}
+    ${ask}${replace}
+    <div class="row" style="margin-top:10px"><button class="btn warn" type="button" data-act="ibox-ask" data-kind="send">Approve and send</button><button class="btn" type="button" data-act="ibox-ask" data-kind="hold">Don't send</button><button class="btn" type="button" data-act="ibox-ask" data-kind="assign">Hand to Noah</button><button class="btn ghost" type="button" data-act="ibox-copy">Copy draft</button><button class="btn ghost" type="button" data-act="ibox-export">Export thread</button></div>`}
+function openHandoff(id,fromRun){box.mode="live";if(fromRun)box.fromRun=true;if(id)box.active=id;box.pending=null;box.askLang=null;$("inboxDemo").value=box.mode;paintInbox();saveInbox();const el=$("handoff");el.scrollIntoView({block:"nearest",behavior:reduce?"auto":"smooth"});toast(fromRun?"Opened Marisol's message. Nothing was sent.":"Message handoff.")}
+function inboxAct(a,b){const t=threadState(box.active);
+  if(a==="ibox-filter"){const was=b.getAttribute("aria-pressed")==="true";
+    if(b.dataset.k==="waiting"){if(was){toast("Already showing messages that are waiting.");return}box.waiting=true;box.channel="all"}
+    else{if(was&&box.channel===b.dataset.v&&!box.waiting){toast(b.dataset.v==="all"?"Already showing every message.":`Already showing ${b.dataset.v}.`);return}box.channel=b.dataset.v;box.waiting=false}
+    paintInbox();saveInbox();const n=visibleThreads().length;toast(n?`Showing ${n} message${n===1?"":"s"}.`:"No messages match.");return}
+  if(a==="ibox-open"){if(b.dataset.id===box.active){toast(`${INBOX[box.active].who} is already open.`);return}box.active=b.dataset.id;box.pending=null;box.askLang=null;box.sendNote="";paintInbox();saveInbox();return}
+  if(a==="ibox-load"||a==="ibox-reset"){resetInbox();toast("Sample inbox loaded. Nothing was sent.");return}
+  if(a==="ibox-undo"){if(!inboxUndo){toast("Nothing to undo in the inbox.");return}const prev=JSON.parse(inboxUndo);inboxUndo=null;box.threads=prev.threads;box.active=prev.active;box.fromRun=prev.fromRun;box.pending=null;box.askLang=null;box.sendNote="";paintInbox();saveInbox();toast("Undone. Nothing was sent.");return}
+  if(!t){toast("Pick a message first.");return}
+  if(a==="ibox-lang"){const lang=b.dataset.lang;if(t.lang===lang&&!box.askLang){toast(lang==="es"?"This draft is already in Spanish.":"This draft is already in English.");return}
+    if(t.edited&&t.text!==INBOX[t.id].drafts[lang]){box.askLang=lang;paintDetail();return}
+    t.lang=lang;t.text=INBOX[t.id].drafts[lang];t.edited=false;box.askLang=null;paintDetail();saveInbox();toast(lang==="es"?"Draft is now in Spanish.":"Draft is now in English.");return}
+  if(a==="ibox-replace"){if(!box.askLang)return;t.lang=box.askLang;t.text=INBOX[t.id].drafts[t.lang];t.edited=false;box.askLang=null;paintDetail();saveInbox();toast("Replaced with the prepared draft. Not sent.");return}
+  if(a==="ibox-keep-edit"){box.askLang=null;paintDetail();toast("Kept your edits.");return}
+  if(a==="ibox-ask"){box.pending=b.dataset.kind;box.askLang=null;box.sendNote="";paintDetail();return}
+  if(a==="ibox-cancel"){box.pending=null;box.sendNote="";paintDetail();toast("Nothing was sent.");return}
+  if(a==="ibox-confirm"){const kind=box.pending;if(!kind)return;
+    if(kind==="send"&&box.mode==="sendfail"&&!t.failUsed){t.failUsed=true;box.pending=null;box.sendNote="The reply didn't send. Nothing left this browser. Your draft is still here.";paintDetail();saveInbox();toast("The reply didn't send. Nothing left this browser.");return}
+    rememberInbox();
+    if(kind==="send"){t.status="sent";box.sendNote=""}
+    else if(kind==="hold"){t.status="held";box.sendNote=""}
+    else {t.status="assigned";box.sendNote=""}
+    box.pending=null;paintInbox();saveInbox();
+    toast(kind==="send"?"Marked sent in the demo. Nothing left this browser.":kind==="hold"?"Held as a draft. Nothing was sent.":"Handed to Noah Patel. The draft was not sent.",()=>inboxAct("ibox-undo"));return}
+  if(a==="ibox-copy"){const text=t.text+"\n\nFictional demo draft. Not sent.";(navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(()=>toast("Draft copied. It is marked fictional and not sent."),()=>toast("Copy failed in this browser. The draft is still on the page."));return}
+  if(a==="ibox-export"){const s=INBOX[t.id];download(`kestrel-${t.id}-thread.csv`,[["note","Fictional demo. Not a real message. Nothing was sent from this file."],["channel",s.channel],["person",s.who],["organization",s.org],["status",STATUS[t.status]],["draft_language",t.lang],["customer_message",s.messages.map(m=>m.text).join(" ")],["draft",t.text]]);toast("Exported this thread as CSV. The file says it is fictional.");return}
+}
+$("handoff").addEventListener("input",e=>{
+  if(e.target.id==="inboxQ"){box.q=e.target.value;paintInbox();const ae=document.getElementById("inboxQ");if(ae){ae.focus();const n=ae.value.length;ae.setSelectionRange(n,n)}return}
+  if(e.target.id==="inboxDraft"){const t=threadState(box.active);if(!t)return;t.text=e.target.value;t.edited=t.text!==INBOX[t.id].drafts[t.lang];const m=$("draftMeta");if(m)m.textContent=t.edited?"Edited. Still not sent.":"Prepared demo wording, not a live translation. Still not sent.";saveInbox()}
+  if(e.target.id==="inboxNote"){box.note=e.target.value}
+});
+$("inboxDemo").addEventListener("change",e=>{box.mode=e.target.value;box.pending=null;box.askLang=null;box.sendNote="";if(box.mode==="live"){/* keep threads */}paintInbox();saveInbox();
+  toast(box.mode==="empty"?"Empty inbox. Nothing is waiting.":box.mode==="loading"?"This is the loading screen.":box.mode==="sendfail"?"The next send fails once. The draft stays.":"Live inbox.")});
+loadInbox();if($("inboxDemo"))$("inboxDemo").value=box.mode||"live";paintInbox();
 
 /* restore a finished ticket from storage */
 function restore(s){fresh();msg("Acme Dental","cust",TICKET);Object.assign(W,{decision:s.decision,amount:s.amount,draft:s.draft,tools:s.tools,secs:s.secs,log:s.log||[],next:7});LID=W.log.reduce((m,i)=>Math.max(m,i.id),0);

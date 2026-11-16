@@ -27,7 +27,7 @@
     "/intake-draft": {
       "post": {
         "operationId": "createIntakeDraft",
-        "summary": "Hypothetical: draft a pre-appraisal intake sheet from photos",
+        "summary": "Hypothetical: draft an intake sheet from photos",
         "description": "Not implemented. A live service would accept photos and return a draft for a credentialed jeweler to review. This static host does not store photos and does not return a draft. This is NOT an appraisal.",
         "x-status": "concept",
         "requestBody": {

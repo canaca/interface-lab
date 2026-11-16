@@ -15,7 +15,7 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 | [Keel Account Health](keel/) | Concept · October 2026 | A customer-success book: health from five visible signals, filters, a confirmed next step, tasks, undo, and a sample CSV. Fictional accounts |
 | [Berth Onboarding](berth/) | Concept · October 2026 | A new-account checklist: blocked steps, who needs to act next, and a reminder that stays on the page. Nothing is emailed |
 | [Linden Client Book](linden/) | Concept · October 2026 | A daily client list for a fictional boutique: who needs a follow-up and why, what they like, and a draft that never sends |
-| [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money and the reply. Fictional customer and charges |
+| [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money, the email, and a WhatsApp or Messenger reply in English or Spanish. Fictional customers |
 | [Harbor CRM Copilot](harbor-copilot/) | Concept · October 2026 | Bulk deal cleanup shown as diffs in the table, with conflicts and undo. Fictional deals |
 | [Decision OS](decision-os/) | Concept · October 2026 | Import a fictional sample export and see where everything stands. Not connected to an account. Not a shipped product |
 | [Flare](flare/) | Concept · October 2026 | Ad account copilot for a fictional agency and shop: when cost per lead spikes, the page shows the evidence, separates diagnosis from action, and does not move budget without approval. Made-up numbers. No 3D |
