@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Estate Jewelry Intake Assistant · Not an appraisal</title>
-<meta name="description" content="This is NOT an appraisal. Concept / early access, not a live service. An idea for independent jewelers: photos in, a draft intake sheet out, reviewed by a credentialed jeweler.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estate Jewelry Intake · Not an appraisal</title>
+<meta name="description" content="October 2026 concept: a jeweler reviews a scripted intake draft for a fictional ring. Notes only. Not an appraisal, a grade, or a value. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
 <meta name="theme-color" content="#120E0B">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://canaca.github.io/interface-lab/estate-intake/">
@@ -14,80 +14,328 @@
 <link rel="describedby" type="application/json" href="status.json" title="Status">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
-<meta property="og:title" content="Estate Jewelry Intake Assistant · Not an appraisal">
-<meta property="og:description" content="This is NOT an appraisal. Concept / early access, not a live service.">
+<meta property="og:title" content="Estate Jewelry Intake · Not an appraisal">
+<meta property="og:description" content="October 2026 concept. A jeweler reviews a scripted draft. Not an appraisal. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/estate-intake/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/og-image.png">
 <meta property="og:image:alt" content="Cesar Navarro, Interface Lab">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Estate Jewelry Intake · Not an appraisal">
+<meta name="twitter:description" content="October 2026 concept. Not an appraisal. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/og-image.png">
+<style>[hidden]{display:none!important}body{margin:0;background:#120E0B}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=optional">
 <style>
 :root{
-  --bg:#120E0B; --cream:#F4E7D7; --muted:#B9A08A;
-  --orange:#E9A46E; --accent:#6FE3D0; --edge:rgba(255,222,190,.18);
+  --bg:#120E0B; --bg-2:#1A1410; --panel:#2A211B;
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
+  --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0; --ink:#1B140F;
   --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:#120E0B;color:var(--cream)}
-body{font-family:var(--sans);font-size:17px;line-height:1.55;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 55%) fixed}
-a{color:var(--accent);text-underline-offset:.18em}
-a:hover{color:var(--cream)}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 58%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:16px;line-height:1.5;overflow-x:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.wrap{max-width:42rem;margin:0 auto;padding:28px 20px 64px}
-.back{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
-.back:hover{color:var(--cream)}
-h1{font-weight:500;font-size:clamp(32px,5vw,48px);letter-spacing:-.03em;line-height:1.05;margin:18px 0 12px}
-h2{font-size:13px;font-family:var(--mono);font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:32px 0 10px}
-p,li{color:var(--cream)}
-.lede{font-size:18px;margin:0 0 16px}
-.warn{margin:0 0 18px;padding:14px 16px;border-radius:14px;background:var(--orange);color:#1B140F;font-size:18px;font-weight:700;line-height:1.35}
-ol,ul{margin:0;padding-left:1.2em}
-li+li{margin-top:8px}
-.files{list-style:none;padding:0}
-.files li{padding:10px 0;border-top:1px solid var(--edge)}
-.files a{font-family:var(--mono);font-size:14px}
-.btn{display:inline-flex;align-items:center;min-height:44px;padding:10px 16px;border-radius:11px;background:var(--cream);color:#1B140F;text-decoration:none;font-weight:600}
-.btn:hover{color:#1B140F;background:#fff}
-.note{color:var(--muted);font-size:15px}
-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--edge);font-family:var(--mono);font-size:12px;color:var(--muted)}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:var(--accent)}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 20px 64px}
+.skip{position:absolute;left:12px;top:-40px;background:var(--cream);color:var(--ink);padding:8px 12px;border-radius:8px;z-index:5}
+.skip:focus{top:12px}
+.home{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+.brand{display:flex;align-items:baseline;gap:10px;margin:0;font-size:20px}
+.brand b{font-weight:600;letter-spacing:-.02em}
+.brand span{color:var(--muted);font-size:16px}
+.sp{flex:1}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(233,164,110,.45);border-radius:999px;padding:6px 10px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--edge-2);border-radius:12px;overflow:hidden}
+.seg button{min-height:44px;padding:8px 12px;background:transparent;border:0;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--cream);color:var(--ink);font-weight:600}
+.tbtn{background:rgba(44,33,25,.5);border:1px solid var(--edge);border-radius:999px;padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream);display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;min-height:44px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.warn{margin:0 0 12px;padding:12px 14px;border-radius:14px;background:var(--orange);color:#1B140F;font-weight:650;line-height:1.35}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;border:1px dashed var(--edge-2);color:var(--muted);font-size:14.5px}
+#app{min-height:1344px}
+.lay{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.15fr);gap:14px;align-items:start}
+.card{border-radius:18px;padding:16px;background:linear-gradient(180deg,rgba(255,222,190,.04),transparent 42%),var(--bg-2);border:1px solid var(--edge);min-width:0}
+.card h2{margin:0 0 8px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);color:var(--muted)}
+.drawings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+figure{margin:0;border:1px solid var(--edge);border-radius:12px;padding:8px;background:var(--panel);min-width:0}
+figure svg{width:100%;height:auto;display:block}
+figcaption{color:var(--dim);font-size:12px;margin-top:6px}
+.failfig{min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;color:#ffd0c6;font-size:14px;padding:8px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 12px;border-radius:12px;border:1px solid var(--edge-2);background:rgba(255,222,190,.06);color:var(--cream);cursor:pointer;text-decoration:none}
+.btn.pri{background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;min-height:28px;padding:2px 8px;border-radius:999px;border:1px solid var(--edge-2);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.chip.high{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.medium{color:var(--orange);border-color:rgba(233,164,110,.5)}
+.chip.low,.chip.none{color:#ffb2a4;border-color:rgba(226,114,91,.55)}
+.field{border-top:1px solid var(--edge);padding:12px 0}
+.field b{font-weight:600}
+.why{color:var(--dim);font-size:14px;margin:4px 0 0}
+.field input,.field textarea,select.inp{min-height:44px;width:100%;border-radius:8px;border:1px solid var(--edge-2);background:#120E0B;padding:8px 10px;font-size:16px}
+.field textarea{min-height:88px;resize:vertical}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--red)}
+.msg{color:#ffb2a4;font-size:14px;margin:6px 0 0}
+.sheet{border:1px solid var(--edge-2);border-radius:12px;padding:12px;background:rgba(0,0,0,.28);margin-top:10px}
+.err{border:1px solid rgba(226,114,91,.55);background:rgba(226,114,91,.1);border-radius:12px;padding:12px;margin:0 0 10px}
+.err b{display:block}
+.q{border:1px solid var(--edge);border-radius:12px;padding:10px 12px;margin:8px 0}
+.unseen{margin:8px 0 0;padding-left:18px}
+.unseen li{margin:4px 0}
+.file{display:flex;align-items:center;gap:8px;min-height:44px}
+.file input{font-size:16px;max-width:100%}
+.note{color:var(--dim);font-size:13.5px;margin:6px 0 0}
+.note a,.cs a{display:inline-flex;align-items:center;min-height:44px}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,rgba(255,222,190,.06),rgba(255,222,190,.16),rgba(255,222,190,.06));background-size:200% 100%;animation:sh 1.2s linear infinite;margin:8px 0}
+@keyframes sh{to{background-position:-200% 0}}
+.empty{padding:12px 0}
+.empty b{display:block;font-size:18px;font-weight:500;margin-bottom:6px}
+.toast{position:fixed;left:16px;right:16px;bottom:16px;max-width:520px;margin:0 auto;background:#2A211B;border:1px solid var(--edge-2);border-radius:14px;padding:12px 14px;display:none;gap:10px;align-items:center;z-index:20}
+.toast.on{display:flex}
+.toast button{min-height:44px;border:0;background:rgba(255,222,190,.12);border-radius:8px;padding:8px 12px;font-weight:600;cursor:pointer;color:var(--cream)}
+.cs{margin-top:36px;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:22px;border-top:1px solid var(--edge);padding-top:22px}
+.cs h2{font-weight:500;font-size:clamp(26px,3vw,36px);letter-spacing:-.03em;line-height:1.15;margin:8px 0;text-transform:none;font-family:var(--sans);color:var(--cream)}
+.lede{color:var(--muted);font-size:17px}
+.cs dl{display:grid;grid-template-columns:128px 1fr;gap:10px 14px;margin:0}
+.cs dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.cs dd{margin:0}
+.cs ol{margin:0;padding-left:18px}
+.files{list-style:none;padding:0;margin:8px 0 0}
+.files li{padding:4px 0;border-top:1px solid var(--edge)}
+.files a{font-family:var(--mono);font-size:14px;display:inline-flex;align-items:center;min-height:44px}
+.foot{margin-top:22px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--dim)}
+@media (max-width:800px){
+  #app{min-height:2640px}
+  .lay,.cs,.drawings{grid-template-columns:minmax(0,1fr)}
+  .cs dl{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<a class="skip" href="#app">Skip to the intake</a>
 <div class="wrap">
-  <a class="back" href="../">Interface Lab</a>
-  <main>
-    <h1>Estate Jewelry Intake Assistant</h1>
-    <p class="warn">This is NOT an appraisal. Concept / early access, not a live service.</p>
-    <p class="lede">An idea for independent jewelers. A customer would upload photos of jewelry they already own. An AI would draft an intake sheet. A credentialed jeweler would review that draft.</p>
-    <p>The sheet would list what the piece appears to be, which metal stamps can be read, a guess at how many stones there are and what they might be, notes on condition, and questions to ask the customer. Those are notes for the jeweler, not a value and not a grade.</p>
-
-    <h2>How it would work</h2>
-    <ol>
-      <li>A customer shares photos of a piece of estate jewelry.</li>
-      <li>The draft names the item type only as it appears, the stamps that can actually be read, stone count and type as guesses, and what looks worn or damaged.</li>
-      <li>It also lists questions the jeweler still needs the customer to answer.</li>
-      <li>A credentialed jeweler reviews the draft before anyone relies on it.</li>
-    </ol>
-    <p class="note">Those steps are the idea. None of them run here. This page does not look at photos.</p>
-
-    <h2>What this page is</h2>
-    <p>A static description, so a person or an agent can find the idea and read it. GitHub Pages only serves files. It does not accept photos, identify a stone, or say what a piece is worth.</p>
-    <p>There are no customers and no results to report, because the service is not running. The only next step is the waitlist.</p>
-
-    <h2>Waitlist</h2>
-    <p><a class="btn" href="mailto:cnavarro.business@gmail.com?subject=Estate%20Jewelry%20Intake%20waitlist&amp;body=Please%20add%20me%20to%20the%20Estate%20Jewelry%20Intake%20Assistant%20concept%20waitlist.%0A%0A">Join the waitlist</a></p>
-    <p class="note">This opens your email app, addressed to <a href="mailto:cnavarro.business@gmail.com">cnavarro.business@gmail.com</a>. Nothing is sent until you press send. No account is created.</p>
-
-    <h2>Files an agent can read</h2>
-    <ul class="files">
-      <li><a href="llms.txt">llms.txt</a> — the same idea, written for an agent</li>
-      <li><a href="openapi.json">openapi.json</a> — a hypothetical <span class="note">POST /intake-draft</span>, marked concept</li>
-      <li><a href=".well-known/agent.json">.well-known/agent.json</a> — an A2A-style agent card, marked concept</li>
-      <li><a href="status.json">status.json</a> — <span class="note">status concept, accepting waitlist</span></li>
-    </ul>
-    <p class="note">POST /intake-draft is described only. This host does not run it. The status you can fetch today is <a href="status.json">status.json</a>.</p>
-  </main>
-  <footer>Cesar Navarro · Interface Lab · Not an appraisal · Concept, not a product</footer>
+  <a class="home" href="../">Interface Lab</a>
+  <header class="bar">
+    <h1 class="brand"><b>Estate intake</b><span>Not an appraisal</span></h1>
+    <span class="sp"></span>
+    <div class="seg" role="group" aria-label="Language of the customer questions" id="langSeg">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="es" aria-pressed="false">Español</button>
+    </div>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state">
+      <option value="live">Live sample</option>
+      <option value="empty">Empty · no piece</option>
+      <option value="loading">Loading</option>
+      <option value="photoerr">Error · inside drawing missing</option>
+    </select></label>
+    <button class="btn ghost" type="button" id="undoBtn" hidden>Undo</button>
+    <button class="btn ghost" type="button" id="resetBtn">Reset demo</button>
+    <span class="tag">Concept · demo data</span>
+  </header>
+  <p class="warn">This is not an appraisal. It is not a grade, and it does not say what a piece is worth.</p>
+  <p class="banner">Concept. North Room is a made-up bench. A. Rivera and the ring are made up. The pictures are drawings, not photographs, and this page does not look at them. Nothing is uploaded. The sample draft was written ahead of time.</p>
+  <main id="app" tabindex="-1"></main>
+  <section class="cs" aria-label="Case study">
+    <div>
+      <span class="tag">Concept · November 2026</span>
+      <h2>A jeweler should see the guess, and should be the one who accepts it</h2>
+      <p class="lede">Estate pieces arrive as photos and a story. I designed a sheet where a scripted draft separates what a drawing shows from what it does not, and nothing is marked reviewed until a person says so.</p>
+      <p class="note">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p>
+    </div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>A counter intake is a stack of photos and a few sentences. A draft that names the stone, or offers a number, gets read as an appraisal. The jeweler then has to undo a conclusion the customer already saw.</dd>
+      <dt>User</dt><dd>A jeweler at an independent bench, reviewing a draft before anyone relies on it. The customer questions are what that jeweler would ask A. Rivera, a fictional customer.</dd>
+      <dt>Constraints</dt><dd>The page is a static file. It cannot accept a photo, weigh a piece, or look inside a stone. The drawings are samples. It was not tested with jewelers. It must not show a price, a grade, or a stone name.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>The draft is written ahead of time for these drawings.</b> The page does not pretend to see a picture. Each row says what the drawing shows and how sure that note is, in words.</li>
+        <li><b>The center stone is not named.</b> A guess of "diamond" would be the conclusion this page refuses to make.</li>
+        <li><b>A person marks it reviewed.</b> The jeweler checks a line that says these are notes, not an appraisal. Undo clears that mark.</li>
+        <li><b>Customer questions can be English or Spanish.</b> The rest of the page, including the role and tools lines, stays in English. The questions can grow. They are not cut off.</li>
+      </ol></dd>
+      <dt>Rejected</dt><dd><ol>
+        <li><b>A chat reply only.</b> A paragraph hides which sentence is a guess. Separate rows keep the note next to the reason.</li>
+        <li><b>A value, even as a range.</b> Any number would be read as an appraisal. There is no number on the sheet.</li>
+        <li><b>Sending the draft to the customer automatically.</b> The jeweler reviews it first. Copy and export stay on this page. Nothing is emailed.</li>
+      </ol></dd>
+      <dt>What changed in the design</dt><dd>The first pass of this concept wanted the draft to name the center stone. That name is the mistake. The sheet now says the drawing is not enough, and lists what it could not check. This was not a test with jewelers. What I would ask a jeweler: whether they trust a draft that refuses to name the stone.</dd>
+      <dt>Outcome</dt><dd>A working sample of the sheet, the review, undo, copy, and export, with empty, loading, and missing-drawing screens. Not a live service. The described POST /intake-draft route still does not run.</dd>
+      <dt>Label</dt><dd>Concept. Fictional bench, customer, and ring. Not an appraisal. No prices.</dd>
+    </dl>
+  </section>
+  <h2 style="font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500">Files an agent can read</h2>
+  <ul class="files">
+    <li><a href="llms.txt">llms.txt</a> — the same idea, written for an agent</li>
+    <li><a href="openapi.json">openapi.json</a> — a hypothetical POST /intake-draft, marked concept, not implemented</li>
+    <li><a href=".well-known/agent.json">.well-known/agent.json</a> — an A2A-style agent card, marked concept</li>
+    <li><a href="status.json">status.json</a> — status concept, accepting waitlist</li>
+  </ul>
+  <p class="note">POST /intake-draft is described only. This host does not run it. The sample above is a script in the page.</p>
+  <h2 style="font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500">Waitlist</h2>
+  <p><a class="btn pri" href="mailto:cnavarro.business@gmail.com?subject=Estate%20Jewelry%20Intake%20waitlist&amp;body=Please%20add%20me%20to%20the%20Estate%20Jewelry%20Intake%20Assistant%20concept%20waitlist.%0A%0A">Join the waitlist</a></p>
+  <p class="note">This opens your email app, addressed to <a href="mailto:cnavarro.business@gmail.com">cnavarro.business@gmail.com</a>. Nothing is sent until you press send.</p>
+  <footer class="foot"><span>Interface Lab · Estate intake · concept · not an appraisal</span><span>Concept direction: Cesar Navarro · Updated November 2026</span></footer>
 </div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY="il-estate";
+const CONF=[["high","High"],["medium","Medium"],["low","Low"],["none","Couldn't tell"]];
+const confLabel=k=> (CONF.find(c=>c[0]===k)||["","Couldn't tell"])[1];
+function seedFields(){return [
+  {id:"item",label:"What it appears to be",text:"A ring. The drawings show a round center and a band.",conf:"high",why:"All three drawings show the same ring shape."},
+  {id:"stamp",label:"Stamp that can be read",text:"The metal stamp reads 14K on the inside drawing.",conf:"medium",why:"Only the inside drawing shows the stamp. 14K is the mark in the drawing, not a price. It is a drawing, not a loupe."},
+  {id:"stones",label:"Stones",text:"One center stone is drawn. Side stones are not counted. The center is not named.",conf:"low",why:"The prongs overlap. The drawing does not show enough to say what the center stone is."},
+  {id:"condition",label:"Condition notes",text:"A scratch is drawn on the lower band.",conf:"medium",why:"The scratch is in the drawing. The back of the band is not shown."}
+];}
+function seedQuestions(){return [
+  {en:"Where did this piece come from?",es:"¿De dónde viene esta pieza?"},
+  {en:"Has it been sized or repaired?",es:"¿La han cambiado de talla o la han reparado?"},
+  {en:"Is there a box, a stamp, or a note we should see in person?",es:"¿Hay una caja, una marca en el metal, o una nota que debamos ver en persona?"}
+];}
+const UNSEEN=["Weight","Whether the center stone is a diamond or something else","Clarity or color","Any value"];
+let D="live",lang="en",reviewed=false,confirmOpen=false,ack=false,editing=null,editText="",editConf="medium",editErr="";
+let qEdit=null,qText="",qErr="",uploadNote="",undo=[],questions=seedQuestions(),fields=seedFields();
+function save(){try{localStorage.setItem(KEY,JSON.stringify({lang,reviewed,questions,fields}))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(!s||!Array.isArray(s.fields))return;fields=s.fields;questions=s.questions;reviewed=!!s.reviewed;lang=s.lang==="es"?"es":"en"}catch(e){}}
+function toast(m,withUndo){const t=$("toast");$("toastMsg").textContent=m;const b=$("toastUndo");b.hidden=!withUndo;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("on"),withUndo?5200:2800)}
+function pushUndo(entry){undo.push(entry);if(undo.length>20)undo.shift();$("undoBtn").hidden=false}
+function doUndo(){const e=undo.pop();$("undoBtn").hidden=!undo.length;if(!e){toast("Nothing to undo.");return}
+  if(e.type==="field"){const f=fields.find(x=>x.id===e.id);if(f){f.text=e.text;f.conf=e.conf;reviewed=!!e.reviewed}}
+  else if(e.type==="review"){reviewed=e.reviewed}
+  else if(e.type==="q"){questions=e.questions}
+  save();confirmOpen=false;editing=null;qEdit=null;render();toast("Undone.")}
+function ringSVG(kind){
+  const face = kind==="side"
+    ? `<ellipse cx="70" cy="78" rx="36" ry="10" fill="none" stroke="#C08A57" stroke-width="6"/><rect x="62" y="28" width="16" height="22" rx="3" fill="none" stroke="#F4E7D7" stroke-width="2"/>`
+    : kind==="inside"
+    ? `<ellipse cx="70" cy="62" rx="34" ry="34" fill="none" stroke="#C08A57" stroke-width="8"/><text x="70" y="66" text-anchor="middle" fill="#F4E7D7" font-size="14" font-family="ui-sans-serif,sans-serif">14K</text>`
+    : `<ellipse cx="70" cy="78" rx="38" ry="14" fill="none" stroke="#C08A57" stroke-width="6"/><circle cx="70" cy="40" r="16" fill="none" stroke="#F4E7D7" stroke-width="2"/><circle cx="54" cy="52" r="4" fill="none" stroke="#E9A46E"/><circle cx="86" cy="52" r="4" fill="none" stroke="#E9A46E"/>`;
+  return `<svg viewBox="0 0 140 110" role="img" aria-label="Sample drawing of a ring, ${kind}">${face}</svg>`;
+}
+function drawings(){
+  const inside = D==="photoerr"
+    ? `<figure><div class="failfig">Inside drawing did not load.</div><figcaption>Inside · missing in this state</figcaption></figure>`
+    : `<figure>${ringSVG("inside")}<figcaption>Inside · sample drawing</figcaption></figure>`;
+  return `<div class="drawings"><figure>${ringSVG("front")}<figcaption>Front · sample drawing</figcaption></figure><figure>${ringSVG("side")}<figcaption>Side · sample drawing</figcaption></figure>${inside}</div>`;
+}
+function fieldView(f){
+  const text = (D==="photoerr" && f.id==="stamp") ? "Couldn't read a stamp. The inside drawing did not load." : f.text;
+  const conf = (D==="photoerr" && f.id==="stamp") ? "none" : f.conf;
+  if(editing===f.id){
+    return `<div class="field"><label for="edit-${f.id}"><b>${esc(f.label)}</b></label>
+      <textarea id="edit-${f.id}" ${editErr?'aria-invalid="true" aria-errormessage="editErr"':""}>${esc(editText)}</textarea>
+      <label for="editConf">How sure is this note?</label>
+      <select class="inp" id="editConf">${CONF.map(([k,lab])=>`<option value="${k}"${editConf===k?" selected":""}>${lab}</option>`).join("")}</select>
+      <p class="msg" id="editErr" role="alert"${editErr?"":" hidden"}>${esc(editErr)}</p>
+      <div class="row"><button class="btn pri" type="button" data-act="save-field" data-id="${f.id}">Save note</button><button class="btn ghost" type="button" data-act="cancel-edit">Cancel</button></div></div>`;
+  }
+  return `<div class="field"><div class="row"><b>${esc(f.label)}</b><span class="chip ${conf}">${esc(confLabel(conf))}</span></div>
+    <p style="margin:6px 0 0">${esc(text)}</p><p class="why">${esc(f.why)}</p>
+    <button class="btn" type="button" data-act="edit" data-id="${f.id}">Edit this note</button></div>`;
+}
+function questionsHTML(){
+  const h = lang==="es" ? "Preguntas para la cliente" : "Questions for the customer";
+  const hint = lang==="es" ? "El resto de la página sigue en inglés. Estas preguntas pueden ser más largas en español." : "These are the questions the jeweler would ask. They are not sent.";
+  return `<div lang="${lang}"><h2>${h}</h2><p class="note">${hint}</p>
+    ${questions.map((q,i)=> qEdit===i
+      ? `<div class="q"><label for="q${i}">${lang==="es"?"Pregunta":"Question"} ${i+1}</label><input id="q${i}" value="${esc(qText)}" ${qErr?'aria-invalid="true"':""}><p class="msg" role="alert"${qErr?"":" hidden"}>${esc(qErr)}</p><div class="row"><button class="btn pri" type="button" data-act="save-q" data-i="${i}">Save question</button><button class="btn ghost" type="button" data-act="cancel-q">Cancel</button></div></div>`
+      : `<div class="q"><p style="margin:0">${esc(q[lang])}</p><div class="row"><button class="btn" type="button" data-act="edit-q" data-i="${i}">Edit</button><button class="btn ghost" type="button" data-act="remove-q" data-i="${i}">Remove</button></div></div>`
+    ).join("")}
+    <button class="btn" type="button" data-act="add-q">${lang==="es"?"Añadir una pregunta":"Add a question"}</button></div>`;
+}
+function uploadHTML(){
+  return `<div class="field"><label class="file" for="photo">Attach a photo from this device<input id="photo" type="file" accept="image/*"></label>
+    <p class="note">Choosing a file does not upload it and does not read it. The demo uses the sample drawings.</p>
+    ${uploadNote?`<p class="msg" role="status">${esc(uploadNote)}</p>`:""}</div>`;
+}
+function reviewHTML(){
+  if(reviewed && !confirmOpen) return `<p class="row"><span class="chip high">Reviewed on this page</span></p><p class="note">A person marked these notes as reviewed. They are still not an appraisal. Nothing was emailed.</p>`;
+  if(!confirmOpen) return `<button class="btn pri" type="button" data-act="review">Mark reviewed</button>`;
+  return `<div class="sheet"><p style="margin:0 0 8px"><b>Mark these notes reviewed?</b> They stay on this page. They are not an appraisal, a grade, or a value.</p>
+    <label class="row"><input type="checkbox" id="ack" ${ack?"checked":""}> I reviewed this draft. These are notes for the bench, not an appraisal.</label>
+    <p class="msg" id="ackErr" role="alert"${confirmOpen && !ack && editErr?"":" hidden"}>${esc(editErr)}</p>
+    <div class="row"><button class="btn pri" type="button" data-act="confirm">Confirm review</button><button class="btn ghost" type="button" data-act="cancel-review">Cancel</button></div></div>`;
+}
+function sheetText(){
+  const lines=["FICTIONAL DEMO. NOT AN APPRAISAL. NOT A GRADE. NO VALUE.","North Room (made-up bench). Customer A. Rivera (made-up). Sample drawings.","",
+    ...fields.map(f=>`${f.label}: ${D==="photoerr"&&f.id==="stamp"?"Couldn't read a stamp. The inside drawing did not load.":f.text} (${confLabel(D==="photoerr"&&f.id==="stamp"?"none":f.conf)})`),
+    "","Could not check:",...UNSEEN.map(u=>"- "+u),"",
+    (lang==="es"?"Preguntas:":"Questions:"),...questions.map(q=>"- "+q[lang]),
+    "",reviewed?"Reviewed on this page by a person.":"Not reviewed yet."];
+  return lines.join("\n");
+}
+function render(){
+  document.querySelectorAll("#langSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===lang?"true":"false"));
+  $("demo").value=D;
+  const app=$("app");
+  if(D==="loading"){app.innerHTML=`<div class="card"><h2>Loading the sample</h2><div class="skel"></div><div class="skel" style="height:80px"></div><div class="skel"></div><p class="note">Loading the sample drawings…</p></div>`;return}
+  if(D==="empty"){app.innerHTML=`<div class="card"><div class="empty"><b>No piece on the bench</b><p class="note" style="margin:0 0 12px">The empty screen is for review. Open the sample ring to walk the sheet. Nothing is uploaded.</p><button class="btn pri" type="button" data-act="open">Open the sample ring</button></div>${uploadHTML()}</div>`;return}
+  const status = reviewed?'<span class="chip high">Reviewed</span>':'<span class="chip medium">Draft</span>';
+  const err = D==="photoerr"?`<div class="err" role="alert"><div><b>The inside drawing did not load.</b> The stamp note is withheld. The other two drawings are still on the page. Nothing was uploaded.</div><button class="btn" type="button" data-act="retry">Retry the inside drawing</button></div>`:"";
+  app.innerHTML=`<div class="lay"><section class="card"><h2>Sample drawings</h2>${drawings()}<p class="note">Drawings for the demo, not a customer's photographs.</p>${uploadHTML()}</section>
+    <section class="card"><h2>Intake notes ${status}</h2><p class="sub" style="color:var(--muted);margin:0 0 8px">A. Rivera · fictional customer · North Room, a fictional bench</p>${err}
+      ${fields.map(fieldView).join("")}
+      <h2>Could not check</h2><ul class="unseen">${UNSEEN.map(u=>`<li>${esc(u)}</li>`).join("")}</ul>
+      ${questionsHTML()}
+      <div class="row" style="margin-top:12px">${reviewHTML()}<button class="btn" type="button" data-act="copy">Copy the sheet</button><button class="btn" type="button" data-act="export">Export CSV</button></div>
+    </section></div>`;
+}
+$("app").addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]");if(!b)return;const a=b.dataset.act;
+  if(a==="open"){D="live";$("demo").value="live";render();toast("Sample ring opened. The draft was already written.");return}
+  if(a==="retry"){D="live";$("demo").value="live";render();toast("Inside drawing loaded in the demo. The stamp note is back.");return}
+  if(a==="edit"){const f=fields.find(x=>x.id===b.dataset.id);editing=f.id;editText=D==="photoerr"&&f.id==="stamp"?"Couldn't read a stamp. The inside drawing did not load.":f.text;editConf=f.conf;editErr="";qEdit=null;render();$("edit-"+f.id).focus();return}
+  if(a==="cancel-edit"){editing=null;editErr="";render();toast("Edit cancelled. The note is unchanged.");return}
+  if(a==="save-field"){const f=fields.find(x=>x.id===b.dataset.id);const text=$("edit-"+f.id).value;const conf=$("editConf").value;editText=text;editConf=conf;
+    if(text.trim().length<3){editErr="Write at least 3 characters, or cancel. Nothing was saved.";render();return}
+    pushUndo({type:"field",id:f.id,text:f.text,conf:f.conf,reviewed:reviewed});f.text=text.trim();f.conf=conf;if(reviewed)reviewed=false;
+    const cleared=undo[undo.length-1].reviewed;editing=null;editErr="";save();render();toast(cleared?"Note saved. The review was cleared because the note changed.":"Note saved on this page.",true);return}
+  if(a==="edit-q"){qEdit=+b.dataset.i;qText=questions[qEdit][lang];qErr="";editing=null;render();$("q"+qEdit).focus();return}
+  if(a==="cancel-q"){qEdit=null;qErr="";render();toast("Question edit cancelled.");return}
+  if(a==="save-q"){const text=$("q"+qEdit).value;qText=text;if(text.trim().length<3){qErr=lang==="es"?"Escriba al menos 3 caracteres, o cancele. No se guardó.":"Write at least 3 characters, or cancel. Nothing was saved.";render();return}
+    pushUndo({type:"q",questions:JSON.parse(JSON.stringify(questions))});questions[qEdit][lang]=text.trim();qEdit=null;qErr="";save();render();toast("Question saved on this page.",true);return}
+  if(a==="remove-q"){if(questions.length<=1){toast("Keep at least one question. Nothing was removed.");return}
+    pushUndo({type:"q",questions:JSON.parse(JSON.stringify(questions))});questions.splice(+b.dataset.i,1);qEdit=null;save();render();toast("Question removed.",true);return}
+  if(a==="add-q"){if(questions.length>=4){toast("Four questions is enough for this sample. Remove one to add another.");return}
+    pushUndo({type:"q",questions:JSON.parse(JSON.stringify(questions))});questions.push({en:"What else should the bench ask?",es:"¿Qué más debe preguntar el taller?"});save();render();toast("Question added. Edit it if the sample line is not the one you want.",true);return}
+  if(a==="review"){if(reviewed){toast("Already marked reviewed. Undo clears the mark.");return}confirmOpen=true;ack=false;editErr="";render();$("ack").focus();return}
+  if(a==="cancel-review"){confirmOpen=false;editErr="";render();toast("Review cancelled. The draft is still unreviewed.");return}
+  if(a==="confirm"){ack=$("ack").checked;if(!ack){editErr="Check the box first. Nothing was marked reviewed.";render();$("ack").focus();return}
+    pushUndo({type:"review",reviewed:false});reviewed=true;confirmOpen=false;editErr="";save();render();toast("Marked reviewed on this page. Not an appraisal. Nothing was emailed.",true);return}
+  if(a==="copy"){const text=sheetText();const done=()=>toast("Sheet copied. It says the data is fictional and it is not an appraisal.");
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>{fallbackCopy(text);done()})}else{fallbackCopy(text);done()}return}
+  if(a==="export"){const header=["section","note","confidence","fictional"];const rows=[["banner","NOT AN APPRAISAL. Fictional demo.","", "yes"],...fields.map(f=>[f.label,D==="photoerr"&&f.id==="stamp"?"Couldn't read a stamp.":f.text,confLabel(f.conf),"yes"]),...UNSEEN.map(u=>["could not check",u,"","yes"]),...questions.map(q=>["question",q[lang],"","yes"])];
+    const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\r\n");const blob=new Blob([header.join(",")+"\r\n"+csv],{type:"text/csv"});
+    const link=document.createElement("a");link.href=URL.createObjectURL(blob);link.download="estate-intake-sample.csv";link.setAttribute("aria-label","Download the fictional sample sheet");document.body.appendChild(link);link.click();setTimeout(()=>{URL.revokeObjectURL(link.href);link.remove()},400);toast("Exported the sample sheet. The file says it is fictional.");}
+});
+function fallbackCopy(text){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove()}
+$("app").addEventListener("change",e=>{
+  if(e.target.id==="ack"){ack=e.target.checked;if(ack){editErr="";const m=$("ackErr");if(m)m.hidden=true}return}
+  if(e.target.id==="photo"){const file=e.target.files&&e.target.files[0];uploadNote=file?`“${file.name}” was not read and was not uploaded. Use the sample drawings.`:"No file chosen. Nothing was uploaded.";render()}
+});
+$("langSeg").addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(!b)return;if(b.dataset.lang===lang){toast(lang==="es"?"Las preguntas ya están en español.":"The questions are already in English.");return}lang=b.dataset.lang;qEdit=null;save();render();toast(lang==="es"?"Preguntas en español. El resto de la página sigue en inglés.":"Questions in English.")});
+$("demo").addEventListener("change",e=>{D=e.target.value;editing=null;qEdit=null;confirmOpen=false;render()});
+$("resetBtn").addEventListener("click",()=>{localStorage.removeItem(KEY);D="live";lang="en";reviewed=false;confirmOpen=false;ack=false;editing=null;qEdit=null;editErr="";uploadNote="";undo=[];questions=seedQuestions();fields=seedFields();$("undoBtn").hidden=true;render();toast("Demo reset. The sample draft is back.")});
+$("undoBtn").addEventListener("click",doUndo);
+$("toastUndo").addEventListener("click",()=>{$("toast").classList.remove("on");doUndo()});
+load();render();
+})();
+</script>
 </body>
 </html>

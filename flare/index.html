@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flare · When the cost per lead jumps</title>
+<meta name="description" content="October 2026 concept: a copilot for a fictional agency and shop owner when Meta cost per lead spikes. It shows the evidence, separates diagnosis from action, and does not move budget without approval. Concept direction. AI-assisted build (Claude, Cursor). All data is fictional.">
+<meta name="theme-color" content="#120E0B">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cesar Navarro · Interface Lab">
+<meta property="og:title" content="Flare · When the cost per lead jumps">
+<meta property="og:description" content="October 2026 concept. Evidence before action, and no budget move without approval. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo data.">
+<meta property="og:url" content="https://canaca.github.io/interface-lab/flare/">
+<meta property="og:image" content="https://canaca.github.io/interface-lab/img/flare.jpg">
+<meta property="og:image:alt" content="Flare: a fictional cost-per-lead alert with the evidence beside it. Demo data.">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="750">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flare · When the cost per lead jumps">
+<meta name="twitter:description" content="October 2026 concept. Concept direction. AI-assisted build (Claude, Cursor). Fictional demo data.">
+<meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/flare.jpg">
+<meta name="twitter:image:alt" content="Flare: a fictional cost-per-lead alert with the evidence beside it. Demo data.">
+<style>[hidden]{display:none!important}body{margin:0;background:#120E0B}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
+  --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
+  --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
+  --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0; --ink:#1B140F;
+  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:18px; --fast:120ms; --base:200ms;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:radial-gradient(120% 80% at 50% 0%,#231A14 0%,var(--bg) 58%) fixed,var(--bg);color:var(--cream);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 20px 48px}
+.skip{position:absolute;left:12px;top:-40px;background:var(--cream);color:var(--ink);padding:8px 12px;border-radius:8px;z-index:30}
+.skip:focus{top:12px}
+.home{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+.brand{display:flex;align-items:baseline;gap:10px;margin:0}
+.brand b{font-weight:600;font-size:20px;letter-spacing:-.02em}
+.brand span{color:var(--muted)}
+.sp{flex:1}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);border:1px solid rgba(233,164,110,.45);border-radius:999px;padding:4px 10px}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--edge-2);border-radius:12px;overflow:hidden}
+.seg button{min-height:44px;padding:8px 12px;background:transparent;border:0;color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--cream);color:var(--ink);font-weight:600}
+.tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:4px 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream);display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;min-height:44px;min-width:44px;padding:8px 4px;cursor:pointer}
+.tbtn select option{background:#241B15}
+.banner{margin:0 0 14px;padding:10px 12px;border-radius:var(--r-md);border:1px dashed var(--edge-2);color:var(--muted);font-size:14px}
+.lay{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:14px;align-items:start}
+.card{border-radius:var(--r-lg);padding:16px;background:linear-gradient(180deg,rgba(255,222,190,.04),transparent 42%),var(--bg-2);border:1px solid var(--edge);min-width:0}
+.card h2{margin:0 0 8px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-family:var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.alert-title{font-weight:400;font-size:clamp(26px,3vw,34px);letter-spacing:-.03em;line-height:1.15;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 10px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.kpi{border:1px solid var(--edge);border-radius:var(--r-md);padding:8px 10px;min-width:0}
+.kpi b{display:block;font-size:20px;font-weight:500;letter-spacing:-.02em}
+.kpi span{color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+svg.chart{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{min-height:44px;padding:8px 12px;border-radius:var(--r-md);border:1px solid var(--edge-2);background:rgba(255,222,190,.06);color:var(--cream);cursor:pointer}
+.btn.pri{background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
+.btn.warn{border-color:rgba(226,114,91,.6);color:#ffd0c6}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.chip{display:inline-flex;align-items:center;min-height:28px;padding:2px 8px;border-radius:999px;border:1px solid var(--edge-2);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.chip.high,.chip.ok{color:var(--accent);border-color:rgba(111,227,208,.45)}
+.chip.mid,.chip.warn{color:var(--orange);border-color:rgba(233,164,110,.5)}
+.chip.low,.chip.bad{color:#ffb2a4;border-color:rgba(226,114,91,.55)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tabs button{min-height:44px;border-radius:999px;border:1px solid var(--edge-2);background:transparent;padding:8px 12px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
+.cause{width:100%;text-align:left;border:1px solid var(--edge);border-radius:var(--r-md);background:rgba(0,0,0,.18);padding:10px 12px;margin:0 0 8px;cursor:pointer;min-height:44px}
+.cause[aria-expanded="true"]{border-color:var(--edge-2)}
+.cause b{font-weight:600}
+.cause .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.data{border:1px solid var(--edge);border-radius:var(--r-md);padding:10px 12px;margin:-2px 0 10px;background:rgba(0,0,0,.22)}
+.data li{margin:4px 0}
+.leads{list-style:none;margin:8px 0 0;padding:0}
+.leads li{display:grid;grid-template-columns:minmax(8.5rem,34%) minmax(0,1fr);gap:6px 12px;padding:8px 0;border-top:1px solid var(--edge);font-size:14px}
+.leads li:first-child{border-top:0}
+.field{display:flex;flex-direction:column;gap:6px;margin:8px 0}
+.field input,.field textarea,select.inp{min-height:44px;border-radius:var(--r-sm);border:1px solid var(--edge-2);background:#120E0B;padding:8px 10px;width:100%;font-size:16px}
+.field textarea{min-height:140px;resize:vertical}
+.field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--red)}
+.msg{color:#ffb2a4;font-size:14px;min-height:1.2em;margin:0}
+.old{text-decoration:line-through;color:var(--dim)}
+.new{color:var(--accent);font-weight:600}
+.preview{display:grid;gap:6px;margin:8px 0}
+.preview div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--edge);padding:6px 0}
+.sheet{border:1px solid var(--edge-2);border-radius:var(--r-md);padding:12px;background:rgba(0,0,0,.28);margin-top:8px}
+.err{border:1px solid rgba(226,114,91,.55);background:rgba(226,114,91,.1);border-radius:var(--r-md);padding:12px}
+.err b{display:block}
+.skel{height:14px;border-radius:6px;background:linear-gradient(90deg,rgba(255,222,190,.06),rgba(255,222,190,.16),rgba(255,222,190,.06));background-size:200% 100%;animation:sh 1.2s linear infinite;margin:8px 0}
+@keyframes sh{to{background-position:-200% 0}}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 24px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast:not(.on){pointer-events:none}
+.toast button{min-height:44px;border:0;background:rgba(255,222,190,.12);border-radius:8px;padding:8px 12px;font-weight:600;cursor:pointer}
+.cs{margin-top:48px;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;border-top:1px solid var(--edge);padding-top:28px}
+.cs h2{font-weight:400;font-size:clamp(28px,3vw,40px);letter-spacing:-.03em;line-height:1.1;margin:8px 0}
+.cs .lede{color:var(--muted)}
+.cs dl{display:grid;grid-template-columns:120px 1fr;gap:12px 16px;margin:0}
+.cs dt{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.cs dd{margin:0}
+.cs ol{margin:0;padding-left:18px}
+.foot{margin-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.camps{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.camps button{min-height:44px}
+.note{color:var(--dim);font-size:13px;margin:6px 0 0}
+@media (max-width:800px){
+  .lay,.cs{grid-template-columns:minmax(0,1fr)}
+  .cs dl{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to the copilot</a>
+<div class="wrap">
+  <a class="home" href="../">Interface Lab</a>
+  <header class="bar">
+    <h1 class="brand"><b>Flare</b><span>Ad account copilot</span></h1>
+    <span class="sp"></span>
+    <div class="seg" role="group" aria-label="Who is using this page" id="viewSeg">
+      <button type="button" data-view="am" aria-pressed="true">Account manager</button>
+      <button type="button" data-view="owner" aria-pressed="false">Owner</button>
+    </div>
+    <div class="seg" role="group" aria-label="Language of the note to the owner" id="langSeg">
+      <button type="button" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" data-lang="es" aria-pressed="false">Español</button>
+    </div>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state">
+      <option value="live">Live alert</option>
+      <option value="empty">Empty · no spike</option>
+      <option value="loading">Loading</option>
+      <option value="dataerr">Error · delivery file failed</option>
+      <option value="actionerr">Error · approve fails once</option>
+    </select></label>
+    <button class="btn ghost" type="button" id="undoBtn" hidden>Undo</button>
+    <button class="btn ghost" type="button" id="resetBtn">Reset demo</button>
+    <span class="tag">Concept · demo data</span>
+  </header>
+  <p class="banner">Concept. Fictional demo. Mesa Local is a made-up agency. Solano Plumbing is a made-up shop. Mateo Solano, the owner, and Camila R., the account manager, are made-up people. Every cost, lead, and date is made up. Nothing here changes a real ad account, and nothing is emailed or texted.</p>
+  <main id="app" tabindex="-1"></main>
+  <section class="cs" aria-label="Case study">
+    <div>
+      <span class="tag">Concept · October 2026</span>
+      <h2>When lead costs spike, show the evidence before anyone touches the budget</h2>
+      <p class="lede">When lead costs spike, owners panic and agencies guess. I designed a copilot that shows its evidence, separates diagnosis from action, and never moves budget without approval.</p>
+      <p class="contact">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p>
+    </div>
+    <dl>
+      <dt>Role</dt><dd>Concept direction</dd>
+      <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
+      <dt>Problem</dt><dd>A week of expensive leads makes a shop owner panic and pushes an account manager to change the budget on a hunch. The ads manager, the CRM, and the landing page each tell a different story, and none of them say what was not checked.</dd>
+      <dt>User</dt><dd>Camila, an account manager at the fictional agency Mesa Local, and Mateo, who owns the fictional shop Solano Plumbing and has to approve any budget move.</dd>
+      <dt>Decisions</dt><dd><ol>
+        <li><b>One campaign, one sentence.</b> The alert names the spike. The other campaigns stay quiet so the page does not treat a normal week as an emergency.</li>
+        <li><b>Diagnosis is not a button that spends money.</b> Checks are ranked. Each one links to the demo rows it used. Confidence is a word, not a percent. A list says what the file did not contain.</li>
+        <li><b>Proposed changes are previewed and separate.</b> Pause the tired creative, move budget only inside the owner's cap, or request new creative. A person approves each one. Undo puts it back. The budget does not move until the owner approves.</li>
+        <li><b>The note to the owner is five lines.</b> English or Spanish, editable, and copy and export work. The page does not send it.</li>
+      </ol></dd>
+      <dt>Outcome</dt><dd>A working prototype of the alert, the checks, the guarded changes, and the note, with empty, loading, file-error, and approve-error states. Not tested with account managers or owners. No real ad account was connected.</dd>
+      <dt>Label</dt><dd>Concept. The agency, the shop, the people, and the numbers are fictional. No 3D. The chart is flat on purpose.</dd>
+    </dl>
+  </section>
+  <footer class="foot"><span>Interface Lab · Flare · concept</span><span>Concept direction: Cesar Navarro · October 2026</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>Undo</button></div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY="il-flare";
+const prior=[
+  {d:"Oct 19",leads:5,spend:100},{d:"Oct 20",leads:4,spend:84},{d:"Oct 21",leads:6,spend:114},
+  {d:"Oct 22",leads:4,spend:96},{d:"Oct 23",leads:5,spend:110},{d:"Oct 24",leads:4,spend:92},{d:"Oct 25",leads:3,spend:75}
+];
+const last=[
+  {d:"Oct 26",leads:2,spend:88},{d:"Oct 27",leads:2,spend:104},{d:"Oct 28",leads:2,spend:120},
+  {d:"Oct 29",leads:1,spend:70},{d:"Oct 30",leads:1,spend:85},{d:"Oct 31",leads:2,spend:124},{d:"Nov 1",leads:1,spend:80}
+];
+const DAYS=prior.concat(last);
+const LEADS=[
+  ["Oct 26","Ana","Not a fit","Asked about a city the shop does not serve"],
+  ["Oct 26","Luis","Real inquiry","Water heater, says he owns the house"],
+  ["Oct 27","Chris","Not a fit","Renter. The landlord would have to call"],
+  ["Oct 27","Priya","Real inquiry","No hot water"],
+  ["Oct 28","Evan","Not a fit","Wanted a bid for a new build"],
+  ["Oct 28","Noor","Not a fit","Outside the service area"],
+  ["Oct 29","Jonah","Real inquiry","Tank is leaking"],
+  ["Oct 30","Rosa","Not a fit","Asked about a job, not a repair"],
+  ["Oct 31","Sam","Real inquiry","Replace a 12-year tank"],
+  ["Oct 31","Inez","Not a fit","Commercial kitchen. The shop does houses"],
+  ["Nov 1","Owen","Real inquiry","Pilot light is out"]
+];
+function sum(rows,k){return rows.reduce((a,r)=>a+r[k],0)}
+function pack(rows){const spend=sum(rows,"spend"),leads=sum(rows,"leads");return {spend,leads,cpl:spend/leads}}
+const PREV=pack(prior), NOW=pack(last);
+const money=n=>{const x=Number(n); return Number.isFinite(x)?"$"+Math.round(x):"—"}
+const CAMPS={
+  wh:{name:"Water heater replacement",kind:"Lead form",alert:true,daily:80,other:"Drain cleaning",otherDaily:40},
+  drain:{name:"Drain cleaning",kind:"Lead form",alert:false},
+  ac:{name:"AC tune-up",kind:"Lead form",alert:false}
+};
+function seed(){return {
+  view:"am", lang:"en", camp:"wh", tab:"diag", filter:"all", open:"creative", day:13,
+  cap:25, shift:20, asked:false, declined:false, budgetOn:false, paused:false,
+  request:"Need two new photos: the van, and a finished install. The van photo has been running 26 days.",
+  requestOn:false, report:null, edited:false, askReplace:false, pending:"", ready:false, ownerOpen:false
+}}
+let S=seed(), D="live", dataTries=0, approveTries=0;
+let undo=[];
+function snapshot(){return JSON.stringify(S)}
+function snap(){undo.push(snapshot()); if(undo.length>25) undo.shift(); paintUndo(); save()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({S,D,dataTries,approveTries}))}catch(e){}}
+function load(){try{const r=JSON.parse(localStorage.getItem(KEY)||"null"); if(!r||!r.S) return; S=Object.assign(seed(), r.S); D=r.D||"live"; dataTries=r.dataTries||0; approveTries=r.approveTries||0}catch(e){}}
+function toast(m,withUndo){ $("toastMsg").textContent=m; $("toastUndo").hidden=!withUndo; $("toast").classList.add("on"); clearTimeout(toast._t); toast._t=setTimeout(()=>$("toast").classList.remove("on"), withUndo?5000:2800)}
+function doUndo(){const raw=undo.pop(); if(!raw){toast("Nothing to undo."); return} S=JSON.parse(raw); paint(); toast("Undone. Nothing was sent.")}
+function paintUndo(){$("undoBtn").hidden=undo.length===0}
+function shiftError(){
+  const n=Number(S.shift);
+  if(!Number.isFinite(n) || n<=0) return "Enter a daily move above $0. Nothing was asked.";
+  if(n>CAMPS.wh.daily) return "This demo campaign only spends "+money(CAMPS.wh.daily)+" a day. Nothing was asked.";
+  if(n>Number(S.cap)) return "That is over Mateo's cap of "+money(S.cap)+" a day. Lower the move, or raise the cap on the owner view. Nothing was asked.";
+  return "";
+}
+function capError(){
+  const n=Number(S.cap);
+  if(!Number.isFinite(n) || n<0 || n>80) return "Enter a cap from $0 to $80. Nothing was saved.";
+  return "";
+}
+function linesFor(lang){
+  const from=money(PREV.cpl), to=money(NOW.cpl), move=money(S.shift), cap=money(S.cap);
+  if(lang==="es") return [
+    "Solano Plumbing — anuncios de calentadores, últimos 7 días. Esto es una demostración, no un resultado real.",
+    "El costo por consulta pasó de "+from+" a "+to+". El gasto siguió en "+money(NOW.spend)+" y las consultas bajaron de "+PREV.leads+" a "+NOW.leads+".",
+    "La foto del anuncio lleva 26 días y la gente la ve demasiado. Esa es la señal más clara.",
+    "También llegaron más personas que no necesitan este trabajo. El formulario de la página no cambió.",
+    "No pausé anuncios ni moví dinero. Espero tu aprobación. Lo más que movería son "+move+" al día, por debajo de tu límite de "+cap+"."
+  ];
+  return [
+    "Solano Plumbing — water heater ads, last 7 days. This is a demo, not a real result.",
+    "Cost per lead went from "+from+" to "+to+". Spend stayed "+money(NOW.spend)+" and leads fell from "+PREV.leads+" to "+NOW.leads+".",
+    "The ad photo has been running 26 days and people are seeing it too often. That is the strongest clue.",
+    "More of the new leads are not a fit for the shop. The form on the page did not change.",
+    "Nothing has been paused and no money has moved. I will wait for your OK. The most I would move is "+move+" a day, under your "+cap+" cap."
+  ];
+}
+function reportText(){ if(S.edited && S.report!=null) return S.report; return linesFor(S.lang).join("\n"); }
+function lineCount(t){return t.split(/\n/).map(s=>s.trim()).filter(Boolean).length}
+function alertCopy(){
+  const en=S.lang!=="es";
+  return {
+    title: en ? "Cost per lead up sharply over 7 days" : "El costo por consulta subió fuerte en 7 días",
+    body: en
+      ? CAMPS.wh.name+" · lead form. "+money(PREV.cpl)+" to "+money(NOW.cpl)+". Spend stayed "+money(NOW.spend)+". Leads fell from "+PREV.leads+" to "+NOW.leads+". Fictional demo."
+      : "Reemplazo de calentadores · formulario. De "+money(PREV.cpl)+" a "+money(NOW.cpl)+". El gasto siguió en "+money(NOW.spend)+". Las consultas bajaron de "+PREV.leads+" a "+NOW.leads+". Demo inventado."
+  };
+}
+function chartSVG(){
+  const max=Math.max(...DAYS.map(d=>d.spend/d.leads));
+  const W=640,H=200,L=36,R=8,T=16,B=28;
+  const inner=W-L-R, bw=inner/DAYS.length*0.62, gap=inner/DAYS.length;
+  const y=v=>T+(1-v/max)*(H-T-B);
+  const bars=DAYS.map((d,i)=>{
+    const cpl=d.spend/d.leads, h=Math.max(2,(H-B)-y(cpl));
+    const x=L+i*gap+(gap-bw)/2;
+    const hot=i>=7;
+    return `<rect x="${x.toFixed(1)}" y="${y(cpl).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${hot?"#E2725B":"#6FE3D0"}" opacity="${hot?0.95:0.55}"></rect>`;
+  }).join("");
+  const labels=[0,7,13].map(i=>{
+    const x=L+i*gap+gap/2;
+    return `<text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" fill="#A38B78" font-size="12" font-family="ui-monospace,monospace">${DAYS[i].d}</text>`;
+  }).join("");
+  const a=alertCopy();
+  const label=`Demo chart. Prior 7 days averaged ${money(PREV.cpl)} per lead. Last 7 days averaged ${money(NOW.cpl)}. ${a.title}`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}"><text x="${L}" y="12" fill="#A38B78" font-size="11" font-family="ui-monospace,monospace">COST PER LEAD · DEMO</text>${bars}${labels}</svg>`;
+}
+function daySentence(){
+  const d=DAYS[S.day]||DAYS[13];
+  const cpl=d.spend/d.leads;
+  const enLead=d.leads===1?"lead":"leads";
+  const esLead=d.leads===1?"consulta":"consultas";
+  return S.lang==="es"
+    ? d.d+": el archivo demo muestra "+d.leads+" "+esLead+" y "+money(d.spend)+" de gasto, cerca de "+money(cpl)+" por consulta."
+    : d.d+": the demo file shows "+d.leads+" "+enLead+" and "+money(d.spend)+" spend, about "+money(cpl)+" per lead.";
+}
+function causes(){
+  return [
+    {id:"creative", rank:1, band:"high", word:"High", likely:true, title:"Creative fatigue",
+      why:"People are seeing the same van photo much more often, and they click it less.",
+      cite:"Demo delivery export, Oct 19–Nov 1. Not a live ad account.",
+      rows:[
+        ["Creative","WH-03 van photo","WH-01 install photo"],
+        ["Days running","26","8"],
+        ["Frequency, prior 7 days","1.6","1.3"],
+        ["Frequency, last 7 days","4.8","1.4"],
+        ["Click rate","1.8% down to 0.6%","1.1% to 1.0%"]
+      ]},
+    {id:"leads", rank:2, band:"mid", word:"Medium", likely:true, title:"Lead quality in the CRM",
+      why:"6 of 11 leads this week are marked not a fit. The prior week was 4 of 31.",
+      cite:"Demo CRM export for Solano Plumbing. Made-up names. No phone numbers.",
+      leads:true},
+    {id:"overlap", rank:3, band:"mid", word:"Medium", likely:true, title:"Audience overlap",
+      why:"34% of people reached by the water heater ad were also reached by Drain cleaning · Brand. The prior week was 11%.",
+      cite:"Demo overlap export, same dates. Two fictional campaigns.",
+      rows:[
+        ["Campaign pair","Water heater lead form × Drain cleaning brand"],
+        ["Overlap, prior 7 days","11% of people reached"],
+        ["Overlap, last 7 days","34% of people reached"]
+      ]},
+    {id:"page", rank:4, band:"low", word:"Low", likely:false, title:"Landing page and form",
+      why:"Checked, and it is not a likely cause. The page and the form did not change during the spike.",
+      cite:"Demo change log. Last publish Sep 2, 2026. No price on the page.",
+      rows:[
+        ["Page","/solano/water-heater (demo path, not a live site)"],
+        ["Last published","Sep 2, 2026"],
+        ["Form fields","Name, city, and what is going on. Unchanged."],
+        ["New required field","None"]
+      ]}
+  ];
+}
+const UNCHECKED=[
+  "Competitor bids. The demo file has no auction report.",
+  "How long people watched. This creative is a still photo, so there is no video report.",
+  "Which jobs Mateo booked after Nov 1. The demo CRM stops on Nov 1.",
+  "Whether the page is slow on a phone. The demo file has no speed test."
+];
+function confChip(c){return `<span class="chip ${c.band}">${c.word} confidence</span>`}
+function causeBody(c){
+  let rows="";
+  if(c.rows) rows=`<ul class="leads">${c.rows.map(r=>`<li><span>${esc(r[0])}</span><span>${r.slice(1).map(esc).join(" · ")}</span></li>`).join("")}</ul>`;
+  if(c.leads) rows=`<ul class="leads">${LEADS.map(r=>`<li><span>${esc(r[0])}</span><span><b>${esc(r[1])}</b> · ${esc(r[2])}. ${esc(r[3])}</span></li>`).join("")}</ul>`;
+  return `<div class="data" id="data-${c.id}"><p class="sub">${esc(c.why)}</p><p class="note">Data used: ${esc(c.cite)}</p>${rows}</div>`;
+}
+function diagHTML(){
+  if(D==="dataerr") return `<div class="err" role="alert"><div><b>The delivery file didn't load.</b> The alert still stands. The checks, the proposed changes, and the note stay hidden so they are not a guess.</div><p class="msg" id="retryMsg">${dataTries?"The file still didn't load. Nothing was changed.":""}</p><button class="btn" type="button" data-act="retry">${dataTries?"Try again":"Retry the demo file"}</button></div>`;
+  if(S.camp!=="wh") return `<p><b>No spike on this campaign.</b></p><p class="sub">Cost per lead stayed near its recent range in the demo file. There is nothing to rank and nothing to change.</p><button class="btn" type="button" data-act="goto-wh">Go to the campaign that spiked</button>`;
+  const list=causes().filter(c=>S.filter==="all"||(S.filter==="likely"?c.likely:!c.likely));
+  const filters=[["all","All checks"],["likely","Likely causes"],["ruled","Ruled down"]].map(([v,t])=>`<button type="button" role="radio" aria-checked="${S.filter===v}" data-filter="${v}">${t}</button>`).join("");
+  const items=list.length?list.map(c=>`<button class="cause" type="button" data-cause="${c.id}" aria-expanded="${S.open===c.id}"><b>${c.rank}. ${esc(c.title)}</b><span class="meta">${confChip(c)}<span class="chip">${c.likely?"Likely":"Ruled down"}</span></span></button>${S.open===c.id?causeBody(c):""}`).join(""):`<p><b>No checks in this filter.</b></p><button class="btn" type="button" data-filter="all">Show all checks</button>`;
+  const missed=`<h3 style="font-size:16px;font-weight:500;margin:14px 0 6px">What I couldn't check</h3><ul>${UNCHECKED.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><p class="note">These are gaps in the demo file, not a claim that the checks were done.</p>`;
+  const langNote=S.lang==="es"?"The checks stay in English. The note to the owner is in Spanish.":"The note to the owner is in English. Switch the language control to draft it in Spanish.";
+  return `<div class="tabs" role="radiogroup" aria-label="Which checks to show">${filters}</div><p class="note">${langNote}</p>${items}${missed}<div class="row" style="margin-top:8px"><button class="btn" type="button" data-act="export-checks">Export the checks (CSV)</button></div>`;
+}
+function previewBudget(){
+  const n=Number(S.shift), ok=!shiftError();
+  const from=CAMPS.wh.daily, toOther=CAMPS.wh.otherDaily;
+  const left=ok?from-n:from, right=ok?toOther+n:toOther;
+  return `<div class="preview"><div><span>Water heater daily</span><span><span class="old">${money(from)}/day</span> <span class="new">${money(left)}/day</span></span></div><div><span>Drain cleaning daily</span><span><span class="old">${money(toOther)}/day</span> <span class="new">${money(right)}/day</span></span></div><div><span>Owner cap</span><span>${money(S.cap)}/day</span></div></div>`;
+}
+function changesHTML(){
+  if(D==="dataerr") return `<p class="sub">No changes while the delivery file is missing.</p>`;
+  if(S.camp!=="wh") return `<p class="sub">No proposed change. This campaign is inside its normal range in the demo file.</p>`;
+  const pauseStatus=S.paused?`<span class="chip ok">Paused</span>`:`<span class="chip warn">Still running</span>`;
+  const budgetStatus=S.budgetOn?`<span class="chip ok">Moved</span>`:S.asked?`<span class="chip warn">Waiting for Mateo</span>`:S.declined?`<span class="chip bad">Mateo said no</span>`:`<span class="chip">Not asked</span>`;
+  const reqStatus=S.requestOn?`<span class="chip ok">On this page</span>`:`<span class="chip">Not filed</span>`;
+  const confirm=S.pending?`<div class="sheet"><p><b>${S.pending==="pause"?"Pause WH-03, the van photo?":S.pending==="budget"?"Ask Mateo to approve this move?":"File this creative request on the page?"}</b></p><p class="sub">${S.pending==="pause"?"WH-01 keeps running, so the campaign does not go dark. You can undo.":S.pending==="budget"?"The budget does not move until Mateo approves it on the owner view. You can undo the ask.":"It is not emailed. You can undo."}</p>${approveTries&&D==="actionerr"?`<p class="msg">The approval didn't save. Nothing changed. Your preview is still here.</p>`:""}<div class="row"><button class="btn pri" type="button" data-act="confirm">${approveTries&&D==="actionerr"?"Try again":"Confirm"}</button><button class="btn ghost" type="button" data-act="cancel">Cancel</button></div></div>`:"";
+  return `<p class="note">Diagnosis does not press these. A person does. Each one is previewed first.</p>
+    <article class="card" style="margin:10px 0;padding:12px"><h2>Pause the tired creative ${pauseStatus}</h2>
+      <div class="preview"><div><span>WH-03 van photo</span><span>${S.paused?`<span class="old">Active</span> <span class="new">Paused</span>`:`<span class="old">Active</span> <span class="new">Paused, after you approve</span>`}</span></div><div><span>WH-01 install photo</span><span class="new">Stays active</span></div></div>
+      <p class="note">Guardrail: the page will not pause the last running ad.</p>
+      ${S.paused?`<p class="sub">Paused in this demo. WH-01 is still running.</p>`:`<button class="btn warn" type="button" data-act="pause">Preview and approve the pause</button>`}
+    </article>
+    <article class="card" style="margin:10px 0;padding:12px"><h2>Move budget inside the cap ${budgetStatus}</h2>
+      ${previewBudget()}
+      <div class="field"><label for="shift">Proposed move, dollars a day</label><input id="shift" inputmode="decimal" value="${esc(S.shift)}" aria-invalid="${S.shiftErr?"true":"false"}" aria-describedby="shiftMsg"><p class="msg" id="shiftMsg">${esc(S.shiftErr||"")}</p></div>
+      <p class="note">Guardrail: Mateo set the cap at ${money(S.cap)} a day. Camila cannot raise it here.</p>
+      ${S.budgetOn?`<p class="sub">Mateo approved the move. Daily budgets in this demo are updated. Undo puts them back.</p>`:S.asked?`<p class="sub">Asked. The ad budget has not moved.</p>`:`<button class="btn pri" type="button" data-act="ask">Ask Mateo to approve this move</button>`}
+      ${S.declined&&!S.asked&&!S.budgetOn?`<p class="sub">Mateo said not to move it.</p>`:""}
+    </article>
+    <article class="card" style="margin:10px 0;padding:12px"><h2>Request new creative ${reqStatus}</h2>
+      <div class="field"><label for="req">Request, stays on this page</label><textarea id="req">${esc(S.request)}</textarea><p class="msg" id="reqMsg">${esc(S.reqErr||"")}</p></div>
+      <p class="note">Guardrail: this is not emailed and not texted.</p>
+      ${S.requestOn?`<p class="sub">Filed on this page for the demo shop. Nothing was sent.</p>`:`<button class="btn" type="button" data-act="file">File the request on this page</button>`}
+    </article>${confirm}`;
+}
+function noteHTML(){
+  if(D==="dataerr") return `<p class="sub">The note stays blank until the checks run.</p>`;
+  if(S.camp!=="wh") return `<p class="sub">No note. Nothing spiked on this campaign.</p>`;
+  const text=reportText();
+  const n=lineCount(text);
+  const replace=S.askReplace?`<div class="sheet"><p><b>You edited the note.</b> Replace it with the ${S.lang==="es"?"Spanish":"English"} draft?</p><div class="row"><button class="btn pri" type="button" data-act="replace-yes">Replace with the draft</button><button class="btn ghost" type="button" data-act="replace-no">Keep my edits</button></div></div>`:"";
+  return `<p class="sub">${S.ready?"Marked ready on this page for Mateo. Nothing was emailed.":"Draft only. Mateo can read it here. Nothing is sent."}</p>
+    <p class="note" id="lineCount">${n} lines. The draft is 5.</p>
+    <div class="field"><label for="report">Note to Mateo</label><textarea id="report" lang="${S.lang}" data-report="1">${esc(text)}</textarea></div>
+    ${replace}
+    <div class="row"><button class="btn" type="button" data-act="copy">Copy</button><button class="btn" type="button" data-act="export-note">Export</button><button class="btn pri" type="button" data-act="ready">${S.ready?"Ready on this page":"Mark ready for Mateo"}</button></div>
+    <p class="msg" id="noteMsg">${esc(S.noteErr||"")}</p>`;
+}
+function ownerHTML(){
+  const a=alertCopy();
+  const capErr=S.capErr||"";
+  const budget = S.camp==="wh" ? `<article class="card" style="margin-top:12px"><h2>${S.lang==="es"?"Tu límite":"Your cap"}</h2>
+      <p class="sub">${S.lang==="es"?"Nadie puede mover más que esto en un día sin volver a preguntarte.":"Nobody can move more than this in a day without asking you again."}</p>
+      <div class="field"><label for="cap">${S.lang==="es"?"Límite, dólares al día":"Cap, dollars a day"}</label><input id="cap" inputmode="decimal" value="${esc(S.cap)}" aria-invalid="${capErr?"true":"false"}" aria-describedby="capMsg"><p class="msg" id="capMsg">${esc(capErr)}</p></div>
+    </article>` : "";
+  let ask="";
+  if(S.camp==="wh" && S.asked && !S.budgetOn){
+    ask=`<article class="card" style="margin-top:12px"><h2>${S.lang==="es"?"Camila pide mover presupuesto":"Camila asks to move budget"}</h2>${previewBudget()}
+      <p class="sub">${S.lang==="es"?"El presupuesto no se ha movido.":"The budget has not moved."}</p>
+      ${S.pending==="owner"?`<div class="sheet"><p><b>${S.lang==="es"?"¿Mover "+money(S.shift)+" al día?":"Move "+money(S.shift)+" a day?"}</b></p><p class="sub">${S.lang==="es"?"Puedes deshacerlo.":"You can undo it."}</p>${approveTries&&D==="actionerr"?`<p class="msg">The approval didn't save. Nothing changed. The preview is still here.</p>`:""}<div class="row"><button class="btn pri" type="button" data-act="confirm">${approveTries&&D==="actionerr"?(S.lang==="es"?"Reintentar":"Try again"):(S.lang==="es"?"Confirmar":"Confirm")}</button><button class="btn ghost" type="button" data-act="cancel">${S.lang==="es"?"Cancelar":"Cancel"}</button></div></div>`
+      :`<div class="row"><button class="btn pri" type="button" data-act="owner-approve">${S.lang==="es"?"Aprobar el movimiento":"Approve the move"}</button><button class="btn" type="button" data-act="owner-no">${S.lang==="es"?"No moverlo":"Don't move it"}</button></div>`}
+    </article>`;
+  } else if(S.camp==="wh" && S.budgetOn){
+    ask=`<article class="card" style="margin-top:12px"><h2>${S.lang==="es"?"Presupuesto movido en el demo":"Budget moved in the demo"}</h2>${previewBudget()}<p class="note">${S.lang==="es"?"Puedes deshacerlo con Undo.":"Undo puts the daily budgets back."}</p></article>`;
+  } else if(S.declined && S.camp==="wh"){
+    ask=`<p class="sub">${S.lang==="es"?"Dijiste que no se moviera el presupuesto.":"You said not to move the budget."}</p>`;
+  }
+  const pause=S.camp==="wh"?(S.paused
+    ?(S.lang==="es"?"La foto vieja está en pausa en este demo. La foto nueva sigue activa.":"The old photo is paused in this demo. The newer photo is still running.")
+    :(S.lang==="es"?"La foto vieja sigue activa. Camila no la ha pausado.":"The old photo is still running. Camila has not paused it.")):"";
+  const checks=S.ownerOpen?`<ul>${causes().map(c=>`<li><b>${esc(c.title)}.</b> ${esc(c.why)} <span class="chip ${c.band}">${c.word}</span></li>`).join("")}<li><b>${S.lang==="es"?"No se pudo revisar":"Not checked"}.</b> ${UNCHECKED.length} items in the demo file were missing.</li></ul>`:"";
+  const note = S.camp!=="wh" ? "" : `<article class="card" style="margin-top:12px"><h2>${S.lang==="es"?"Nota de Camila":"Note from Camila"}</h2><p class="sub">${S.ready?(S.lang==="es"?"Lista en esta página. No se envió por correo.":"Ready on this page. It was not emailed."):(S.lang==="es"?"Borrador. Todavía no está marcada como lista.":"Draft. Not marked ready yet.")}</p><pre class="data" lang="${S.lang}" style="white-space:pre-wrap;font-family:var(--sans);font-size:15px">${esc(reportText())}</pre></article>`;
+  return `${budget}${ask}<p style="margin-top:12px">${pause}</p><button class="btn" type="button" data-act="owner-checks" aria-expanded="${S.ownerOpen}">${S.lang==="es"?"Ver qué se revisó":"See what was checked"}</button>${checks}${note}`;
+}
+function alertBlock(){
+  if(D==="loading") return `<div class="card"><h2>Loading the demo file</h2><div class="skel"></div><div class="skel" style="width:80%"></div><div class="skel" style="width:60%"></div><p class="note">This is the loading screen. Switch States back to Live alert to use the copilot.</p></div>`;
+  if(D==="empty") return `<div class="card"><h2>No spike</h2><p class="alert-title">Cost per lead is inside the normal range.</p><p class="sub">Every campaign in this empty demo file is quiet. There is nothing to diagnose and nothing to approve.</p><button class="btn pri" type="button" data-act="load">Load the sample alert</button></div>`;
+  const a=alertCopy();
+  const hot=S.camp==="wh";
+  const camps=Object.entries(CAMPS).map(([id,c])=>`<button class="btn ${S.camp===id?"pri":""}" type="button" data-camp="${id}" aria-pressed="${S.camp===id}">${esc(c.name)}</button>`).join("");
+  const kpis = hot ? `<div class="kpis"><div class="kpi"><b>${money(PREV.cpl)} → ${money(NOW.cpl)}</b><span>${S.lang==="es"?"Costo por consulta":"Cost per lead"}</span></div><div class="kpi"><b>${money(NOW.spend)}</b><span>${S.lang==="es"?"Gasto, igual que antes":"Spend, same as before"}</span></div><div class="kpi"><b>${PREV.leads} → ${NOW.leads}</b><span>${S.lang==="es"?"Consultas":"Leads"}</span></div></div>` 
+    : `<p class="sub">Demo only. This campaign does not have a spike in the file.</p>`;
+  const dayOpts=DAYS.map((d,i)=>`<option value="${i}"${i===S.day?" selected":""}>${d.d}</option>`).join("");
+  return `<section class="card" aria-label="Alert"><h2>${hot?(S.lang==="es"?"Alerta":"Alert"):"Campaign"} <i>${hot?"1 campaign":"quiet"}</i></h2>
+    <div class="camps" role="group" aria-label="Campaign">${camps}</div>
+    <p class="alert-title" lang="${S.lang}">${hot?esc(a.title):esc(CAMPS[S.camp].name+" is quiet")}</p>
+    <p class="sub" lang="${S.lang}">${hot?esc(a.body):"Nothing to diagnose on this campaign in the demo file."}</p>
+    ${hot?chartSVG()+`<div class="legend"><span><i style="background:#6FE3D0"></i>Prior 7 days</span><span><i style="background:#E2725B"></i>Last 7 days</span></div>`+kpis:""}
+    <div class="field"><label for="day">Look at one day in the demo file</label><select id="day" class="inp">${dayOpts}</select><p class="note" id="dayNote">${daySentence()}</p></div>
+  </section>`;
+}
+function workBlock(){
+  if(D==="loading"||D==="empty") return "";
+  if(S.view==="owner") return `<section class="card" aria-label="Owner">${ownerHTML()}</section>`;
+  const tabs=[["diag","Diagnosis"],["changes","Changes"],["note","Note to the owner"]];
+  const tabBtns=tabs.map(([id,label])=>`<button type="button" role="tab" id="tab-${id}" aria-selected="${S.tab===id}" aria-controls="panel" data-tab="${id}">${label}</button>`).join("");
+  const body=S.tab==="changes"?changesHTML():S.tab==="note"?noteHTML():diagHTML();
+  return `<section class="card" aria-label="Account manager"><div class="tabs" role="tablist" aria-label="Copilot sections">${tabBtns}</div><div id="panel" role="tabpanel" aria-labelledby="tab-${S.tab}">${body}</div></section>`;
+}
+function paintChrome(){
+  document.querySelectorAll("#viewSeg button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.view===S.view?"true":"false"));
+  document.querySelectorAll("#langSeg button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===S.lang?"true":"false"));
+  $("demo").value=D;
+  paintUndo();
+}
+function paint(){ paintChrome(); $("app").innerHTML=`<div class="lay">${alertBlock()}${workBlock()}</div>`; }
+function csvEscape(s){return `"${String(s).replace(/"/g,'""')}"`}
+function download(name, text){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));
+  a.download=name; document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove()},400);
+}
+function applyConfirm(){
+  if(D==="actionerr" && approveTries===0){ approveTries=1; save(); paint(); toast("The approval didn't save. Nothing changed."); return }
+  const kind=S.pending;
+  snap();
+  if(kind==="pause") S.paused=true;
+  if(kind==="budget"){ S.asked=true; S.declined=false; }
+  if(kind==="file") S.requestOn=true;
+  if(kind==="owner"){ S.budgetOn=true; S.asked=false; }
+  S.pending=""; approveTries=0; save(); paint();
+  toast(kind==="owner"?"Move approved in this demo. Nothing left the page.":kind==="budget"?"Asked Mateo. The budget has not moved.":kind==="pause"?"Paused in this demo. You can undo.":"Request filed on this page. Nothing was sent.", true);
+}
+document.body.addEventListener("click", async e=>{
+  const v=e.target.closest("[data-view]"); if(v){ if(v.dataset.view!==S.view){ S.view=v.dataset.view; S.pending=""; paint() } return }
+  const l=e.target.closest("[data-lang]"); if(l){
+    const next=l.dataset.lang; if(next===S.lang) return;
+    if(S.edited){ S.lang=next; S.askReplace=true; paint(); toast(next==="es"?"The alert is in Spanish. The note still has your edits.":"The alert is in English. The note still has your edits."); return }
+    S.lang=next; S.askReplace=false; paint(); toast(next==="es"?"Note drafted in Spanish. Nothing was sent.":"Note drafted in English. Nothing was sent."); return }
+  const actEl=e.target.closest("[data-act]");
+  const camp=e.target.closest("[data-camp]");
+  const filter=e.target.closest("[data-filter]");
+  const cause=e.target.closest("[data-cause]");
+  const tab=e.target.closest("[data-tab]");
+  if(camp){ S.camp=camp.dataset.camp; S.pending=""; S.tab="diag"; paint(); return }
+  if(filter){ S.filter=filter.dataset.filter; paint(); return }
+  if(cause){ S.open=S.open===cause.dataset.cause?"":cause.dataset.cause; paint(); return }
+  if(tab){ S.tab=tab.dataset.tab; S.pending=""; paint(); return }
+  if(!actEl) return;
+  const act=actEl.dataset.act;
+  if(act==="load"){ D="live"; dataTries=0; $("demo").value="live"; paint(); toast("Sample alert loaded. Fictional numbers."); return }
+  if(act==="retry"){
+    if(dataTries===0){ dataTries=1; save(); paint(); toast("The file still didn't load. Nothing was changed."); return }
+    D="live"; dataTries=0; $("demo").value="live"; save(); paint(); toast("Demo file loaded."); return }
+  if(act==="goto-wh"){ S.camp="wh"; paint(); return }
+  if(act==="pause"){ if(S.paused) return; S.pending="pause"; paint(); return }
+  if(act==="ask"){
+    const err=shiftError(); S.shiftErr=err; if(err){ paint(); toast(err); return }
+    S.pending="budget"; paint(); return }
+  if(act==="file"){
+    const v=($("req")?$("req").value:S.request).trim(); S.request=v;
+    if(v.length<3){ S.reqErr="Write at least 3 characters. Nothing was filed."; paint(); return }
+    S.reqErr=""; S.pending="file"; paint(); return }
+  if(act==="confirm"){ applyConfirm(); return }
+  if(act==="cancel"){ S.pending=""; paint(); return }
+  if(act==="owner-approve"){ const err=shiftError(); if(err){ toast(err); return } S.pending="owner"; paint(); return }
+  if(act==="owner-no"){ snap(); S.asked=false; S.declined=true; S.pending=""; save(); paint(); toast("You said not to move it. The budget stayed put.", true); return }
+  if(act==="owner-checks"){ S.ownerOpen=!S.ownerOpen; paint(); return }
+  if(act==="replace-yes"){ S.edited=false; S.report=null; S.askReplace=false; S.ready=false; paint(); toast("Draft replaced. Nothing was sent."); return }
+  if(act==="replace-no"){ S.askReplace=false; paint(); toast("Kept your edits."); return }
+  if(act==="copy"){
+    const text=reportText();
+    if(!text.trim()){ S.noteErr="The note is empty. Write it before copying. Nothing was copied."; paint(); return }
+    S.noteErr="";
+    try{ await navigator.clipboard.writeText(text); toast("Copied. Nothing was sent.") }
+    catch(err){ const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove(); toast("Copied. Nothing was sent.") }
+    paint(); return }
+  if(act==="export-note"){
+    const text=reportText();
+    if(!text.trim()){ S.noteErr="The note is empty. Nothing was exported."; paint(); return }
+    S.noteErr="";
+    download("flare-owner-note.txt","Fictional demo. Not a client result. Nothing was emailed.\r\n\r\n"+text+"\r\n");
+    toast("Exported the note. Nothing was sent."); paint(); return }
+  if(act==="ready"){
+    const text=reportText();
+    if(lineCount(text)<5){ S.noteErr="The note needs 5 lines before it is marked ready. Nothing was marked."; paint(); return }
+    snap(); S.ready=!S.ready; S.noteErr=""; save(); paint(); toast(S.ready?"Marked ready on this page. Nothing was emailed.":"Marked as a draft again.", true); return }
+  if(act==="export-checks"){
+    const header=["Fictional demo. Not a client result. Mesa Local and Solano Plumbing are made up."];
+    const rows=[["check","rank","confidence","likely","why","source"]];
+    causes().forEach(c=>rows.push([c.title,c.rank,c.word,c.likely?"yes":"no",c.why,c.cite]));
+    UNCHECKED.forEach(u=>rows.push(["Not checked","","","",u,"Missing from the demo file"]));
+    const body=[header.join(" "), ...rows.map(r=>r.map(csvEscape).join(","))].join("\r\n");
+    download("flare-checks.csv", body); toast("Exported the checks. Demo data only."); return }
+});
+document.body.addEventListener("change", e=>{
+  if(e.target.id==="day"){ S.day=+e.target.value; const n=$("dayNote"); if(n) n.textContent=daySentence(); save(); return }
+  if(e.target.id==="shift"){ snap(); S.shift=e.target.value; S.shiftErr=shiftError(); if(!S.edited) S.report=null; save(); paint(); toast(S.shiftErr||"Preview updated. Nothing was asked."); return }
+  if(e.target.id==="cap"){
+    snap(); const n=Number(e.target.value); S.cap=e.target.value;
+    S.capErr=capError(); if(!S.capErr) S.cap=n;
+    if(!S.edited) S.report=null; save(); paint();
+    toast(S.capErr||"Cap saved on this page. It does not change a real account.", true); return }
+  if(e.target.id==="req"){ S.request=e.target.value; save() }
+});
+document.body.addEventListener("input", e=>{
+  if(e.target.id==="report"){
+    if(!e.target.dataset.snapped){ snap(); e.target.dataset.snapped="1" }
+    S.report=e.target.value; S.edited=true; S.ready=false; S.noteErr="";
+    const n=$("lineCount"); if(n) n.textContent=lineCount(e.target.value)+" lines. The draft is 5.";
+    save();
+  }
+  if(e.target.id==="req") S.request=e.target.value;
+  if(e.target.id==="shift") S.shift=e.target.value;
+});
+document.body.addEventListener("focusout", e=>{ if(e.target.id==="report") delete e.target.dataset.snapped });
+$("demo").addEventListener("change", e=>{ D=e.target.value; S.pending=""; if(D!=="dataerr") dataTries=0; if(D!=="actionerr") approveTries=0; save(); paint();
+  if(D==="loading") toast("This is the loading screen. Switch back to Live alert to use the copilot.");
+  if(D==="actionerr") toast("The next approval will fail once, then succeed. Your preview is kept.");
+});
+$("resetBtn").addEventListener("click", ()=>{ localStorage.removeItem(KEY); S=seed(); D="live"; dataTries=0; approveTries=0; undo=[]; $("demo").value="live"; paint(); toast("Demo reset. Nothing was saved.") });
+$("undoBtn").addEventListener("click", ()=>{ $("toast").classList.remove("on"); doUndo() });
+$("toastUndo").addEventListener("click", ()=>{ $("toast").classList.remove("on"); doUndo() });
+load(); paint();
+})();
+</script>
+</body>
+</html>
