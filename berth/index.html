@@ -24,15 +24,24 @@
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/hankengrotesk/v12/ieVn2YZDLWuGJpnzaiwFXS9tYtpd59A.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2" crossorigin>
+<style>
+/* Brand fonts. optional so a late file does not reflow the book. The fallback is sized to the same width. */
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:300 600;font-display:optional;src:url("https://fonts.gstatic.com/s/hankengrotesk/v12/ieVn2YZDLWuGJpnzaiwFXS9tYtpd59A.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Hanken Grotesk";font-style:normal;font-weight:300 600;font-display:optional;src:url("https://fonts.gstatic.com/s/hankengrotesk/v12/ieVn2YZDLWuGJpnzaiwFXS9tYtpT59CjCQ.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Hanken Fallback";src:local("Arial");size-adjust:98.97%;ascent-override:92%;descent-override:24%;line-gap-override:0%}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400 500;font-display:optional;src:url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Mono Fallback";src:local("Menlo"),local("Consolas");size-adjust:100%;ascent-override:75%;descent-override:25%;line-gap-override:0%}
+</style>
 <style>
 :root{
   --bg:#120E0B; --bg-2:#1A1410; --glass:rgba(44,33,25,.5); --glass-hi:rgba(255,226,196,.06);
   --edge:rgba(255,222,190,.14); --edge-2:rgba(255,222,190,.26);
   --cream:#F4E7D7; --muted:#B9A08A; --dim:#A38B78;
   --bronze:#C08A57; --orange:#E9A46E; --red:#E2725B; --accent:#6FE3D0;
-  --sans:"Hanken Grotesk",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Hanken Grotesk","Hanken Fallback",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono","Mono Fallback",ui-monospace,SFMono-Regular,Menlo,monospace;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -54,14 +63,14 @@ a.home:hover{color:var(--cream)}
 .crumbs{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.06em}
 .sp{flex:1}
 .tbtn{background:var(--glass);border:1px solid var(--edge);border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream);display:inline-flex;align-items:center;gap:8px;min-height:44px}
-.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:10.5px;cursor:pointer;min-height:32px}
+.tbtn select{background:transparent;border:0;color:var(--cream);font-family:var(--mono);font-size:12px;cursor:pointer;min-height:44px;min-width:44px;padding:8px 4px}
 .tbtn select option{background:#241B15}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
 .card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
 .card h2 i{font-style:normal;color:var(--dim)}
 .btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;min-height:44px}
-.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.pri{min-height:44px;background:var(--cream);color:#1B140F;border-color:var(--cream)}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
@@ -121,7 +130,7 @@ ul.book{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;ga
 .track i{display:block;height:100%;background:var(--accent);border-radius:99px}
 .step{padding:12px 0;border-top:1px solid var(--edge)}
 .task{padding:10px 0;border-top:1px solid var(--edge);display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap}
-@media (prefers-reduced-motion:reduce){.sk,.spin{animation:none}.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:860px){
   .lay,.kpis,.cs{grid-template-columns:1fr}
   .cs dl{grid-template-columns:1fr}
@@ -372,6 +381,7 @@ function stepCard(a,s,i){
     <p class="note">Owner: ${esc(s.owner)}${waiting?" · waiting on the client":""}</p>
     ${s.blocker?`<p class="sub">Blocker: ${esc(s.blocker)}</p>`:""}
     ${s.note?`<p class="sub">${esc(s.note)}</p>`:""}
+    ${s.waitMsg?`<p class="sub">${esc(s.waitMsg)}</p>`:""}
     ${acts}</article>`;
 }
 function paintDetail(){
@@ -456,7 +466,7 @@ function select(id){
   const h=$("acctName");if(h)h.focus();
 }
 $("kpis").addEventListener("click",e=>{
-  const b=e.target.closest("[data-status]");if(!b||D==="empty"||D==="loading")return;
+  const b=e.target.closest("[data-status]");if(!b)return;if(D==="loading"||D==="empty"){const label=(b.querySelector(".sub")||b).textContent.replace(/\s+/g," ").trim();toast(D==="loading"?label+" is a filter. This is the loading screen. Switch back to Live book to use it.":label+" is a filter. The book is empty. Load the sample book to use it.");return}
   const st=b.dataset.status;S.status=S.status===st?"all":st;$("fStatus").value=S.status;paintKpis();paintList();paintDetail();
 });
 $("q").addEventListener("input",e=>{S.q=e.target.value;paintList();paintDetail()});
@@ -480,8 +490,8 @@ $("detail").addEventListener("click",e=>{
   if(kind==="own"){snap();step.owner=step.owner==="Client"?a.owner:"Client";render();toast(step.owner==="Client"?"This step now waits on the client.":"This step is back with "+a.owner+".",true);return}
   if(kind==="start"){
     const earlier=earlierOpen(a,i);
-    if(earlier){toast(earlier.name+" is still open. Finish it first, or use Mark done and choose Mark anyway.");return}
-    snap();step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
+    if(earlier){const msg="Can't start yet. "+earlier.name+" is still open. Finish it first, or mark it done.";if(step.waitMsg===msg){toast("Still blocked. "+earlier.name+" is open, so this step was not started.");return}step.waitMsg=msg;render();toast(msg);return}
+    snap();step.waitMsg="";step.status="doing";a.note=step.name+" started.";render();toast("Started. Nothing was emailed.",true);return}
   if(kind==="done"){
     const earlier=earlierOpen(a,i);
     openSheet(earlier?"anyway":"done",i);return}
