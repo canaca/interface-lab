@@ -24,7 +24,7 @@
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/grid-workflow.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="img/relay.jpg" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Interface Lab base: warm dark glass system shared with Valley Grid. One accent (teal), orange for anything that needs a person. */
@@ -63,7 +63,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
 .card h2 i{font-style:normal;color:var(--dim)}
 .btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;min-height:44px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
-.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.pri{min-height:44px;background:var(--cream);color:#1B140F;border-color:var(--cream)}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
@@ -243,21 +243,28 @@ details.csd dd{margin:0;color:var(--muted)}
   <section id="work">
     <div class="sechead"><h2>Work</h2><span>Concept prototypes. Fictional demo data. Concept direction. AI-assisted build (Claude, Cursor).</span></div>
     <article class="feature">
-      <a class="shot" href="valley-grid/" aria-label="Open prototype: Valley Grid, grid operations"><img src="img/grid-workflow.jpg" alt="Valley Grid: an operator investigates bushing B on a live 3D transformer" width="1200" height="750" fetchpriority="high"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+      <a class="shot" href="relay/" aria-label="Open prototype: Relay, speed-to-lead builder"><img src="img/relay.jpg" alt="Relay: a test lead moving through the speed-to-lead flow while the text thread fills in" width="1200" height="750" fetchpriority="high"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
       <div class="info">
-        <div class="kindrow"><span class="tag">Concept</span><span class="kind">Grid operations · live 3D</span></div>
-        <h3>Helping grid operators act on an equipment alert</h3>
-        <p class="value">From first warning to a crew on site, on a 3D model of the equipment itself.</p>
+        <div class="kindrow"><span class="tag">Concept</span><span class="kind">Automation builder</span></div>
+        <h3>Reaching new Meta leads while they're still interested</h3>
+        <p class="value">Type the follow-up in a sentence. The draft shows the flow, marks what it isn't sure about, and waits for a test lead and a person before it is marked live.</p>
         <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl>
         <details class="csd"><summary>Read the case study</summary><dl>
-          <dt>Problem</dt><dd>Grid operators get alarms with numbers but no context, so deciding whether to send a crew means jumping between screens and phone calls.</dd>
-          <dt>User</dt><dd>A control-room operator on shift, responsible for nine substations.</dd>
-          <dt>Decisions</dt><dd>You work right on the 3D equipment. One panel holds every step. You see the evidence before any advice. Every action asks you to confirm before it sends. Empty, loading, and error screens are all designed.</dd>
-          <dt>Outcome</dt><dd>A clickable prototype of the full alert workflow, with a 3D scene that runs in the browser and a 15-second film mode. Not tested with real operators or live data.</dd>
-          <dt>Label</dt><dd>Concept. Fictional data, people and substation.</dd></dl></details>
+          <dt>Problem</dt><dd>Med spas and home-service shops pay for Meta leads, then often reply hours later. The same follow-up is copied for every new client, and it breaks without anyone noticing.</dd>
+          <dt>User</dt><dd>The person who sets up the follow-up, and the owner who has to trust it.</dd>
+          <dt>Decisions</dt><dd>A sentence becomes a visible flow. Steps the sentence never mentioned stay marked until a person checks them. A test lead has to finish. Publish asks before the demo marks a version live, and rollback puts the previous version back. Nothing is texted.</dd>
+          <dt>Rejected</dt><dd>A chat box that hides the logic, and marking the draft live as soon as it appears.</dd>
+          <dt>Outcome</dt><dd>A clickable builder. Not tested with shop owners. The sample month is fictional.</dd>
+          <dt>Label</dt><dd>Concept. Fictional studio, leads, and results.</dd></dl></details>
       </div>
     </article>
     <div class="grid">
+      <article class="proj wide">
+        <a class="shot" href="signed/" aria-label="Open prototype: Signed to Live, client onboarding"><img src="img/signed.jpg" alt="Signed to Live: a phone with five steps from a signed contract to the first ad. Fictional shop. English and Spanish." loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Client onboarding · English and Spanish</span></div>
+          <h3>Getting from a signed contract to the first ad</h3><p class="value">Five steps on the owner's phone, in English or Spanish. The agency sees which step is stuck. A reminder stays on the page.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
       <article class="proj">
         <a class="shot" href="lab-ui/" aria-label="Open prototype: Lab UI, the shared design system"><img src="img/lab-ui.jpg" alt="Lab UI: shared tokens and components used across Interface Lab. Fictional demo." loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Design system</span></div>
@@ -269,6 +276,18 @@ details.csd dd{margin:0;color:var(--muted)}
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">AI agent interface</span></div>
           <h3>Helping support teams trust an AI agent with refunds</h3><p class="value">The agent does the research. A person approves the money, the email, and a WhatsApp or Messenger reply in English or Spanish.</p>
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
+      </article>
+      <article class="proj">
+        <a class="shot" href="valley-grid/" aria-label="Open prototype: Valley Grid, grid operations"><img src="img/grid-workflow.jpg" alt="Valley Grid: an operator investigates bushing B on a live 3D transformer" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
+        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Grid operations · live 3D</span></div>
+          <h3>Helping grid operators act on an equipment alert</h3><p class="value">From first warning to a crew on site, on a 3D model of the equipment itself.</p>
+          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl>
+          <details class="csd"><summary>Read the case study</summary><dl>
+            <dt>Problem</dt><dd>Grid operators get alarms with numbers but no context, so deciding whether to send a crew means jumping between screens and phone calls.</dd>
+            <dt>User</dt><dd>A control-room operator on shift, responsible for nine substations.</dd>
+            <dt>Decisions</dt><dd>You work right on the 3D equipment. One panel holds every step. You see the evidence before any advice. Every action asks you to confirm before it sends. Empty, loading, and error screens are all designed.</dd>
+            <dt>Outcome</dt><dd>A clickable prototype of the full alert workflow, with a 3D scene that runs in the browser and a 15-second film mode. Not tested with real operators or live data.</dd>
+            <dt>Label</dt><dd>Concept. Fictional data, people and substation.</dd></dl></details></div>
       </article>
       <article class="proj">
         <a class="shot" href="keel/" aria-label="Open prototype: Keel, account health"><img src="img/keel.jpg" alt="Keel: a fictional account book with health from visible signals and a save plan" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
@@ -304,18 +323,6 @@ details.csd dd{margin:0;color:var(--muted)}
         <a class="shot" href="flare/" aria-label="Open prototype: Flare, ad account copilot"><img src="img/flare.jpg" alt="Flare: a fictional cost-per-lead alert with the evidence beside it. Demo data." loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
         <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Ad account copilot</span></div>
           <h3>When the cost per lead jumps, show the evidence first</h3><p class="value">An account manager and a shop owner see why one fictional campaign spiked, what was not checked, and a budget move that waits for approval.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
-      </article>
-      <article class="proj wide">
-        <a class="shot" href="relay/" aria-label="Open prototype: Relay, speed-to-lead builder"><img src="img/relay.jpg" alt="Relay: a test lead moving through the speed-to-lead flow while the text thread fills in" loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
-        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Automation builder</span></div>
-          <h3>Reaching new Meta leads while they're still interested</h3><p class="value">Texts new leads in under a minute, qualifies them with AI, books the consult and alerts the owner, in English and Spanish.</p>
-          <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
-      </article>
-      <article class="proj wide">
-        <a class="shot" href="signed/" aria-label="Open prototype: Signed to Live, client onboarding"><img src="img/signed.jpg" alt="Signed to Live: a phone with five steps from a signed contract to the first ad. Fictional shop. English and Spanish." loading="lazy" width="1200" height="750"><span class="go">Open prototype <span aria-hidden="true">↗</span></span></a>
-        <div class="info"><div class="kindrow"><span class="tag">Concept</span><span class="kind">Client onboarding · English and Spanish</span></div>
-          <h3>Getting from a signed contract to the first ad</h3><p class="value">Five steps on the owner's phone, in English or Spanish. The agency sees which step is stuck. A reminder stays on the page.</p>
           <dl class="meta"><div><dt>Role</dt><dd>Concept direction</dd></div><div><dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd></div></dl></div>
       </article>
     </div>

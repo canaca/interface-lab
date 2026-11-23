@@ -62,7 +62,7 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
 .card h2 i{font-style:normal;color:var(--dim)}
 .btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
-.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream)}
+.btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream);min-height:44px}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
@@ -162,7 +162,14 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .node.person .ic{color:var(--orange)}
 .node[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 4px rgba(111,227,208,.14),0 12px 30px rgba(0,0,0,.35)}
 .node.issue{border-color:var(--red)}
+.node.low{border-color:var(--orange)}
 .node .flag{position:absolute;right:8px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--red)}
+.node.low .flag{background:var(--orange)}
+.ask{margin-bottom:14px}
+.ask .btn{min-height:44px}
+.lowban{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;border-radius:12px;border:1px dashed rgba(233,164,110,.55);background:rgba(233,164,110,.06);font-size:13.5px;line-height:1.45}
+.lowban b{color:var(--cream);font-weight:500}
+.lowban .btn{min-height:44px}
 .node.act{border-color:var(--accent);box-shadow:0 0 0 6px rgba(111,227,208,.16),0 0 30px rgba(111,227,208,.25)}
 .node.ok::after{content:"✓";position:absolute;right:10px;bottom:8px;font-size:12px;color:var(--accent)}
 .running .node:not(.act):not(.ok){opacity:.55}
@@ -202,7 +209,7 @@ textarea.inp{min-height:96px;resize:vertical;line-height:1.45}
 .qrow{display:flex;gap:8px;align-items:center}
 .qrow .n{font-family:var(--mono);font-size:11px;color:var(--muted);width:16px}
 .cbx{display:flex;gap:8px;align-items:center;font-size:13.5px}
-.cbx input{accent-color:var(--accent);width:16px;height:16px}
+.cbx input{accent-color:var(--accent);width:24px;height:24px}
 .fu{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;border:1px solid var(--edge);background:rgba(0,0,0,.15)}
 .fu .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .fu .top b{font-size:13.5px;font-weight:500}
@@ -282,9 +289,26 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
     <span class="crumbs">DEMO WORKSPACE · FICTIONAL MED SPA</span>
     <span class="sp"></span>
     <span class="chip ok" id="flowPill">Flow on</span>
-    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live flow</option><option value="empty">Empty · new flow</option><option value="loading">Loading</option><option value="pending">Error · phone carrier review pending</option></select></label>
+    <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live flow</option><option value="draft">Draft · steps to check</option><option value="empty">Empty · new flow</option><option value="loading">Loading</option><option value="pending">Error · phone carrier review pending</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
+
+  <section class="card ask" id="ask" aria-label="Draft a follow-up">
+    <h2><span>Draft the follow-up</span><span id="verLabel">Not published</span></h2>
+    <div class="fl">
+      <label for="askIn">What should happen when a lead comes in</label>
+      <textarea class="inp" id="askIn" rows="3" placeholder="When a Facebook lead comes in, text them within 1 minute, offer two appointment times, and alert the owner if no reply in 15 minutes."></textarea>
+      <p class="note ferr" id="askErr" role="alert" hidden></p>
+    </div>
+    <div class="row">
+      <button class="btn pri" type="button" id="askDraft">Draft the flow</button>
+      <button class="btn" type="button" id="askSample">Use the sample sentence</button>
+      <button class="btn" type="button" id="askPublish">Check before publish</button>
+      <button class="btn" type="button" id="askVersions">Versions</button>
+    </div>
+    <p class="note">The draft is a guess from that sentence. Nothing is texted. A test lead has to finish, and a person publishes, before this demo marks a version live.</p>
+    <div id="askOut"></div>
+  </section>
 
   <section class="card comp" aria-label="Texting compliance" id="comp"></section>
 
@@ -320,7 +344,10 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
         <li><b>The whole process in one place.</b> Every branch, including opt-out and no reply, is a visible step, not a hidden setting.</li>
         <li><b>Texting rules are built in.</b> A2P 10DLC status, the opt-out line, and quiet hours are checked as you edit. A flow that breaks them can't be tested.</li>
         <li><b>English and Spanish side by side.</b> Each text has both versions, with a live count of message segments, since accented letters can change the count.</li>
-        <li><b>The AI knows when to hand off to a person.</b> Questions about price, medical concerns, and upset messages go to a person.</li></ol></dd>
+        <li><b>The AI knows when to hand off to a person.</b> Questions about price, medical concerns, and upset messages go to a person.</li>
+        <li><b>A sentence becomes a flow, not a hidden chat.</b> Steps the sentence never mentioned stay marked until a person checks them. Rejected: a chat box that hides the logic, and marking the draft live as soon as it appears.</li>
+        <li><b>A test lead, then a person.</b> Publish stays blocked until a test lead finishes and the marked steps are checked. Rollback puts the previous version back. Nothing is texted.</li></ol></dd>
+      <dt>Constraints</dt><dd>One file in the browser. No real texting, no carrier account, and no test with shop owners. The sample month on Results is labeled fictional. It is not a measured outcome.</dd>
       <dt>What I'd test</dt><dd>Whether owners trust the AI to book without checking first, whether two questions book more than three, and which first text gets more replies in each language.</dd>
       <dt>Goals (not results)</dt><dd>Goals: median first text under 60 seconds, 30% or more of leads booked, and opt-outs under 3%.</dd>
       <dt>Label</dt><dd>Concept. The business, leads and results are fictional demo data. The builder, test run and states are real and run in the browser.</dd>
@@ -370,7 +397,7 @@ const WITHIN={instant:["Instantly","about 10 s",9],"30":["Within 30 s","",24],"6
 const FU2={"1":"1 hr after the first text","2":"2 hr after the first text","4":"4 hr after the first text"};
 const FU3={next10:"Next day, 10:00 AM",next12:"Next day, 12:00 PM",two10:"2 days later, 10:00 AM"};
 
-const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSON.stringify(POS0)),within:"60",wait:"5",fu2:"1",fu3:"next10",
+const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSON.stringify(POS0)),within:"60",wait:"5",fu2:"1",fu3:"next10",prompt:"",low:{},
   campaign:"approved",empty:false,running:false,runId:0,scen:"book",leadLang:"es",slots:"2",remind:true,alertText:true,alertEmail:true,form:"Spring consult",
   hand:{price:true,medical:true,upset:true},
   tpl:{
@@ -399,11 +426,17 @@ function pickedReply(lang){const name=pickedName(lang);if(!name)return lang==="e
 
 /* ---------- persistence: flow edits and test runs are saved in this browser (localStorage il-relay-*) ---------- */
 const FKEY="il-relay-flow",RKEY="il-relay-runs";
-const PERSIST=["tpl","q","within","wait","fu2","fu3","slots","remind","alertText","alertEmail","form","hand","pos","lang","scen"];
+const PERSIST=["tpl","q","within","wait","fu2","fu3","slots","remind","alertText","alertEmail","form","hand","pos","lang","scen","prompt","low"];
 const DEFAULTS=JSON.parse(JSON.stringify(Object.fromEntries(PERSIST.map(k=>[k,S[k]]))));
 const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 (()=>{const s=lsGet(FKEY);if(s)PERSIST.forEach(k=>{if(s[k]!==undefined)S[k]=s[k]});S.leadLang=S.lang})();
 S.runs=lsGet(RKEY)||[];S.savedAt="";S.rfilter="all";
+const VKEY="il-relay-versions";
+const VSAVE=lsGet(VKEY)||{versions:[],liveId:null};
+S.versions=Array.isArray(VSAVE.versions)?VSAVE.versions:[];
+S.liveId=VSAVE.liveId||null;
+function saveVersions(){lsSet(VKEY,{versions:S.versions,liveId:S.liveId})}
+const SAMPLE_SENTENCE="When a Facebook lead comes in, text them within 1 minute, offer two appointment times, and alert the owner if no reply in 15 minutes.";
 let saveT;function save(){clearTimeout(saveT);saveT=setTimeout(()=>{lsSet(FKEY,Object.fromEntries(PERSIST.map(k=>[k,S[k]])));S.savedAt=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});const e=document.getElementById("savedAt");if(e)e.textContent="Saved "+S.savedAt},200)}
 function snapshot(){return JSON.parse(JSON.stringify(Object.fromEntries(PERSIST.map(k=>[k,S[k]]))))}
 function restoreSnap(o){PERSIST.forEach(k=>S[k]=JSON.parse(JSON.stringify(o[k])));S.leadLang=S.lang;save();buildCanvas();renderAll()}
@@ -438,12 +471,14 @@ function buildCanvas(){[...cv.querySelectorAll(".node,.stephint")].forEach(n=>n.
   const ids=S.empty?["trig"]:Object.keys(NODES);
   ids.forEach(id=>{const n=NODES[id];const b=document.createElement("button");b.type="button";b.className=`node ${n.type}`;b.dataset.id=id;
     b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]} </span><b>${n.t} </b><small data-sub></small></span>`;cv.appendChild(b)});
-  if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="stephint" style="left:290px;top:150px;width:200px"><span class="tx"><span class="k">Next step</span><b>Add the first step</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
+  if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="stephint" style="left:290px;top:150px;width:220px"><span class="tx"><span class="k">Next step</span><b>Describe the follow-up</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
   updateNodes();placeAll()}
 function updateNodes(){const iss=smsIssues().length;cv.querySelectorAll(".node[data-id]").forEach(b=>{const id=b.dataset.id;b.querySelector("[data-sub]").textContent=sub(id);
-  b.setAttribute("aria-pressed",String(S.sel===id));b.setAttribute("aria-label",nodeLabel(id)+(id==="sms"&&iss?" Has an issue to fix.":""));
-  b.classList.toggle("issue",id==="sms"&&iss>0);let f=b.querySelector(".flag");if(id==="sms"&&iss&&!f)b.insertAdjacentHTML("beforeend",'<span class="flag" aria-hidden="true"></span>');else if(!(id==="sms"&&iss)&&f)f.remove()});
-  const p=$("flowPill");if(S.state==="loading"){p.className="chip";p.textContent="Loading"}else if(S.empty){p.className="chip";p.textContent="Draft"}else if(S.campaign!=="approved"){p.className="chip warn";p.textContent="Texting paused"}else if(iss){p.className="chip bad";p.textContent=iss+(iss>1?" issues":" issue")}else{p.className="chip ok";p.textContent="Flow on"}}
+  const low=!!S.low[id];
+  b.setAttribute("aria-pressed",String(S.sel===id));b.setAttribute("aria-label",nodeLabel(id)+(id==="sms"&&iss?" Has an issue to fix.":"")+(low?" Low confidence. Check this step.":""));
+  b.classList.toggle("issue",id==="sms"&&iss>0);b.classList.toggle("low",low&&!(id==="sms"&&iss));
+  let f=b.querySelector(".flag");if((id==="sms"&&iss)||low){if(!f)b.insertAdjacentHTML("beforeend",'<span class="flag" aria-hidden="true"></span>')}else if(f)f.remove()});
+  const p=$("flowPill");if(S.state==="loading"){p.className="chip";p.textContent="Loading"}else if(S.empty){p.className="chip";p.textContent="Empty"}else if(S.campaign!=="approved"){p.className="chip warn";p.textContent="Texting paused"}else if(iss){p.className="chip bad";p.textContent=iss+(iss>1?" issues":" issue")}else if(Object.keys(S.low).length){p.className="chip warn";p.textContent=Object.keys(S.low).length+" to check"}else{p.className="chip ok";p.textContent="Flow on"}}
 function place(id){const b=cv.querySelector(`.node[data-id="${id}"]`);if(b){b.style.left=S.pos[id][0]+"px";b.style.top=S.pos[id][1]+"px"}}
 function placeAll(){Object.keys(S.pos).forEach(place);drawEdges()}
 function port(id,side){const b=cv.querySelector(`.node[data-id="${id}"]`);const h=b?b.offsetHeight:76,[x,y]=S.pos[id];
@@ -465,7 +500,7 @@ function fit(){const narrow=innerWidth<640;setScale(Math.max(narrow?.72:.5,Math.
   wrap.scrollLeft=narrow?Math.max(0,(CW/2)*S.scale-wrap.clientWidth/2):0}
 $("zIn").onclick=()=>{const o=S.scale;setScale(S.scale+.1);if(o===S.scale)toast("Zoomed in as far as it goes (140%)")};$("zOut").onclick=()=>{const o=S.scale;setScale(S.scale-.1);if(o===S.scale)toast("Zoomed out as far as it goes (50%)")};$("zFit").onclick=()=>{fit();toast(`Fit to width · ${Math.round(S.scale*100)}%`)};
 $("tidy").onclick=()=>{const old=JSON.parse(JSON.stringify(S.pos));S.pos=JSON.parse(JSON.stringify(POS0));placeAll();save();say("Layout reset.");toast("Layout reset",()=>{S.pos=old;placeAll();save();toast("Layout restored")})};
-$("resetFlow").onclick=()=>{const old=snapshot();restoreSnap(DEFAULTS);toast("Flow reset to the template",()=>{restoreSnap(old);toast("Your edits are back")})};
+$("resetFlow").onclick=()=>{const old=snapshot();const oldLive=S.liveId;restoreSnap(DEFAULTS);S.liveId=null;saveVersions();renderAsk();toast("Flow reset to the template",()=>{restoreSnap(old);S.liveId=oldLive;saveVersions();renderAsk();toast("Your edits are back")})};
 function say(t){$("live").textContent="";setTimeout(()=>$("live").textContent=t,30)}
 function toast(t,undo){$("toastMsg").textContent=t;const b=$("toastUndo");b.hidden=!undo;b.onclick=undo?()=>{$("toast").classList.remove("on");undo()}:null;$("toast").classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(()=>$("toast").classList.remove("on"),undo?5000:2600)}
 /* drag + keyboard move */
@@ -482,7 +517,7 @@ cv.addEventListener("keydown",e=>{const b=e.target.closest(".node[data-id]");if(
 function select(id,fromKey){const same=S.sel===id&&S.tab==="build";S.sel=id;if(S.tab!=="build")setTab("build");else renderPane();updateNodes();
   if(fromKey){const h=$("insH");if(h){h.tabIndex=-1;h.focus({preventScroll:innerWidth>=1100})}}else if(same)toast(`Editing ${NODES[id].t}`);
   if(innerWidth<1100&&fromKey!==undefined){$("pane").scrollIntoView({behavior:RM?"auto":"smooth",block:"start"})}}
-function useTemplate(){S.empty=false;save();S.sel="sms";$("demo").value="live";S.state="live";buildCanvas();renderAll();toast("Speed-to-lead template added. 10 steps.");
+function useTemplate(){S.empty=false;S.low={};save();S.sel="sms";$("demo").value="live";S.state="live";buildCanvas();renderAll();renderAsk();toast("Speed-to-lead template added. 10 steps. It is not live until you test it and publish.");
   const f=cv.querySelector('.node[data-id="sms"]');f&&f.focus()}
 
 /* ---------- compliance strip ---------- */
@@ -505,13 +540,14 @@ function sel(id,label,opts,val){return `<div class="fl"><label for="${id}">${lab
 function head(id,desc){const n=NODES[id];return `<div class="head"><span class="ic" style="color:${{trigger:"var(--bronze)",action:"var(--accent)",cond:"var(--cream)",person:"var(--orange)"}[n.type]}">${ic(n.icon)}</span><div><span class="kind">${KIND[n.type]} · step ${Object.keys(NODES).indexOf(id)+1} of 10</span><h3 id="insH">${n.t}</h3><p class="sub" style="margin:0">${desc}</p></div></div>`}
 function inspector(){const id=S.sel;let h="";
   if(S.campaign!=="approved")h+=`<div class="banner" role="note"><span class="dot warn" aria-hidden="true" style="margin-top:5px"></span><span><b>Texting is paused.</b> The 10DLC campaign is still in carrier review. You can edit the flow, but nothing is sent until it's approved.</span></div>`;
+  if(S.low[id])h+=`<div class="lowban"><span><b>Check this step.</b> ${esc(S.low[id])}</span><button class="btn sm" type="button" data-act="checkstep" data-low="${id}">Mark checked</button></div>`;
   switch(id){
   case"trig":h+=head(id,"Starts the flow the moment someone submits your Meta lead form.")+sel("form","Lead form",{"Spring consult":"Spring consult","Laser hair removal":"Laser hair removal","Summer facial":"Summer facial"},S.form)+
     `<div class="fl"><span class="lab">Fields from the form</span><table class="mini"><thead><tr><th scope="col">Form field</th><th scope="col">Used as</th></tr></thead><tbody><tr><td>Full name</td><td>first_name</td></tr><tr><td>Phone number</td><td>phone</td></tr><tr><td>Preferred language</td><td>language (English or Spanish)</td></tr><tr><td>SMS consent checkbox</td><td>consent · required</td></tr></tbody></table></div>`+
     checks([["y","Consent checkbox is required on this form"],["i","Leads without consent are never texted. The owner gets an email instead."]]);break;
   case"sms":h+=head(id,"The first text. Speed matters most here, so it goes out before anyone at the front desk sees the lead.")+sel("within","Send",Object.fromEntries(Object.entries(WITHIN).map(([k,v])=>[k,v[0]+(v[1]?" ("+v[1]+")":"")])),S.within)+
     `<div class="fl"><span class="lab">Message</span>${langSeg()}</div>`+tplField("sms","First text")+`<div class="prev" aria-label="Preview"><span class="bubble sys">Preview · sample lead Daniela</span><div class="bubble out" id="pv_sms">${esc(fillT(S.tpl.sms[S.lang],S.lang))}</div></div><div id="ck_sms">${smsChecks()}</div><p class="note">The language comes from the lead's form answer. No answer means English.</p>`;break;
-  case"reply":h+=head(id,"Waits for the lead to answer, then sends them down one of three paths.")+sel("wait","Wait up to",{"2":"2 minutes","5":"5 minutes","10":"10 minutes"},S.wait)+branches(id)+
+  case"reply":h+=head(id,"Waits for the lead to answer, then sends them down one of three paths.")+sel("wait","Wait up to",{"2":"2 minutes","5":"5 minutes","10":"10 minutes","15":"15 minutes"},S.wait)+branches(id)+
     `<div class="fl"><span class="lab">Opt-out keywords</span><p style="margin:0;font-size:13.5px">STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, QUIT<br><span class="sub">Also in Spanish: ALTO, PARAR, CANCELAR</span></p></div>`+checks([["y","Opt-out is checked before anything else, on every reply"],["i","HELP gets an automatic reply with the studio's phone number."]]);break;
   case"optout":h+=head(id,"Runs when a lead texts STOP or a Spanish stop word. Stops all texts to that number.")+`<div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("optout","Confirmation text")+
     checks([["y","Number is added to the do-not-text list"],["y","All pending follow-ups are cancelled"],["y","Only this one confirmation is sent"]]);break;
@@ -533,7 +569,7 @@ function inspector(){const id=S.sel;let h="";
 function renderPane(){const p=$("pane");p.setAttribute("aria-labelledby",S.tab==="test"?"t-test":"t-build");
   if(S.state==="loading"){p.innerHTML='<h2>Loading</h2><div class="sk" style="height:36px;margin-bottom:12px"></div><div class="sk" style="height:120px;margin-bottom:12px"></div><div class="sk" style="height:60px"></div><p class="note" style="margin-top:12px">Loading the flow…</p>';return}
   if(S.tab==="test"){p.innerHTML=simHTML();return}
-  if(S.empty){p.innerHTML=`<h2>Inspector</h2><div class="empty"><b>This flow only has a trigger</b><p class="sub" style="margin:0">Add steps one by one, or start from the speed-to-lead template: instant text, AI questions, booking, follow-ups and opt-out, in English and Spanish.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;return}
+  if(S.empty){p.innerHTML=`<h2>Inspector</h2><div class="empty"><b>This flow only has a trigger</b><p class="sub" style="margin:0">Describe the follow-up above, or start from the speed-to-lead template: instant text, AI questions, booking, follow-ups and opt-out, in English and Spanish.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;return}
   p.innerHTML=`<h2>Inspector <span id="savedAt">${S.savedAt?"Saved "+S.savedAt:"Changes save as you type"}</span></h2><div class="ins">${inspector()}</div>`}
 const pane=$("pane");
 pane.addEventListener("input",e=>{const t=e.target;
@@ -559,10 +595,11 @@ pane.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)retur
   if(t.dataset.act==="run"){play();return}
   if(t.dataset.act==="reset"){stopRun();renderPane();toast("Test cleared. Your results are kept.");return}
   if(t.dataset.act==="fixsms"){select("sms");setTimeout(()=>$("tx_sms")&&$("tx_sms").focus(),50);return}
-  if(t.dataset.act==="recheck"){t.disabled=true;t.innerHTML='<span class="spin lt"></span>Checking…';setTimeout(()=>{S.campaign="approved";$("demo").value="live";S.state="live";renderComp();updateNodes();toast("Campaign approved. Texting is on.");play()},1200);return}});
+  if(t.dataset.act==="recheck"){t.disabled=true;t.innerHTML='<span class="spin lt"></span>Checking…';setTimeout(()=>{S.campaign="approved";$("demo").value="live";S.state="live";renderComp();updateNodes();toast("Campaign approved. Texting is on.");play()},1200);return}
+  if(t.dataset.act==="checkstep"){clearLow(t.dataset.low);return}});
 
 /* ---------- test run ---------- */
-function simHTML(){if(S.empty)return `<h2>Test run</h2><div class="empty"><b>Nothing to test yet</b><p class="sub" style="margin:0">Add steps to the flow first. The test sends a fake lead through every step, without texting anyone.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;
+function simHTML(){if(S.empty)return `<h2>Test run</h2><div class="empty"><b>Nothing to test yet</b><p class="sub" style="margin:0">Describe the follow-up above, or start from the template. The test sends a fake lead through every step, without texting anyone.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;
   const iss=smsIssues();
   return `<h2>Test run <span>Fake lead · nothing is really sent</span></h2><div class="sim">
   <div class="ctrl"><fieldset class="radios"><legend>What the lead does</legend>${[["book","Replies and books"],["noreply","Never replies"],["stop","Texts STOP"]].map(([k,t])=>`<label class="cbx"><input type="radio" name="scen" value="${k}"${S.scen===k?" checked":""}${S.running?" disabled":""}> ${t}</label>`).join("")}</fieldset>
@@ -696,10 +733,70 @@ function setTab(t){if(S.running&&t!=="test")stopRun();S.tab=t;TABS.forEach(b=>{c
   $("lay").hidden=t==="res";$("resPane").hidden=t!=="res";if(t==="res")renderRes();else{renderPane();drawEdges();if(t==="build"){S.ran=false;runMarks=[];clearMarks()}}}
 TABS.forEach((b,i)=>{b.addEventListener("click",()=>setTab(b.dataset.tab));b.addEventListener("keydown",e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(e.key==="Home"||e.key==="End"||d){e.preventDefault();const j=e.key==="Home"?0:e.key==="End"?TABS.length-1:(i+d+TABS.length)%TABS.length;TABS[j].focus();setTab(TABS[j].dataset.tab)}})});
 function renderAll(){renderComp();updateNodes();if(S.tab==="res")renderRes();else renderPane();drawEdges()}
-$("demo").addEventListener("change",e=>{const v=e.target.value;stopRun();S.state=v==="pending"?"live":v;S.empty=v==="empty";S.campaign=v==="pending"?"pending":"approved";if(v==="pending")S.tab="test";
-  buildCanvas();setTab(S.tab);renderComp();updateNodes()});
+function clearLow(id){if(!S.low[id]){toast("This step is already checked.");return}const old=S.low[id];delete S.low[id];save();updateNodes();renderPane();renderAsk();toast("Step checked.",()=>{S.low[id]=old;save();updateNodes();renderPane();renderAsk();toast("Check restored")})}
+function applySentence(raw){const t=raw.toLowerCase();
+  if(/\b30 seconds?\b|\bwithin 30\b/.test(t))S.within="30";
+  else if(/\binstant\b|\bimmediately\b|\bright away\b/.test(t))S.within="instant";
+  else if(/\b1 minute\b|\b60 seconds?\b|\bwithin a minute\b|\bwithin 1\b/.test(t))S.within="60";
+  const wait=t.match(/no reply in (\d+)/);if(wait)S.wait=["2","5","10","15"].includes(wait[1])?wait[1]:"15";
+  else if(/\b15 minutes?\b/.test(t))S.wait="15";
+  if(/\bthree\b|\b3 appointment|\b3 open|\b3 times?\b/.test(t))S.slots="3";
+  else if(/\btwo\b|\b2 appointment|\b2 open|\b2 times?\b/.test(t))S.slots="2";
+  S.low={};
+  if(!/\bstop\b|opt out|unsubscribe/.test(t))S.low.sms="The sentence never says how a lead opts out. The draft kept “Reply STOP to opt out.” Check it before this can go live.";
+  if(!/appointment|calendar|\bbook\b|\btime\b/.test(t))S.low.book="The sentence doesn't mention a time or a calendar. Check what gets offered.";
+  if(!/owner|alert|notify/.test(t))S.low.alert="The sentence doesn't say who gets told. Check the owner alert.";
+  if(!/quiet|9\s*pm|hours/.test(t))S.low.reply="Quiet hours were not in the sentence. The draft kept 9 PM to 8 AM. Check that window."}
+function draftFrom(raw){const text=String(raw||"").trim();const err=$("askErr");
+  if(!text){err.hidden=false;err.textContent="Write what the follow-up should do. Nothing was drafted.";$("askIn").focus();return}
+  err.hidden=true;if(S.running)stopRun();S.prompt=text;applySentence(text);S.empty=false;S.campaign="approved";S.state="live";
+  if($("demo").value==="empty"||$("demo").value==="loading"||$("demo").value==="pending")$("demo").value="live";
+  S.sel=Object.keys(S.low)[0]||"sms";save();buildCanvas();renderAll();const n=Object.keys(S.low).length;
+  toast(n?`Draft ready. ${n} step${n===1?"":"s"} to check. Nothing is live.`:"Draft ready. Nothing in that sentence was left unchecked. Nothing is live.");
+  renderAsk();const f=cv.querySelector(`.node[data-id="${S.sel}"]`);f&&f.focus()}
+function testedOk(){return (S.runs||[]).some(r=>!r.blocked)}
+function preflight(){const issues=[];
+  if(S.empty)issues.push({id:null,text:"There is no flow yet. Draft one, or use the template."});
+  if(S.campaign!=="approved")issues.push({id:"sms",text:"Texting is paused. The campaign is still in carrier review."});
+  if(!S.empty)smsIssues().forEach(text=>issues.push({id:"sms",text}));
+  if(!S.empty&&!S.alertText&&!S.alertEmail)issues.push({id:"alert",text:"Pick at least one way to alert the owner."});
+  Object.entries(S.low).forEach(([id,text])=>issues.push({id,text}));
+  if(!S.empty&&!testedOk())issues.push({id:"test",text:"Run a test lead and let it finish. Nothing is marked live until a test passes."});
+  return issues}
+function openIssue(id){if(id==="test"){setTab("test");return}if(id&&NODES[id]){setTab("build");select(id);const n=cv.querySelector(`.node[data-id="${id}"]`);n&&n.focus()}}
+function renderAsk(){const lab=$("verLabel");if(!lab)return;const live=S.versions.find(v=>v.id===S.liveId);
+  lab.textContent=live?`Live · v${live.n}`:"Not published"}
+function showPublish(){const issues=preflight();const box=$("askOut");
+  if(issues.length){box.innerHTML=`<div class="sheet" role="alert"><div class="q">Not ready to publish</div><p class="sub" style="margin:0">Nothing was marked live. Fix these, then check again.</p>${issues.map(it=>`<div class="br"><span>${esc(it.text)}</span>${it.id?`<button class="btn sm" type="button" data-issue="${it.id}">${it.id==="test"?"Open the test run":"Open this step"}</button>`:""}</div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`;return}
+  const n=(S.versions.reduce((m,v)=>Math.max(m,v.n),0)||0)+1;
+  box.innerHTML=`<div class="sheet"><div class="q">Mark version ${n} live in this demo?</div><p class="sub" style="margin:0">Nothing is texted. You can roll this version back.</p><div class="row"><button class="btn pri" type="button" data-ask="confirm">Mark this version live</button><button class="btn" type="button" data-ask="close">Don't publish</button></div></div>`}
+function showVersions(){const box=$("askOut");
+  if(!S.versions.length){box.innerHTML=`<div class="empty"><b>No versions yet</b><p class="sub" style="margin:0">A version is saved when you publish. Nothing is texted.</p></div>`;return}
+  box.innerHTML=`<div class="sheet"><div class="q">Versions in this browser</div>${S.versions.map(v=>`<div class="br"><span><b style="color:var(--cream);font-weight:500">v${v.n}</b> ${esc(v.at)}${v.id===S.liveId?" · live":""}<br>${esc(v.note)}</span><button class="btn sm" type="button" data-ver="${v.id}">${v.id===S.liveId?"Current":"Roll back"}</button></div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`}
+function publishNow(){const issues=preflight();if(issues.length){showPublish();return}const prev=S.liveId;const n=(S.versions.reduce((m,v)=>Math.max(m,v.n),0)||0)+1;
+  const v={id:Date.now(),n,at:new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}),note:(S.prompt||"Template").slice(0,90),snap:snapshot()};
+  S.versions.unshift(v);S.versions=S.versions.slice(0,8);S.liveId=v.id;saveVersions();renderAsk();$("askOut").innerHTML="";
+  toast(`Version ${n} is live in this demo. Nothing was texted.`,()=>{S.versions=S.versions.filter(x=>x.id!==v.id);S.liveId=prev;saveVersions();renderAsk();toast("Publish undone")})}
+function rollback(id){const v=S.versions.find(x=>x.id===id);if(!v)return;if(v.id===S.liveId){toast(`v${v.n} is already the live version.`);return}if(S.running)stopRun();
+  const prevSnap=snapshot(),prevLive=S.liveId;restoreSnap(v.snap);S.liveId=v.id;saveVersions();renderAsk();$("askOut").innerHTML="";
+  toast(`Rolled back to v${v.n}.`,()=>{restoreSnap(prevSnap);S.liveId=prevLive;saveVersions();renderAsk();toast("Current draft restored")})}
+$("askDraft").addEventListener("click",()=>draftFrom($("askIn").value));
+$("askSample").addEventListener("click",()=>{const el=$("askIn");if(el.value.trim()===SAMPLE_SENTENCE){toast("The sample sentence is already in the box.");return}el.value=SAMPLE_SENTENCE;$("askErr").hidden=true;toast("Sample sentence added. Press Draft the flow. Nothing is drafted yet.")});
+$("askPublish").addEventListener("click",showPublish);
+$("askVersions").addEventListener("click",showVersions);
+$("ask").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.ask==="close"){$("askOut").innerHTML="";return}
+  if(b.dataset.ask==="confirm"){publishNow();return}
+  if(b.dataset.issue){openIssue(b.dataset.issue);return}
+  if(b.dataset.ver){rollback(+b.dataset.ver);return}});
+$("askIn").value=S.prompt||"";
+$("demo").addEventListener("change",e=>{const v=e.target.value;stopRun();
+  if(v==="draft"){$("askIn").value=SAMPLE_SENTENCE;draftFrom(SAMPLE_SENTENCE);$("demo").value="draft";return}
+  S.state=v==="pending"?"live":v;S.empty=v==="empty";S.campaign=v==="pending"?"pending":"approved";if(v==="pending")S.tab="test";
+  if(v==="empty")S.low={};
+  buildCanvas();setTab(S.tab);renderComp();updateNodes();renderAsk()});
 let rw=innerWidth;addEventListener("resize",()=>{if(innerWidth!==rw){rw=innerWidth;fit()}});
-buildCanvas();fit();renderAll();
+buildCanvas();fit();renderAll();renderAsk();
 document.fonts&&document.fonts.ready.then(()=>{placeAll()});
 
 </script>

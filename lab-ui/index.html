@@ -76,7 +76,7 @@ h3{font-weight:500;font-size:20px;margin:0}
 .stat{font-family:var(--mono);font-size:12px;color:var(--accent);min-height:1.4em;margin:8px 0}
 .states{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
 .states button,.btn{min-height:44px;padding:8px 12px;border-radius:var(--r-md);border:1px solid var(--edge-2);background:rgba(255,222,190,.06);color:var(--cream);cursor:pointer}
-.btn.pri{background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
+.btn.pri{min-height:44px;background:var(--cream);color:var(--ink);border-color:var(--cream);font-weight:600}
 .btn.ghost{background:transparent;border-color:transparent;color:var(--muted)}
 .btn.warn{border-color:rgba(226,114,91,.6);color:#ffd0c6}
 .btn:hover:not(:disabled),.states button:hover{border-color:var(--cream)}
@@ -144,7 +144,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
 <body>
 <a class="skip" href="#content">Skip to content</a>
 <div class="wrap">
-<main id="content">
+<main id="content" tabindex="-1">
   <header class="bar">
     <a class="home" href="../">Interface Lab</a>
     <span class="tag">Concept · fictional data</span>
@@ -213,7 +213,7 @@ th button{all:unset;cursor:pointer;min-height:44px;display:inline-flex;align-ite
   <article class="comp" id="c-approve" data-state="default">
     <h3>Approval card</h3>
     <div class="use"><div><b>Use</b><p>When a person must agree before money, a message, or a publish step.</p></div><div><b>Don't use</b><p>For a change that can be undone and does not leave the page. Use the change preview instead.</p></div></div>
-    <p class="where">Used in Kestrel (refund and reply), Signed → Live (confirm a step), and Flare (pause, budget ask, and the owner's approval).</p>
+    <p class="where">Used in Kestrel (refund and reply), Relay (publish stays blocked until a test lead finishes and a person marks a version live), Signed → Live (confirm a step), and Flare (pause, budget ask, and the owner's approval).</p>
     <p class="keys">Keyboard: Tab through the actions. Enter activates. Escape cancels an amount edit. The amount field announces its error.</p>
     <div class="states" role="group" aria-label="Approval card states"></div>
     <p class="stat" data-stat></p>
