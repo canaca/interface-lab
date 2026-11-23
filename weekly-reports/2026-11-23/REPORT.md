@@ -2,6 +2,62 @@
 
 This branch continues draft PR #12 (16 November, unmerged). It is a new draft that supersedes #12 if you would rather merge one pull request. It includes the 19 October, 26 October, 2 November, 9 November, and 16 November work, plus this week. It does not replace pull request #10. Nothing here is merged. `main` is unchanged. Cesar publishes.
 
+The deeper Relay pass below is the work that supersedes draft pull request #13. Same rule: one draft if you would rather merge one pull request. Pull request #10 was not edited.
+
+## Relay, for a hiring manager
+
+Relay is the piece to open for customer success, onboarding, implementation, or account management. A person can pick one of four fictional follow-ups, or write a sentence. Each draft sets the timing, the channel, and the branch.
+
+- Med spa lead. Text within a minute, offer two times, tell the owner if there is no reply in 15 minutes. Solace Skin Studio and Daniela R. are fictional.
+- After-hours remodel. Hold the first text until 8:00 AM, then email the owner if they book a walkthrough. Northline Remodel and Marcus T. are fictional.
+- Consult no-show. Text within 10 minutes with two new times, then one follow-up the next morning. Elena V. is fictional.
+- Fence quote. Text the next morning, follow up in 2 days if there is no reply, and book a site visit if they say yes. Cedar Line Fencing and Priya S. are fictional.
+
+The branches in the dry run are booked, replied (answered, not booked), no reply, and opt out. The timeline shows the clock time and the channel. Nothing is texted or emailed.
+
+Guardrails stay on the page. Steps the sentence never mentioned stay flagged until a person marks them checked. Publish stays blocked until those steps are checked and a dry run finishes. Version history shows what changed between versions. Rollback puts the previous version back.
+
+The short case study at the top names the problem (slow speed-to-lead), the approach, what a person still decides, and a before and after. That before and after is labeled illustrative. It is not a measured result. The sample month on Results uses the same label. Concept direction. AI-assisted build (Claude, Cursor).
+
+## Checks on this pass
+
+Playwright on local Chrome, reduced motion on, at 1280×800 and 360×740. A control passed if the page changed, a file downloaded, a same-site link returned a successful status, a mailto link was a real address, or the control was already selected. States menus ran after the other controls. Each control was counted once.
+
+**776 passed, 126 flagged, 0 broken requests.** 15 pages × 2 viewports. One page error, on Keel, both widths: confirming a note before the note field was on screen. Relay had no page errors and no console errors. The flags were checked against the pages. None of them was a Relay control that does nothing.
+
+| Page | Desktop passed | Mobile passed | Flagged |
+|---|---:|---:|---:|
+| Hub | 31 | 31 | 12 on each width |
+| Valley Grid | 2 | 2 | 4 desktop, 0 mobile |
+| Kestrel | 45 | 45 | 2 on each width |
+| Keel | 12 | 13 | 8 desktop, 7 mobile |
+| Berth | 31 | 31 | 4 on each width |
+| Linden | 45 | 45 | 6 on each width |
+| Decision OS | 30 | 30 | 1 on each width |
+| Harbor | 24 | 24 | 15 on each width |
+| Tidewell | 5 | 5 | 0 |
+| Relay | 34 | 34 | 3 on each width |
+| AgentProof | 8 | 8 | 0 |
+| Estate intake | 24 | 25 | 4 desktop, 3 mobile |
+| Signed → Live | 23 | 23 | 2 on each width |
+| Lab UI | 59 | 59 | 4 on each width |
+| Flare | 14 | 14 | 1 on each width |
+| **Total** | **387** | **389** | **126** |
+
+Direct checks on the Relay flags: Zoom in moved the canvas from 77% to 87%, Zoom out moved it back to 77%, and an empty sentence shows "Write what the follow-up should do. Nothing was drafted." Draft the flow, the four examples, Mark checked, the dry run, Check before publish, Mark this version live, Show changes, and Roll back were also run on their own. Rollback restored Cedar Line Fencing as the live version in the demo. Nothing was sent.
+
+The other flags are the same kind as the earlier pass. Hub company type and size leave the screen once the form moves on. Valley Grid's Play, Investigate, and Film mode settle after the crawler's short wait. The phone layout does not show Film mode. Harbor's column sorts and the already-selected filters do not change the page when chosen again. Skip links sit off screen until Tab.
+
+axe-core 4.14 (WCAG 2 A and AA, including WCAG 2.2 AA): **0 violations** on all 15 pages, desktop and mobile. Relay's remodel draft, the blocked publish sheet, the dry run, and the empty version list were checked the same way: 0 violations.
+
+360px: no page scrolls sideways, including Relay after a remodel draft and on the dry run. Relay controls on those screens are at least 44px on both sides. Primary buttons stay at least 44px.
+
+Lighthouse 13.6. Accessibility, best practices, and SEO were **100 on every page, both widths**. Performance, for the record: Relay desktop 100, Relay mobile 98. Harbor desktop was 82, with layout shift about 0.38, on two runs. Harbor mobile was 100. I did not change Harbor. Kestrel is 96 on both widths. The hub, Decision OS, Lab UI, and Flare are 99 on the phone. That is the web font, same as the earlier note.
+
+Screenshots for this pass, desktop 1280×800 and mobile 360×740, are in `weekly-reports/2026-11-23/shots/` with the prefix `relay-case`, `relay-examples`, `relay-spa-flow`, `relay-remodel-flags`, `relay-remodel-flow`, `relay-noshow-flow`, `relay-fence-flow`, `relay-publish-blocked`, `relay-dry-booked`, `relay-dry-replied`, `relay-dry-noreply`, and `relay-version-diff`.
+
+The résumé line is in `weekly-reports/2026-11-23/resume-notes.md`.
+
 The ranked pieces from the October strategy are already on the hub: Relay is the speed-to-lead builder, Signed → Live is the phone onboarding flow, Lab UI is the system, and Flare is the ad-account copilot. The bilingual inbox that was on hold is already a message handoff inside Kestrel. I did not add another piece. Reviewers stop after a few case studies, and a fifth product would sit under work that already covers the ranked gaps.
 
 I improved Relay. It was the highest-ranked piece in the strategy, and it opened on a finished template. The brief asks for a sentence that becomes a flow, low-confidence steps a person can check, a test lead, and a person who publishes, with a version to roll back. The empty state also told you to add steps one by one, and the only button was the template. The hub still led with Valley Grid. That piece is the 3D differentiator. It is not the work the strategy says to put first for automation or onboarding roles. Relay is now the first piece. Signed → Live is next.

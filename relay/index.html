@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Relay · Reaching new Meta leads while they're still interested</title>
-<meta name="description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
+<title>Relay · A sentence becomes a speed-to-lead flow</title>
+<meta name="description" content="Concept prototype: pick a fictional follow-up or write a sentence. The draft sets timing, channel, and branches. Flagged steps, a dry run, and a person stand in front of live. Nothing is sent.">
 <meta name="theme-color" content="#0F0C0A">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Cesar Navarro · Interface Lab">
-<meta property="og:title" content="Relay · Reaching new Meta leads while they're still interested">
-<meta property="og:description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
+<meta property="og:title" content="Relay · A sentence becomes a speed-to-lead flow">
+<meta property="og:description" content="Concept prototype: pick a fictional follow-up or write a sentence. The draft sets timing, channel, and branches. Flagged steps, a dry run, and a person stand in front of live. Nothing is sent.">
 <meta property="og:url" content="https://canaca.github.io/interface-lab/relay/">
 <meta property="og:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
 <meta property="og:image:alt" content="Relay: a test lead moving through the speed-to-lead flow">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="750">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Relay · Reaching new Meta leads while they're still interested">
-<meta name="twitter:description" content="Concept prototype: a speed-to-lead flow builder that texts new Meta leads in under a minute, qualifies them with AI, books a consult and alerts the owner, in English and Spanish.">
+<meta name="twitter:title" content="Relay · A sentence becomes a speed-to-lead flow">
+<meta name="twitter:description" content="Concept prototype: pick a fictional follow-up or write a sentence. The draft sets timing, channel, and branches. Flagged steps, a dry run, and a person stand in front of live. Nothing is sent.">
 <meta name="twitter:image" content="https://canaca.github.io/interface-lab/img/relay.jpg">
 <meta name="twitter:image:alt" content="Relay: a test lead moving through the speed-to-lead flow">
 <style>[hidden]{display:none!important}body{margin:0;background:#0F0C0A}</style>
@@ -59,16 +59,16 @@ h1.brand{margin:0;font-size:inherit;font-weight:inherit;line-height:inherit;lett
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px dashed var(--edge-2);color:var(--muted)}
 .tag.build{border-style:solid;border-color:var(--accent);color:var(--accent)}
 .card{position:relative;border-radius:18px;padding:18px 20px;background:linear-gradient(160deg,var(--glass-hi),transparent 45%),var(--glass);border:1px solid var(--edge);box-shadow:0 20px 50px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,236,214,.08);min-width:0}
-.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+.card h2{margin:0 0 12px;font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .card h2 i{font-style:normal;color:var(--dim)}
-.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn{border:1px solid var(--edge-2);background:rgba(255,222,190,.06);border-radius:11px;padding:9px 14px;min-height:44px;font-size:13.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center}
 .btn.pri{background:var(--cream);color:#1B140F;border-color:var(--cream);min-height:44px}
 .btn.warn{background:var(--orange);color:#1B140F;border-color:var(--orange)}
 .btn:hover{border-color:var(--cream)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .btn.ghost{background:none;border-color:transparent;color:var(--muted);padding-inline:6px}
 .btn.ghost:hover{color:var(--cream)}
-.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.btn.sm{padding:8px 12px;font-size:12.5px;border-radius:9px;min-height:44px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .chip{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--edge-2);color:var(--muted);white-space:nowrap}
 .chip.warn{color:var(--orange);border-color:rgba(233,164,110,.45)}
@@ -97,7 +97,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translate(-50%,10px);opacity:0;background:rgba(36,27,21,.94);border:1px solid var(--edge-2);padding:10px 12px 10px 16px;border-radius:12px;font-size:13px;transition:.25s;z-index:20;display:flex;gap:12px;align-items:center;max-width:calc(100% - 32px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .toast:not(.on){pointer-events:none}
-.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:4px 10px;font-weight:600;cursor:pointer}
+.toast button{border:0;background:rgba(255,222,190,.12);border-radius:7px;padding:8px 12px;min-height:44px;font-weight:600;cursor:pointer}
 /* case study */
 .cs{margin-top:56px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:40px;border-top:1px solid var(--edge);padding-top:36px}
 .cs h2{margin:10px 0 0;font-weight:300;font-size:clamp(28px,3vw,40px);letter-spacing:-.02em;line-height:1.08;text-wrap:balance}
@@ -122,7 +122,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px rgba(111,227,208,.6);flex:none}
 .dot.warn{background:var(--orange);box-shadow:0 0 8px rgba(233,164,110,.6)}
 .tabs{display:flex;gap:4px;padding:4px;border-radius:12px;background:rgba(0,0,0,.25);border:1px solid var(--edge);width:max-content;max-width:100%;margin-bottom:14px}
-.tabs [role=tab]{border:0;background:none;padding:8px 14px;border-radius:9px;font-size:13.5px;font-weight:500;color:var(--muted);cursor:pointer}
+.tabs [role=tab]{border:0;background:none;padding:8px 14px;min-height:44px;border-radius:9px;font-size:13.5px;font-weight:500;color:var(--muted);cursor:pointer}
 .tabs [role=tab][aria-selected=true]{background:var(--cream);color:#1B140F}
 .tabs [role=tab]:hover:not([aria-selected=true]){color:var(--cream)}
 .lay{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
@@ -175,7 +175,7 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .running .node:not(.act):not(.ok){opacity:.55}
 .node.ghost{border-style:dashed;background:rgba(32,24,19,.5);cursor:default}
 .cvtools{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.cvtools .btn{padding:5px 9px;font-size:12px;border-radius:8px}
+.cvtools .btn{padding:8px 12px;font-size:12px;border-radius:8px;min-height:44px;min-width:44px}
 .zoomv{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:42px;text-align:center}
 .hint{font-size:12px;color:var(--muted);margin:10px 0 0}
 /* inspector */
@@ -187,12 +187,12 @@ pre.code .k{color:var(--accent)} pre.code .s{color:var(--cream)} pre.code .n{col
 .ins .kind{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .fl{display:flex;flex-direction:column;gap:6px}
 .fl>label,.fl>.lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
-.inp,select.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.28);border:1px solid var(--edge);padding:9px 10px;color:var(--cream);font-size:13.5px}
+.inp,select.inp{width:100%;border-radius:10px;background:rgba(0,0,0,.28);border:1px solid var(--edge);padding:9px 10px;min-height:44px;color:var(--cream);font-size:13.5px}
 select.inp option{background:#241B15}
 textarea.inp{min-height:96px;resize:vertical;line-height:1.45}
 .inp:focus{outline:2px solid var(--accent);outline-offset:2px;border-color:var(--accent);box-shadow:0 0 0 3px rgba(111,227,208,.14)}
 .seg{display:inline-flex;padding:3px;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.25)}
-.seg button{border:0;background:none;color:var(--muted);padding:6px 12px;border-radius:7px;font-size:12.5px;font-weight:500;cursor:pointer}
+.seg button{border:0;background:none;color:var(--muted);padding:8px 12px;min-height:44px;border-radius:7px;font-size:12.5px;font-weight:500;cursor:pointer}
 .seg button[aria-pressed=true]{background:rgba(111,227,208,.14);color:var(--accent)}
 .meter{font-family:var(--mono);font-size:11px;color:var(--muted)}
 .meter b{color:var(--cream);font-weight:500}
@@ -203,13 +203,15 @@ textarea.inp{min-height:96px;resize:vertical;line-height:1.45}
 .checks .s.n{color:var(--red);border-color:rgba(226,114,91,.6)}
 .checks .s.w{color:var(--orange);border-color:rgba(233,164,110,.6)}
 .branches{display:flex;flex-direction:column;gap:6px}
-.br{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.18);font-size:13px}
+.br{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 10px;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.18);font-size:13px}
 .br span{color:var(--muted)}
-.br button{border:0;background:none;color:var(--cream);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,222,190,.35)}
-.qrow{display:flex;gap:8px;align-items:center}
+.br button{border:0;background:none;color:var(--cream);font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,222,190,.35);min-height:44px;display:inline-flex;align-items:center}
+.qrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qrow .inp{flex:1 1 160px;width:auto;min-width:0}
 .qrow .n{font-family:var(--mono);font-size:11px;color:var(--muted);width:16px}
 .cbx{display:flex;gap:8px;align-items:center;font-size:13.5px}
-.cbx input{accent-color:var(--accent);width:24px;height:24px}
+.cbx{min-height:44px}
+.cbx input{accent-color:var(--accent);width:44px;height:44px;flex:none}
 .fu{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:12px;border:1px solid var(--edge);background:rgba(0,0,0,.15)}
 .fu .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .fu .top b{font-size:13.5px;font-weight:500}
@@ -276,8 +278,31 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 .reshead .row{gap:8px}
 .banner{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;border:1px dashed rgba(233,164,110,.55);font-size:13px;color:var(--muted);margin-bottom:14px}
 .banner b{color:var(--cream);font-weight:500}
-@media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}.cvwrap{height:min(70vh,700px)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:640px){.simgrid,.ctrl{grid-template-columns:minmax(0,1fr)}.kpi .v{font-size:32px}.tabs{width:100%}.tabs [role=tab]{flex:1;padding-inline:8px}.cvwrap{height:62vh;min-height:380px}.wrap{padding-inline:14px}}
+.panel{margin:0 0 16px}
+.panel h2{margin:8px 0 12px;font-family:var(--sans);font-weight:300;font-size:clamp(22px,2.4vw,30px);letter-spacing:-.02em;line-height:1.15;text-transform:none;color:var(--cream)}
+.panelgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.panel article h3{margin:0 0 6px;font-size:15px;font-weight:600}
+.panel article p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.5;overflow-wrap:anywhere}
+.panel .note{margin-top:12px}
+.picks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pick{min-height:44px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--edge-2);background:rgba(255,222,190,.04);color:var(--cream);cursor:pointer;font:inherit}
+.pick b{display:block;font-size:14px;font-weight:600}
+.pick small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;line-height:1.35}
+.pick[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(111,227,208,.14)}
+.pick:hover{border-color:var(--cream)}
+#guards{min-height:132px}
+.ggrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.gbtn{min-height:44px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--edge);background:rgba(0,0,0,.18);color:var(--cream);cursor:pointer;font:inherit}
+.gbtn b{display:block;font-size:13.5px;font-weight:600}
+.gbtn small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;line-height:1.35}
+.gbtn:hover{border-color:var(--edge-2)}
+.diff{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.diff li{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;border:1px solid var(--edge);background:rgba(0,0,0,.18)}
+.diff b{font-size:13.5px;font-weight:600}
+.diff .was{font-size:13.5px;color:var(--muted)}
+.diff .now{font-size:13.5px;color:var(--cream)}
+@media (max-width:1100px){.lay{grid-template-columns:minmax(0,1fr)}.cvwrap{height:min(70vh,700px)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:minmax(0,1fr)}.panelgrid,.ggrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.simgrid,.ctrl,.picks{grid-template-columns:minmax(0,1fr)}.kpi .v{font-size:32px}.tabs{width:100%}.tabs [role=tab]{flex:1;padding-inline:8px}.cvwrap{height:62vh;min-height:380px}.wrap{padding-inline:14px}.panelgrid,.ggrid{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:420px){.kpis{grid-template-columns:minmax(0,1fr)}.tbtn{max-width:100%}.tbtn select{width:100%;max-width:calc(100vw - 56px)}}
 </style>
 </head>
@@ -286,12 +311,36 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 <div class="wrap">
   <header class="bar">
     <h1 class="brand"><b>Relay</b><span>Speed-to-lead</span></h1>
-    <span class="crumbs">DEMO WORKSPACE · FICTIONAL MED SPA</span>
+    <span class="crumbs" id="crumbs">DEMO WORKSPACE · FICTIONAL MED SPA</span>
     <span class="sp"></span>
     <span class="chip ok" id="flowPill">Flow on</span>
     <label class="tbtn">States <select id="demo" aria-label="Review a state"><option value="live">Live flow</option><option value="draft">Draft · steps to check</option><option value="empty">Empty · new flow</option><option value="loading">Loading</option><option value="pending">Error · phone carrier review pending</option></select></label>
     <span class="tag">Concept · demo data</span>
   </header>
+
+  <section class="card panel" aria-labelledby="caseTitle">
+    <span class="tag">Illustrative · not a measured result</span>
+    <h2 id="caseTitle">Slow replies lose the lead</h2>
+    <div class="panelgrid">
+      <article>
+        <h3>The problem</h3>
+        <p>Speed-to-lead is slow. A paid lead waits until someone is free to answer. A med spa, a remodeler, and a fence company lose that person to whoever writes back first.</p>
+      </article>
+      <article>
+        <h3>The approach</h3>
+        <p>Pick an example or write a sentence. The draft sets when the first message goes, which channel it uses, and what happens if the lead replies, does not reply, or books.</p>
+      </article>
+      <article>
+        <h3>What a person still decides</h3>
+        <p>Which flagged steps are right. Whether the dry-run timeline looks right. Whether to mark a version live, or roll it back. The draft does not publish itself.</p>
+      </article>
+      <article>
+        <h3>Before and after</h3>
+        <p><b style="color:var(--cream);font-weight:600">Illustrative.</b> Before: the form sits in an inbox until the next person sees it. After: the draft would follow the sentence. In this demo, nothing is texted and nothing is emailed.</p>
+      </article>
+    </div>
+    <p class="note">Concept direction. AI-assisted build (Claude, Cursor). The studios and the leads are fictional.</p>
+  </section>
 
   <section class="card ask" id="ask" aria-label="Draft a follow-up">
     <h2><span>Draft the follow-up</span><span id="verLabel">Not published</span></h2>
@@ -300,13 +349,19 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
       <textarea class="inp" id="askIn" rows="3" placeholder="When a Facebook lead comes in, text them within 1 minute, offer two appointment times, and alert the owner if no reply in 15 minutes."></textarea>
       <p class="note ferr" id="askErr" role="alert" hidden></p>
     </div>
+    <div class="picks" role="group" aria-label="Example sentences">
+      <button class="pick" type="button" data-ex="spa" aria-pressed="false"><b>Med spa lead</b><small>Text in 1 minute. Two times. Owner if there is no reply.</small></button>
+      <button class="pick" type="button" data-ex="remodel" aria-pressed="false"><b>After-hours remodel</b><small>Hold the text until 8 AM. Email the owner if they book.</small></button>
+      <button class="pick" type="button" data-ex="noshow" aria-pressed="false"><b>Consult no-show</b><small>Text in 10 minutes. One follow-up the next morning.</small></button>
+      <button class="pick" type="button" data-ex="fence" aria-pressed="false"><b>Fence quote</b><small>Text the next morning. A site visit if they say yes.</small></button>
+    </div>
     <div class="row">
       <button class="btn pri" type="button" id="askDraft">Draft the flow</button>
-      <button class="btn" type="button" id="askSample">Use the sample sentence</button>
       <button class="btn" type="button" id="askPublish">Check before publish</button>
       <button class="btn" type="button" id="askVersions">Versions</button>
     </div>
-    <p class="note">The draft is a guess from that sentence. Nothing is texted. A test lead has to finish, and a person publishes, before this demo marks a version live.</p>
+    <p class="note">Pick an example or edit the sentence, then draft. Nothing is texted or emailed. A test lead has to finish, and a person approves, before this demo marks a version live.</p>
+    <div class="guards" id="guards" aria-label="Guardrails"></div>
     <div id="askOut"></div>
   </section>
 
@@ -314,13 +369,13 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
 
   <div class="tabs" role="tablist" aria-label="Relay views">
     <button role="tab" id="t-build" aria-controls="pane" aria-selected="true" data-tab="build">Flow</button>
-    <button role="tab" id="t-test" aria-controls="pane" aria-selected="false" data-tab="test" tabindex="-1">Test run</button>
+    <button role="tab" id="t-test" aria-controls="pane" aria-selected="false" data-tab="test" tabindex="-1">Dry run</button>
     <button role="tab" id="t-res" aria-controls="resPane" aria-selected="false" data-tab="res" tabindex="-1">Results</button>
   </div>
 
   <div class="lay" id="lay">
     <section class="card" aria-label="Workflow canvas">
-      <h2><span>Flow · New lead to booked consult</span><span class="cvtools"><button class="btn sm" id="zOut" type="button" aria-label="Zoom out">−</button><span class="zoomv" id="zVal" aria-live="polite">100%</span><button class="btn sm" id="zIn" type="button" aria-label="Zoom in">+</button><button class="btn sm" id="zFit" type="button">Fit</button><button class="btn sm" id="tidy" type="button">Reset layout</button><button class="btn sm" id="resetFlow" type="button">Reset flow</button></span></h2>
+      <h2><span id="flowName">Flow · New lead to booked consult</span><span class="cvtools"><button class="btn sm" id="zOut" type="button" aria-label="Zoom out">−</button><span class="zoomv" id="zVal" aria-live="polite">100%</span><button class="btn sm" id="zIn" type="button" aria-label="Zoom in">+</button><button class="btn sm" id="zFit" type="button">Fit</button><button class="btn sm" id="tidy" type="button">Reset layout</button><button class="btn sm" id="resetFlow" type="button">Reset flow</button></span></h2>
       <div class="cvwrap" id="cvwrap" tabindex="0" role="region" aria-label="Workflow canvas. Tab to a step. Enter opens it, arrow keys move it." aria-describedby="nodeHint">
         <div class="sizer" id="sizer"><div class="cv" id="cv"><svg id="wires" aria-hidden="true"></svg></div></div>
       </div>
@@ -332,22 +387,23 @@ fieldset.radios legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.
   <section role="tabpanel" id="resPane" aria-labelledby="t-res" hidden></section>
 
   <section class="cs" aria-label="Case study">
-    <div><span class="tag">Concept · prototype</span><h2>Reaching new Meta leads while they're still interested</h2>
-      <p class="lede">A new lead gets a text in under a minute, answers two or three questions, and lands on the calendar. The owner just gets the alert.</p>
+    <div><span class="tag">Concept · prototype</span><h2>A sentence becomes the follow-up, and a person still approves it</h2>
+      <p class="lede">Four fictional examples sit above the builder: a med spa lead, an after-hours remodel, a consult no-show, and a fence quote. Each one drafts timing, a channel, and a branch for a reply, no reply, or a booking.</p>
       <p class="contact" style="margin-top:20px">Cesar Navarro · <code>cnavarro.business@gmail.com</code></p></div>
     <dl>
       <dt>Role</dt><dd>Concept direction</dd>
       <dt>Tools</dt><dd>AI-assisted build (Claude, Cursor)</dd>
-      <dt>Problem</dt><dd>Med spas and home-service shops pay for Meta leads, then often reply hours later. By then the lead may have booked with whoever texted first.</dd>
-      <dt>Workflow</dt><dd>A lead form sends a text within 60 seconds. An AI asks two or three questions, books a consult, and alerts the owner. If the lead doesn't reply, follow-ups go out at 5 minutes, 1 hour, and the next day. Replying STOP ends everything.</dd>
+      <dt>Problem</dt><dd>Speed-to-lead is slow. Med spas and home-service shops pay for a lead, then often reply hours later. By then the person may have booked with whoever answered first.</dd>
+      <dt>Workflow</dt><dd>A person picks an example or writes a sentence. The draft sets the first message, the channel, and the branch. A med spa texts within a minute. A remodeler holds an after-hours lead until 8 AM and emails the owner if they book. A no-show gets one text and one morning follow-up. A fence quote texts the next morning and books a site visit if they say yes. Replying STOP ends the texts.</dd>
       <dt>Decisions</dt><dd><ol>
         <li><b>The whole process in one place.</b> Every branch, including opt-out and no reply, is a visible step, not a hidden setting.</li>
         <li><b>Texting rules are built in.</b> A2P 10DLC status, the opt-out line, and quiet hours are checked as you edit. A flow that breaks them can't be tested.</li>
         <li><b>English and Spanish side by side.</b> Each text has both versions, with a live count of message segments, since accented letters can change the count.</li>
         <li><b>The AI knows when to hand off to a person.</b> Questions about price, medical concerns, and upset messages go to a person.</li>
         <li><b>A sentence becomes a flow, not a hidden chat.</b> Steps the sentence never mentioned stay marked until a person checks them. Rejected: a chat box that hides the logic, and marking the draft live as soon as it appears.</li>
-        <li><b>A test lead, then a person.</b> Publish stays blocked until a test lead finishes and the marked steps are checked. Rollback puts the previous version back. Nothing is texted.</li></ol></dd>
-      <dt>Constraints</dt><dd>One file in the browser. No real texting, no carrier account, and no test with shop owners. The sample month on Results is labeled fictional. It is not a measured outcome.</dd>
+        <li><b>A dry run, then a person.</b> Publish stays blocked until a test lead finishes and the marked steps are checked. The timeline shows the time, the channel, and the branch. Version history shows what changed. Rollback puts the previous version back. Nothing is texted or emailed.</li></ol></dd>
+      <dt>Before and after</dt><dd>Illustrative, not a measured result. Before: the form sits until someone on the desk is free. After: the draft would follow the sentence. Nothing in this demo is sent.</dd>
+      <dt>Constraints</dt><dd>One file in the browser. No real texting, no email, no carrier account, and no test with shop owners. The sample month on Results is labeled fictional. It is not a measured outcome.</dd>
       <dt>What I'd test</dt><dd>Whether owners trust the AI to book without checking first, whether two questions book more than three, and which first text gets more replies in each language.</dd>
       <dt>Goals (not results)</dt><dd>Goals: median first text under 60 seconds, 30% or more of leads booked, and opt-outs under 3%.</dd>
       <dt>Label</dt><dd>Concept. The business, leads and results are fictional demo data. The builder, test run and states are real and run in the browser.</dd>
@@ -393,11 +449,14 @@ const NODES={
   handoff:{type:"person",icon:"person",t:"Front desk takes over"}};
 const EDGES=[["trig","b","sms","t",""],["sms","b","reply","t",""],["reply","l","optout","t","STOP"],["reply","r","fu","t","No reply"],["reply","b","ai","t","Replied"],
   ["fu","l","ai","r","Replies"],["ai","b","qual","t",""],["qual","b","book","t","Yes"],["qual","r","handoff","t","No"],["book","l","alert","r",""]];
-const WITHIN={instant:["Instantly","about 10 s",9],"30":["Within 30 s","",24],"60":["Within 60 s","",41]};
-const FU2={"1":"1 hr after the first text","2":"2 hr after the first text","4":"4 hr after the first text"};
+const WITHIN={instant:["Instantly","about 10 s",9],"30":["Within 30 s","",24],"60":["Within 60 s","",41],"10m":["Within 10 min","about 10 min",600],am:["At 8:00 AM","held for morning",null]};
+const FU2={"1":"1 hr after the first text","2":"2 hr after the first text","4":"4 hr after the first text","48":"2 days after the first text"};
 const FU3={next10:"Next day, 10:00 AM",next12:"Next day, 12:00 PM",two10:"2 days later, 10:00 AM"};
 
-const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSON.stringify(POS0)),within:"60",wait:"5",fu2:"1",fu3:"next10",prompt:"",low:{},
+const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSON.stringify(POS0)),within:"60",wait:"5",fu2:"1",fu3:"next10",fuCount:3,fu1mode:"wait",prompt:"",low:{},
+  example:"spa",biz:"Solace Skin Studio",leadName:"Daniela R.",leadFirst:"Daniela",crumbs:"DEMO WORKSPACE · FICTIONAL MED SPA",flowTitle:"New lead to booked consult",
+  titles:null,descs:null,trigNote:"",bookSub:"",alertNote:"with the answers",leadChannel:"Text",interest:"Botox",qualSm:"Wants a treatment and can come this week",replySm:"Not ready to book. A person takes over.",
+  visit:"first visit",bookNoun:"consult",bookMin:"20 min",arrive:19*3600+46*60,arriveLabel:"7:46 PM",bookAns:null,replyAns:null,times:null,
   campaign:"approved",empty:false,running:false,runId:0,scen:"book",leadLang:"es",slots:"2",remind:true,alertText:true,alertEmail:true,form:"Spring consult",
   hand:{price:true,medical:true,upset:true},
   tpl:{
@@ -419,14 +478,100 @@ const S={state:"live",tab:"build",sel:"sms",lang:"en",scale:1,pos:JSON.parse(JSO
 const ANS={en:["Botox for my forehead lines","This week if possible","First time"],es:["Botox para las líneas de la frente","Esta semana si se puede","Primera vez"]};
 const TIMES={en:["Thu 2:40 PM","Fri 10:20 AM","Sat 11:00 AM"],es:["jueves 2:40 PM","viernes 10:20 AM","sábado 11:00 AM"]};
 const DAYNAME={Thu:"Thursday",Fri:"Friday",Sat:"Saturday"};
-function offeredTimes(lang){const list=lang==="es"?TIMES.es:TIMES.en;let n=parseInt(S.slots,10);if(!Number.isFinite(n)||n<1)n=2;return list.slice(0,Math.min(list.length,n))}
+S.bookAns=JSON.parse(JSON.stringify(ANS));
+S.replyAns={en:["Botox for my forehead lines","Just looking, no date yet","First time"],es:["Botox para las líneas de la frente","Solo estoy mirando, sin fecha","Primera vez"]};
+S.times=JSON.parse(JSON.stringify(TIMES));
+function timeList(){return S.times||TIMES}
+function offeredTimes(lang){const list=lang==="es"?timeList().es:timeList().en;let n=parseInt(S.slots,10);if(!Number.isFinite(n)||n<1)n=2;return list.slice(0,Math.min(list.length,n))}
 function pickedTime(lang){return offeredTimes(lang)[0]||""}
 function pickedName(lang){const t=pickedTime(lang);if(!t)return "";if(lang==="es")return t.split(" ")[0];return DAYNAME[t.slice(0,3)]||""}
 function pickedReply(lang){const name=pickedName(lang);if(!name)return lang==="es"?"Ese horario me queda":"That time works";return lang==="es"?`El ${name}`:`${name} works`}
+function biz(){return S.biz||"Solace Skin Studio"}
+function nt(id){return (S.titles&&S.titles[id])||NODES[id].t}
+function who(){return S.leadFirst||"Daniela"}
+
+/* Four fictional examples. Picking one drafts a flow. Nothing is sent. */
+const EXAMPLES={
+  spa:{id:"spa",pick:"Med spa lead",sentence:"When a Facebook lead comes in, text them within 1 minute, offer two appointment times, and alert the owner if no reply in 15 minutes.",
+    biz:"Solace Skin Studio",crumbs:"DEMO WORKSPACE · FICTIONAL MED SPA",leadName:"Daniela R.",leadFirst:"Daniela",form:"Spring consult",flowTitle:"New lead to booked consult",
+    within:"60",wait:"15",fu2:"1",fu3:"next10",fuCount:3,fu1mode:"wait",slots:"2",alertText:true,alertEmail:true,arrive:19*3600+46*60,arriveLabel:"7:46 PM",
+    interest:"Botox",qualSm:"Wants Botox and can come this week",replySm:"No date yet. A person takes over.",visit:"first visit",bookNoun:"consult",bookMin:"20 min",
+    leadChannel:"Text",alertNote:"with the answers",trigNote:"“Spring consult” form · consent required",bookSub:"Offers 2 open times · 20 min",titles:null,
+    hand:{price:true,medical:true,upset:true},
+    descs:{trig:"Starts the flow the moment someone submits the Meta lead form.",sms:"The first text goes out before anyone at the desk sees the lead.",book:"Offers open consult times and books the one the lead picks.",alert:"Texts and emails the owner when a consult is booked."}},
+  remodel:{id:"remodel",pick:"After-hours remodel",sentence:"When a kitchen remodel lead comes in after 7 PM, hold the first text until 8 AM, ask about the room and the timeline, and email the owner if they book a walkthrough.",
+    biz:"Northline Remodel",crumbs:"DEMO WORKSPACE · FICTIONAL REMODELER",leadName:"Marcus T.",leadFirst:"Marcus",form:"Kitchen remodel",flowTitle:"After-hours lead to a walkthrough",
+    within:"am",wait:"15",fu2:"1",fu3:"next10",fuCount:3,fu1mode:"wait",slots:"2",alertText:false,alertEmail:true,arrive:19*3600+46*60,arriveLabel:"7:46 PM",
+    interest:"Kitchen",qualSm:"Kitchen remodel, wants to start this spring",replySm:"Just looking. A person takes over.",visit:"first walkthrough",bookNoun:"walkthrough",bookMin:"45 min",
+    leadChannel:"Text",alertNote:"email only, after a booking",trigNote:"After 7 PM · kitchen form · consent required",bookSub:"Offers 2 walkthrough times · 45 min",
+    titles:{trig:"After-hours lead",sms:"Morning text",reply:"Wait for a reply",optout:"Opt out",fu:"Follow-ups",ai:"AI qualifier",qual:"Ready to meet?",book:"Book a walkthrough",alert:"Email the owner",handoff:"Owner takes over"},
+    hand:{price:true,medical:false,upset:true},
+    descs:{trig:"Starts when a kitchen lead arrives after 7 PM. The shop is closed.",sms:"The first text waits until 8:00 AM. Nothing goes out overnight.",ai:"Asks about the room and the timeline, one question at a time.",book:"Offers two walkthrough times and books the one they pick.",alert:"Emails the owner only after a walkthrough is booked. Nothing is sent in this demo."},
+    q:[{en:"Which room is this for?",es:"¿De qué espacio se trata?"},{en:"When do you want to start?",es:"¿Cuándo quiere empezar?"},{en:"Is this your home?",es:"¿Es su casa?"}],
+    bookAns:{en:["The kitchen","This spring","Yes, it is my home"],es:["La cocina","Esta primavera","Sí, es mi casa"]},
+    replyAns:{en:["The kitchen","Just looking","Yes, it is my home"],es:["La cocina","Solo estoy mirando","Sí, es mi casa"]},
+    times:{en:["Thu 10:00 AM","Fri 1:30 PM","Sat 9:00 AM"],es:["jueves 10:00 AM","viernes 1:30 PM","sábado 9:00 AM"]},
+    tpl:{
+      sms:{en:"Hi {first_name}, this is Northline Remodel. We got your kitchen note after hours. Can I ask 2 questions about the room and your timeline? Reply STOP to opt out.",es:"Hola {first_name}, le saluda Northline Remodel. Recibimos su nota de cocina fuera de horario. ¿Le hago 2 preguntas sobre el espacio y el plazo? Responda STOP para salir."},
+      fu1:{en:"Hi {first_name}, Northline Remodel again. Want me to send 2 times for a kitchen walkthrough?",es:"Hola {first_name}, de nuevo Northline Remodel. ¿Le envío 2 horarios para ver la cocina?"},
+      fu2:{en:"No rush, {first_name}. A walkthrough is 45 minutes. Should I hold a time?",es:"Sin prisa, {first_name}. La visita es de 45 minutos. ¿Le aparto un horario?"},
+      fu3:{en:"Last check-in from Northline Remodel. Reply YES for times, or STOP to opt out.",es:"Último mensaje de Northline Remodel. Responda SÍ para ver horarios, o STOP para salir."},
+      optout:{en:"You're unsubscribed from Northline Remodel texts. No more messages will be sent.",es:"Ha cancelado los mensajes de Northline Remodel. No recibirá más mensajes."},
+      book:{en:"You're booked, {first_name}: {time}, 45-minute kitchen walkthrough with Northline Remodel. Reply C to change.",es:"Listo, {first_name}: {time}, visita de 45 minutos con Northline Remodel. Responda C para cambiarla."}}},
+  noshow:{id:"noshow",pick:"Consult no-show",sentence:"If a consult no-shows, text them within 10 minutes with two new times, and stop after one follow-up the next morning if they do not reply.",
+    biz:"Solace Skin Studio",crumbs:"DEMO WORKSPACE · FICTIONAL MED SPA",leadName:"Elena V.",leadFirst:"Elena",form:"Consult no-show",flowTitle:"No-show to a new time",
+    within:"10m",wait:"15",fu2:"1",fu3:"next10",fuCount:1,fu1mode:"nextam",slots:"2",alertText:true,alertEmail:false,arrive:14*3600+14*60,arriveLabel:"2:14 PM",
+    interest:"Consult",qualSm:"Still wants the consult this week",replySm:"Not ready to reschedule. Front desk takes over.",visit:"missed consult",bookNoun:"consult",bookMin:"20 min",
+    leadChannel:"Text",alertNote:"only if a new time is booked",trigNote:"Consult marked no-show · consent already on file",bookSub:"Offers 2 new times · 20 min",
+    titles:{trig:"Consult no-show",sms:"Text in 10 minutes",reply:"Wait for a reply",optout:"Opt out",fu:"One follow-up",ai:"AI qualifier",qual:"Still wants to come?",book:"Offer a new time",alert:"Alert the owner",handoff:"Front desk takes over"},
+    hand:{price:true,medical:true,upset:true},
+    descs:{trig:"Starts when a consult is marked as a no-show. Consent is already on the original form.",sms:"The first text would go about 10 minutes after the no-show.",fu:"One follow-up the next morning, then the texts stop.",book:"Offers two new times and books the one they pick.",alert:"The owner is told only if a new time is booked. The sentence never said so, so this step stays flagged."},
+    q:[{en:"Do you still want the consult?",es:"¿Sigue queriendo la consulta?"},{en:"Morning or afternoon?",es:"¿Por la mañana o por la tarde?"}],
+    bookAns:{en:["Yes, I still want it","Afternoon"],es:["Sí, todavía la quiero","Por la tarde"]},
+    replyAns:{en:["Maybe later","I am not sure"],es:["Quizá más adelante","No estoy segura"]},
+    times:{en:["Thu 4:10 PM","Fri 11:30 AM"],es:["jueves 4:10 PM","viernes 11:30 AM"]},
+    tpl:{
+      sms:{en:"Hi {first_name}, this is Solace Skin Studio. We missed you at your consult. I can offer 2 other times. Reply STOP to opt out.",es:"Hola {first_name}, le saluda Solace Skin Studio. No la vimos en su consulta. Puedo ofrecer 2 otros horarios. Responda STOP para salir."},
+      fu1:{en:"Good morning, {first_name}. Solace Skin Studio still has 2 times open if you want to reschedule. Reply STOP to opt out.",es:"Buenos días, {first_name}. Solace Skin Studio aún tiene 2 horarios si quiere cambiar la cita. Responda STOP para salir."},
+      fu2:{en:"Hi {first_name}, Solace Skin Studio again. Reply YES for times, or STOP to opt out.",es:"Hola {first_name}, de nuevo Solace Skin Studio. Responda SÍ para ver horarios, o STOP para salir."},
+      fu3:{en:"Last note from Solace Skin Studio. Reply YES for times, or STOP to opt out.",es:"Último mensaje de Solace Skin Studio. Responda SÍ para ver horarios, o STOP para salir."},
+      optout:{en:"You're unsubscribed from Solace Skin Studio texts. No more messages will be sent.",es:"Ha cancelado los mensajes de Solace Skin Studio. No recibirá más mensajes."},
+      book:{en:"You're rebooked, {first_name}: {time}, 20-minute consult at Solace Skin Studio. Reply C to change.",es:"Quedó agendada, {first_name}: {time}, consulta de 20 minutos en Solace Skin Studio. Responda C para cambiarla."}}},
+  fence:{id:"fence",pick:"Fence quote",sentence:"After a fence quote goes out, text the next morning, follow up in 2 days if there is no reply, and book a site visit if they say yes.",
+    biz:"Cedar Line Fencing",crumbs:"DEMO WORKSPACE · FICTIONAL FENCE COMPANY",leadName:"Priya S.",leadFirst:"Priya",form:"Fence quote",flowTitle:"Quote to a site visit",
+    within:"am",wait:"15",fu2:"48",fu3:"next10",fuCount:1,fu1mode:"days2",slots:"2",alertText:true,alertEmail:true,arrive:16*3600+12*60,arriveLabel:"4:12 PM",
+    interest:"Cedar fence",qualSm:"Wants a site visit and the yard is clear",replySm:"Asked about price. A person takes over.",visit:"site visit",bookNoun:"site visit",bookMin:"30 min",
+    leadChannel:"Text",alertNote:"text and email when a visit is booked",trigNote:"Quote sent · consent on the quote form",bookSub:"Offers 2 site-visit times · 30 min",
+    titles:{trig:"Quote sent",sms:"Next-morning text",reply:"Wait for a reply",optout:"Opt out",fu:"Follow-up in 2 days",ai:"AI qualifier",qual:"Ready for a visit?",book:"Book a site visit",alert:"Alert the owner",handoff:"Estimator takes over"},
+    hand:{price:true,medical:false,upset:true},
+    descs:{trig:"Starts when the quote is marked sent. The lead already gave consent on the quote form.",sms:"The first text waits until 8:00 AM the next morning.",fu:"If there is no reply, one text would go 2 days later. Then it stops.",book:"Books a 30-minute site visit if they say yes.",alert:"The sentence never names the owner. The draft kept a text and an email. Check both."},
+    q:[{en:"About how many linear feet is the fence?",es:"¿Unos cuántos pies lineales tiene la cerca?"},{en:"Is the yard clear for a visit?",es:"¿El patio está libre para una visita?"}],
+    bookAns:{en:["About 80 feet","Yes, the yard is clear"],es:["Unos 80 pies","Sí, el patio está libre"]},
+    replyAns:{en:["About 80 feet","What is the price first?"],es:["Unos 80 pies","¿Cuál es el precio primero?"]},
+    times:{en:["Wed 9:30 AM","Thu 3:00 PM"],es:["miércoles 9:30 AM","jueves 3:00 PM"]},
+    tpl:{
+      sms:{en:"Hi {first_name}, this is Cedar Line Fencing. Your fence quote is ready. Can I ask 2 questions and set a site visit? Reply STOP to opt out.",es:"Hola {first_name}, le saluda Cedar Line Fencing. Su cotización de cerca está lista. ¿Le hago 2 preguntas y agendo una visita? Responda STOP para salir."},
+      fu1:{en:"Hi {first_name}, Cedar Line Fencing checking in. Want 2 times for a site visit? Reply STOP to opt out.",es:"Hola {first_name}, Cedar Line Fencing escribe de nuevo. ¿Quiere 2 horarios para la visita? Responda STOP para salir."},
+      fu2:{en:"Hi {first_name}, still happy to set a site visit. Reply YES for times, or STOP to opt out.",es:"Hola {first_name}, seguimos a tiempo para una visita. Responda SÍ para ver horarios, o STOP para salir."},
+      fu3:{en:"Last note from Cedar Line Fencing. Reply YES for times, or STOP to opt out.",es:"Último mensaje de Cedar Line Fencing. Responda SÍ para ver horarios, o STOP para salir."},
+      optout:{en:"You're unsubscribed from Cedar Line Fencing texts. No more messages will be sent.",es:"Ha cancelado los mensajes de Cedar Line Fencing. No recibirá más mensajes."},
+      book:{en:"You're booked, {first_name}: {time}, 30-minute site visit with Cedar Line Fencing. Reply C to change.",es:"Listo, {first_name}: {time}, visita de 30 minutos con Cedar Line Fencing. Responda C para cambiarla."}}}
+};
+EXAMPLES.spa.tpl=JSON.parse(JSON.stringify(S.tpl));
+EXAMPLES.spa.q=JSON.parse(JSON.stringify(S.q));
+EXAMPLES.spa.bookAns=JSON.parse(JSON.stringify(S.bookAns));
+EXAMPLES.spa.replyAns=JSON.parse(JSON.stringify(S.replyAns));
+EXAMPLES.spa.times=JSON.parse(JSON.stringify(S.times));
+function loadExample(id){const ex=EXAMPLES[id];if(!ex)return;
+  ["biz","crumbs","leadName","leadFirst","form","flowTitle","within","wait","fu2","fu3","fuCount","fu1mode","slots","alertText","alertEmail","arrive","arriveLabel","interest","qualSm","replySm","visit","bookNoun","bookMin","leadChannel","alertNote","trigNote","bookSub","hand"].forEach(k=>{if(ex[k]!==undefined)S[k]=JSON.parse(JSON.stringify(ex[k]))});
+  S.example=id;S.titles=ex.titles?JSON.parse(JSON.stringify(ex.titles)):null;S.descs=ex.descs?JSON.parse(JSON.stringify(ex.descs)):null;
+  S.tpl=JSON.parse(JSON.stringify(ex.tpl));S.q=JSON.parse(JSON.stringify(ex.q));
+  S.bookAns=JSON.parse(JSON.stringify(ex.bookAns));S.replyAns=JSON.parse(JSON.stringify(ex.replyAns));S.times=JSON.parse(JSON.stringify(ex.times));
+  S.lang="en";S.leadLang="en"}
 
 /* ---------- persistence: flow edits and test runs are saved in this browser (localStorage il-relay-*) ---------- */
 const FKEY="il-relay-flow",RKEY="il-relay-runs";
-const PERSIST=["tpl","q","within","wait","fu2","fu3","slots","remind","alertText","alertEmail","form","hand","pos","lang","scen","prompt","low"];
+const PERSIST=["tpl","q","within","wait","fu2","fu3","fuCount","fu1mode","slots","remind","alertText","alertEmail","form","hand","pos","lang","scen","prompt","low","example","biz","leadName","leadFirst","crumbs","flowTitle","titles","descs","trigNote","bookSub","alertNote","leadChannel","interest","qualSm","replySm","visit","bookNoun","bookMin","arrive","arriveLabel","bookAns","replyAns","times"];
 const DEFAULTS=JSON.parse(JSON.stringify(Object.fromEntries(PERSIST.map(k=>[k,S[k]]))));
 const lsGet=k=>{try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 (()=>{const s=lsGet(FKEY);if(s)PERSIST.forEach(k=>{if(s[k]!==undefined)S[k]=s[k]});S.leadLang=S.lang})();
@@ -443,34 +588,34 @@ function restoreSnap(o){PERSIST.forEach(k=>S[k]=JSON.parse(JSON.stringify(o[k]))
 
 /* ---------- SMS segment math: GSM-7 vs Unicode ---------- */
 const GSM="@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà",GSMX="^{}\\[~]|€";
-function seg(t){const when=pickedTime("en")||TIMES.en[0];const s=t.replace(/\{first_name\}/g,"Daniela").replace(/\{time\}/g,when);let gsm=true,n=0;
+function seg(t){const when=pickedTime("en")||timeList().en[0];const s=t.replace(/\{first_name\}/g,who()).replace(/\{time\}/g,when);let gsm=true,n=0;
   for(const ch of s){if(GSM.includes(ch))n++;else if(GSMX.includes(ch))n+=2;else{gsm=false;break}}
   if(!gsm)n=s.length;const per=gsm?160:70,multi=gsm?153:67;return{n,gsm,segs:n<=per?1:Math.ceil(n/multi),per,firstBad:gsm?"":[...s].find(ch=>!GSM.includes(ch)&&!GSMX.includes(ch))}}
 function smsIssues(){const out=[];["en","es"].forEach(l=>{const t=S.tpl.sms[l];const L=l==="en"?"English":"Spanish";
   if(!t.trim())out.push(`${L} first text is empty.`);else if(!/\bSTOP\b/.test(t))out.push(`${L} first text has no opt-out line. It must say how to stop, for example "Reply STOP to opt out."`);
-  if(!t.includes(BIZ))out.push(`${L} first text doesn't name the business.`)});return out}
+  if(!t.includes(biz()))out.push(`${L} first text doesn't name the business.`)});return out}
 
 /* ---------- canvas ---------- */
 const cv=$("cv"),wires=$("wires"),wrap=$("cvwrap");
 function sub(id){switch(id){
-  case"trig":return `“${S.form}” form · consent required`;
-  case"sms":return `${WITHIN[S.within][0]} · English + Spanish`;
-  case"reply":{const w=String(S.wait??"").trim();return w?`Up to ${w} min · 3 paths`:"3 paths"}
+  case"trig":return S.trigNote||`“${S.form}” form · consent required`;
+  case"sms":return `${(WITHIN[S.within]||WITHIN["60"])[0]} · ${S.leadChannel||"Text"} · English + Spanish`;
+  case"reply":{const w=String(S.wait??"").trim();return w?`Up to ${w} min · replied, no reply, or booked`:"Replied, no reply, or booked"}
   case"optout":return "Stop all texts, confirm once";
-  case"fu":{const w=String(S.wait??"").trim();return `${w?w+" min":"Wait"} · ${S.fu2?S.fu2+" hr":"later"} · ${S.fu3==="two10"?"2 days":"next day"}`}
+  case"fu":{if(Number(S.fuCount)===1&&S.fu1mode==="nextam")return "One follow-up · next morning · then stop";if(Number(S.fuCount)===1&&S.fu1mode==="days2")return "One follow-up · 2 days later · then stop";const w=String(S.wait??"").trim();return `${w?w+" min":"Wait"} · ${S.fu2==="48"?"2 days":(S.fu2?S.fu2+" hr":"later")} · ${S.fu3==="two10"?"2 days":"next day"}`}
   case"ai":return `${S.q.length} questions · hands off when needed`;
-  case"qual":return "Wants a treatment, within 30 days";
-  case"book":return `Offers ${S.slots} open times · 20 min`;
-  case"alert":return `${[S.alertText&&"Text",S.alertEmail&&"email"].filter(Boolean).join(" + ")||"No channel"} with the answers`;
-  case"handoff":return "Text alert, AI stops replying"}}
+  case"qual":return S.qualSm||"Wants a treatment, within 30 days";
+  case"book":return S.bookSub||`Offers ${S.slots} open times · ${S.bookMin||"20 min"}`;
+  case"alert":return `${[S.alertText&&"Text",S.alertEmail&&"Email"].filter(Boolean).join(" + ")||"No channel"} · ${S.alertNote||"with the answers"}`;
+  case"handoff":return "Text to a person, AI stops replying"}}
 function outs(id){return EDGES.filter(e=>e[0]===id)}
-function nodeLabel(id){const n=NODES[id];const br=outs(id).map(e=>(e[4]?e[4]+" goes to ":"Then ")+NODES[e[2]].t).join(". ");
-  return `${KIND[n.type]}: ${n.t}. ${sub(id)}.${br?" "+br+".":""}`}
+function nodeLabel(id){const n=NODES[id];const br=outs(id).map(e=>(e[4]?e[4]+" goes to ":"Then ")+nt(e[2])).join(". ");
+  return `${KIND[n.type]}: ${nt(id)}. ${sub(id)}.${br?" "+br+".":""}`}
 function buildCanvas(){[...cv.querySelectorAll(".node,.stephint")].forEach(n=>n.remove());
   if(S.state==="loading"){cv.insertAdjacentHTML("beforeend",Object.keys(POS0).slice(0,7).map(k=>`<div class="node sk" style="left:${POS0[k][0]}px;top:${POS0[k][1]}px;border:0" aria-hidden="true"></div>`).join(""));wires.innerHTML="";return}
   const ids=S.empty?["trig"]:Object.keys(NODES);
   ids.forEach(id=>{const n=NODES[id];const b=document.createElement("button");b.type="button";b.className=`node ${n.type}`;b.dataset.id=id;
-    b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]} </span><b>${n.t} </b><small data-sub></small></span>`;cv.appendChild(b)});
+    b.innerHTML=`<span class="ic">${ic(n.icon)}</span><span class="tx"><span class="k">${KIND[n.type]} </span><b>${nt(id)} </b><small data-sub></small></span>`;cv.appendChild(b)});
   if(S.empty)cv.insertAdjacentHTML("beforeend",`<div class="stephint" style="left:290px;top:150px;width:220px"><span class="tx"><span class="k">Next step</span><b>Describe the follow-up</b><small>Or start from the template</small><button class="btn sm pri" type="button" data-act="template" style="margin-top:8px">Use speed-to-lead template</button></span></div>`);
   updateNodes();placeAll()}
 function updateNodes(){const iss=smsIssues().length;cv.querySelectorAll(".node[data-id]").forEach(b=>{const id=b.dataset.id;b.querySelector("[data-sub]").textContent=sub(id);
@@ -528,42 +673,44 @@ function renderComp(){const c=$("comp");if(S.state==="loading"){c.innerHTML='<sp
 /* ---------- inspector ---------- */
 function langSeg(){return `<div class="seg" role="group" aria-label="Template language"><button type="button" data-lang="en" aria-pressed="${S.lang==="en"}">English</button><button type="button" data-lang="es" aria-pressed="${S.lang==="es"}">Español</button></div>`}
 function meter(t){const s=seg(t);return `<b>${s.n}</b> characters · <b>${s.segs}</b> segment${s.segs>1?"s":""} · ${s.gsm?"standard text (160 per segment)":`Unicode, because of “${esc(s.firstBad)}” (70 per segment)`}`}
-function fillT(t,lang){const when=pickedTime(lang);let s=String(t||"").replace(/\{first_name\}/g,"Daniela");if(when)return s.replace(/\{time\}/g,when);return s.replace(/\{time\},?\s*/g,"").replace(/\s{2,}/g," ").trim()}
+function fillT(t,lang){const when=pickedTime(lang);let s=String(t||"").replace(/\{first_name\}/g,who());if(when)return s.replace(/\{time\}/g,when);return s.replace(/\{time\},?\s*/g,"").replace(/\s{2,}/g," ").trim()}
 function tplField(key,label){const t=S.tpl[key][S.lang];return `<div class="fl"><label for="tx_${key}">${label} · ${S.lang==="en"?"English":"Spanish"}</label><textarea class="inp" id="tx_${key}" data-tpl="${key}" aria-describedby="mt_${key}">${esc(t)}</textarea><div class="meter" id="mt_${key}">${meter(t)}</div><p class="note ferr" id="er_${key}" role="alert"${t.trim()?" hidden":""}>This text can't be empty. A blank text is never sent.</p></div>`}
 function checks(list){return `<ul class="checks">${list.map(([s,t])=>`<li><span class="s ${s}" aria-hidden="true">${s==="y"?"✓":s==="n"?"!":"i"}</span><span><span class="vh">${s==="y"?"Passes: ":s==="n"?"Problem: ":"Note: "}</span>${t}</span></li>`).join("")}</ul>`}
-function smsChecks(){const t=S.tpl.sms[S.lang],s=seg(t);return checks([[t.includes(BIZ)?"y":"n",t.includes(BIZ)?"Names the business":"Add the business name so the lead knows who is texting"],
+function smsChecks(){const t=S.tpl.sms[S.lang],s=seg(t);return checks([[t.includes(biz())?"y":"n",t.includes(biz())?"Names the business":"Add the business name so the lead knows who is texting"],
   [/\bSTOP\b/.test(t)?"y":"n",/\bSTOP\b/.test(t)?"Says how to opt out (STOP)":"Add an opt-out line, for example “Reply STOP to opt out.”"],
   [s.segs<=2?"y":"w",s.segs<=2?`Fits in ${s.segs} segment${s.segs>1?"s":""}`:`${s.segs} segments. Shorter texts get more replies and cost less to send.`],
   ["i","Leads who arrive during quiet hours get this at 8 AM their time."]])}
-function branches(id){const o=outs(id);if(!o.length)return"";return `<div class="fl"><span class="lab">Branches</span><div class="branches">${o.map(e=>`<div class="br"><span>${e[4]||"Next"}</span><button type="button" data-go="${e[2]}">${NODES[e[2]].t} →</button></div>`).join("")}</div></div>`}
+function branches(id){const o=outs(id);if(!o.length)return"";return `<div class="fl"><span class="lab">Branches</span><div class="branches">${o.map(e=>`<div class="br"><span>${e[4]||"Next"}</span><button type="button" data-go="${e[2]}">${nt(e[2])} →</button></div>`).join("")}</div></div>`}
 function sel(id,label,opts,val){return `<div class="fl"><label for="${id}">${label}</label><select class="inp" id="${id}" data-set="${id}">${Object.entries(opts).map(([k,v])=>`<option value="${k}"${k===val?" selected":""}>${v}</option>`).join("")}</select></div>`}
-function head(id,desc){const n=NODES[id];return `<div class="head"><span class="ic" style="color:${{trigger:"var(--bronze)",action:"var(--accent)",cond:"var(--cream)",person:"var(--orange)"}[n.type]}">${ic(n.icon)}</span><div><span class="kind">${KIND[n.type]} · step ${Object.keys(NODES).indexOf(id)+1} of 10</span><h3 id="insH">${n.t}</h3><p class="sub" style="margin:0">${desc}</p></div></div>`}
+function head(id,desc){const n=NODES[id];const d=(S.descs&&S.descs[id])||desc;return `<div class="head"><span class="ic" style="color:${{trigger:"var(--bronze)",action:"var(--accent)",cond:"var(--cream)",person:"var(--orange)"}[n.type]}">${ic(n.icon)}</span><div><span class="kind">${KIND[n.type]} · step ${Object.keys(NODES).indexOf(id)+1} of 10</span><h3 id="insH">${nt(id)}</h3><p class="sub" style="margin:0">${d}</p></div></div>`}
 function inspector(){const id=S.sel;let h="";
   if(S.campaign!=="approved")h+=`<div class="banner" role="note"><span class="dot warn" aria-hidden="true" style="margin-top:5px"></span><span><b>Texting is paused.</b> The 10DLC campaign is still in carrier review. You can edit the flow, but nothing is sent until it's approved.</span></div>`;
   if(S.low[id])h+=`<div class="lowban"><span><b>Check this step.</b> ${esc(S.low[id])}</span><button class="btn sm" type="button" data-act="checkstep" data-low="${id}">Mark checked</button></div>`;
   switch(id){
-  case"trig":h+=head(id,"Starts the flow the moment someone submits your Meta lead form.")+sel("form","Lead form",{"Spring consult":"Spring consult","Laser hair removal":"Laser hair removal","Summer facial":"Summer facial"},S.form)+
+  case"trig":h+=head(id,"Starts the flow the moment the lead arrives.")+sel("form","Lead form",{"Spring consult":"Spring consult","Laser hair removal":"Laser hair removal","Summer facial":"Summer facial","Kitchen remodel":"Kitchen remodel","Consult no-show":"Consult no-show","Fence quote":"Fence quote"},S.form)+
     `<div class="fl"><span class="lab">Fields from the form</span><table class="mini"><thead><tr><th scope="col">Form field</th><th scope="col">Used as</th></tr></thead><tbody><tr><td>Full name</td><td>first_name</td></tr><tr><td>Phone number</td><td>phone</td></tr><tr><td>Preferred language</td><td>language (English or Spanish)</td></tr><tr><td>SMS consent checkbox</td><td>consent · required</td></tr></tbody></table></div>`+
     checks([["y","Consent checkbox is required on this form"],["i","Leads without consent are never texted. The owner gets an email instead."]]);break;
   case"sms":h+=head(id,"The first text. Speed matters most here, so it goes out before anyone at the front desk sees the lead.")+sel("within","Send",Object.fromEntries(Object.entries(WITHIN).map(([k,v])=>[k,v[0]+(v[1]?" ("+v[1]+")":"")])),S.within)+
-    `<div class="fl"><span class="lab">Message</span>${langSeg()}</div>`+tplField("sms","First text")+`<div class="prev" aria-label="Preview"><span class="bubble sys">Preview · sample lead Daniela</span><div class="bubble out" id="pv_sms">${esc(fillT(S.tpl.sms[S.lang],S.lang))}</div></div><div id="ck_sms">${smsChecks()}</div><p class="note">The language comes from the lead's form answer. No answer means English.</p>`;break;
-  case"reply":h+=head(id,"Waits for the lead to answer, then sends them down one of three paths.")+sel("wait","Wait up to",{"2":"2 minutes","5":"5 minutes","10":"10 minutes","15":"15 minutes"},S.wait)+branches(id)+
-    `<div class="fl"><span class="lab">Opt-out keywords</span><p style="margin:0;font-size:13.5px">STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, QUIT<br><span class="sub">Also in Spanish: ALTO, PARAR, CANCELAR</span></p></div>`+checks([["y","Opt-out is checked before anything else, on every reply"],["i","HELP gets an automatic reply with the studio's phone number."]]);break;
+    `<div class="fl"><span class="lab">Message</span>${langSeg()}</div>`+tplField("sms","First text")+`<div class="prev" aria-label="Preview"><span class="bubble sys">Preview · fictional lead ${esc(S.leadName||"Daniela R.")} · nothing is sent</span><div class="bubble out" id="pv_sms">${esc(fillT(S.tpl.sms[S.lang],S.lang))}</div></div><div id="ck_sms">${smsChecks()}</div><p class="note">The language comes from the lead's form answer. No answer means English.</p>`;break;
+  case"reply":h+=head(id,"Waits for the lead to answer, then takes the replied, no-reply, or booked path.")+sel("wait","Wait up to",{"2":"2 minutes","5":"5 minutes","10":"10 minutes","15":"15 minutes"},S.wait)+branches(id)+
+    `<div class="fl"><span class="lab">Opt-out keywords</span><p style="margin:0;font-size:13.5px">STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, QUIT<br><span class="sub">Also in Spanish: ALTO, PARAR, CANCELAR</span></p></div>`+checks([["y","Opt-out is checked before anything else, on every reply"],["i","HELP gets an automatic reply with the business phone number."]]);break;
   case"optout":h+=head(id,"Runs when a lead texts STOP or a Spanish stop word. Stops all texts to that number.")+`<div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("optout","Confirmation text")+
     checks([["y","Number is added to the do-not-text list"],["y","All pending follow-ups are cancelled"],["y","Only this one confirmation is sent"]]);break;
-  case"fu":h+=head(id,"Runs only when there's no reply. Stops the moment the lead answers.")+`<div class="fl"><span class="lab">Messages</span>${langSeg()}</div>`+
-    `<div class="fu"><div class="top"><b>1 · ${String(S.wait??"").trim()?`After the ${S.wait}-minute wait`:"After the wait"}</b><span class="chip">Set on “Wait for a reply”</span></div>${tplField("fu1","Follow-up 1")}</div>`+
-    `<div class="fu"><div class="top"><b>2</b></div>${sel("fu2","Send",FU2,S.fu2)}${tplField("fu2","Follow-up 2")}</div>`+
-    `<div class="fu"><div class="top"><b>3 · last one</b></div>${sel("fu3","Send",FU3,S.fu3)}${tplField("fu3","Follow-up 3")}</div>`+
-    checks([["i","A follow-up that lands in quiet hours (9 PM to 8 AM) waits until 8 AM."],["y","After the third one, the lead is tagged “No reply” and texts stop."]])+branches(id);break;
+  case"fu":{const nFu=Number(S.fuCount)||3;const whenFu=S.fu1mode==="nextam"?"Next morning, 8:00 AM":S.fu1mode==="days2"?"2 days after the first text":(String(S.wait??"").trim()?`After the ${S.wait}-minute wait`:"After the wait");
+    h+=head(id,"Runs only when there is no reply. Stops the moment the lead answers.")+`<div class="fl"><span class="lab">Messages</span>${langSeg()}</div>`+
+    `<div class="fu"><div class="top"><b>1 · ${whenFu}</b><span class="chip">${nFu===1?"Then stop":"First of "+nFu}</span></div>${tplField("fu1","Follow-up 1")}</div>`+
+    (nFu>1?`<div class="fu"><div class="top"><b>2</b></div>${sel("fu2","Send",FU2,S.fu2)}${tplField("fu2","Follow-up 2")}</div>`:"")+
+    (nFu>2?`<div class="fu"><div class="top"><b>3 · last one</b></div>${sel("fu3","Send",FU3,S.fu3)}${tplField("fu3","Follow-up 3")}</div>`:"")+
+    checks([["i","A follow-up that lands in quiet hours (9 PM to 8 AM) waits until 8 AM."],["y",nFu===1?"After this one follow-up, the lead is tagged “No reply” and texts stop.":"After the last one, the lead is tagged “No reply” and texts stop."]])+branches(id);break}
   case"ai":h+=head(id,"Asks two or three short questions, one at a time, in the lead's language.")+`<div class="fl"><span class="lab">Questions</span>${langSeg()}</div><div class="fl" id="qs">${S.q.map((q,i)=>`<div class="qrow"><span class="n">${i+1}</span><label class="vh" for="q${i}">Question ${i+1}</label><input class="inp" id="q${i}" type="text" data-q="${i}" value="${esc(q[S.lang])}" aria-describedby="qe${i}"${q[S.lang].trim()?"":` aria-invalid="true"`}><button class="btn sm ghost" type="button" data-rmq="${i}" aria-label="Remove question ${i+1}">Remove</button></div><p class="note ferr" id="qe${i}" role="alert"${q[S.lang].trim()?" hidden":""}>Write a question or remove it.</p>`).join("")}${S.q.length<3?'<button class="btn sm" type="button" data-addq>Add a question</button>':""}<p class="note">Two or three questions. More than that and replies drop.</p></div>`+
     `<fieldset class="radios"><legend>Hand off to a person when the lead…</legend>${[["price","asks about price"],["medical","asks a medical question"],["upset","sounds upset or complains"]].map(([k,t])=>`<label class="cbx"><input type="checkbox" data-hand="${k}"${S.hand[k]?" checked":""}> ${t}</label>`).join("")}</fieldset>`+
     checks([["y","The AI never quotes prices. Price questions go to the front desk."],["y","Every AI text is saved to the lead's thread for the owner to read."]]);break;
   case"qual":h+=head(id,"Decides if the AI should book now or hand the lead to a person.")+`<div class="fl"><span class="lab">Qualified when</span><p style="margin:0;font-size:13.5px">The lead wants a treatment the studio offers <b>and</b> can come in within 30 days.</p></div>`+branches(id);break;
-  case"book":h+=head(id,"Offers real open times from the calendar and books the one the lead picks.")+`<div class="fl"><span class="lab">Calendar</span><p style="margin:0;font-size:13.5px">Consult calendar · 20-minute slots (demo)</p></div>`+sel("slots","Times to offer",{"2":"2 open times","3":"3 open times"},S.slots)+
+  case"book":h+=head(id,"Offers open times and books the one the lead picks.")+`<div class="fl"><span class="lab">Calendar</span><p style="margin:0;font-size:13.5px">${esc(S.bookNoun||"consult")} calendar · ${esc(S.bookMin||"20 min")} slots (demo)</p></div>`+sel("slots","Times to offer",{"2":"2 open times","3":"3 open times"},S.slots)+
     `<label class="cbx"><input type="checkbox" data-remind${S.remind?" checked":""}> Send a reminder 24 hours before</label><div class="fl"><span class="lab">Confirmation</span>${langSeg()}</div>`+tplField("book","Booking confirmation")+branches(id);break;
-  case"alert":h+=head(id,"Tells the owner right away, with everything needed to walk into the consult prepared.")+`<fieldset class="radios"><legend>Send to the owner by</legend><label class="cbx"><input type="checkbox" data-ch="alertText"${S.alertText?" checked":""}> Text</label><label class="cbx"><input type="checkbox" data-ch="alertEmail"${S.alertEmail?" checked":""}> Email</label></fieldset>`+
-    `<div class="alertcard"><span class="lab">Preview · owner alert</span><b>New consult booked · Daniela R.</b><span>${pickedTime(S.lang)||"Offered time"} · Botox · first visit · ${S.lang==="es"?"Spanish":"English"}</span><span class="sub">${Number.isFinite(Number((WITHIN[S.within]||[])[2]))?`First text in ${(WITHIN[S.within]||[])[2]} s`:"First text time follows the send setting"} · booked in 5 min 32 s</span></div>`+(!S.alertText&&!S.alertEmail?checks([["n","Pick at least one way to reach the owner."]]):"");break;
+  case"alert":{const spA=(WITHIN[S.within]||[])[2];const speedA=S.within==="am"?"First text held until 8:00 AM":(Number.isFinite(Number(spA))?`First text in ${spA>=60?Math.round(spA/60)+" min":spA+" s"}`:"First text time follows the send setting");
+    h+=head(id,"Tells the owner when a booking happens. The preview stays in this browser.")+`<fieldset class="radios"><legend>Tell the owner by</legend><label class="cbx"><input type="checkbox" data-ch="alertText"${S.alertText?" checked":""}> Text</label><label class="cbx"><input type="checkbox" data-ch="alertEmail"${S.alertEmail?" checked":""}> Email</label></fieldset>`+
+    `<div class="alertcard"><span class="lab">Preview · owner alert · not sent</span><b>New ${esc(S.bookNoun||"consult")} booked · ${esc(S.leadName||"Daniela R.")}</b><span>${pickedTime(S.lang)||"Offered time"} · ${esc(S.interest||"Botox")} · ${esc(S.visit||"first visit")} · ${S.lang==="es"?"Spanish":"English"}</span><span class="sub">${speedA} · Preview only. Nothing is sent.</span></div>`+(!S.alertText&&!S.alertEmail?checks([["n","Pick at least one way to reach the owner."]]):"");break}
   case"handoff":h+=head(id,"For leads the AI shouldn't handle. The AI stops replying and a person picks it up.")+`<div class="fl"><span class="lab">Who gets it</span><p style="margin:0;font-size:13.5px">Front desk (demo) by text, with the full thread</p></div>`+checks([["i","Also runs when the AI hands off: price, medical or upset messages."]]);break}
   return h}
 function renderPane(){const p=$("pane");p.setAttribute("aria-labelledby",S.tab==="test"?"t-test":"t-build");
@@ -599,45 +746,76 @@ pane.addEventListener("click",e=>{const t=e.target.closest("button");if(!t)retur
   if(t.dataset.act==="checkstep"){clearLow(t.dataset.low);return}});
 
 /* ---------- test run ---------- */
-function simHTML(){if(S.empty)return `<h2>Test run</h2><div class="empty"><b>Nothing to test yet</b><p class="sub" style="margin:0">Describe the follow-up above, or start from the template. The test sends a fake lead through every step, without texting anyone.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;
+function simHTML(){if(S.empty)return `<h2>Dry run</h2><div class="empty"><b>Nothing to test yet</b><p class="sub" style="margin:0">Describe the follow-up above, or start from the template. The dry run walks a fictional lead through every step. Nothing is texted or emailed.</p><button class="btn pri" type="button" data-act="template">Use speed-to-lead template</button></div>`;
   const iss=smsIssues();
-  return `<h2>Test run <span>Fake lead · nothing is really sent</span></h2><div class="sim">
-  <div class="ctrl"><fieldset class="radios"><legend>What the lead does</legend>${[["book","Replies and books"],["noreply","Never replies"],["stop","Texts STOP"]].map(([k,t])=>`<label class="cbx"><input type="radio" name="scen" value="${k}"${S.scen===k?" checked":""}${S.running?" disabled":""}> ${t}</label>`).join("")}</fieldset>
-  <div class="fl"><span class="lab">Lead's language</span><div class="seg" role="group" aria-label="Lead's language"><button type="button" data-lang="en" aria-pressed="${S.leadLang==="en"}"${S.running?" disabled":""}>English</button><button type="button" data-lang="es" aria-pressed="${S.leadLang==="es"}"${S.running?" disabled":""}>Español</button></div><p class="note" style="margin-top:6px">Daniela R. · demo lead · “${esc(S.form)}” form</p></div></div>
-  ${iss.length?`<div class="err" role="alert"><b>Fix ${iss.length===1?"1 issue":iss.length+" issues"} before testing</b><span>${esc(iss[0])}</span><button class="btn sm" type="button" data-act="fixsms">Open the instant text</button></div>`:
+  return `<h2>Dry run <span>Fictional lead · nothing is sent</span></h2><div class="sim">
+  <div class="ctrl"><fieldset class="radios"><legend>What the lead does</legend>${[["book","Booked"],["reply","Replied"],["noreply","No reply"],["stop","Opts out"]].map(([k,t])=>`<label class="cbx"><input type="radio" name="scen" value="${k}"${S.scen===k?" checked":""}${S.running?" disabled":""}> ${t}</label>`).join("")}</fieldset>
+  <div class="fl"><span class="lab">Lead's language</span><div class="seg" role="group" aria-label="Lead's language"><button type="button" data-lang="en" aria-pressed="${S.leadLang==="en"}"${S.running?" disabled":""}>English</button><button type="button" data-lang="es" aria-pressed="${S.leadLang==="es"}"${S.running?" disabled":""}>Español</button></div><p class="note" style="margin-top:6px">${esc(S.leadName||"Daniela R.")} · fictional · “${esc(S.form)}”</p></div></div>
+  ${iss.length?`<div class="err" role="alert"><b>Fix ${iss.length===1?"1 issue":iss.length+" issues"} before the dry run</b><span>${esc(iss[0])}</span><button class="btn sm" type="button" data-act="fixsms">Open the first text</button></div>`:
   `<div class="row"><button class="btn pri" type="button" data-act="run" id="runBtn"${S.running?" disabled":""}>${S.running?'<span class="spin"></span>Running…':S.ran?"Run again":"Run test lead"}</button>${S.ran||S.running?'<button class="btn ghost" type="button" data-act="reset">Clear</button>':""}</div>`}
-  <div class="simgrid"><div class="phone" aria-label="Lead's phone"><div class="ph-h"><b>${BIZ}</b><small>demo line · not a real number</small></div><div class="thread" id="thread" aria-live="polite" tabindex="0" role="log" aria-label="Text thread">${S.ran||S.running?"":'<span class="bubble sys">Texts appear here during the test</span>'}</div></div>
-  <div><span class="sec">Timeline</span><ol class="tl" id="tl" tabindex="0" aria-label="Test timeline">${S.ran||S.running?"":'<li style="grid-template-columns:1fr"><span class="sub">Each step shows up here with its time.</span></li>'}</ol><div id="simEnd"></div></div></div></div>`}
-const T0=19*3600+46*60; // demo lead arrives Tue 7:46:00 PM
-function clock(sec){const day=Math.floor(sec/86400),s=sec%86400,h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;const ap=h>=12?"PM":"AM",hh=(h%12)||12;
-  return `${day?["Wed ","Thu "][day-1]||"":""}${hh}:${String(m).padStart(2,"0")}${day?"":":"+String(x).padStart(2,"0")} ${ap}`}
+  <div class="simgrid"><div class="phone" aria-label="Lead's phone"><div class="ph-h"><b>${esc(biz())}</b><small>demo line · not a real number</small></div><div class="thread" id="thread" aria-live="polite" tabindex="0" role="log" aria-label="Text thread">${S.ran||S.running?"":'<span class="bubble sys">Texts appear here during the dry run</span>'}</div></div>
+  <div><span class="sec">Timeline</span><ol class="tl" id="tl" tabindex="0" aria-label="Dry run timeline">${S.ran||S.running?"":'<li style="grid-template-columns:1fr"><span class="sub">Each row is a time, a channel, and a branch. Nothing is sent.</span></li>'}</ol><div id="simEnd"></div></div></div></div>`}
+function clock(sec){const day=Math.floor(sec/86400),s=((sec%86400)+86400)%86400,h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;const ap=h>=12?"PM":"AM",hh=(h%12)||12;
+  return `${day?["Wed ","Thu ","Fri ","Sat ","Sun ","Mon ","Tue "][day-1]||"":""}${hh}:${String(m).padStart(2,"0")}${day?"":":"+String(x).padStart(2,"0")} ${ap}`}
 function quiet(sec){const s=sec%86400;return s>=21*3600||s<8*3600}
 function toMorning(sec){const s=sec%86400;return s>=21*3600?sec-s+86400+8*3600:sec-s+8*3600}
-function script(){const L=S.leadLang,f=t=>fillT(t,L),ev=[];let t=T0;const at=d=>(t+=d,t);
-  ev.push({n:"trig",at:at(0),tl:"Lead form submitted",sm:`Daniela R. · ${L==="es"?"Spanish":"English"} · consent given`,sys:L==="es"?"Formulario enviado · 7:46 PM":"Form submitted · 7:46 PM"});
-  const within=WITHIN[S.within]||WITHIN["60"];const sp=within[2];const tFirst=at(Number.isFinite(Number(sp))?sp:0);
-  ev.push({n:"sms",e:"trig>sms",at:tFirst,out:f(S.tpl.sms[L]),tl:"Instant text sent",sm:Number.isFinite(Number(sp))?`Speed to lead: ${sp} s`:"Speed to lead wasn't recorded for this step.",send:true});
-  if(S.scen==="book"){
-    ev.push({n:"reply",e:"sms>reply",at:at(77),in:L==="es"?"Claro, adelante":"Sure, go ahead",tl:"Lead replied",sm:"No opt-out keyword · goes to the AI"});
-    S.q.forEach((q,i)=>{ev.push({n:"ai",e:i?null:"reply>ai",at:at(4),out:q[L],tl:`AI asks question ${i+1}`,sm:q[L]});ev.push({n:"ai",at:at([38,37,25,30][i]),in:(ANS[L][i]||(L==="es"?"No, nada más":"No, that's all")),tl:"Lead answered",sm:""})});
-    ev.push({n:"qual",e:"ai>qual",at:at(1),tl:"Qualified",sm:"Wants Botox and can come this week"});
-    const offer=offeredTimes(L);const chosen=pickedTime(L);const day=pickedName(L);
-    ev.push({n:"book",e:"qual>book",at:at(2),out:offer.length?(L==="es"?`¡Perfecto! Tengo ${offer.join(" o ")}. ¿Cuál le queda mejor?`:`Great! I have ${offer.join(" or ")}. Which works best?`):(L==="es"?"¡Perfecto! Confirmo el horario libre.":"Great! I'll confirm the open time."),tl:offer.length?`Offered ${offer.length} open times`:"No open times to offer",sm:"From the consult calendar"});
-    ev.push({n:"book",at:at(91),in:pickedReply(L),tl:day?`Lead picked ${day}`:"Lead picked an offered time",sm:""});
-    ev.push({n:"book",at:at(2),out:f(S.tpl.book[L]),tl:"Consult booked",sm:chosen?`${chosen} · 20 min${S.remind?" · reminder set":""}`:`20 min consult${S.remind?" · reminder set":""}`});
-    ev.push({n:"alert",e:"book>alert",at:at(1),tl:"Owner alerted",sm:[S.alertText&&"Text",S.alertEmail&&"email"].filter(Boolean).join(" and ")+" sent",person:true,end:"book"});
+function startAt(){const n=Number(S.arrive);return Number.isFinite(n)?n:19*3600+46*60}
+function firstSendAt(start){if(S.within==="am"){const day=Math.floor(start/86400)*86400,sod=start%86400;return sod<8*3600?day+8*3600:day+86400+8*3600}const sp=(WITHIN[S.within]||WITHIN["60"])[2];return start+(Number.isFinite(Number(sp))?Number(sp):0)}
+function nextMorningAfter(sec){const day=Math.floor(sec/86400)*86400,sod=sec%86400;return sod<8*3600?day+8*3600:day+86400+8*3600}
+function speedSm(){if(S.within==="am")return "Text · held until 8:00 AM · not sent";const sp=(WITHIN[S.within]||WITHIN["60"])[2];if(!Number.isFinite(Number(sp)))return "Text · not sent";return `Text · would send in ${sp>=60?Math.round(sp/60)+" min":sp+" s"} · not sent`}
+function ownerSm(){const ch=[S.alertText&&"Text",S.alertEmail&&"Email"].filter(Boolean).join(" and ");return (ch||"No channel")+" · not sent"}
+function durLabel(sec){if(!Number.isFinite(sec)||sec<0)return "";if(sec<90)return sec+" s";if(sec<3600)return Math.floor(sec/60)+" min "+(sec%60)+" s";return Math.floor(sec/3600)+" hr "+Math.floor((sec%3600)/60)+" min"}
+function script(){const L=S.leadLang,f=t=>fillT(t,L),ev=[];const t0=startAt();let t=t0;const at=d=>(t+=d,t);
+  const ansFor=S.scen==="reply"?(S.replyAns||S.bookAns||ANS):(S.bookAns||ANS);
+  ev.push({n:"trig",at:at(0),tl:"Lead arrived",sm:`${S.leadName} · ${L==="es"?"Spanish":"English"} · consent given`,sys:`${S.form} · ${S.arriveLabel||clock(t0)}`});
+  const tFirst=firstSendAt(t0);t=tFirst;
+  ev.push({n:"sms",e:"trig>sms",at:tFirst,out:f(S.tpl.sms[L]),tl:"First text would send",sm:speedSm(),send:true});
+  if(S.scen==="book"||S.scen==="reply"){
+    ev.push({n:"reply",e:"sms>reply",at:at(77),in:L==="es"?"Claro, adelante":"Sure, go ahead",tl:"Lead replied",sm:"Text · no opt-out keyword"});
+    S.q.forEach((q,i)=>{ev.push({n:"ai",e:i?null:"reply>ai",at:at(4),out:q[L],tl:`Question ${i+1} would send`,sm:"Text · not sent"});
+      const ans=(ansFor[L]||[])[i]||(L==="es"?"No, nada más":"No, that's all");
+      ev.push({n:"ai",at:at([38,37,25,30][i]||30),in:ans,tl:"Lead answered",sm:"Text"})});
+    if(S.scen==="book"){
+      ev.push({n:"qual",e:"ai>qual",at:at(1),tl:"Ready to book",sm:S.qualSm||"Qualified"});
+      const offer=offeredTimes(L),chosen=pickedTime(L),day=pickedName(L);
+      ev.push({n:"book",e:"qual>book",at:at(2),out:offer.length?(L==="es"?`Tengo ${offer.join(" o ")}. ¿Cuál le queda mejor?`:`I have ${offer.join(" or ")}. Which works best?`):(L==="es"?"Confirmo el horario libre.":"I'll confirm the open time."),tl:offer.length?`Offered ${offer.length} times`:"No open times to offer",sm:"Text · not sent"});
+      ev.push({n:"book",at:at(91),in:pickedReply(L),tl:day?`Lead picked ${day}`:"Lead picked an offered time",sm:"Text"});
+      ev.push({n:"book",at:at(2),out:f(S.tpl.book[L]),tl:`${S.bookNoun||"Visit"} would be booked`,sm:`Text · ${chosen||S.bookMin||"time"} · not sent`});
+      ev.push({n:"alert",e:"book>alert",at:at(1),tl:"Owner would be told",sm:ownerSm(),person:true,end:"book"});
+    }else{
+      ev.push({n:"qual",e:"ai>qual",at:at(1),tl:"Replied, not booked",sm:S.replySm||"A person takes over",muted:true});
+      ev.push({n:"handoff",e:"qual>handoff",at:at(1),tl:"A person takes over",sm:"Text to the desk · not sent",person:true,end:"reply"});
+    }
   }else if(S.scen==="noreply"){
-    const wMin=String(S.wait??"").trim();const w=(Number.isFinite(Number(wMin))?Number(wMin):5)*60;ev.push({n:"reply",e:"sms>reply",at:at(w),tl:wMin?`No reply in ${wMin} min`:"No reply before the follow-ups",sm:"Goes to follow-ups",muted:true});
-    ev.push({n:"fu",e:"reply>fu",at:at(0),out:f(S.tpl.fu1[L]),tl:"Follow-up 1 sent",sm:wMin?`${wMin} min after the first text`:"After the first text"});
-    let t2=tFirst+(+S.fu2)*3600,held=quiet(t2);if(held)t2=toMorning(t2);
-    ev.push({n:"fu",at:t2,out:f(S.tpl.fu2[L]),tl:"Follow-up 2 sent",sm:held?"Held for quiet hours, sent at 8 AM":`${S.fu2} hr after the first text`});
-    const base=Math.floor(T0/86400)*86400,t3={next10:base+86400+10*3600,next12:base+86400+12*3600,two10:base+2*86400+10*3600}[S.fu3];
-    ev.push({n:"fu",at:Math.max(t3,t2+60),out:f(S.tpl.fu3[L]),tl:"Follow-up 3 sent",sm:FU3[S.fu3]+" · outside quiet hours"});
-    ev.push({n:"fu",at:Math.max(t3,t2+60)+1,tl:"No reply after 3 follow-ups",sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+    const nFu=Number(S.fuCount)||3;
+    if(S.fu1mode==="nextam"){
+      const tFu=nextMorningAfter(tFirst);
+      const evening=Math.floor(tFirst/86400)*86400+21*3600;
+      const markAt=evening>tFirst+120?evening:tFirst+120;
+      ev.push({n:"reply",e:"sms>reply",at:markAt,tl:"No reply",sm:"Goes to one follow-up the next morning",muted:true});
+      ev.push({n:"fu",e:"reply>fu",at:tFu,out:f(S.tpl.fu1[L]),tl:"Follow-up would send",sm:"Text · next morning, 8:00 AM · not sent"});
+      ev.push({n:"fu",at:tFu+1,tl:"No reply after 1 follow-up",sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+    }else if(S.fu1mode==="days2"){
+      const tFu=tFirst+48*3600;
+      ev.push({n:"reply",e:"sms>reply",at:tFirst+60,tl:"No reply",sm:"Goes to the 2-day follow-up",muted:true});
+      ev.push({n:"fu",e:"reply>fu",at:tFu,out:f(S.tpl.fu1[L]),tl:"Follow-up would send",sm:"Text · 2 days after the first text · not sent"});
+      ev.push({n:"fu",at:tFu+1,tl:"No reply after 1 follow-up",sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+    }else{
+      const wMin=String(S.wait??"").trim(),w=(Number.isFinite(Number(wMin))?Number(wMin):5)*60;
+      ev.push({n:"reply",e:"sms>reply",at:at(w),tl:wMin?`No reply in ${wMin} min`:"No reply",sm:"Goes to follow-ups",muted:true});
+      ev.push({n:"fu",e:"reply>fu",at:at(0),out:f(S.tpl.fu1[L]),tl:"Follow-up 1 would send",sm:wMin?`Text · ${wMin} min after the first text · not sent`:"Text · not sent"});
+      if(nFu>1){let t2=tFirst+(+S.fu2)*3600,heldQ=quiet(t2);if(heldQ)t2=toMorning(t2);
+        ev.push({n:"fu",at:t2,out:f(S.tpl.fu2[L]),tl:"Follow-up 2 would send",sm:(heldQ?"Held for quiet hours, would send at 8 AM":`${S.fu2==="48"?"2 days":S.fu2+" hr"} after the first text`)+" · Text · not sent"});
+        if(nFu>2){const base=Math.floor(t0/86400)*86400,t3={next10:base+86400+10*3600,next12:base+86400+12*3600,two10:base+2*86400+10*3600}[S.fu3]||t2+3600,at3=Math.max(t3,t2+60);
+          ev.push({n:"fu",at:at3,out:f(S.tpl.fu3[L]),tl:"Follow-up 3 would send",sm:(FU3[S.fu3]||"Later")+" · Text · not sent"});
+          ev.push({n:"fu",at:at3+1,tl:`No reply after ${nFu} follow-ups`,sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+        }else ev.push({n:"fu",at:t2+1,tl:`No reply after ${nFu} follow-ups`,sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+      }else ev.push({n:"fu",at:t+1,tl:"No reply after 1 follow-up",sm:"Tagged “No reply”. No more texts.",muted:true,end:"noreply"});
+    }
   }else{
-    ev.push({n:"reply",e:"sms>reply",at:at(63),in:L==="es"?"ALTO":"STOP",tl:`Lead texted ${L==="es"?"ALTO":"STOP"}`,sm:"Opt-out keyword found first",person:false});
-    ev.push({n:"optout",e:"reply>optout",at:at(1),out:S.tpl.optout[L],tl:"Opted out",sm:"Number added to do-not-text list"});
-    ev.push({n:"optout",at:at(0),tl:"Follow-ups cancelled",sm:"No more texts to this number. Owner not alerted.",muted:true,end:"stop"});
+    ev.push({n:"reply",e:"sms>reply",at:at(63),in:L==="es"?"ALTO":"STOP",tl:`Lead texted ${L==="es"?"ALTO":"STOP"}`,sm:"Opt-out keyword found first"});
+    ev.push({n:"optout",e:"reply>optout",at:at(1),out:S.tpl.optout[L],tl:"Opt-out confirmation would send",sm:"Text · one confirmation · not sent"});
+    ev.push({n:"optout",at:at(0),tl:"Follow-ups cancelled",sm:"No more texts. The owner is not told.",muted:true,end:"stop"});
   }return ev}
 function mark(n,cls){const b=cv.querySelector(`.node[data-id="${n}"]`);if(b)b.classList.add(cls)}
 function clearMarks(){cv.classList.remove("running");cv.querySelectorAll(".node").forEach(b=>b.classList.remove("act","ok"));wires.querySelectorAll(".edge").forEach(p=>p.classList.remove("on","done"));const k=$("pk");if(k){k.setAttribute("cx",-50);k.setAttribute("cy",-50)}}
@@ -664,21 +842,24 @@ async function play(){if(smsIssues().length||S.empty)return;const my=++S.runId;S
     addTL(ev,ev.person?"p":ev.muted?"m":"");
     await sleep(ev.out||ev.in?720:520)}
   if(!live())return;const last=evs[evs.length-1];const b=cv.querySelector(`.node[data-id="${prev}"]`);b&&b.classList.replace("act","ok");runMarks.push([prev,"ok"]);
-  const dur=last.at-T0,mm=Math.floor(dur/60),ss=dur%60,sp=(WITHIN[S.within]||WITHIN["60"])[2];
-  const bookedHead=Number.isFinite(mm)&&Number.isFinite(ss)?`Booked in ${mm} min ${ss} s.`:"Booked.";
-  const speedBit=Number.isFinite(Number(sp))?`First text in ${sp} s`:"First text time wasn't recorded";
+  const dur=last.at-startAt(),held=S.within==="am",sp=(WITHIN[S.within]||WITHIN["60"])[2];
+  const bookedHead=durLabel(dur)?`Booked in ${durLabel(dur)}.`:"Booked.";
+  const speedBit=held?"First text held until 8:00 AM":(Number.isFinite(Number(sp))?`First text would go in ${sp>=60?Math.round(sp/60)+" min":sp+" s"}`:"First text time wasn't recorded");
   const qBit=Number.isFinite(Number(S.q.length))?`${S.q.length} question${S.q.length===1?"":"s"}`:"the questions";
   const when=pickedTime(S.leadLang);
-  $("simEnd").innerHTML=last.end==="book"?`<div class="alertcard" style="margin-bottom:10px"><span class="lab">Owner alert · ${[S.alertText&&"text",S.alertEmail&&"email"].filter(Boolean).join(" + ")||"no channel selected"}</span><b>New consult booked · Daniela R.</b><span>${when?when+" · ":""}Botox · first visit · ${S.leadLang==="es"?"Spanish":"English"}</span></div><div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>${bookedHead}</b> ${speedBit}, ${qBit}, no one at the front desk touched it.</span></div>`
-   :last.end==="stop"?`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Opt-out handled.</b> One confirmation sent, follow-ups cancelled, number blocked from future texts.</span></div>`
-   :`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Follow-ups finished.</b> 4 texts in total, none in quiet hours. The lead is tagged “No reply”.</span></div>`;
+  const nTexts=evs.filter(e=>e.out).length;
+  const chLabel=[S.alertText&&"text",S.alertEmail&&"email"].filter(Boolean).join(" + ")||"no channel selected";
+  $("simEnd").innerHTML=last.end==="book"?`<div class="alertcard" style="margin-bottom:10px"><span class="lab">Owner alert · ${chLabel} · not sent</span><b>New ${esc(S.bookNoun||"consult")} booked · ${esc(S.leadName||"")}</b><span>${when?esc(when)+" · ":""}${esc(S.interest||"")} · ${esc(S.visit||"")} · ${S.leadLang==="es"?"Spanish":"English"}</span></div><div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>${bookedHead}</b> ${speedBit}. ${qBit}. Branch: booked. Nothing was sent.</span></div>`
+   :last.end==="reply"?`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Replied, not booked.</b> ${esc(S.replySm||"A person takes over.")} Branch: replied. Nothing was sent.</span></div>`
+   :last.end==="stop"?`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>Opt-out handled.</b> One confirmation would send, then the texts stop. Nothing left this browser.</span></div>`
+   :`<div class="sum"><span class="okmark" aria-hidden="true">✓</span><span><b>No reply.</b> ${nTexts} text${nTexts===1?"":"s"} would have gone out. Branch: no reply. Nothing was sent.</span></div>`;
   S.running=false;S.ran=true;cv.classList.remove("running");
-  const rep=evs.find(e=>e.in);record({scen:S.scen,speed:sp,replied:S.scen!=="noreply",replySec:rep?rep.at-evs[1].at:null,booked:last.end==="book",bookSec:last.end==="book"?dur:null,optout:last.end==="stop",texts:evs.filter(e=>e.out).length,followups:evs.filter(e=>e.n==="fu"&&e.out).length,questions:S.q.length});
+  const rep=evs.find(e=>e.in);record({scen:S.scen,speed:held?null:sp,held,replied:S.scen==="book"||S.scen==="reply",replySec:rep?rep.at-evs[1].at:null,booked:last.end==="book",bookSec:last.end==="book"?dur:null,optout:last.end==="stop",texts:nTexts,followups:evs.filter(e=>e.n==="fu"&&e.out).length,questions:S.q.length});
   $("simEnd").insertAdjacentHTML("beforeend",'<p class="note" style="margin-top:10px">Saved to Results. <button class="btn sm ghost" type="button" data-act="toResults">See results</button></p>');
   const ctl=$("pane").querySelector(".row");if(ctl)ctl.innerHTML='<button class="btn pri" type="button" data-act="run" id="runBtn">Run again</button><button class="btn ghost" type="button" data-act="reset">Clear</button>';
-  pane.querySelectorAll('input[name=scen],.sim .seg button').forEach(x=>x.disabled=false);say("Test finished. "+$("simEnd").textContent.trim())}
+  pane.querySelectorAll('input[name=scen],.sim .seg button').forEach(x=>x.disabled=false);renderAsk();say("Test finished. "+$("simEnd").textContent.trim())}
 
-function record(r){const SC={book:"Replies and books",noreply:"Never replies",stop:"Texts STOP"};
+function record(r){const SC={book:"Booked",reply:"Replied",noreply:"No reply",stop:"Opts out"};
   S.runs.unshift({id:Date.now(),at:new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit",second:"2-digit"}),lang:S.leadLang,label:SC[r.scen],replied:false,booked:false,optout:false,blocked:false,followups:0,questions:S.q.length,...r});
   S.runs=S.runs.slice(0,25);lsSet(RKEY,S.runs)}
 /* ---------- results ---------- */
@@ -687,12 +868,12 @@ function renderRes(){const r=$("resPane");
   if(S.state==="loading"){r.innerHTML=`<div class="kpis">${"<div class='card'><div class='sk' style='height:90px'></div></div>".repeat(4)}</div>`;return}
   if(S.empty){r.innerHTML=`<div class="card"><div class="empty"><b>No leads yet</b><p class="sub" style="margin:0">Results show up after the flow is on and the first lead comes in: speed to lead, reply rate, and booked rate. The sample month below is fictional.</p></div></div>`;return}
   r.innerHTML=`<div class="res">${runsHTML()}${S.campaign!=="approved"?`<div class="banner" role="note" style="margin:0"><span class="dot warn" aria-hidden="true" style="margin-top:5px"></span><span><b>Texting is paused while the campaign is in review.</b> These numbers are from the last 30 days before the pause.</span></div>`:""}
-  <div class="reshead" style="margin-top:12px"><h2>Sample month · last 30 days</h2><span class="tag">Fictional demo data</span></div>
+  <div class="reshead" style="margin-top:12px"><h2>Sample month · last 30 days</h2><span class="tag">Illustrative · not a measured result</span></div>
   <div class="kpis">
-    <div class="card kpi"><span class="l">Speed to lead · median</span><span class="v">38<small>s</small></span><span class="s">96% of daytime leads texted within 60 s</span><span class="d">Before Relay: 47 min</span></div>
-    <div class="card kpi"><span class="l">Reply rate</span><span class="v">64<small>%</small></span><span class="s">136 of 212 leads replied</span><span class="d">Follow-ups brought 36% of replies</span></div>
-    <div class="card kpi"><span class="l">Booked rate</span><span class="v">31<small>%</small></span><span class="s">66 consults booked from 212 leads</span><span class="d">Before Relay: 13%</span></div>
-    <div class="card kpi"><span class="l">Replies from follow-ups</span><span class="v">49</span><span class="s">Replies the first text alone missed</span><span class="d">Fictional sample month</span></div>
+    <div class="card kpi"><span class="l">Speed to lead · median</span><span class="v">38<small>s</small></span><span class="s">96% of daytime leads texted within 60 s</span><span class="d">Illustrative sample. Not a measured result.</span></div>
+    <div class="card kpi"><span class="l">Reply rate</span><span class="v">64<small>%</small></span><span class="s">136 of 212 leads replied</span><span class="d">Illustrative sample. Not a measured result.</span></div>
+    <div class="card kpi"><span class="l">Booked rate</span><span class="v">31<small>%</small></span><span class="s">66 consults booked from 212 leads</span><span class="d">Illustrative sample. Not a measured result.</span></div>
+    <div class="card kpi"><span class="l">Replies from follow-ups</span><span class="v">49</span><span class="s">Replies the first text alone missed</span><span class="d">Illustrative sample. Not a measured result.</span></div>
   </div>
   <div class="charts">
     <section class="card" aria-labelledby="c1"><h2 id="c1">From lead to booked</h2>${bars([["Leads",212,"100%"],["Replied",136,"64%"],["Qualified",92,"43%"],["Booked",66,"31%"]],212)}<p class="cnote">Share of all 212 leads at each step.</p></section>
@@ -704,21 +885,24 @@ function renderRes(){const r=$("resPane");
     <section class="card" aria-labelledby="c5"><h2 id="c5">Compliance</h2><table class="mini"><tbody><tr><td>Opt-outs (STOP, ALTO and others)</td><td class="r">5 · 2.4%</td></tr><tr><td>Texts sent during quiet hours</td><td class="r">0</td></tr><tr><td>Carrier blocks</td><td class="r">0</td></tr><tr><td>Leads without consent (not texted)</td><td class="r">0</td></tr></tbody></table><p class="cnote">Every opt-out got one confirmation and no further texts.</p></section>
   </div></div>`}
 
-const RF={all:()=>true,booked:r=>r.booked,noreply:r=>!r.replied&&!r.blocked,optout:r=>r.optout,blocked:r=>r.blocked};
+const RF={all:()=>true,booked:r=>r.booked,reply:r=>r.replied&&!r.booked&&!r.optout,noreply:r=>!r.replied&&!r.blocked&&!r.optout,optout:r=>r.optout,blocked:r=>r.blocked};
 const med=a=>{const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
-const fmt=s=>{const n=Number(s);if(!Number.isFinite(n))return "";return n<60?n+" s":Math.floor(n/60)+" min "+(n%60)+" s"};
-function runsHTML(){const R=S.runs;if(!R.length)return `<div class="card"><div class="empty"><b>No test runs yet</b><p class="sub" style="margin:0">Run a fake lead through the flow. Its speed to lead, replies and booking show up here, next to the sample month below.</p><button class="btn pri" type="button" data-r="gotest">Go to Test run</button></div></div>`;
+const fmt=s=>{const n=Number(s);if(!Number.isFinite(n))return "";if(n<60)return Math.round(n)+" s";if(n<3600)return Math.floor(n/60)+" min "+Math.round(n%60)+" s";return Math.floor(n/3600)+" hr "+Math.floor((n%3600)/60)+" min"};
+function runsHTML(){const R=S.runs;if(!R.length)return `<div class="card"><div class="empty"><b>No test runs yet</b><p class="sub" style="margin:0">Run a fictional lead through the dry run. The timeline, the branch, and the timing show up here. Nothing is sent. The sample month below is illustrative.</p><button class="btn pri" type="button" data-r="gotest">Go to Dry run</button></div></div>`;
   const sent=R.filter(r=>!r.blocked),last=R[0],pct=(n,d)=>d?Math.round(n/d*100)+"%":"–";
   const list=R.filter(RF[S.rfilter]);
-  return `<div class="reshead"><h2>From your test runs</h2><span class="row"><label class="vh" for="rFilter">Show runs</label><select id="rFilter" class="inp" style="width:auto"><option value="all">All runs</option><option value="booked"${S.rfilter==="booked"?" selected":""}>Booked</option><option value="noreply"${S.rfilter==="noreply"?" selected":""}>No reply</option><option value="optout"${S.rfilter==="optout"?" selected":""}>Opted out</option><option value="blocked"${S.rfilter==="blocked"?" selected":""}>Blocked</option></select><button class="btn sm" type="button" data-r="csv">Export CSV</button><button class="btn sm ghost" type="button" data-r="clear">Clear history</button></span></div>
+  const speedN=last.blocked?"–":last.held?"8:00":(!Number.isFinite(Number(last.speed))?"–":(Number(last.speed)>=90?String(Math.round(Number(last.speed)/60)):String(last.speed)));
+  const speedU=last.blocked||(!last.held&&!Number.isFinite(Number(last.speed)))?"":last.held?"AM":(Number(last.speed)>=90?"min":"s");
+  const speeds=sent.map(r=>r.speed).filter(n=>Number.isFinite(Number(n)));
+  return `<div class="reshead"><h2>From your dry runs</h2><span class="row"><label class="vh" for="rFilter">Show runs</label><select id="rFilter" class="inp" style="width:auto"><option value="all">All runs</option><option value="booked"${S.rfilter==="booked"?" selected":""}>Booked</option><option value="reply"${S.rfilter==="reply"?" selected":""}>Replied</option><option value="noreply"${S.rfilter==="noreply"?" selected":""}>No reply</option><option value="optout"${S.rfilter==="optout"?" selected":""}>Opted out</option><option value="blocked"${S.rfilter==="blocked"?" selected":""}>Blocked</option></select><button class="btn sm" type="button" data-r="csv">Export CSV</button><button class="btn sm ghost" type="button" data-r="clear">Clear history</button></span></div>
   <div class="kpis">
-    <div class="card kpi"><span class="l">Speed to lead · last run</span><span class="v">${last.blocked||!Number.isFinite(Number(last.speed))?"–":last.speed}<small>${last.blocked||!Number.isFinite(Number(last.speed))?"":"s"}</small></span><span class="s">${last.blocked?"Not sent: campaign in review":sent.length?`Median ${med(sent.map(r=>r.speed).filter(n=>Number.isFinite(Number(n))))} s across ${sent.length} sent run${sent.length===1?"":"s"}`:"No sent runs yet"}</span><span class="d">Target: under 60 s</span></div>
+    <div class="card kpi"><span class="l">Speed to lead · last run</span><span class="v">${speedN}<small>${speedU}</small></span><span class="s">${last.blocked?"Not sent: campaign in review":last.held?"Held until 8:00 AM. Nothing was sent.":(speeds.length?`Median ${med(speeds)} s across ${speeds.length} timed run${speeds.length===1?"":"s"}`:"No timed runs yet")}</span><span class="d">Illustrative timing. Nothing is sent.</span></div>
     <div class="card kpi"><span class="l">Reply rate</span><span class="v">${pct(sent.filter(r=>r.replied).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.replied).length} of ${sent.length} test leads replied</span><span class="d">Last run: ${last.blocked?"blocked":last.replied?"replied in "+fmt(last.replySec):"no reply"}</span></div>
     <div class="card kpi"><span class="l">Booked rate</span><span class="v">${pct(sent.filter(r=>r.booked).length,sent.length).replace("%","")}<small>${sent.length?"%":""}</small></span><span class="s">${sent.filter(r=>r.booked).length} of ${sent.length} test leads booked</span><span class="d">Last run: ${last.booked?"booked in "+fmt(last.bookSec):"not booked"}</span></div>
     <div class="card kpi"><span class="l">Texts per lead</span><span class="v">${sent.length?(sent.reduce((a,r)=>a+r.texts,0)/sent.length).toFixed(1):"–"}</span><span class="s">Last run: ${last.texts} text${last.texts===1?"":"s"}${last.followups?`, ${last.followups} follow-ups`:""}</span><span class="d">${sent.filter(r=>r.optout).length} opt-out${sent.filter(r=>r.optout).length===1?"":"s"} handled</span></div>
   </div>
   <section class="card" aria-labelledby="hrun"><h2 id="hrun">Test run history <span>${list.length} of ${R.length}</span></h2><div class="tscroll" tabindex="0" role="region" aria-label="Test run history"><table class="mini"><thead><tr><th scope="col">Time</th><th scope="col">Scenario</th><th scope="col">Language</th><th scope="col" class="r">First text</th><th scope="col">Outcome</th><th scope="col" class="r">Texts</th></tr></thead><tbody>
-  ${list.length?list.map(r=>{const spd=Number.isFinite(Number(r.speed))?r.speed+" s":"–";const booked=fmt(r.bookSec);return `<tr><td class="m">${r.at}</td><td>${r.label}</td><td>${r.lang==="es"?"Spanish":"English"}</td><td class="r">${r.blocked?"–":spd}</td><td>${r.blocked?"Blocked, nothing sent":r.booked?(booked?`Booked in ${booked}`:"Booked"):r.optout?"Opted out":r.replied?"Replied":"No reply after 3 follow-ups"}</td><td class="r">${Number.isFinite(Number(r.texts))?r.texts:"–"}</td></tr>`}).join(""):`<tr><td colspan="6" style="color:var(--muted)"><b style="color:var(--cream);font-weight:500">No matches.</b> No runs with that outcome. <button class="btn sm" type="button" data-r="all">Show all</button></td></tr>`}
+  ${list.length?list.map(r=>{const spd=r.held?"8:00 AM":Number.isFinite(Number(r.speed))?(Number(r.speed)>=90?Math.round(Number(r.speed)/60)+" min":r.speed+" s"):"–";const booked=fmt(r.bookSec);const norep=r.followups?`No reply after ${r.followups} follow-up${r.followups===1?"":"s"}`:"No reply";return `<tr><td class="m">${r.at}</td><td>${r.label||""}</td><td>${r.lang==="es"?"Spanish":"English"}</td><td class="r">${r.blocked?"–":spd}</td><td>${r.blocked?"Blocked, nothing sent":r.booked?(booked?`Booked in ${booked}`:"Booked"):r.optout?"Opted out":r.replied?"Replied":norep}</td><td class="r">${Number.isFinite(Number(r.texts))?r.texts:"–"}</td></tr>`}).join(""):`<tr><td colspan="6" style="color:var(--muted)"><b style="color:var(--cream);font-weight:500">No matches.</b> No runs with that outcome. <button class="btn sm" type="button" data-r="all">Show all</button></td></tr>`}
   </tbody></table></div></section>`}
 $("resPane").addEventListener("click",e=>{const b=e.target.closest("[data-r]");if(!b)return;const a=b.dataset.r;
   if(a==="gotest")setTab("test");
@@ -733,27 +917,43 @@ function setTab(t){if(S.running&&t!=="test")stopRun();S.tab=t;TABS.forEach(b=>{c
   $("lay").hidden=t==="res";$("resPane").hidden=t!=="res";if(t==="res")renderRes();else{renderPane();drawEdges();if(t==="build"){S.ran=false;runMarks=[];clearMarks()}}}
 TABS.forEach((b,i)=>{b.addEventListener("click",()=>setTab(b.dataset.tab));b.addEventListener("keydown",e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(e.key==="Home"||e.key==="End"||d){e.preventDefault();const j=e.key==="Home"?0:e.key==="End"?TABS.length-1:(i+d+TABS.length)%TABS.length;TABS[j].focus();setTab(TABS[j].dataset.tab)}})});
 function renderAll(){renderComp();updateNodes();if(S.tab==="res")renderRes();else renderPane();drawEdges()}
-function clearLow(id){if(!S.low[id]){toast("This step is already checked.");return}const old=S.low[id];delete S.low[id];save();updateNodes();renderPane();renderAsk();toast("Step checked.",()=>{S.low[id]=old;save();updateNodes();renderPane();renderAsk();toast("Check restored")})}
-function applySentence(raw){const t=raw.toLowerCase();
-  if(/\b30 seconds?\b|\bwithin 30\b/.test(t))S.within="30";
+function clearLow(id){if(!S.low[id]){toast("This step is already checked.");return}const old=S.low[id];delete S.low[id];const next=Object.keys(S.low)[0];if(next)S.sel=next;save();updateNodes();renderPane();renderAsk();
+  toast(next?"Step checked. Another step is still flagged.":"Step checked. No open flags.",()=>{S.low[id]=old;S.sel=id;save();updateNodes();renderPane();renderAsk();toast("Check restored")});
+  if(next){const n=cv.querySelector(`.node[data-id="${next}"]`);n&&n.focus({preventScroll:true})}}
+function matchExample(text){const n=String(text||"").trim();return Object.values(EXAMPLES).find(ex=>ex.sentence===n)||null}
+function applySentence(raw){const t=String(raw||"").toLowerCase();
+  if(/within 10 minutes|in 10 minutes/.test(t))S.within="10m";
+  else if(/until 8 am|at 8 am|next morning|after 7 pm|after hours/.test(t))S.within="am";
+  else if(/\b30 seconds?\b|\bwithin 30\b/.test(t))S.within="30";
   else if(/\binstant\b|\bimmediately\b|\bright away\b/.test(t))S.within="instant";
   else if(/\b1 minute\b|\b60 seconds?\b|\bwithin a minute\b|\bwithin 1\b/.test(t))S.within="60";
   const wait=t.match(/no reply in (\d+)/);if(wait)S.wait=["2","5","10","15"].includes(wait[1])?wait[1]:"15";
-  else if(/\b15 minutes?\b/.test(t))S.wait="15";
+  else if(/\b15 minutes?\b/.test(t)&&/no reply|if they do not|if there is no/.test(t))S.wait="15";
   if(/\bthree\b|\b3 appointment|\b3 open|\b3 times?\b/.test(t))S.slots="3";
-  else if(/\btwo\b|\b2 appointment|\b2 open|\b2 times?\b/.test(t))S.slots="2";
+  else if(/\btwo\b|\b2 appointment|\b2 open|\b2 times?\b|two new times/.test(t))S.slots="2";
+  if(/\bemail\b/.test(t)){S.alertEmail=true;if(!/alert the owner|text the owner/.test(t))S.alertText=false}
+  if(/alert the owner|text the owner/.test(t))S.alertText=true;
+  if(/one follow-up|stop after one/.test(t)){S.fuCount=1;S.fu1mode="nextam"}
+  else if(/\b2 days\b|\btwo days\b/.test(t)){S.fuCount=1;S.fu2="48";S.fu1mode="days2"}
   S.low={};
-  if(!/\bstop\b|opt out|unsubscribe/.test(t))S.low.sms="The sentence never says how a lead opts out. The draft kept “Reply STOP to opt out.” Check it before this can go live.";
-  if(!/appointment|calendar|\bbook\b|\btime\b/.test(t))S.low.book="The sentence doesn't mention a time or a calendar. Check what gets offered.";
-  if(!/owner|alert|notify/.test(t))S.low.alert="The sentence doesn't say who gets told. Check the owner alert.";
-  if(!/quiet|9\s*pm|hours/.test(t))S.low.reply="Quiet hours were not in the sentence. The draft kept 9 PM to 8 AM. Check that window."}
+  if(!/opt out|unsubscribe|reply stop/.test(t))S.low.sms="The sentence never says how a lead opts out. The draft kept “Reply STOP to opt out.” Check it before this can go live.";
+  if(!/appointment|calendar|\bbook\b|walkthrough|site visit|new times|\btimes\b/.test(t))S.low.book="The sentence doesn't mention a time or a booking. Check what gets offered.";
+  if(!/owner|alert|notify|\bemail\b/.test(t))S.low.alert="The sentence doesn't say who gets told. Check the owner alert.";
+  if(!/quiet|9\s*pm|8\s*am|until 8/.test(t))S.low.reply="Quiet hours were not in the sentence. The draft kept 9 PM to 8 AM. Check that window.";
+  if(!/follow-up|follow up|no reply|do not reply|don't reply/.test(t))S.low.fu="The sentence does not say what happens if there is no reply. The draft kept a follow-up. Check it."}
+function draftSummary(){if(S.empty)return "";
+  const send=(WITHIN[S.within]||WITHIN["60"])[0];
+  const ch=[(S.leadChannel||"Text")+" to the lead",S.alertText?"text to the owner":"",S.alertEmail?"email to the owner":""].filter(Boolean).join(", ");
+  const n=Object.keys(S.low).length;
+  return `<div class="sheet"><div class="q">${esc(S.flowTitle||"This draft")}</div><p class="sub" style="margin:0">${esc(S.biz)} · ${esc(S.leadName)}, fictional. First step: ${esc(send)}. Channels: ${esc(ch)}. Branches: replied, no reply, or booked. ${n?n+" step"+(n===1?"":"s")+" still to review.":"No open flags."} Nothing is sent.</p></div>`}
 function draftFrom(raw){const text=String(raw||"").trim();const err=$("askErr");
   if(!text){err.hidden=false;err.textContent="Write what the follow-up should do. Nothing was drafted.";$("askIn").focus();return}
-  err.hidden=true;if(S.running)stopRun();S.prompt=text;applySentence(text);S.empty=false;S.campaign="approved";S.state="live";
+  err.hidden=true;if(S.running)stopRun();const ex=matchExample(text);if(ex)loadExample(ex.id);else S.example="custom";
+  S.prompt=text;applySentence(text);S.empty=false;S.campaign="approved";S.state="live";
   if($("demo").value==="empty"||$("demo").value==="loading"||$("demo").value==="pending")$("demo").value="live";
   S.sel=Object.keys(S.low)[0]||"sms";save();buildCanvas();renderAll();const n=Object.keys(S.low).length;
-  toast(n?`Draft ready. ${n} step${n===1?"":"s"} to check. Nothing is live.`:"Draft ready. Nothing in that sentence was left unchecked. Nothing is live.");
-  renderAsk();const f=cv.querySelector(`.node[data-id="${S.sel}"]`);f&&f.focus()}
+  toast(n?`Draft ready. ${n} step${n===1?"":"s"} to review. Nothing is live.`:"Draft ready. Nothing in that sentence was left unchecked. Nothing is live.");
+  renderAsk();$("askOut").innerHTML=draftSummary();const f=cv.querySelector(`.node[data-id="${S.sel}"]`);f&&f.focus()}
 function testedOk(){return (S.runs||[]).some(r=>!r.blocked)}
 function preflight(){const issues=[];
   if(S.empty)issues.push({id:null,text:"There is no flow yet. Draft one, or use the template."});
@@ -764,31 +964,65 @@ function preflight(){const issues=[];
   if(!S.empty&&!testedOk())issues.push({id:"test",text:"Run a test lead and let it finish. Nothing is marked live until a test passes."});
   return issues}
 function openIssue(id){if(id==="test"){setTab("test");return}if(id&&NODES[id]){setTab("build");select(id);const n=cv.querySelector(`.node[data-id="${id}"]`);n&&n.focus()}}
-function renderAsk(){const lab=$("verLabel");if(!lab)return;const live=S.versions.find(v=>v.id===S.liveId);
-  lab.textContent=live?`Live · v${live.n}`:"Not published"}
+function renderGuards(){const g=$("guards");if(!g)return;const n=Object.keys(S.low).length;const tested=testedOk();const live=S.versions.find(v=>v.id===S.liveId);const last=(S.runs||[])[0];
+  g.innerHTML=`<span class="sec">Guardrails <span>Nothing is sent</span></span><div class="ggrid">
+    <button class="gbtn" type="button" data-guard="flags"><b>${n?n+" step"+(n===1?"":"s")+" to review":"No open flags"}</b><small>${n?"The sentence never mentioned these":"Flagged steps are checked"}</small></button>
+    <button class="gbtn" type="button" data-guard="dry"><b>${tested?"Dry run finished":"Dry run"}</b><small>${last?esc(last.label||"Test lead")+" · timeline saved":"A test lead, with a timeline"}</small></button>
+    <button class="gbtn" type="button" data-guard="approve"><b>${live?"Live in this demo · v"+live.n:"A person approves"}</b><small>${live?"You can roll this back":"Blocked until the checks pass"}</small></button>
+    <button class="gbtn" type="button" data-guard="versions"><b>Version history</b><small>${S.versions.length?S.versions.length+" saved · diff and rollback":"Diff and rollback after you publish"}</small></button>
+  </div><p class="note">Unmentioned steps stay flagged. A test lead has to finish. A person approves before this demo marks a version live.</p>`}
+function renderAsk(){const lab=$("verLabel");if(lab){const live=S.versions.find(v=>v.id===S.liveId);lab.textContent=live?`Live · v${live.n}`:"Not published"}
+  const c=$("crumbs");if(c)c.textContent=S.crumbs||"DEMO WORKSPACE · FICTIONAL MED SPA";
+  const fn=$("flowName");if(fn)fn.textContent="Flow · "+(S.flowTitle||"New lead to booked consult");
+  document.querySelectorAll("[data-ex]").forEach(b=>{const ex=EXAMPLES[b.dataset.ex];b.setAttribute("aria-pressed",String(!!ex&&$("askIn")&&$("askIn").value.trim()===ex.sentence))});
+  renderGuards()}
 function showPublish(){const issues=preflight();const box=$("askOut");
-  if(issues.length){box.innerHTML=`<div class="sheet" role="alert"><div class="q">Not ready to publish</div><p class="sub" style="margin:0">Nothing was marked live. Fix these, then check again.</p>${issues.map(it=>`<div class="br"><span>${esc(it.text)}</span>${it.id?`<button class="btn sm" type="button" data-issue="${it.id}">${it.id==="test"?"Open the test run":"Open this step"}</button>`:""}</div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`;return}
+  const wasBlocked=box.textContent.includes("Not ready to publish");
+  const wasReady=!!box.querySelector("[data-ask=confirm]");
+  if(issues.length){box.innerHTML=`<div class="sheet" role="alert"><div class="q">Not ready to publish</div><p class="sub" style="margin:0">A person still has to clear these. Nothing was marked live, and nothing was sent.</p>${issues.map(it=>`<div class="br"><span>${esc(it.text)}</span>${it.id?`<button class="btn sm" type="button" data-issue="${it.id}">${it.id==="test"?"Open the dry run":"Open this step"}</button>`:""}</div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`;
+    if(wasBlocked)toast("Still not ready to publish. Nothing was marked live.");return}
   const n=(S.versions.reduce((m,v)=>Math.max(m,v.n),0)||0)+1;
-  box.innerHTML=`<div class="sheet"><div class="q">Mark version ${n} live in this demo?</div><p class="sub" style="margin:0">Nothing is texted. You can roll this version back.</p><div class="row"><button class="btn pri" type="button" data-ask="confirm">Mark this version live</button><button class="btn" type="button" data-ask="close">Don't publish</button></div></div>`}
-function showVersions(){const box=$("askOut");
-  if(!S.versions.length){box.innerHTML=`<div class="empty"><b>No versions yet</b><p class="sub" style="margin:0">A version is saved when you publish. Nothing is texted.</p></div>`;return}
-  box.innerHTML=`<div class="sheet"><div class="q">Versions in this browser</div>${S.versions.map(v=>`<div class="br"><span><b style="color:var(--cream);font-weight:500">v${v.n}</b> ${esc(v.at)}${v.id===S.liveId?" · live":""}<br>${esc(v.note)}</span><button class="btn sm" type="button" data-ver="${v.id}">${v.id===S.liveId?"Current":"Roll back"}</button></div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`}
+  box.innerHTML=`<div class="sheet"><div class="q">You approve version ${n}</div><p class="sub" style="margin:0">Marking it live only changes this demo. Nothing is texted or emailed. You can roll it back.</p><div class="row"><button class="btn pri" type="button" data-ask="confirm">Mark this version live</button><button class="btn" type="button" data-ask="close">Don't publish</button></div></div>`;
+  if(wasReady)toast("This version is ready. You still have to approve it.")}
+function clipTxt(s){s=String(s||"").replace(/\s+/g," ").trim();return s.length>88?s.slice(0,87)+"…":s}
+function fieldView(k,v){if(k==="within")return (WITHIN[v]||[String(v??"")])[0];if(k==="wait")return v?v+" min":"";if(k==="fu2")return FU2[v]||String(v??"");if(k==="fuCount")return v?String(v):"";if(k==="slots")return v?v+" times":"";if(k==="alertText"||k==="alertEmail")return v?"On":"Off";if(k==="example")return (EXAMPLES[v]&&EXAMPLES[v].pick)||(v==="custom"?"Custom sentence":String(v||""));return String(v??"")}
+const DIFFS=[["example","Example"],["biz","Business"],["within","First send"],["wait","Wait"],["fuCount","Follow-ups"],["slots","Times offered"],["alertText","Owner text"],["alertEmail","Owner email"],["form","Form"]];
+function diffLines(a,b){a=a||{};b=b||{};const lines=[];DIFFS.forEach(([k,label])=>{const from=fieldView(k,a[k]),to=fieldView(k,b[k]);if(from!==to)lines.push({label,from,to})});
+  const aq=(a.q||[]).map(q=>q.en).join(" | "),bq=(b.q||[]).map(q=>q.en).join(" | ");if(aq!==bq)lines.push({label:"Questions",from:clipTxt(aq),to:clipTxt(bq)});
+  const at=a.tpl&&a.tpl.sms&&a.tpl.sms.en,bt=b.tpl&&b.tpl.sms&&b.tpl.sms.en;if(at!==bt)lines.push({label:"English first text",from:clipTxt(at),to:clipTxt(bt)});return lines}
+function showVersions(force){const box=$("askOut");
+  if(!S.versions.length){box.innerHTML=`<div class="empty"><b>No versions yet</b><p class="sub" style="margin:0">A version is saved when a person approves it. Nothing is texted or emailed.</p></div>`;return}
+  if(!force&&box.querySelector("[data-diff]")){toast("Version history is already open.");return}
+  box.innerHTML=`<div class="sheet"><div class="q">Versions in this browser</div><p class="sub" style="margin:0">Show changes compares a version with the one before it. Rollback puts that version back. Nothing is sent.</p>${S.versions.map(v=>`<div class="br"><span><b style="color:var(--cream);font-weight:500">v${v.n}</b> ${esc(v.at)}${v.id===S.liveId?" · live":""}<br>${esc(v.note)}</span><span class="row"><button class="btn sm" type="button" data-diff="${v.id}">Show changes</button><button class="btn sm" type="button" data-ver="${v.id}">${v.id===S.liveId?"Current":"Roll back"}</button></span></div><div id="diff-${v.id}" hidden></div>`).join("")}<button class="btn ghost" type="button" data-ask="close">Close</button></div>`}
+function showDiff(id){const box=document.getElementById("diff-"+id);if(!box)return;
+  if(!box.hidden&&box.dataset.open==="1"){box.hidden=true;box.dataset.open="";box.innerHTML="";toast("Changes hidden.");return}
+  const i=S.versions.findIndex(v=>String(v.id)===String(id));const v=S.versions[i];if(!v)return;
+  const older=S.versions[i+1];const base=older?older.snap:DEFAULTS;const baseName=older?"v"+older.n:"the starting template";
+  const lines=diffLines(base,v.snap);box.hidden=false;box.dataset.open="1";
+  box.innerHTML=`<p class="note">v${v.n} compared with ${esc(baseName)}. Saved in this browser. Nothing was sent.</p>`+(lines.length?`<ul class="diff">${lines.map(l=>`<li><b>${esc(l.label)}</b><span class="was">Was: ${esc(l.from||"empty")}</span><span class="now">Now: ${esc(l.to||"empty")}</span></li>`).join("")}</ul>`:`<p class="sub">No setting changes between these two.</p>`)}
 function publishNow(){const issues=preflight();if(issues.length){showPublish();return}const prev=S.liveId;const n=(S.versions.reduce((m,v)=>Math.max(m,v.n),0)||0)+1;
   const v={id:Date.now(),n,at:new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}),note:(S.prompt||"Template").slice(0,90),snap:snapshot()};
-  S.versions.unshift(v);S.versions=S.versions.slice(0,8);S.liveId=v.id;saveVersions();renderAsk();$("askOut").innerHTML="";
-  toast(`Version ${n} is live in this demo. Nothing was texted.`,()=>{S.versions=S.versions.filter(x=>x.id!==v.id);S.liveId=prev;saveVersions();renderAsk();toast("Publish undone")})}
-function rollback(id){const v=S.versions.find(x=>x.id===id);if(!v)return;if(v.id===S.liveId){toast(`v${v.n} is already the live version.`);return}if(S.running)stopRun();
-  const prevSnap=snapshot(),prevLive=S.liveId;restoreSnap(v.snap);S.liveId=v.id;saveVersions();renderAsk();$("askOut").innerHTML="";
-  toast(`Rolled back to v${v.n}.`,()=>{restoreSnap(prevSnap);S.liveId=prevLive;saveVersions();renderAsk();toast("Current draft restored")})}
+  S.versions.unshift(v);S.versions=S.versions.slice(0,8);S.liveId=v.id;saveVersions();renderAsk();
+  toast(`Version ${n} is live in this demo. Nothing was sent.`,()=>{S.versions=S.versions.filter(x=>x.id!==v.id);S.liveId=prev;saveVersions();renderAsk();showVersions(true);toast("Publish undone")});showVersions(true)}
+function rollback(id){const v=S.versions.find(x=>String(x.id)===String(id));if(!v)return;if(String(v.id)===String(S.liveId)){toast(`v${v.n} is already the live version.`);return}if(S.running)stopRun();
+  const prevSnap=snapshot(),prevLive=S.liveId;restoreSnap(v.snap);S.liveId=v.id;saveVersions();renderAsk();
+  toast(`Rolled back to v${v.n}. Nothing was sent.`,()=>{restoreSnap(prevSnap);S.liveId=prevLive;saveVersions();renderAsk();showVersions(true);toast("Current draft restored")});showVersions(true)}
 $("askDraft").addEventListener("click",()=>draftFrom($("askIn").value));
-$("askSample").addEventListener("click",()=>{const el=$("askIn");if(el.value.trim()===SAMPLE_SENTENCE){toast("The sample sentence is already in the box.");return}el.value=SAMPLE_SENTENCE;$("askErr").hidden=true;toast("Sample sentence added. Press Draft the flow. Nothing is drafted yet.")});
 $("askPublish").addEventListener("click",showPublish);
 $("askVersions").addEventListener("click",showVersions);
 $("ask").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-  if(b.dataset.ask==="close"){$("askOut").innerHTML="";return}
+  if(b.dataset.ex){const ex=EXAMPLES[b.dataset.ex];const el=$("askIn");
+    if(el.value.trim()===ex.sentence&&S.prompt===ex.sentence&&S.example===ex.id&&!S.empty){toast(ex.pick+" is already the draft. Nothing new was sent.");return}
+    el.value=ex.sentence;$("askErr").hidden=true;draftFrom(ex.sentence);return}
+  if(b.dataset.guard==="flags"){const id=Object.keys(S.low)[0];if(!id){toast("No steps are flagged.");return}openIssue(id);return}
+  if(b.dataset.guard==="dry"){setTab("test");const tl=$("tl");if(tl)tl.scrollIntoView({block:"nearest"});return}
+  if(b.dataset.guard==="approve"){showPublish();return}
+  if(b.dataset.guard==="versions"){showVersions();return}
+  if(b.dataset.ask==="close"){$("askOut").innerHTML=draftSummary();return}
   if(b.dataset.ask==="confirm"){publishNow();return}
   if(b.dataset.issue){openIssue(b.dataset.issue);return}
-  if(b.dataset.ver){rollback(+b.dataset.ver);return}});
+  if(b.dataset.diff){showDiff(b.dataset.diff);return}
+  if(b.dataset.ver){rollback(b.dataset.ver);return}});
 $("askIn").value=S.prompt||"";
 $("demo").addEventListener("change",e=>{const v=e.target.value;stopRun();
   if(v==="draft"){$("askIn").value=SAMPLE_SENTENCE;draftFrom(SAMPLE_SENTENCE);$("demo").value="draft";return}

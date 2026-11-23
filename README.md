@@ -8,7 +8,7 @@ Every piece here runs in the browser. Click, drag, approve, undo, and see what h
 
 | Piece | Label | What it shows |
 | --- | --- | --- |
-| [Relay](relay/) | Concept · October 2026 | Speed-to-lead builder. A sentence drafts the flow, steps the sentence never mentioned stay marked, a test lead has to finish, and a person publishes before the demo marks a version live. Rollback puts the previous version back. Nothing is texted. Fictional business and leads |
+| [Relay](relay/) | Concept · October 2026 | Speed-to-lead builder. Four fictional examples, or a sentence you write, draft a flow with timing, channel, and a reply, no-reply, or booked branch. Steps the sentence never mentioned stay flagged. A dry run shows the timeline. A person approves before the demo marks a version live. Version history shows a diff, and rollback puts the previous version back. Nothing is sent. |
 | [Signed → Live](signed/) | Concept · October 2026 | A phone flow for a fictional agency client, from a signed contract to a first ad, in English and Spanish, plus an agency view of who is stuck. Reminders stay on the page. Not Berth |
 | [Lab UI](lab-ui/) | Concept · October 2026 | The shared system behind the pieces: tokens with checked contrast, components taken from real use, and an accessibility audit. A Figma mirror is planned and is not built. No 3D |
 | [Kestrel Agent Console](kestrel/) | Concept · October 2026 | An AI agent handles a refund ticket. A person approves the money, the email, and a WhatsApp or Messenger reply in English or Spanish. Fictional customers |
